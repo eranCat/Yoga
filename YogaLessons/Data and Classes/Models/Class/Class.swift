@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused{
+class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Located{
 
     var id:String? //may set after init
     
@@ -18,9 +18,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused{
     var locationCoordinate: CLLocationCoordinate2D
     var locationName:String
     
-    var location:CLLocation{
-        return .init(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
-    }
+    
     var postedDate: Date
     var startDate,endDate:Date
     

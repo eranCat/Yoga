@@ -36,44 +36,52 @@ class LocalCalendarManager {
     }
     
     
-    func insertEvent(store: EKEventStore,id:String,title:String,placeName:String,location:CLLocation,startDate:Date,endDate:Date) {
+    private func insertEvent(id:String,
+                     title:String,
+                     placeName:String,
+                     location:CLLocation,
+                     startDate:Date,endDate:Date) {
+        
+        let store = EKEventStore()
         
         let calendars = store.calendars(for: .event)
         
-        for calendar in calendars {
-            
-            if calendar.title == "ioscreator" {
+        guard let calendar = calendars.first(where:{$0.title == "Calendar"})
+        else{print("No calendar found")
+            return}
                 
-                let event = EKEvent(eventStore: store)
-                
-                createdEventsIds[id] = event.eventIdentifier
-                
-                event.calendar = calendar
-                event.title = title
-                event.startDate = startDate
-                event.endDate = endDate
-                
-                let structuredLocation = EKStructuredLocation(title: placeName)
-                structuredLocation.geoLocation = location
-                event.structuredLocation = structuredLocation
-                
-                do {
-                    try store.save(event, span: .thisEvent)
-                }
-                catch {
-                    print("Error saving event in calendar")
-                }
-            }
+        let event = EKEvent(eventStore: store)
+        
+        event.calendar = calendar
+        event.title = title
+        event.startDate = startDate
+        event.endDate = endDate
+        
+        let structuredLocation = EKStructuredLocation(title: placeName)
+        structuredLocation.geoLocation = location
+        event.structuredLocation = structuredLocation
+        
+        do {
+            try store.save(event, span: .thisEvent)
+            self.createdEventsIds[id] = event.eventIdentifier
+        }
+        catch {
+            print("Error saving event in calendar")
         }
     }
-    func setEvent(objId:String,objId id:String,title:String,placeName:String,location:CLLocation,startDate:Date,endDate:Date) {
+    func setEvent(objId id:String,
+                  title:String,
+                  placeName:String,
+                  location:CLLocation,
+                  startDate:Date,endDate:Date) {
         
         let eventStore = EKEventStore()
         
+        let status = EKEventStore.authorizationStatus(for: .event)
         
-        switch EKEventStore.authorizationStatus(for: .event) {
+        switch status {
         case .authorized:
-            insertEvent(store: eventStore, id: id, title: title, placeName: placeName, location: location, startDate: startDate,endDate: endDate)
+            insertEvent( id: id, title: title, placeName: placeName, location: location, startDate: startDate,endDate: endDate)
             
         case .denied:
             print("Access denied")
@@ -82,7 +90,7 @@ class LocalCalendarManager {
             eventStore.requestAccess(to: .event, completion:
                 {[weak self] (granted: Bool, error: Error?) in
                     if granted {
-                        self!.insertEvent(store: eventStore, id: id, title: title, placeName: placeName, location: location, startDate: startDate,endDate: endDate)
+                        self!.insertEvent( id: id, title: title, placeName: placeName, location: location, startDate: startDate,endDate: endDate)
                     } else {
                         print("Access denied")
                     }

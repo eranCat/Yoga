@@ -103,12 +103,12 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             else {return}
         
         if let indexPath = notification.userInfo?["indexPath"] as? IndexPath{
-            tableView.beginUpdates()
+//            tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .top)
-            tableView.endUpdates()
+//            tableView.endUpdates()
+        }else{
+            tableView.reloadData()
         }
-        
-        tableView.reloadData()
     }
     
     @objc func dataAdded(_ notification:NSNotification) {
@@ -117,9 +117,9 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         else {return}
         
         if let indexPath = notification.userInfo?["indexPath"] as? IndexPath{
-            tableView.beginUpdates()
+//            tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)
-            tableView.endUpdates()
+//            tableView.endUpdates()
         }else{
             tableView.reloadData()
         }
@@ -179,7 +179,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             if isSearching {
                 count = filtered[currentDataType]!.count
             }else{
-                count = dataSource.count(dType: currentDataType)
+                count = dataSource.count(sourceType: .all,dType: currentDataType)
             }
             
             adjustEmpty(count == 0 )

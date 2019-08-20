@@ -297,8 +297,7 @@ class DataSource {
     
     //    MARK: add
     
-    func addToAll(_ dType:DataType, dataObj:DynamicUserCreateable,
-                  taskDone:DSTaskListener?) {
+    func addToAll(_ dType:DataType, dataObj:DynamicUserCreateable,taskDone:DSTaskListener?) {
         
         let dataRef = ref.child(TableNames.name(for: dType)).childByAutoId()
         
@@ -348,33 +347,46 @@ class DataSource {
                     return
                 }
                 
-                taskDone?(nil)
-                
                 switch dType{
                 case .classes:
-                    self.all_classes.append(dataObj as! Class)
+                    self.all_classes.insert(dataObj as! Class,at: 0)
                 case .events:
-                    self.all_events.append(dataObj as! Event)
                     
+                    self.all_events.insert(dataObj as! Event, at: 0)
                 }
                 
-                self.mainDict[.all]![dType] = dType == .classes ? self.all_classes : self.all_events
+                self.updateMainDict(sourceType: .all, dataType: dType)
+                
+                taskDone?(nil)
                 
                 NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
                 
         }
     }
     
-    func showReminderAlert(objId:String,title:String,time:Date) {
+    func showReminderAlert(dataObj:DynamicUserCreateable) {
+
+        let title = (dataObj as! Titled).title
+
+//        protocol sheduald
+        let schedualedObj = dataObj as! Scheduled
+        let startDate = schedualedObj.startDate
+        let endDate = schedualedObj.endDate
+        
+//        protocol located
+        let located = dataObj as! Located
+        let location = located.location
+        let placeName = located.locationName
+        
         
         let alert  = UIAlertController(title: "Choose a reminder", message: "remind you before it starts", preferredStyle: .actionSheet)
         
         let notificationAction = UIAlertAction(title: "Notify me", style: .default) { _ in
-            NotificationManager.shared.setNotification(objId: objId, title: title, time: time)
+            NotificationManager.shared.setNotification(objId: dataObj.id!, title: title, time: startDate)
         }
         
         let calendar = UIAlertAction(title: "Add to calendar", style: .default) { _ in
-            
+            LocalCalendarManager.shared.setEvent( objId: dataObj.id!, title: title, placeName: placeName, location: location, startDate: startDate, endDate: endDate)
         }
         
         alert.addAction(notificationAction)

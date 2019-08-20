@@ -189,7 +189,7 @@ extension DataSource{
                     return
                 }
                 
-                self.showReminderAlert(objId: dataObj.id!, title: (dataObj as! Titled).title,time: (dataObj as! Scheduled).startDate)
+                self.showReminderAlert(dataObj: dataObj)
                 
                 self.updateMainDict(sourceType: .signed, dataType: dType)
                 
@@ -303,6 +303,8 @@ extension DataSource{
             }
             
             NotificationManager.shared.removeNotification(objId: data.id!)
+            
+            LocalCalendarManager.shared.removeEvent(objId: data.id!)
             
             NotificationCenter.default
                 .post(name: ._signedDataRemoved, userInfo: userInfo)

@@ -24,6 +24,7 @@
 		9713DB652301B46900B00C15 /* ProggressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9713DB642301B46900B00C15 /* ProggressCell.swift */; };
 		9713DB672302BB4D00B00C15 /* AllPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9713DB662302BB4D00B00C15 /* AllPagination.swift */; };
 		9713DB69230544A800B00C15 /* DS-Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9713DB68230544A800B00C15 /* DS-Observers.swift */; };
+		9713DB6B230BE88F00B00C15 /* Located.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9713DB6A230BE88F00B00C15 /* Located.swift */; };
 		971795A722F1F1BC008B91F8 /* LocaleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971795A622F1F1BC008B91F8 /* LocaleExtension.swift */; };
 		971795A922F324F1008B91F8 /* Paticipateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971795A822F324F1008B91F8 /* Paticipateable.swift */; };
 		97182CEB22D5CCD3006337C0 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97182CEA22D5CCD3006337C0 /* SplashScreenViewController.swift */; };
@@ -164,6 +165,7 @@
 		9713DB642301B46900B00C15 /* ProggressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProggressCell.swift; sourceTree = "<group>"; };
 		9713DB662302BB4D00B00C15 /* AllPagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPagination.swift; sourceTree = "<group>"; };
 		9713DB68230544A800B00C15 /* DS-Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DS-Observers.swift"; sourceTree = "<group>"; };
+		9713DB6A230BE88F00B00C15 /* Located.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Located.swift; sourceTree = "<group>"; };
 		971795A622F1F1BC008B91F8 /* LocaleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleExtension.swift; sourceTree = "<group>"; };
 		971795A822F324F1008B91F8 /* Paticipateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paticipateable.swift; sourceTree = "<group>"; };
 		97182CEA22D5CCD3006337C0 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 				971795A822F324F1008B91F8 /* Paticipateable.swift */,
 				97B3749D22F89C1B000736F1 /* Scheduled.swift */,
 				97B3749F22F8A334000736F1 /* Titled.swift */,
+				9713DB6A230BE88F00B00C15 /* Located.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -908,6 +911,7 @@
 				97CD957B22D30B060073BF61 /* DateTextField.swift in Sources */,
 				97B3749E22F89C1B000736F1 /* Scheduled.swift in Sources */,
 				9713DB69230544A800B00C15 /* DS-Observers.swift in Sources */,
+				9713DB6B230BE88F00B00C15 /* Located.swift in Sources */,
 				97AE314822C9EDC30008CE75 /* DS-Search.swift in Sources */,
 				97A45E0D22E3510F0072764A /* StorageEventsImages.swift in Sources */,
 				97EED8C222C0AD25009AEB07 /* ClassInfoViewController.swift in Sources */,
