@@ -24,14 +24,16 @@ extension DataSource{
                     guard let json = newChild.value as? JSON
                         else{return}
                 
-                    self.all_classes.append(Class(json))
+                    self.all_classes.insert(Class(json), at: 0)
                     
                     self.updateMainDict(sourceType: .all, dataType: .classes)
-                }
-
+                    
+                    let userInfo = ["type" : DataType.classes,
+                                "indexPath":IndexPath(row: 0, section: 0)] as [String : Any]
                 
-                NotificationCenter.default.post(name: ._dataAdded,
-                                                userInfo: ["type" : DataType.classes])
+                    NotificationCenter.default.post(name: ._dataAdded,userInfo: userInfo)
+                    
+                }
         }
     }
     
@@ -46,13 +48,14 @@ extension DataSource{
                     guard let json = newChild.value as? JSON
                         else{return}
                 
-                    self.all_events.append( Event(json))
+                    self.all_events.insert( Event(json) , at: 0)
                     
                     self.updateMainDict(sourceType: .all, dataType: .events)
+                    
+                    let userInfo = ["type" : DataType.events,
+                                    "indexPath":IndexPath(row: 0, section: 0)] as [String : Any]
+                    NotificationCenter.default.post(name: ._dataAdded,userInfo: userInfo)
                 }
-                
-                NotificationCenter.default.post(name: ._dataAdded,
-                                                userInfo: ["type" : DataType.events])
         }
     }
     
@@ -149,10 +152,12 @@ extension DataSource{
         
         if let handle = classChangedHandle{
             ref.child(tableKey).removeObserver(withHandle: handle)
+            classChangedHandle = nil
         }
         
         if let handle = newClassHandle{
             ref.child(tableKey).removeObserver(withHandle: handle)
+            newClassHandle = nil
         }
     }
     
@@ -160,10 +165,12 @@ extension DataSource{
         
         if let handle = eventChangedHandle{
             ref.child(tableKey).removeObserver(withHandle: handle)
+            eventChangedHandle = nil
         }
         
         if let handle = newEventHandle{
             ref.child(tableKey).removeObserver(withHandle: handle)
+            newEventHandle = nil
         }
     }
     

@@ -184,16 +184,20 @@ class EventInfoViewController: UITableViewController {
                 
                 if let signErr = error as? SigningErrors{
                     
+                    let title:String?
+                    
                     switch signErr{
                         
                     case .noPlaceLeft:
-                        ErrorAlert.show(title: "Oh no, you're too late", message: error.localizedDescription)
+                        title = "Oh no, you're too late"
                     case .alreadySignedToClass, .alreadySignedToEvent:
-                        ErrorAlert.show(title: "Sign in twice, not very nice", message: error.localizedDescription)
+                        title = "Sign in twice, not very nice"
+//                    case .cantSignToCancled(.events):
+//                        title = nil
                     default:
-                        ErrorAlert.show(message: error.localizedDescription)
+                        title = nil
                     }
-                    
+                    ErrorAlert.show(title: title, message: error.localizedDescription)
                 }
                 else{
                     ErrorAlert.show(message: error.localizedDescription)

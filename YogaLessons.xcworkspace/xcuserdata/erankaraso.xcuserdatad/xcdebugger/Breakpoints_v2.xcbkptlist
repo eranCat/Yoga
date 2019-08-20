@@ -114,7 +114,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "587986992.757565"
+            timestampString = "588001438.055656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
@@ -139,7 +139,7 @@
             condition = "ds == .signed"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Data and Classes/Data/DS-Sort.swift"
-            timestampString = "587986992.757959"
+            timestampString = "588001438.0561481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "16"
@@ -173,7 +173,7 @@
             condition = "(userDict[YUser.Keys.name] as! String).contains(&quot;rachel&quot;)"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Data and Classes/Data/DS-Users.swift"
-            timestampString = "587986992.758191"
+            timestampString = "588001438.05645"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
@@ -189,7 +189,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "587986992.75837"
+            timestampString = "588001438.056673"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
@@ -213,7 +213,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "587986992.75855"
+            timestampString = "588001438.056881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "138"
@@ -237,7 +237,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "587986992.758601"
+            timestampString = "588001438.056934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "44"
@@ -293,7 +293,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "587986992.758649"
+            timestampString = "588001438.056987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"
@@ -307,12 +307,6 @@
                      consoleCommand = "po dataSource.getList(sourceType: .all, dType: currentDataType).count">
                   </ActionContent>
                </BreakpointActionProxy>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po dataSource.all_classes.count">
-                  </ActionContent>
-               </BreakpointActionProxy>
             </Actions>
          </BreakpointContent>
       </BreakpointProxy>
@@ -323,7 +317,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Utils/LocalCalendarManager.swift"
-            timestampString = "587986992.758697"
+            timestampString = "588001438.057043"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "83"

@@ -12,7 +12,7 @@ protocol Located {
     var locationCoordinate: CLLocationCoordinate2D { get set }
     var locationName:String { get set }
     
-    var location:CLLocation {get}
+//    var location:CLLocation {get}
 }
 
 extension Located{

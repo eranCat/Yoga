@@ -40,9 +40,9 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         subscribeObservers()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        NotificationCenter.default.removeObserver(self)
+//    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -55,41 +55,21 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         }
     }
     
-    @objc func dataAddedNotified(_ notif: Notification) {
+    @objc func signedDataAdded(_ notif: Notification) {
         
         guard let type = notif.userInfo?["type"] as? DataType,
             type == currentDataType
             else{return}
         
-        if let indexPath = notif.userInfo?["indexPath"] as? IndexPath{
-            tableView.beginUpdates()
-            tableView.insertRows(at: [indexPath], with: .automatic)
-            tableView.endUpdates()
-        }else{
-            tableView.reloadData()
-        }
-    }
-    
-    @objc func onRemovedData(_ notif: Notification) {
-        guard let type = notif.userInfo?["type"] as? DataType,
-            type == currentDataType
-            else{return}
-        
-        if let indexPath = notif.userInfo?["indexPath"] as? IndexPath{
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            tableView.endUpdates()
-            return
-        }
+        tableView.insertRows(at: [.init(row: 0, section: 0)], with: .automatic)
     }
     
     func subscribeObservers() {
         
-        let names:[Notification.Name] = [._sortTapped,._signedDataAdded,._signedDataRemoved,._dataCancled]
+        let names:[Notification.Name] = [._sortTapped,._signedDataAdded,._dataCancled]
         
         let selectors:[Selector] = [#selector(onSortTapped(_:)),
-                                     #selector(dataAddedNotified(_:)),
-                                     #selector(onRemovedData(_:)),
+                                     #selector(signedDataAdded(_:)),
                                      #selector(onDataChanged(_:)),
                                     ]
         
@@ -221,32 +201,45 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let onRemoved:DSTaskListener = { error in
+        switch indexPath.section {
+        case 0:
+            let cancel = UITableViewRowAction(style: .destructive,
+                                              title: "Cancel "+currentDataType.singular)
+                                                {self.cancelPost(indexPath: $1)}
+            
+            return [cancel]
+
+        case 1:fallthrough//signed
+        default:
+            let unsign = UITableViewRowAction(style: .destructive,
+                                              title: "Unsign from  "+currentDataType.singular)
+                                                {self.unsign(indexPath: $1)}
+            return [unsign]
+        }
+    }
+    func unsign(indexPath:IndexPath) {
+        //            MARK:check where to remove from
+        SVProgressHUD.show()
+        
+        self.dataSource.unsignFrom(self.currentDataType, at: indexPath){err in
+            SVProgressHUD.dismiss()
+            if let err = err {
+                ErrorAlert.show(message: err.localizedDescription)
+            }
+            self.tableView.deleteRows(at: [indexPath], with: .right)
+        }
+    }
+    
+    func cancelPost(indexPath:IndexPath) {
+        SVProgressHUD.show()
+        //            MARK:check where to remove from
+        self.dataSource.setCancled(self.currentDataType, at: indexPath.row){ error in
             SVProgressHUD.dismiss()
             if let err = error {
                 ErrorAlert.show(message: err.localizedDescription)
             }
+            self.tableView.reloadRows(at: [indexPath], with: .fade)
         }
-        
-        let remove = UITableViewRowAction(style: .destructive, title: "Remove")
-        { _, indexPath in
-            
-            //            MARK:check where to remove from
-            SVProgressHUD.show()
-            
-            switch indexPath.section {
-            case 0://user uploads
-                self.dataSource
-                    .setCancled(self.currentDataType, at: indexPath.row,taskDone: onRemoved)
-            case 1:fallthrough//signed
-            default:
-                self.dataSource
-                    .unsignFrom(self.currentDataType, at: indexPath,taskDone: onRemoved)
-            }
-            
-        }
-        
-        return [remove]
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {

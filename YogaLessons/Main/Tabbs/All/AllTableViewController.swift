@@ -29,8 +29,8 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     lazy var searchController:UISearchController = { return createSearchController()}()
     
     lazy var filtered:[DataType:[DynamicUserCreateable]] = { [.classes:[],.events:[]]}()
-//    var filteredClasses:[Class] = []
-//    var filteredEvents:[Event] = []
+    //    var filteredClasses:[Class] = []
+    //    var filteredEvents:[Event] = []
     
     fileprivate func registerCells() {
         //        MARK: load cells
@@ -49,10 +49,10 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         super.viewDidLoad()
         
         registerCells()
-
+        
         tableView.tableHeaderView = searchController.searchBar
         tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height)
-
+        
         refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         navigationItem.title = "\(currentDataType)".capitalized
@@ -60,7 +60,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         setupEmptyBG(withMessage : "No \(currentDataType) yet")
         
         tableView.separatorInset.left = 120
-    
+        
         createObservers()
     }
     
@@ -103,9 +103,9 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             else {return}
         
         if let indexPath = notification.userInfo?["indexPath"] as? IndexPath{
-//            tableView.beginUpdates()
+            //            tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .top)
-//            tableView.endUpdates()
+            //            tableView.endUpdates()
         }else{
             tableView.reloadData()
         }
@@ -113,23 +113,23 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     
     @objc func dataAdded(_ notification:NSNotification) {
         guard let type = notification.userInfo?["type"] as? DataType,
-        type == currentDataType
-        else {return}
+            type == currentDataType
+            else {return}
         
         if let indexPath = notification.userInfo?["indexPath"] as? IndexPath{
-//            tableView.beginUpdates()
+            //            tableView.beginUpdates()
             tableView.insertRows(at: [indexPath], with: .automatic)
-//            tableView.endUpdates()
+            //            tableView.endUpdates()
         }else{
             tableView.reloadData()
         }
     }
     
     @objc func onSortTapped(_ notification:NSNotification) {
-    
+        
         // viewController is visible
         guard viewIfLoaded?.window != nil
-        else{return}
+            else{return}
         
         guard let (dType,sType) = notification.userInfo?["dataTuple"] as? (DataType,SortType)
             else{return}
@@ -152,7 +152,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     func reload() {
-//        tableView.reloadSections(IndexSet(integer: 0), with: .left)
+        //        tableView.reloadSections(IndexSet(integer: 0), with: .left)
         tableView.reloadData()
         refreshControl?.endRefreshing()
     }
@@ -273,8 +273,22 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             SVProgressHUD.dismiss()
             
             if let err = error {
-                if error is SigningErrors{
-                    ErrorAlert.show(title: "Sign in twice, not very nice.", message: err.localizedDescription)
+                if let signErr = err as? SigningErrors{
+                    
+                    let title:String?
+                    
+                    switch signErr{
+                        
+                    case .noPlaceLeft:
+                        title = "Oh no ,you're too late"
+                    case .alreadySignedToClass, .alreadySignedToEvent:
+                        title = "Sign in twice, not very nice."
+                    default:
+                        title = nil
+                    }
+                    
+                    ErrorAlert.show(title: title, message: err.localizedDescription)
+                    
                 }else{
                     ErrorAlert.show(message: err.localizedDescription)
                 }
@@ -335,22 +349,22 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = segue.identifier ,
-                let segueId = SeguesIDs(rawValue: id)
-        else{return}
+            let segueId = SeguesIDs(rawValue: id)
+            else{return}
         
         switch segueId {
         case .classInfo:
             guard let destVC = segue.destination as? ClassInfoViewController,
                 let c = sender as? Class
                 else{return}
-                
+            
             destVC.classModel = c
             
         case .eventInfo:
             guard let destVC = segue.destination as? EventInfoViewController,
                 let e = sender as? Event
                 else{return}
-                
+            
             destVC.eventModel = e
         }
     }

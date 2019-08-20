@@ -313,7 +313,7 @@ class DataSource {
         
         dataObj.uid = uid
         
-        //        add to all classes/events json
+//        add to all classes/events json
         dataRef.setValue(dataObj.encode())
         
         let arrKey:String
@@ -328,17 +328,31 @@ class DataSource {
             teacher.teachingClassesIDs[keyID] = .open
             ids = .init(teacher.teachingClassesIDs.keys)
             
+            if self.newClassHandle != nil{
+                taskDone?(nil)
+                break
+            }
+            self.all_classes.insert(dataObj as! Class,at: 0)
+            self.updateMainDict(sourceType: .all, dataType: .classes)
+            NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
         case .events:
             
             arrKey = YUser.Keys.createdEvents
             user.createdEventsIDs[keyID] = .open
             ids = .init(user.createdEventsIDs.keys)
+
+            if self.newEventHandle != nil{
+                taskDone?(nil)
+                break
+            }
+            self.all_events.insert(dataObj as! Event, at: 0)
+            self.updateMainDict(sourceType: .all, dataType: .events)
+            NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
         }
         
         
-        
-        //            .updateChildValues([arrKey:ids])
-        ref.child(TableNames.users.rawValue).child(uid)
+        ref.child(TableNames.users.rawValue)//users table
+            .child(uid)//of user by id
             .child(arrKey).setValue(ids){ err,childRef in
                 
                 if let error = err{
@@ -346,21 +360,6 @@ class DataSource {
                     taskDone?(error)
                     return
                 }
-                
-                switch dType{
-                case .classes:
-                    self.all_classes.insert(dataObj as! Class,at: 0)
-                case .events:
-                    
-                    self.all_events.insert(dataObj as! Event, at: 0)
-                }
-                
-                self.updateMainDict(sourceType: .all, dataType: dType)
-                
-                taskDone?(nil)
-                
-                NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
-                
         }
     }
     

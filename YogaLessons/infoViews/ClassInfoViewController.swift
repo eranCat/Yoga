@@ -167,16 +167,18 @@ class ClassInfoViewController: UITableViewController {
                     
                     if let signErr = error as? SigningErrors{
                         
-                        switch signErr{
-                        case .noPlaceLeft:
-                            ErrorAlert.show(title: "Oh no, you're too late", message: error.localizedDescription)
-                        case .alreadySignedToClass, .alreadySignedToEvent:
-                            ErrorAlert.show(title: "Sign in twice, not very nice", message: error.localizedDescription)
-                            
-                        default:
-                            ErrorAlert.show(message: error.localizedDescription)
-                        }
+                        let title:String?
                         
+                        switch signErr{
+                            
+                        case .noPlaceLeft:
+                            title = "Oh no, you're too late"
+                        case .alreadySignedToClass, .alreadySignedToEvent:
+                            title = "Sign in twice, not very nice"
+                        default:
+                            title = nil
+                        }
+                        ErrorAlert.show(title: title, message: error.localizedDescription)
                     }
                     else{
                         ErrorAlert.show(message: error.localizedDescription)
