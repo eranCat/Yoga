@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>905130335975-q0fku4fvvd92q0skin9j3fanadrfb47r.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.905130335975-q0fku4fvvd92q0skin9j3fanadrfb47r</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDez8ZtwXZNcbZxjjy8PQYgjyW2M-uIkfo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>905130335975</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>stuff.YogaLessons</string>
+	<key>PROJECT_ID</key>
+	<string>yoga-7fba6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>yoga-7fba6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:905130335975:ios:540286e527e4a0a4</string>
+	<key>DATABASE_URL</key>
+	<string>https://yoga-7fba6.firebaseio.com</string>
+</dict>
+</plist>

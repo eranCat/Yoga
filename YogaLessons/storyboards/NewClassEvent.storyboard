@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ig0-pt-09A">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Location Picker-->
+        <scene sceneID="9fx-Xm-zFW">
+            <objects>
+                <viewController id="NKg-6K-BUl" customClass="LocationPicker" customModule="LocationPickerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AL5-95-5eV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Hk9-lh-rPN"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="br1-qX-wl9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2086" y="133"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JB3-0c-P6r">
+            <objects>
+                <navigationController storyboardIdentifier="newClassEventNav" automaticallyAdjustsScrollViewInsets="NO" id="Ig0-pt-09A" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RE8-uX-e4k">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qXf-9o-2cr" kind="relationship" relationship="rootViewController" id="dtx-hL-URZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YmB-J4-Uz7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="102.89855072463769" y="132.58928571428572"/>
+        </scene>
+        <!--New Class Event View Controller-->
+        <scene sceneID="ZR5-bl-fCP">
+            <objects>
+                <tableViewController storyboardIdentifier="NewClassEvent" id="qXf-9o-2cr" customClass="NewClassEventViewController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6QP-up-dFK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="separatorInset" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                        <sections>
+                            <tableViewSection headerTitle="Name" id="nJ5-f5-SOo">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="TMh-GI-2Sf">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TMh-GI-2Sf" id="BTE-bt-Xmw">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title / Type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BPt-7q-ONg" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="8" width="398" height="27.5"/>
+                                                    <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="20"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tfDidBeginEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="t6O-6h-7CD"/>
+                                                        <action selector="tfDidEndEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="BL9-It-KOO"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BPt-7q-ONg" firstAttribute="top" secondItem="BTE-bt-Xmw" secondAttribute="top" constant="8" id="3oL-BT-Myj"/>
+                                                <constraint firstItem="BPt-7q-ONg" firstAttribute="leading" secondItem="BTE-bt-Xmw" secondAttribute="leading" constant="8" id="Fue-kR-x5w"/>
+                                                <constraint firstAttribute="bottom" secondItem="BPt-7q-ONg" secondAttribute="bottom" constant="8" id="NdR-yJ-W3h"/>
+                                                <constraint firstAttribute="trailing" secondItem="BPt-7q-ONg" secondAttribute="trailing" constant="8" id="QC1-MS-JGz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Where is this happening" id="Ckd-Ee-72g">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="locationCell" rowHeight="61" id="jHN-vz-pc2">
+                                        <rect key="frame" x="0.0" y="100" width="414" height="61"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jHN-vz-pc2" id="nx5-yd-VbN">
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="60.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJ2-jA-6YL">
+                                                    <rect key="frame" x="28" y="19" width="332" height="23"/>
+                                                    <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="sJ2-jA-6YL" secondAttribute="bottom" constant="8" id="0nm-E0-EWu"/>
+                                                <constraint firstItem="sJ2-jA-6YL" firstAttribute="leading" secondItem="nx5-yd-VbN" secondAttribute="leadingMargin" constant="8" id="2XU-ej-0eJ"/>
+                                                <constraint firstItem="sJ2-jA-6YL" firstAttribute="top" secondItem="nx5-yd-VbN" secondAttribute="topMargin" constant="8" id="P23-8V-4Dh"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="sJ2-jA-6YL" secondAttribute="trailing" constant="8" id="vGw-0D-u38"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="NKg-6K-BUl" kind="show" identifier="goToSearchPlace" trigger="accessoryAction" id="Zaf-5f-fZ2"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="KlP-MT-lUW">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="SQD-2g-ann">
+                                        <rect key="frame" x="0.0" y="161" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SQD-2g-ann" id="N6d-rt-PwK">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="UXP-82-vGu">
+                                                    <rect key="frame" x="8" y="8" width="398" height="27.5"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Start Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWE-fa-QeZ" customClass="DateTimeTextField" customModule="YogaLessons" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="195" height="27.5"/>
+                                                            <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="16"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="tfDidBeginEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="8cJ-4x-XSC"/>
+                                                                <action selector="tfDidEndEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="488-pZ-BzB"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="End Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Do9-EE-Loo" customClass="DateTimeTextField" customModule="YogaLessons" customModuleProvider="target">
+                                                            <rect key="frame" x="203" y="0.0" width="195" height="27.5"/>
+                                                            <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="16"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="tfDidBeginEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="ElP-xT-1Xy"/>
+                                                                <action selector="tfDidEndEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="Wbo-Bm-XG4"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UXP-82-vGu" firstAttribute="top" secondItem="N6d-rt-PwK" secondAttribute="top" constant="8" id="gev-Qg-NmC"/>
+                                                <constraint firstAttribute="trailing" secondItem="UXP-82-vGu" secondAttribute="trailing" constant="8" id="iBp-ZF-QQs"/>
+                                                <constraint firstItem="UXP-82-vGu" firstAttribute="leading" secondItem="N6d-rt-PwK" secondAttribute="leading" constant="8" id="pD7-3G-rRA"/>
+                                                <constraint firstAttribute="bottom" secondItem="UXP-82-vGu" secondAttribute="bottom" constant="8" id="wg9-5k-6T0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Level of practice" id="TX6-Ua-MzE">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="5of-ML-jCf">
+                                        <rect key="frame" x="0.0" y="233" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5of-ML-jCf" id="x9P-3l-aPY">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="The Level of this" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vut-O6-zHX" customClass="LevelTextField" customModule="YogaLessons" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="8" width="398" height="27.5"/>
+                                                    <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="20"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tfDidBeginEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="Cgh-RM-wcp"/>
+                                                        <action selector="tfDidEndEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="hNK-IF-QaR"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Vut-O6-zHX" secondAttribute="bottom" constant="8" id="QMW-LG-Y0T"/>
+                                                <constraint firstItem="Vut-O6-zHX" firstAttribute="top" secondItem="x9P-3l-aPY" secondAttribute="top" constant="8" id="lRk-BX-0ZV"/>
+                                                <constraint firstItem="Vut-O6-zHX" firstAttribute="leading" secondItem="x9P-3l-aPY" secondAttribute="leading" constant="8" id="umB-5C-bsS"/>
+                                                <constraint firstAttribute="trailing" secondItem="Vut-O6-zHX" secondAttribute="trailing" constant="8" id="yfl-Ky-mM1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="How much does it cost?" id="ARE-ql-dl9">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="adF-ex-JyN">
+                                        <rect key="frame" x="0.0" y="305" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="adF-ex-JyN" id="jeF-NJ-X5H">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cost" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YS8-vM-HHT" customClass="CurrencyField" customModule="YogaLessons" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="8" width="67.5" height="27.5"/>
+                                                    <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="20"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="tfDidBeginEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="cGU-tr-rKI"/>
+                                                        <action selector="tfDidEndEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="gOS-8N-H3O"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YS8-vM-HHT" firstAttribute="leading" secondItem="jeF-NJ-X5H" secondAttribute="leading" constant="8" id="3h4-B8-yWC"/>
+                                                <constraint firstAttribute="bottom" secondItem="YS8-vM-HHT" secondAttribute="bottom" constant="8" id="CrA-6f-wH6"/>
+                                                <constraint firstItem="YS8-vM-HHT" firstAttribute="top" secondItem="jeF-NJ-X5H" secondAttribute="top" constant="8" id="SnD-ul-9qv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="How much people can come?" id="Puo-gi-FZF">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="p4A-W3-DLa">
+                                        <rect key="frame" x="0.0" y="377" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p4A-W3-DLa" id="QKe-w4-CvB">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kRg-hE-rDU">
+                                                    <rect key="frame" x="8" y="8" width="398" height="27.5"/>
+                                                    <subviews>
+                                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="H4v-8T-n5s">
+                                                            <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
+                                                            <color key="backgroundColor" red="0.4446590379" green="0.6517441236" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <connections>
+                                                                <action selector="stepperValueChange:" destination="qXf-9o-2cr" eventType="valueChanged" id="dhk-7s-PwP"/>
+                                                            </connections>
+                                                        </stepper>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Max people" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QQI-9M-TcW" customClass="MaxAmountField" customModule="YogaLessons" customModuleProvider="target">
+                                                            <rect key="frame" x="104" y="0.0" width="294" height="27.5"/>
+                                                            <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="selectedRowColor">
+                                                                    <color key="value" red="0.80946308369999997" green="0.93192023040000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="maxPplEndEdit:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="LbC-Jk-W6u"/>
+                                                                <action selector="tfDidBeginEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="tOR-yK-hf1"/>
+                                                                <action selector="tfDidEndEditing:" destination="qXf-9o-2cr" eventType="editingDidEnd" id="aAh-OI-dpB"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="kRg-hE-rDU" secondAttribute="bottom" constant="8" id="DQ9-hw-iaz"/>
+                                                <constraint firstItem="kRg-hE-rDU" firstAttribute="top" secondItem="QKe-w4-CvB" secondAttribute="top" constant="8" id="RDH-GZ-w2x"/>
+                                                <constraint firstItem="kRg-hE-rDU" firstAttribute="leading" secondItem="QKe-w4-CvB" secondAttribute="leading" constant="8" id="SwU-f8-kgd"/>
+                                                <constraint firstAttribute="trailing" secondItem="kRg-hE-rDU" secondAttribute="trailing" constant="8" id="eYT-3h-T8b"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Equipment" id="BIa-Bw-5bN">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="107" id="U10-xv-T65">
+                                        <rect key="frame" x="0.0" y="449" width="414" height="107"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U10-xv-T65" id="SwG-HE-57V">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="106.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SqJ-dH-ouR" customClass="BetterTextView" customModule="YogaLessons" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="8" width="398" height="80"/>
+                                                    <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="7n1-AU-h7h"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="PlaceHolder" value="What to bring..."/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SqJ-dH-ouR" firstAttribute="leading" secondItem="SwG-HE-57V" secondAttribute="leading" constant="8" id="VC6-Ho-Xew"/>
+                                                <constraint firstAttribute="bottom" secondItem="SqJ-dH-ouR" secondAttribute="bottom" constant="8" id="hUZ-9a-SFC"/>
+                                                <constraint firstItem="SqJ-dH-ouR" firstAttribute="top" secondItem="SwG-HE-57V" secondAttribute="top" constant="8" id="woh-Pg-Dy3"/>
+                                                <constraint firstAttribute="trailing" secondItem="SqJ-dH-ouR" secondAttribute="trailing" constant="8" id="x1M-xB-3uA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="If you have to say something else" id="5Jw-CW-Xa6">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="108" id="AAe-4t-39Z">
+                                        <rect key="frame" x="0.0" y="584" width="414" height="108"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AAe-4t-39Z" id="nsY-dV-jw4">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="107.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qw8-Mb-TV6" customClass="BetterTextView" customModule="YogaLessons" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="8" width="398" height="80"/>
+                                                    <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="cRc-kA-R00"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="PlaceHolder" value="extra notes..."/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="qw8-Mb-TV6" secondAttribute="bottom" constant="8" id="1ef-qX-vqn"/>
+                                                <constraint firstItem="qw8-Mb-TV6" firstAttribute="leading" secondItem="nsY-dV-jw4" secondAttribute="leading" constant="8" id="MXQ-k5-gyy"/>
+                                                <constraint firstAttribute="trailing" secondItem="qw8-Mb-TV6" secondAttribute="trailing" constant="8" id="P2s-kg-gPW"/>
+                                                <constraint firstItem="qw8-Mb-TV6" firstAttribute="top" secondItem="nsY-dV-jw4" secondAttribute="top" constant="8" id="ejw-ja-cJX"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Image makes it more attractive" id="tTY-mh-JcS">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="143" id="jdB-ts-E8r">
+                                        <rect key="frame" x="0.0" y="720" width="414" height="143"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jdB-ts-E8r" id="YRA-pp-V3Y">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="142.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="image-holder" translatesAutoresizingMaskIntoConstraints="NO" id="FxV-XP-pkH">
+                                                    <rect key="frame" x="16" y="16" width="382" height="110"/>
+                                                    <color key="backgroundColor" red="0.73336675380000005" green="0.78702925450000005" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <gestureRecognizers/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="110" id="fmp-aA-0cV"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="d40-Wt-cw3" appends="YES" id="kf1-mq-GfL"/>
+                                                    </connections>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="FxV-XP-pkH" secondAttribute="bottom" constant="16" id="O3E-iN-PL6"/>
+                                                <constraint firstAttribute="trailing" secondItem="FxV-XP-pkH" secondAttribute="trailing" constant="16" id="XD4-KJ-0m0"/>
+                                                <constraint firstItem="FxV-XP-pkH" firstAttribute="top" secondItem="YRA-pp-V3Y" secondAttribute="top" constant="16" id="cvX-QX-YnU"/>
+                                                <constraint firstItem="FxV-XP-pkH" firstAttribute="leading" secondItem="YRA-pp-V3Y" secondAttribute="leading" constant="16" id="sCK-xj-cJw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="qXf-9o-2cr" id="YhQ-xb-mdX"/>
+                            <outlet property="delegate" destination="qXf-9o-2cr" id="bYU-W5-cWh"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="URl-ue-sqv">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="2Gg-xU-7iG">
+                            <color key="tintColor" red="0.96620899439999997" green="0.26395444620000003" blue="0.095674013949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="discard:" destination="qXf-9o-2cr" id="jw0-oa-XDp"/>
+                            </connections>
+                        </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="A8R-7p-IqX" customClass="DataTypeSegmentView" customModule="YogaLessons" customModuleProvider="target">
+                            <rect key="frame" x="158.5" y="7.5" width="97" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Class"/>
+                                <segment title="Event"/>
+                            </segments>
+                            <color key="tintColor" red="0.19061490659999999" green="0.4629499655" blue="0.64950722459999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                    <real key="value" value="25"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="segmentValueChanged:" destination="qXf-9o-2cr" eventType="valueChanged" id="7p6-ZN-Nxo"/>
+                            </connections>
+                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="pPJ-eS-d0B">
+                            <connections>
+                                <action selector="save:" destination="qXf-9o-2cr" id="Vp9-b6-Cym"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="eventImgView" destination="FxV-XP-pkH" id="I2b-aZ-zLz"/>
+                        <outlet property="lblLocation" destination="sJ2-jA-6YL" id="H8s-me-4sS"/>
+                        <outlet property="maxPplDropDown" destination="QQI-9M-TcW" id="EJh-P1-Jue"/>
+                        <outlet property="maxPplStepper" destination="H4v-8T-n5s" id="Puv-jU-0NU"/>
+                        <outlet property="tfCost" destination="YS8-vM-HHT" id="2jq-Le-o1k"/>
+                        <outlet property="tfEndDate" destination="Do9-EE-Loo" id="3d2-Cp-51d"/>
+                        <outlet property="tfLevel" destination="Vut-O6-zHX" id="Myg-o2-bTb"/>
+                        <outlet property="tfTitle" destination="BPt-7q-ONg" id="bDZ-Ey-NeF"/>
+                        <outlet property="tfstartDate" destination="YWE-fa-QeZ" id="Jma-CK-iL2"/>
+                        <outlet property="tvEquipment" destination="SqJ-dH-ouR" id="vnP-zk-5NH"/>
+                        <outlet property="tvExtraNotes" destination="qw8-Mb-TV6" id="z2r-1G-83q"/>
+                        <outlet property="typeSegment" destination="A8R-7p-IqX" id="vhN-Ib-Ia9"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ydr-sx-P8h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="d40-Wt-cw3">
+                    <connections>
+                        <action selector="imageTap:" destination="qXf-9o-2cr" id="Avv-vn-si1"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1138" y="133"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="image-holder" width="614" height="460"/>
+    </resources>
+</document>

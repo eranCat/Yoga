@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Ft-Z6-sTH">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Teachers Table View Controller-->
+        <scene sceneID="lVw-Sc-2Bb">
+            <objects>
+                <tableViewController id="Mt8-A3-jJD" customClass="TeachersTableViewController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fNK-pl-L54">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Mt8-A3-jJD" id="jJg-Ln-8oq"/>
+                            <outlet property="delegate" destination="Mt8-A3-jJD" id="mLw-cD-ZNQ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Ftp-oY-ohU"/>
+                    <connections>
+                        <segue destination="Q6O-Rq-82r" kind="show" identifier="showClassInfo" id="YfN-Dw-FbH"/>
+                        <segue destination="aV4-v0-qIy" kind="show" identifier="showEventInfo" id="BpK-B6-Fj4"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g1J-Ez-WUV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2250.7246376811595" y="143.97321428571428"/>
+        </scene>
+        <!--ClassInformation-->
+        <scene sceneID="Tzf-eA-uUp">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ClassInformation" id="Q6O-Rq-82r" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pUQ-X2-MS1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2828" y="74"/>
+        </scene>
+        <!--EventInformation-->
+        <scene sceneID="ahY-mU-Xac">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EventInformation" id="aV4-v0-qIy" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cbE-KU-qYO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2825" y="215"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5uX-eJ-8vp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Ft-Z6-sTH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="d4J-cV-wgt">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Mt8-A3-jJD" kind="relationship" relationship="rootViewController" id="DiV-Za-BRb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zd4-qB-1j9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1340.5797101449277" y="143.97321428571428"/>
+        </scene>
+    </scenes>
+</document>

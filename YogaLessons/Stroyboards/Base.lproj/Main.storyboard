@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="10n-0O-KDn">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="HCj-Ay-ao5">
+            <objects>
+                <navigationController storyboardIdentifier="mainNav" automaticallyAdjustsScrollViewInsets="NO" id="UDS-dG-cAd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Oyc-I7-Rg9">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hOD-uw-X5t" kind="relationship" relationship="rootViewController" id="Xyc-Z5-86s"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qHi-TB-mO8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="776.81159420289862" y="41.517857142857139"/>
+        </scene>
+        <!--Signed-->
+        <scene sceneID="FqD-ON-uhz">
+            <objects>
+                <tableViewController storyboardIdentifier="showClassInfo" id="TXs-v9-nsH" customClass="SignedTableViewController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" id="33Q-fH-rCk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="TXs-v9-nsH" id="AE6-Ma-OXC"/>
+                            <outlet property="delegate" destination="TXs-v9-nsH" id="0Du-vy-MWp"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Signed" image="saved" springLoaded="YES" id="zNC-YA-9kQ">
+                        <inset key="imageInsets" minX="0.0" minY="3" maxX="0.0" maxY="-3"/>
+                        <inset key="largeContentSizeImageInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="KnW-2y-YUc">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
+                    <connections>
+                        <segue destination="aLT-ML-OXf" kind="show" identifier="showClassInfo" id="p1e-ZV-hEA"/>
+                        <segue destination="qGc-MA-ASn" kind="show" identifier="showEventInfo" id="qjR-ui-CAz"/>
+                        <segue destination="q1s-D6-igc" kind="showDetail" identifier="openEdit" id="610-sC-kSF"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="54L-Mr-Tnj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2419" y="800"/>
+        </scene>
+        <!--NewClassEvent-->
+        <scene sceneID="pvB-hU-TVl">
+            <objects>
+                <viewControllerPlaceholder storyboardName="NewClassEvent" id="q1s-D6-igc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Ed-Zn-Wl7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3090" y="800"/>
+        </scene>
+        <!--ClassInformation-->
+        <scene sceneID="Vvy-Qo-nbb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ClassInformation" id="aLT-ML-OXf" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E4Q-nU-1sk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1829" y="664"/>
+        </scene>
+        <!--EventInformation-->
+        <scene sceneID="Rb0-ek-gnu">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EventInformation" id="qGc-MA-ASn" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TMd-pZ-m1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1830" y="929"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="ZYO-hm-arR">
+            <objects>
+                <tabBarController storyboardIdentifier="mainTabBar" id="hOD-uw-X5t" customClass="MainTabBarController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Js7-mc-qiW">
+                        <barButtonItem key="leftBarButtonItem" title="Profile" image="profile" id="Rgb-2m-fBP">
+                            <color key="tintColor" red="0.4446590379" green="0.6517441236" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <segue destination="pQ2-pe-ssi" kind="show" identifier="showUserInfo" id="Ejl-cc-Nbv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6s5-at-iJB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="NavigationBarColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="profileBtn" destination="Rgb-2m-fBP" id="A9M-xN-Qua"/>
+                        <segue destination="gZW-CI-dfV" kind="relationship" relationship="viewControllers" id="wyM-gl-cpn"/>
+                        <segue destination="TXs-v9-nsH" kind="relationship" relationship="viewControllers" id="oE9-NO-YOD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3M0-Jz-FpQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1828.985507246377" y="41.517857142857139"/>
+        </scene>
+        <!--All-->
+        <scene sceneID="VV8-jd-C8j">
+            <objects>
+                <tableViewController id="gZW-CI-dfV" customClass="AllTableViewController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ny0-tk-7Pt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <connections>
+                            <outlet property="dataSource" destination="gZW-CI-dfV" id="E6Y-0A-EH1"/>
+                            <outlet property="delegate" destination="gZW-CI-dfV" id="EuA-tA-6zi"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" tag="1" title="All" image="home" springLoaded="YES" id="87h-Pi-vWb">
+                        <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="-2"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="IBt-Ng-Sei">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
+                    <connections>
+                        <segue destination="aLT-ML-OXf" kind="show" identifier="showClassInfo" id="oqs-1K-oWG"/>
+                        <segue destination="qGc-MA-ASn" kind="show" identifier="showEventInfo" id="N6G-mz-cfe"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BrI-KF-If8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1251" y="800"/>
+        </scene>
+        <!--UserInfo-->
+        <scene sceneID="cnZ-uO-jap">
+            <objects>
+                <viewControllerPlaceholder storyboardName="UserInfo" id="pQ2-pe-ssi" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AWT-To-ZDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2391" y="42"/>
+        </scene>
+        <!--LoginNavController-->
+        <scene sceneID="qaa-o7-gsZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="UserLogin" referencedIdentifier="LoginNavController" id="3HF-D4-DGg" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FuV-Aq-Qob" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="73" y="27"/>
+        </scene>
+        <!--Splash Screen View Controller-->
+        <scene sceneID="uxO-GO-H8C">
+            <objects>
+                <viewController id="10n-0O-KDn" customClass="SplashScreenViewController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rwu-qa-KgO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="b0W-oY-Hen">
+                                <rect key="frame" x="199" y="291" width="16" height="314"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzF-ge-fqW" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
+                                <rect key="frame" x="8" y="613" width="398" height="40"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GzF-ge-fqW" firstAttribute="top" secondItem="b0W-oY-Hen" secondAttribute="bottom" constant="8" id="L1B-vg-7gg"/>
+                            <constraint firstItem="b0W-oY-Hen" firstAttribute="height" secondItem="Rwu-qa-KgO" secondAttribute="height" multiplier="0.35" id="OQY-Xg-0cB"/>
+                            <constraint firstItem="2bh-V5-xgi" firstAttribute="trailing" secondItem="GzF-ge-fqW" secondAttribute="trailing" constant="8" id="QeI-wj-GKH"/>
+                            <constraint firstItem="b0W-oY-Hen" firstAttribute="centerX" secondItem="Rwu-qa-KgO" secondAttribute="centerX" id="Tzg-oq-YZX"/>
+                            <constraint firstItem="GzF-ge-fqW" firstAttribute="leading" secondItem="2bh-V5-xgi" secondAttribute="leading" constant="8" id="sh0-xX-Ejh"/>
+                            <constraint firstItem="b0W-oY-Hen" firstAttribute="centerY" secondItem="Rwu-qa-KgO" secondAttribute="centerY" id="si8-9a-0Ni"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2bh-V5-xgi"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="QK4-IU-0ci"/>
+                    <connections>
+                        <segue destination="3HF-D4-DGg" kind="presentation" identifier="showLogin" id="x8W-SI-S1n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TZa-Tc-6SI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-665" y="28"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="home" width="32" height="32"/>
+        <image name="logo" width="418" height="691"/>
+        <image name="profile" width="32" height="32"/>
+        <image name="saved" width="32" height="32"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="qjR-ui-CAz"/>
+        <segue reference="p1e-ZV-hEA"/>
+    </inferredMetricsTieBreakers>
+</document>

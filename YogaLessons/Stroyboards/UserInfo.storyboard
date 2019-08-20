@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wjS-2q-Fqn">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--User info-->
+        <scene sceneID="TMv-2h-Wv7">
+            <objects>
+                <viewController id="wjS-2q-Fqn" userLabel="User info" customClass="UserInfoViewController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sOr-Z8-Y6y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="E6X-hX-kP6" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
+                                <rect key="frame" x="157" y="60" width="100" height="100"/>
+                                <color key="backgroundColor" red="0.99175518750000002" green="0.99721795319999995" blue="0.93332499270000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="I4k-Fh-Vyb"/>
+                                    <constraint firstAttribute="height" constant="100" id="Who-8l-2eL"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="GMZ-cT-xCw" appends="YES" id="Shk-lc-us7"/>
+                                </connections>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="T4u-98-t3Q" userLabel="inputs">
+                                <rect key="frame" x="20" y="176" width="374" height="262"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="753" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qts-uv-dPj" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" textContentType="username"/>
+                                        <connections>
+                                            <action selector="nameChanged:" destination="wjS-2q-Fqn" eventType="editingDidEnd" id="DPG-7o-Y2g"/>
+                                        </connections>
+                                    </textField>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Nbv-LY-Tr5" userLabel="tf pickers">
+                                        <rect key="frame" x="0.0" y="54" width="374" height="30"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Level" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fo4-pu-aql" customClass="UserLevelField" customModule="YogaLessons" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="136" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="user" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birth Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KKe-Nf-Ob5" customClass="DateTextField" customModule="YogaLessons" customModuleProvider="target">
+                                                <rect key="frame" x="146" y="0.0" width="228" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="birthDateChanged:" destination="wjS-2q-Fqn" eventType="editingDidEnd" id="5PK-b8-Wch"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                    </stackView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="bXr-1M-UQZ" customClass="BetterTextView" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="108" width="374" height="154"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="PlaceHolder" value="About me..."/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaw-SY-zX8">
+                                <rect key="frame" x="24" y="462" width="366" height="39"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Reset password"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="resetPasswordWithEmail:" destination="wjS-2q-Fqn" eventType="touchUpInside" id="ggO-fU-X6f"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="T4u-98-t3Q" firstAttribute="top" secondItem="E6X-hX-kP6" secondAttribute="bottom" constant="16" id="0Fs-0a-lKQ"/>
+                            <constraint firstItem="T4u-98-t3Q" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="AHO-SM-7HQ"/>
+                            <constraint firstItem="bXr-1M-UQZ" firstAttribute="height" secondItem="KqX-3j-j1w" secondAttribute="height" multiplier="0.2" id="Kdu-cM-EGH"/>
+                            <constraint firstItem="T4u-98-t3Q" firstAttribute="leading" secondItem="KqX-3j-j1w" secondAttribute="leading" constant="20" id="UDg-db-FEL"/>
+                            <constraint firstItem="KqX-3j-j1w" firstAttribute="trailing" secondItem="T4u-98-t3Q" secondAttribute="trailing" constant="20" id="W9f-rK-Dqi"/>
+                            <constraint firstItem="eaw-SY-zX8" firstAttribute="top" secondItem="T4u-98-t3Q" secondAttribute="bottom" constant="24" id="aLJ-rd-0SF"/>
+                            <constraint firstItem="eaw-SY-zX8" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="kHc-tZ-crN"/>
+                            <constraint firstItem="E6X-hX-kP6" firstAttribute="top" secondItem="KqX-3j-j1w" secondAttribute="top" constant="16" id="lyd-hf-vLA"/>
+                            <constraint firstItem="KqX-3j-j1w" firstAttribute="trailing" secondItem="eaw-SY-zX8" secondAttribute="trailing" constant="24" id="mw3-DE-SHH"/>
+                            <constraint firstItem="eaw-SY-zX8" firstAttribute="leading" secondItem="KqX-3j-j1w" secondAttribute="leading" constant="24" id="vZl-69-iKZ"/>
+                            <constraint firstItem="E6X-hX-kP6" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="zq1-5V-rIz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KqX-3j-j1w"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" tag="2" title="Profile" image="profile" springLoaded="YES" id="Gy3-NS-LRh">
+                        <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="Name" id="1gU-B8-Y3A">
+                        <barButtonItem key="rightBarButtonItem" title="Sign out" id="SRk-fS-VJ9">
+                            <color key="tintColor" red="0.84491989213197971" green="0.22795042967001969" blue="0.08463818317838985" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="signoutTapped:" destination="wjS-2q-Fqn" id="bsk-1I-tWA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="aboutTV" destination="bXr-1M-UQZ" id="Rl6-ew-IUL"/>
+                        <outlet property="birthDateTF" destination="KKe-Nf-Ob5" id="foN-NM-p0B"/>
+                        <outlet property="levelTF" destination="Fo4-pu-aql" id="gH3-Gk-Zwg"/>
+                        <outlet property="nameTF" destination="qts-uv-dPj" id="Dr2-j2-xgk"/>
+                        <outlet property="profileImgView" destination="E6X-hX-kP6" id="pV7-Ww-u70"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="etQ-8o-aBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GMZ-cT-xCw">
+                    <connections>
+                        <action selector="camTap:" destination="wjS-2q-Fqn" id="YsJ-L8-fw4"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2234.7826086956525" y="766.74107142857144"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="camera" width="96" height="96"/>
+        <image name="profile" width="32" height="32"/>
+    </resources>
+</document>
