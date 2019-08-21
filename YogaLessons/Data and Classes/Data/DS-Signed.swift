@@ -163,7 +163,7 @@ extension DataSource{
             
             arrKey = YUser.Keys.signedC
             idsArr = cu.signedClassesIDS
-            signed_classes.append(dataObj as! Class)
+            signed_classes.insert(dataObj as! Class, at: 0)
         case .events:
             
             if cu.signedEventsIDS[objId] == nil{
@@ -174,7 +174,7 @@ extension DataSource{
             
             arrKey = YUser.Keys.signedE
             idsArr = cu.signedEventsIDS
-            signed_events.append(dataObj as! Event)
+            signed_events.insert(dataObj as! Event,at: 0)
         }
         
         

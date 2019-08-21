@@ -269,7 +269,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     func signinUserTo(_ indexPath: IndexPath) {
-        let onAdd:DSTaskListener = { error in
+        let onAdd = { error in
             SVProgressHUD.dismiss()
             
             if let err = error {
@@ -294,7 +294,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
                 }
                 return
             }
-        }
+        } as DSTaskListener
         
         SVProgressHUD.show()
         let data:DynamicUserCreateable

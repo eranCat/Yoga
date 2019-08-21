@@ -90,7 +90,7 @@ class DataSource {
     //MARK: -------loaders------
     func loadData(loaded:DSListener?) {
         
-        loadAllBatch(.classes,loadFromBegining: true){ hasDataEnded in
+        loadAll(.classes){
             
 //            self.loadAllBatch(.events,loadFromBegining: true){ hasDataEnded in
             self.loadAll(.events){
@@ -329,12 +329,10 @@ class DataSource {
             ids = .init(teacher.teachingClassesIDs.keys)
             
             if self.newClassHandle != nil{
-                taskDone?(nil)
                 break
             }
             self.all_classes.insert(dataObj as! Class,at: 0)
-            self.updateMainDict(sourceType: .all, dataType: .classes)
-            NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
+            
         case .events:
             
             arrKey = YUser.Keys.createdEvents
@@ -342,14 +340,13 @@ class DataSource {
             ids = .init(user.createdEventsIDs.keys)
 
             if self.newEventHandle != nil{
-                taskDone?(nil)
                 break
             }
             self.all_events.insert(dataObj as! Event, at: 0)
-            self.updateMainDict(sourceType: .all, dataType: .events)
-            NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
         }
+        self.updateMainDict(sourceType: .all, dataType: dType)
         
+        NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
         
         ref.child(TableNames.users.rawValue)//users table
             .child(uid)//of user by id
@@ -360,6 +357,7 @@ class DataSource {
                     taskDone?(error)
                     return
                 }
+                taskDone?(nil)
         }
     }
     

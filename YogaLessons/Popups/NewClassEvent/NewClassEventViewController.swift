@@ -253,8 +253,6 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                 ErrorAlert.show(message: error.localizedDescription)
                 return
             }
-            self.dismiss(animated: true)
-//            self.navigationController?.popViewController(animated: true)
         }
         
         switch dType {
@@ -283,6 +281,8 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         }
         
         SVProgressHUD.show()
+        self.dismiss(animated: true)
+        //            self.navigationController?.popViewController(animated: true)
         //only show after synchronic code finished
         //and dismissed when done saving
     }
