@@ -10,16 +10,16 @@ import Foundation
 
 extension Class{
     
-    typealias classCmp = (Class,Class) -> Bool
+    typealias ClassCmp = (Class,Class) -> Bool
     
-    static let mostRelevantSorter:classCmp = {
+    static let mostRelevantSorter:ClassCmp = {
         return Class.DateSorter($0,$1) && Class.LocationSorter($0,$1)
     }
     
-    static let titleSorter:classCmp = {$0.title.lowercased() < $1.title.lowercased()}
-    static let levelSorter = { $0.level.rawValue < $1.level.rawValue} as classCmp
-    static let DateSorter = {$0.startDate > $1.startDate} as classCmp
-    static let LocationSorter: classCmp = {
+    static let titleSorter:ClassCmp = {$0.title.lowercased() < $1.title.lowercased()}
+    static let levelSorter = { $0.level.rawValue < $1.level.rawValue} as ClassCmp
+    static let DateSorter = {$0.startDate > $1.startDate} as ClassCmp
+    static let LocationSorter: ClassCmp = {
         
         guard let loc = LocationUpdater.shared.getLastKnowLocation()
             else{return false}
@@ -30,7 +30,9 @@ extension Class{
         return c1Loc.distance(from: loc) < c2Loc.distance(from:loc)
     }
     
-    class func sorter(for st: SortType) -> classCmp {
+//    static let statusSorter:ClassCmp = { $0.status == .active}
+    
+    class func sorter(for st: SortType) -> ClassCmp {
         switch st {
             
         case .best:

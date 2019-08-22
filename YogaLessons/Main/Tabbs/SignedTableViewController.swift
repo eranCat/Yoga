@@ -34,11 +34,15 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         setupEmptyBG(withMessage: "No signed \(currentDataType)")
         
         isTeacher = (YUser.currentUser?.type == .teacher)
+        
+        subscribeObservers()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        subscribeObservers()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        subscribeObservers()
+//    }
     
 //    override func viewDidDisappear(_ animated: Bool) {
 //        NotificationCenter.default.removeObserver(self)
@@ -55,21 +59,18 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         }
     }
     
-    @objc func signedDataAdded(_ notif: Notification) {
-        
-        guard let type = notif.userInfo?["type"] as? DataType,
-            type == currentDataType
-            else{return}
-        
-        tableView.insertRows(at: [.init(row: 0, section: 0)], with: .automatic)
-    }
     
     func subscribeObservers() {
         
-        let names:[Notification.Name] = [._sortTapped,._signedDataAdded,._dataCancled]
+        let names:[Notification.Name] =
+            [._sortTapped,
+             ._signedDataAdded,
+//             ._signedDataRemoved,
+             ._dataCancled]
         
         let selectors:[Selector] = [#selector(onSortTapped(_:)),
                                      #selector(signedDataAdded(_:)),
+//                                     #selector(signedDataRemoved(_:)),
                                      #selector(onDataChanged(_:)),
                                     ]
         
@@ -79,6 +80,28 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             centerDef.addObserver(self,selector: selector,name: name,object: nil)
         }
     }
+
+    @objc func signedDataAdded(_ notif: Notification) {
+        
+        guard let type = notif.userInfo?["type"] as? DataType,
+            type == currentDataType
+            else{return}
+        
+        let ip: IndexPath = .init(row: 0, section: 1)
+        
+        tableView.insertRows(at: [ip], with: .automatic)
+        tableView.scrollToRow(at: ip, at: .top, animated: true)
+    }
+
+    @objc func signedDataRemoved(_ notif: Notification) {
+        
+        guard let type = notif.userInfo?["type"] as? DataType,
+            type == currentDataType
+            else{return}
+        
+        tableView.reloadData()
+    }
+
     @objc func onDataChanged(_ notification:NSNotification) {
         
         guard
@@ -109,7 +132,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         dataSource.sort(by: sType,sourceType: .signed,dataType: dType)
         
-        refreshData()
+        tableView.reloadData()
         
         updateEmptyLabel()
     }
@@ -145,6 +168,25 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         return sectionsHeaders.count
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        guard let header = view as? UITableViewHeaderFooterView
+            else { return }
+        
+        if let lbl = header.textLabel{
+            lbl.font = UIFont.boldSystemFont(ofSize: 24)
+            lbl.frame = header.frame
+            lbl.textAlignment = .center
+            lbl.textColor = .white
+        }
+        
+        header.tintColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard !isEmpty
             else{return nil}
@@ -155,7 +197,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let signedCount = dataSource.getList(sourceType: .signed, dType: currentDataType).count
-        let count = dataSource.user_sUploads(dType: currentDataType).count
+        let count = dataSource.getUser_sUploads(dType: currentDataType).count
         isEmpty = (signedCount == 0 && count == 0)
         
         switch section {
@@ -181,7 +223,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         switch indexPath.section{
         case 0:
-            data = dataSource.user_sUploads(dType: currentDataType)[indexPath.row]
+            data = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row]
             cell.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
             cell.selectionStyle = .none
         case 1:fallthrough
@@ -201,13 +243,18 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
+        
         switch indexPath.section {
         case 0:
-            let cancel = UITableViewRowAction(style: .destructive,
-                                              title: "Cancel "+currentDataType.singular)
-                                                {self.cancelPost(indexPath: $1)}
-            
-            return [cancel]
+            let data = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row] as? Statused
+            if data?.status != .cancled{
+                let cancel = UITableViewRowAction(style: .destructive,
+                                                  title: "Cancel "+currentDataType.singular)
+                                                    {self.cancelPost(indexPath: $1)}
+                
+                return [cancel]
+            }
+            return []//make unsign action
 
         case 1:fallthrough//signed
         default:
@@ -217,11 +264,13 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             return [unsign]
         }
     }
+    
+    
     func unsign(indexPath:IndexPath) {
         //            MARK:check where to remove from
         SVProgressHUD.show()
         
-        self.dataSource.unsignFrom(self.currentDataType, at: indexPath){err in
+        self.dataSource.unsignFrom(currentDataType, at: indexPath){err in
             SVProgressHUD.dismiss()
             if let err = err {
                 ErrorAlert.show(message: err.localizedDescription)
@@ -238,13 +287,8 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             if let err = error {
                 ErrorAlert.show(message: err.localizedDescription)
             }
-            self.tableView.reloadRows(at: [indexPath], with: .fade)
+            self.tableView.reloadRows(at: [indexPath], with: .right)
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        dataSource.swapSigned(currentDataType, from: sourceIndexPath.row, to: destinationIndexPath.row)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -254,7 +298,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         switch indexPath.section{
         case 0:
-            sender = dataSource.user_sUploads(dType: currentDataType)[indexPath.row]
+            sender = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row]
             segueId = SeguesIDs.edit.rawValue
         case 1:fallthrough
         default:

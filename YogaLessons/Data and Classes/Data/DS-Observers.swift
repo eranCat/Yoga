@@ -23,8 +23,13 @@ extension DataSource{
                     
                     guard let json = newChild.value as? JSON
                         else{return}
-                
-                    self.all_classes.insert(Class(json), at: 0)
+                    
+                    let aClass = Class(json)
+                    
+                    guard !self.all_classes.contains(where: {$0.id == aClass.id})
+                        else{return}
+
+                    self.all_classes.insert(aClass, at: 0)
                     
                     self.updateMainDict(sourceType: .all, dataType: .classes)
                     
@@ -32,7 +37,6 @@ extension DataSource{
                                 "indexPath":IndexPath(row: 0, section: 0)] as [String : Any]
                 
                     NotificationCenter.default.post(name: ._dataAdded,userInfo: userInfo)
-                    
                 }
         }
     }
@@ -48,7 +52,11 @@ extension DataSource{
                     guard let json = newChild.value as? JSON
                         else{return}
                 
-                    self.all_events.insert( Event(json) , at: 0)
+                    let event: Event = Event(json)
+                    guard !self.all_events.contains(where: {$0.id == event.id})
+                        else{return}
+
+                    self.all_events.insert( event , at: 0)
                     
                     self.updateMainDict(sourceType: .all, dataType: .events)
                     
@@ -75,28 +83,21 @@ extension DataSource{
                 let predicate:((Class)->Bool) = {$0.id == aClass.id}
                 
                 //                    all
-                if let i = self.all_classes.firstIndex(where: predicate){
-                    self.all_classes[i] = aClass
+                if self.all_classes.replaceFirst(where: predicate,data: aClass){
+                    self.updateMainDict(sourceType: .all, dataType: .classes)
                 }
                 
                 //                        uploads
                 if user.type == .teacher && aClass.uid == user.id{
-                    if let i = self.teacherCreatedClasses.firstIndex(where: predicate){
-                        self.teacherCreatedClasses[i] = aClass
-                    }
+                    self.teacherCreatedClasses.replaceFirst(where: predicate, data: aClass)
                 }
                 
                 //                        signed
                 if user.signedClassesIDS[aClass.id!] != nil{
-                    if let i = self.signed_classes.firstIndex(where: predicate){
-                        self.signed_classes[i] = aClass
+                    if self.signed_classes.replaceFirst(where: predicate,data: aClass){
+                        self.updateMainDict(sourceType: .signed, dataType: .classes)
                     }
                 }
-                
-                
-                self.updateMainDict(sourceType: .all, dataType: .classes)
-                
-                
                 
                 var userInfo: [String : Any] = ["type" : DataType.classes]
                 userInfo["status"] = aClass.status
@@ -121,25 +122,21 @@ extension DataSource{
                 let predicate:((Event)->Bool) = {$0.id == event.id}
                 
                 //                    all
-                if let i = self.all_events.firstIndex(where: predicate){
-                    
-                    self.all_events[i] = event
+                if self.all_events.replaceFirst(where: predicate, data: event){
+                    self.updateMainDict(sourceType: .all, dataType: .events)
                 }
                 
                 //                        uploads
                 if event.uid == user.id{
-                    self.userCreatedEvents.append(event)
+                    self.userCreatedEvents.replaceFirst(where: predicate, data: event)
                 }
                 
                 //                        signed
-                if user.signedEventsIDS[event.id!] != nil,
-                    let i = self.signed_events.firstIndex(where: predicate){
-                    
-                    self.signed_events[i] = event
+                if user.signedEventsIDS[event.id!] != nil{
+                    if self.signed_events.replaceFirst(where: predicate, data: event){
+                        self.updateMainDict(sourceType: .signed, dataType: .events)
+                    }
                 }
-                    
-                
-                self.updateMainDict(sourceType: .all, dataType: .events)
                 
                 var userInfo: [String : Any] = ["type" : DataType.events]
                 userInfo["status"] = event.status

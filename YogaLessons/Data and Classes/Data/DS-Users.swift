@@ -27,7 +27,7 @@ extension DataSource{
                     let user = YUser(userDict)
                     self.usersList[user.id!] = user
                 case .teacher:
-                    let teacher:Teacher = .init(userDict)
+                    let teacher = Teacher(userDict)
                     self.teachersList[teacher.id!] = teacher
                 }
             }

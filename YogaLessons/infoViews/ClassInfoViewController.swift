@@ -66,7 +66,13 @@ class ClassInfoViewController: UITableViewController {
     }
     fileprivate func setSigninBtn( isSigned:Bool) {
         if !isSigned{
+            if classModel.status == .open{
+                
             navigationItem.rightBarButtonItem = .init(title: "Sign in", style: .plain, target: self, action: #selector(signinToClass))
+                
+            }else{
+                navigationItem.rightBarButtonItem = nil
+            }
         }
         else{
             navigationItem.rightBarButtonItem = .init(title: "I'm out", style: .plain, target: self, action: #selector(signOutClass))
@@ -185,7 +191,7 @@ class ClassInfoViewController: UITableViewController {
                     }
                     return
                 }
-                
+                self.navigationController?.popViewController(animated: true)
                 self.setSigninBtn(isSigned: true)
         }
     }

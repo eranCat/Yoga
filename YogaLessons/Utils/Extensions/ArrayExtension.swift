@@ -17,3 +17,14 @@ extension NSArray{
 //    }
     
 }
+
+extension Array{
+    mutating public func replaceFirst(where condition:(Element)->Bool,data:Element) -> Bool {
+        guard let i = self.firstIndex(where : condition)
+            else{return false}
+        
+        self[i] = data
+        
+        return true
+    }
+}

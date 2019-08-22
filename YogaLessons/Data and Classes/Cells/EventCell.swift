@@ -69,9 +69,10 @@ extension EventCell:PopulateDelegate{
         if event.imageUrl != nil{
         StorageManager.shared
             .setImage(of: event, imgView: eventImgView)
-        }else{
-            eventImgView.isHidden = true
         }
+        
+        //true when no image,false for image
+        eventImgView.isHidden = (event.imageUrl == nil)
         
         cancledImageView.isHidden = event.status != .cancled
         cancledImageView.layer.zPosition = 10

@@ -76,9 +76,9 @@ class DataSource {
         observeClassChanged()
         observeEventChanged()
         
-        //        MARK: remove from comment
-        //        self.observeClassAdded()
-        //        self.observeEventAdded()
+//        MARK: remove from comment
+//        observeClassAdded()
+//        observeEventAdded()
     }
     
     deinit {
@@ -129,7 +129,7 @@ class DataSource {
                         }
                         
                         //signed
-                        if let isActive = signedIds[aClass.id!],isActive{
+                        if let isActive = signedIds[aClass.id!]{
                             self.signed_classes += [aClass]
                         }
                     case .events:
@@ -144,7 +144,7 @@ class DataSource {
                         }
                         
                         //signed
-                        if let isActive = signedIds[event.id!],isActive{
+                        if let isActive = signedIds[event.id!]{
                             self.signed_events += [event]
                         }
                     }
@@ -155,10 +155,6 @@ class DataSource {
                 
                 
                 loaded?(values.isEmpty)
-                
-                //            NotificationCenter.default
-                //                .post(name: ._dataLoaded,userInfo: ["sourceType":SourceType.all])
-                
         }
     }
     
@@ -236,48 +232,66 @@ class DataSource {
             switch dType{
                 
             case .classes:
+                
                 self.all_classes.removeAll()
+                self.signed_classes.removeAll()
+                self.teacherCreatedClasses.removeAll()
+                
                 for child in values{
                     guard let json = child.value as? JSON
                         else{continue}
                     
                     let aClass = Class(json)
-                    self.all_classes.append(aClass)
+                    
+//                    for class is cancled
+                    if aClass.status != .cancled{
+                        self.all_classes.insert(aClass, at: 0)//push to top
+                    }else{
+                        self.all_classes.append(aClass)//add to bottom
+                    }
+                    
                     //                        uploads
                     if user.type == .teacher && aClass.uid == user.id{
                         
                         self.teacherCreatedClasses.append(aClass)
                     }
                     //                        signed
-                    if let isActive = user.signedClassesIDS[aClass.id!],isActive{
+                    if let _ = user.signedClassesIDS[aClass.id!]{
                         self.signed_classes += [aClass]
                     }
                 }
             case .events:
+                
                 self.all_events.removeAll()
+                self.signed_events.removeAll()
+                self.userCreatedEvents.removeAll()
+                
                 for child in values{
                     guard let json = child.value as? JSON
                         else{continue}
                     
                     let event = Event(json)
-                    self.all_events.append(event)
+                    
+                    if event.status != .cancled{
+                        self.all_events.insert(event, at: 0)//push to top
+                    }else{
+                        self.all_events.append(event)//add to bottom
+                    }
                     //                        uploads
                     if event.uid == user.id{
                         self.userCreatedEvents.append(event)
                     }
                     //                        signed
-                    if let isActive = user.signedEventsIDS[event.id!] ,isActive{
+                    if let _ = user.signedEventsIDS[event.id!]{
                         self.signed_events += [event]
                     }
                 }
             }
             
             self.updateMainDict(sourceType: .all, dataType: dType)
-            
+            self.updateMainDict(sourceType: .signed, dataType: dType)
+
             loaded?()
-            
-            NotificationCenter.default
-                .post(name: ._dataLoaded,userInfo: ["sourceType":SourceType.all])
         }
     }
     
@@ -484,7 +498,7 @@ class DataSource {
         return getList(sourceType: sourceType, dType: dType).count
     }
     
-    func user_sUploads(dType:DataType) -> [DynamicUserCreateable] {
+    func getUser_sUploads(dType:DataType) -> [DynamicUserCreateable] {
         switch dType {
         case .classes:return teacherCreatedClasses
         case .events:return userCreatedEvents

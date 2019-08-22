@@ -166,7 +166,7 @@ extension DataSource{
             signed_classes.insert(dataObj as! Class, at: 0)
         case .events:
             
-            if cu.signedEventsIDS[objId] == nil{
+            if cu.signedEventsIDS[objId] != nil{
                 taskDone?(SigningErrors.alreadySignedToEvent)
                 return
             }
@@ -313,17 +313,17 @@ extension DataSource{
     }
     
     
-    func swapSigned(_ dType:DataType,from i:Int,to j:Int) {
-        switch dType {
-            
-        case .classes:
-            if !signed_classes.isEmpty{
-                signed_classes.swapAt(i, j)
-            }
-        case .events:
-            if !signed_events.isEmpty{
-                signed_events.swapAt(i, j)
-            }
-        }
-    }
+//    func swapSigned(_ dType:DataType,from i:Int,to j:Int) {
+//        switch dType {
+//
+//        case .classes:
+//            if !signed_classes.isEmpty{
+//                signed_classes.swapAt(i, j)
+//            }
+//        case .events:
+//            if !signed_events.isEmpty{
+//                signed_events.swapAt(i, j)
+//            }
+//        }
+//    }
 }

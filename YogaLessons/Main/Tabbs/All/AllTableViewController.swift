@@ -196,7 +196,12 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let objId = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)!.id!
+        let data = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)!
+        guard let statused = data as? Statused,
+            statused.status == .open
+            else{return []}
+        
+        let objId = data.id!
         let signed:[String:Bool]
         
         let user = YUser.currentUser!
