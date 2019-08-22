@@ -28,30 +28,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="197.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zas-M4-weQ">
-                                                    <rect key="frame" x="8" y="0.0" width="54" height="40"/>
-                                                    <fontDescription key="fontDescription" name="GujaratiSangamMN" family="Gujarati Sangam MN" pointSize="28"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="image-holder" translatesAutoresizingMaskIntoConstraints="NO" id="buc-xW-APM">
-                                                    <rect key="frame" x="8" y="40" width="400" height="149.5"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
-                                                    <gestureRecognizers/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="400" id="Gkv-RA-FKO"/>
-                                                        <constraint firstAttribute="width" secondItem="buc-xW-APM" secondAttribute="height" multiplier="398:149" id="nkO-Ws-n1p"/>
-                                                    </constraints>
-                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IJP-Js-KWT">
+                                                    <rect key="frame" x="0.0" y="8" width="414" height="181.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zas-M4-weQ">
+                                                            <rect key="frame" x="180" y="0.0" width="54" height="39.5"/>
+                                                            <fontDescription key="fontDescription" name="GujaratiSangamMN" family="Gujarati Sangam MN" pointSize="28"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" image="image-holder" translatesAutoresizingMaskIntoConstraints="NO" id="buc-xW-APM">
+                                                            <rect key="frame" x="88" y="47.5" width="238" height="134"/>
+                                                            <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                            <gestureRecognizers/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="180" id="k3W-9v-KOV"/>
+                                                                <constraint firstAttribute="width" secondItem="buc-xW-APM" secondAttribute="height" multiplier="16:9" id="nkO-Ws-n1p"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="buc-xW-APM" firstAttribute="leading" secondItem="kcT-4q-T32" secondAttribute="leading" constant="8" id="Rkb-Ii-59h"/>
-                                                <constraint firstItem="zas-M4-weQ" firstAttribute="leading" secondItem="kcT-4q-T32" secondAttribute="leading" constant="8" id="ad9-ti-sID"/>
-                                                <constraint firstItem="buc-xW-APM" firstAttribute="top" secondItem="zas-M4-weQ" secondAttribute="bottom" id="cYT-Se-vaf"/>
-                                                <constraint firstAttribute="bottom" secondItem="buc-xW-APM" secondAttribute="bottom" constant="8" id="ePG-50-INh"/>
-                                                <constraint firstItem="zas-M4-weQ" firstAttribute="top" secondItem="kcT-4q-T32" secondAttribute="top" id="fhL-rJ-GvY"/>
-                                                <constraint firstAttribute="trailing" secondItem="buc-xW-APM" secondAttribute="trailing" constant="8" id="foc-YO-ofI"/>
-                                                <constraint firstAttribute="trailing" secondItem="zas-M4-weQ" secondAttribute="trailing" constant="8" id="nhZ-RM-fmS"/>
+                                                <constraint firstItem="IJP-Js-KWT" firstAttribute="leading" secondItem="kcT-4q-T32" secondAttribute="leading" id="F8o-Ga-uEV"/>
+                                                <constraint firstItem="IJP-Js-KWT" firstAttribute="top" secondItem="kcT-4q-T32" secondAttribute="top" constant="8" id="IXj-cz-YCQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="IJP-Js-KWT" secondAttribute="bottom" constant="8" id="PAo-EO-xfz"/>
+                                                <constraint firstAttribute="trailing" secondItem="IJP-Js-KWT" secondAttribute="trailing" id="azU-h1-aCr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
