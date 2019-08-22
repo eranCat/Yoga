@@ -71,8 +71,9 @@ extension EventCell:PopulateDelegate{
             .setImage(of: event, imgView: eventImgView)
         }
         
-        //true when no image,false for image
-        eventImgView.isHidden = (event.imageUrl == nil)
+        UIView.animate(withDuration: 0.2) {
+            self.eventImgView.isHidden = (event.imageUrl == nil) //true when no image,false for image
+        }
         
         cancledImageView.isHidden = event.status != .cancled
         cancledImageView.layer.zPosition = 10

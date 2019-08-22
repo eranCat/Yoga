@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="437" height="179.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UfP-Fl-IFo">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UfP-Fl-IFo">
                         <rect key="frame" x="8" y="8" width="421" height="163.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVg-vl-eNQ" userLabel="image with date">
