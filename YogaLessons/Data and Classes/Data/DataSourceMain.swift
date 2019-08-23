@@ -31,7 +31,8 @@ class DataSource {
         }
     }
     
-    let MaxPerBatch:UInt = 30
+    let MaxPerBatch = 30 as UInt
+    let MaxRangeKm = 100 as CLLocationDistance
     
     var usersList:[String:YUser]//Dictionary<id:User>
     var teachersList:[String:Teacher]//Dictionary<id:Teacher>
@@ -108,6 +109,7 @@ class DataSource {
                     else{
                         loaded?(true)
                         return}
+                let currentLocation = LocationUpdater.shared.getLastKnowLocation()
                 
                 for child in values{
                     guard child.key != lastPost?.id//!allIds.contains(child.key)
@@ -120,32 +122,53 @@ class DataSource {
                     case .classes:
                         let aClass = Class(json)
                         
-                        //  all
-                        self.all_classes.append(aClass)
+                        guard self.isInRange(currentLocation: currentLocation, location: aClass.location)
+                            else{continue}
                         
+                        //  all
+                        if aClass.status != .cancled{
+                            self.all_classes.insert(aClass, at: 0)
+                        }else{
+                            self.all_classes.append(aClass)
+                        }
                         //uploads
                         if user.type == .teacher && aClass.uid == user.id{
                             self.teacherCreatedClasses.append(aClass)
                         }
                         
                         //signed
-                        if let isActive = signedIds[aClass.id!]{
-                            self.signed_classes += [aClass]
+                        if signedIds[aClass.id!] != nil{
+                            if aClass.status != .cancled{
+                                self.signed_classes.insert(aClass, at: 0)
+                            }else{
+                                self.signed_classes.append(aClass)
+                            }
                         }
                     case .events:
                         let event = Event(json)
                         
-                        //all
-                        self.all_events.append(event)
+                        guard self.isInRange(currentLocation: currentLocation, location: event.location)
+                            else{continue}
                         
+                        //all
+                        if event.status != .cancled{
+                            self.all_events.insert(event, at: 0)
+                        }else{
+                            self.all_events.append(event)
+                        }
+                            
                         //uploads
                         if event.uid == user.id{
                             self.userCreatedEvents.append(event)
                         }
                         
                         //signed
-                        if let isActive = signedIds[event.id!]{
-                            self.signed_events += [event]
+                        if signedIds[event.id!] != nil{
+                            if event.status != .cancled{
+                                self.signed_events.insert(event, at: 0)
+                            }else{
+                                self.signed_events.append(event)
+                            }
                         }
                     }
                 }
@@ -228,6 +251,8 @@ class DataSource {
             }
             
             let user = YUser.currentUser!
+
+            let lastLocation = LocationUpdater.shared.getLastKnowLocation()
             
             switch dType{
                 
@@ -243,6 +268,9 @@ class DataSource {
                     
                     let aClass = Class(json)
                     
+                    guard self.isInRange(currentLocation: lastLocation, location: aClass.location)
+                        else{continue}
+                    
 //                    for class is cancled
                     if aClass.status != .cancled{
                         self.all_classes.insert(aClass, at: 0)//push to top
@@ -257,7 +285,11 @@ class DataSource {
                     }
                     //                        signed
                     if let _ = user.signedClassesIDS[aClass.id!]{
-                        self.signed_classes += [aClass]
+                        if aClass.status != .cancled{
+                            self.signed_classes.insert(aClass, at: 0)
+                        }else{
+                            self.signed_classes.append(aClass)
+                        }
                     }
                 }
             case .events:
@@ -272,6 +304,10 @@ class DataSource {
                     
                     let event = Event(json)
                     
+                    guard self.isInRange(currentLocation: lastLocation, location: event.location)
+                        else{continue}
+                    
+                    
                     if event.status != .cancled{
                         self.all_events.insert(event, at: 0)//push to top
                     }else{
@@ -283,7 +319,11 @@ class DataSource {
                     }
                     //                        signed
                     if let _ = user.signedEventsIDS[event.id!]{
-                        self.signed_events += [event]
+                        if event.status != .cancled{
+                            self.signed_events.insert(event, at: 0)
+                        }else{
+                            self.signed_events.append(event)
+                        }
                     }
                 }
             }
@@ -293,6 +333,21 @@ class DataSource {
 
             loaded?()
         }
+    }
+    
+    func isInRange(currentLocation:CLLocation?,location:CLLocation) -> Bool {
+//        add return true if you don't want location sort
+//        return true
+        if let loc = currentLocation{
+            let distance = location.distance(from: loc)
+            let meters = MaxRangeKm * 1000 /*km*/
+            if distance < meters{
+                return true
+            }
+            return false
+        }
+        
+        return true
     }
     
     
