@@ -65,6 +65,7 @@ class EventInfoViewController: UITableViewController {
         equipmentTv.roundCorners()
         extraNotesTv.roundCorners()
         eventImgView.roundCorners()
+        opNameLbl.roundCorners()
 
         if let stack = view.subviews.first as? UIStackView{
             stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true

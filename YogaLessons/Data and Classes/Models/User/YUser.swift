@@ -30,7 +30,9 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
     
     var createdEventsIDs:[String:Status]//Event id
     
-    init(id:String? = nil,name:String,about:String? = nil,level:Level = .beginner,type:UserType, profileImage img:String? = nil,birthDate:Date){
+    var email:String?
+    
+    init(id:String? = nil,name:String,about:String? = nil,level:Level = .beginner,type:UserType, profileImage img:String? = nil,birthDate:Date,email:String){
         
         self.id = id
         self.name = name
@@ -44,6 +46,8 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
         self.signedClassesIDS = [:]
         
         self.createdEventsIDs = [:]
+        
+        self.email = email
     }
     func encode() -> JSON {
         
@@ -60,6 +64,8 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
         dict[Keys.signedE] = signedEventsIDS
         
         dict[Keys.createdEvents] = createdEventsIDs.mapValues{$0.rawValue}
+        
+        dict[Keys.email] = email
         
         return dict
     }
@@ -96,6 +102,8 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
        
         let idsAndRv = dict[Keys.createdEvents] as? [String:Int] ?? [:]
         createdEventsIDs = idsAndRv.mapValues{ Status(rawValue:$0) ?? .open}
+        
+        self.email = dict[Keys.email] as? String
     }
     
     

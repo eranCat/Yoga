@@ -20,6 +20,8 @@ extension YUser{
         static let signedC = UserKeys.signedC.rawValue
         static let signedE = UserKeys.signedE.rawValue
         static let createdEvents = UserKeys.createdEvents.rawValue
+        static let email = UserKeys.email.rawValue
+        
     }
     
     static let Model:[String:String] = [
@@ -40,6 +42,7 @@ extension YUser{
         case signedC = "signedClasses"
         case signedE = "signedEvents"
         case createdEvents = "createdEventsIds"
+        case email = "email"
     }
     
     func setValue(_ value: Any?, forKey key: UserKeys) -> Any?{//returns a simple saveable obj for firebase
@@ -90,6 +93,9 @@ extension YUser{
         case .createdEvents:
             self.createdEventsIDs = value as? [String:Status] ?? [:]
             return createdEventsIDs.mapValues{$0.rawValue}
+        case .email:
+            self.email = value as? String
+            return email
         }
     }
 }

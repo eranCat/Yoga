@@ -159,7 +159,11 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     
     @objc func refreshData() {
         
-        dataSource.loadAll(currentDataType) {
+        dataSource.loadAll(currentDataType) { err in
+            if let error = err{
+                ErrorAlert.show(message: error.localizedDescription)
+                return
+            }
             self.reload()
         }
     }
@@ -244,7 +248,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         
         
         if isSearching{
-            data = filtered[currentDataType]![indexPath.row]
+            data = filtered[currentDataType]![safe: indexPath.row]
         }
         else{
             data = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)

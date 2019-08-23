@@ -103,7 +103,7 @@ class LocationUpdater:NSObject {
         }
     
         
-        let alert = UIAlertController(title: "Selection", message: "Select Navigation App", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         installedNavigationApps.forEach {alert.addAction($0)}
         

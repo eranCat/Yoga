@@ -70,6 +70,7 @@ class LoginViewController: UIViewController,TextFieldReturn {
                 if let error = err{
                     ErrorAlert.show(message: error.localizedDescription)
                 }else{
+                    DataSource.shared.setLoggedUser()
                     self.show(self.newVC(id: "mainNav"), sender: nil)
                 }
                 self.loginBtn.isEnabled = true

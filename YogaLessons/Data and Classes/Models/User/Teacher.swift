@@ -12,15 +12,15 @@ class Teacher:YUser {
     
     var teachingClassesIDs:[String:Status]//Class id
     
-    override init (id:String? = nil,name:String,about:String? = nil,level:Level = .beginner,type:UserType = .student,profileImage img:String? = nil,birthDate:Date) {
+    override init (id:String? = nil,name:String,about:String? = nil,level:Level = .beginner,type:UserType = .student,profileImage img:String? = nil,birthDate:Date,email:String) {
         
         teachingClassesIDs = [:]
         
-        super.init(id: id,name: name, about: about, level: level,type: .teacher, profileImage: img,birthDate: birthDate)
+        super.init(id: id,name: name, about: about, level: level,type: .teacher, profileImage: img,birthDate: birthDate,email:email)
     }
     
     convenience init(user: YUser) {
-        self.init(id: user.id,name: user.name, about: user.about, level: user.level, profileImage: user.profileImageUrl,birthDate: user.bDate)
+        self.init(id: user.id,name: user.name, about: user.about, level: user.level, profileImage: user.profileImageUrl,birthDate: user.bDate,email:user.email ?? "")
     }
     
     required init(_ dict: JSON) {

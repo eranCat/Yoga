@@ -89,13 +89,15 @@ class DataSource {
     
     
     //MARK: -------loaders------
-    func loadData(loaded:DSListener?) {
+    func loadData(loaded:DSTaskListener?) {
         
-        loadAll(.classes){
-            
-//            self.loadAllBatch(.events,loadFromBegining: true){ hasDataEnded in
-            self.loadAll(.events){
-                loaded?()
+        loadAll(.classes){ error in
+            if error != nil{
+                loaded?(error)
+                return
+            }
+            self.loadAll(.events){ error in
+                loaded?(error)
             }
         }
     }
@@ -233,7 +235,72 @@ class DataSource {
         
         executeAllLoadQuery(queriedRef, loadedHandler, dType, user, signedIds,lastPost)
     }
-    func loadAll(_ dType:DataType,loaded:DSListener?) {
+    
+    fileprivate func convertValuesToClasses(_ values: [DataSnapshot], _ lastLocation: CLLocation?, _ user: YUser) {
+        for child in values{
+            guard let json = child.value as? JSON
+                else{continue}
+            
+            let aClass = Class(json)
+            
+            guard self.isInRange(currentLocation: lastLocation, location: aClass.location)
+                else{continue}
+            
+            //                    for class is cancled
+            if aClass.status != .cancled{
+                self.all_classes.insert(aClass, at: 0)//push to top
+            }else{
+                self.all_classes.append(aClass)//add to bottom
+            }
+            
+            //                        uploads
+            if user.type == .teacher && aClass.uid == user.id{
+                
+                self.teacherCreatedClasses.append(aClass)
+            }
+            //                        signed
+            if let _ = user.signedClassesIDS[aClass.id!]{
+                if aClass.status != .cancled{
+                    self.signed_classes.insert(aClass, at: 0)
+                }else{
+                    self.signed_classes.append(aClass)
+                }
+            }
+        }
+    }
+    
+    fileprivate func convertValuesToEvents(_ values: [DataSnapshot], _ lastLocation: CLLocation?, _ user: YUser) {
+        for child in values{
+            guard let json = child.value as? JSON
+                else{continue}
+            
+            let event = Event(json)
+            
+            guard self.isInRange(currentLocation: lastLocation, location: event.location)
+                else{continue}
+            
+            
+            if event.status != .cancled{
+                self.all_events.insert(event, at: 0)//push to top
+            }else{
+                self.all_events.append(event)//add to bottom
+            }
+            //                        uploads
+            if event.uid == user.id{
+                self.userCreatedEvents.append(event)
+            }
+            //                        signed
+            if let _ = user.signedEventsIDS[event.id!]{
+                if event.status != .cancled{
+                    self.signed_events.insert(event, at: 0)
+                }else{
+                    self.signed_events.append(event)
+                }
+            }
+        }
+    }
+    
+    func loadAll(_ dType:DataType,loaded:DSTaskListener?) {
         
         let tableKey = TableNames.name(for: dType)//classes/events
         
@@ -246,7 +313,7 @@ class DataSource {
             
             guard let values = snapshot.children.allObjects as? [DataSnapshot]
                 else{
-                    loaded?()
+                    loaded?(JsonErrors.castFailed)
                     return
             }
             
@@ -262,81 +329,25 @@ class DataSource {
                 self.signed_classes.removeAll()
                 self.teacherCreatedClasses.removeAll()
                 
-                for child in values{
-                    guard let json = child.value as? JSON
-                        else{continue}
-                    
-                    let aClass = Class(json)
-                    
-                    guard self.isInRange(currentLocation: lastLocation, location: aClass.location)
-                        else{continue}
-                    
-//                    for class is cancled
-                    if aClass.status != .cancled{
-                        self.all_classes.insert(aClass, at: 0)//push to top
-                    }else{
-                        self.all_classes.append(aClass)//add to bottom
-                    }
-                    
-                    //                        uploads
-                    if user.type == .teacher && aClass.uid == user.id{
-                        
-                        self.teacherCreatedClasses.append(aClass)
-                    }
-                    //                        signed
-                    if let _ = user.signedClassesIDS[aClass.id!]{
-                        if aClass.status != .cancled{
-                            self.signed_classes.insert(aClass, at: 0)
-                        }else{
-                            self.signed_classes.append(aClass)
-                        }
-                    }
-                }
+                self.convertValuesToClasses(values, lastLocation, user)
             case .events:
                 
                 self.all_events.removeAll()
                 self.signed_events.removeAll()
                 self.userCreatedEvents.removeAll()
                 
-                for child in values{
-                    guard let json = child.value as? JSON
-                        else{continue}
-                    
-                    let event = Event(json)
-                    
-                    guard self.isInRange(currentLocation: lastLocation, location: event.location)
-                        else{continue}
-                    
-                    
-                    if event.status != .cancled{
-                        self.all_events.insert(event, at: 0)//push to top
-                    }else{
-                        self.all_events.append(event)//add to bottom
-                    }
-                    //                        uploads
-                    if event.uid == user.id{
-                        self.userCreatedEvents.append(event)
-                    }
-                    //                        signed
-                    if let _ = user.signedEventsIDS[event.id!]{
-                        if event.status != .cancled{
-                            self.signed_events.insert(event, at: 0)
-                        }else{
-                            self.signed_events.append(event)
-                        }
-                    }
-                }
+                self.convertValuesToEvents(values, lastLocation, user)
             }
             
             self.updateMainDict(sourceType: .all, dataType: dType)
             self.updateMainDict(sourceType: .signed, dataType: dType)
 
-            loaded?()
+            loaded?(nil)
         }
     }
     
     func isInRange(currentLocation:CLLocation?,location:CLLocation) -> Bool {
-//        add return true if you don't want location sort
+        //        MARK:add return true if you don't want location sort
 //        return true
         if let loc = currentLocation{
             let distance = location.distance(from: loc)

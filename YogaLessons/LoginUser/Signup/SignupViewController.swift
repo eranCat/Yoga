@@ -79,7 +79,7 @@ class SignupViewController: UIViewController,TextFieldReturn {
         
         let about = !self.tv_about.isEmpty ? self.tv_about.text : nil
         
-        let user = YUser(name: name,about: about, level: level, type: type, birthDate: bDate)
+        let user = YUser(name: name,about: about, level: level, type: type, birthDate: bDate,email:email)
         
         
         //add user to authenticated users

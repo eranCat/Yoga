@@ -218,14 +218,14 @@
                                                             <rect key="frame" x="104" y="0.0" width="294" height="79.5"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="g5V-El-NLf" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
-                                                                    <rect key="frame" x="115.5" y="0.0" width="63" height="63"/>
+                                                                    <rect key="frame" x="117" y="0.0" width="60" height="60"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="g5V-El-NLf" secondAttribute="height" multiplier="1:1" id="8tp-Aw-Eut"/>
-                                                                        <constraint firstAttribute="width" constant="63" id="t9f-Yr-hf4"/>
+                                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="t9f-Yr-hf4"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcj-tD-fS7">
-                                                                    <rect key="frame" x="126" y="71" width="42" height="8.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcj-tD-fS7">
+                                                                    <rect key="frame" x="126" y="68" width="42" height="11.5"/>
                                                                     <color key="backgroundColor" red="0.73336675380000005" green="0.78702925450000005" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>

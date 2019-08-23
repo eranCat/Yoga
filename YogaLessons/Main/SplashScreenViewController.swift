@@ -35,11 +35,22 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     fileprivate func continueSetup() {
         SVProgressHUD.show()
         
-        ds.loadUsers { //closure 1 - loding users finished
+        ds.loadUsers { usersErr in//closure 1 - loding users finished
+            
+            if let err = usersErr{
+                SVProgressHUD.dismiss()
+                ErrorAlert.show(message: err.localizedDescription)
+                return
+            }
             
             if self.ds.setLoggedUser() { //we have a logged user and also got it from the DB
                 
-                self.ds.loadData{ //colsure 2 - load all data done
+                self.ds.loadData{ error in //colsure 2 - load all data done
+                    if let error = error{
+                        SVProgressHUD.dismiss()
+                        ErrorAlert.show(message: error.localizedDescription)
+                        return
+                    }
                     
                     MoneyConverter.shared.connect
                         {self.openMain()}//closue 3 - finished connecting to money api

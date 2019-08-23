@@ -10,29 +10,42 @@ import Firebase
 
 extension DataSource{
     
-    func loadUsers(done:(()->Void)?) {
+    func convertValuesToUsers(_ values:[DataSnapshot]) {
+        
+        self.usersList.removeAll()
+        self.teachersList.removeAll()
+        
+        for child in values{
+            guard let userDict = child.value as? JSON,
+                let userTypeRV = userDict[YUser.Keys.type] as? Int,
+                let userType = UserType(rawValue: userTypeRV)
+                else{return}
+            
+            
+            switch userType{
+            case .student:
+                let user = YUser(userDict)
+                self.usersList[user.id!] = user
+            case .teacher:
+                let teacher = Teacher(userDict)
+                self.teachersList[teacher.id!] = teacher
+            }
+        }
+    }
+    
+    func loadUsers(done:DSTaskListener?) {
         let usersRef = ref.child(TableNames.users.rawValue)
         let query = usersRef.queryOrdered(byChild: YUser.Keys.name)
         
         query.observe(.value) { (snapshot) in
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                guard let userDict = child.value as? JSON,
-                    let userTypeRV = userDict[YUser.Keys.type] as? Int,
-                    let userType = UserType(rawValue: userTypeRV)
-                    else{return}
-                    
-                    
-                switch userType{
-                case .student:
-                    let user = YUser(userDict)
-                    self.usersList[user.id!] = user
-                case .teacher:
-                    let teacher = Teacher(userDict)
-                    self.teachersList[teacher.id!] = teacher
+            guard let values = snapshot.children.allObjects as? [DataSnapshot]
+                else{
+                    done?(JsonErrors.castFailed)
+                    return
                 }
-            }
+            self.convertValuesToUsers(values)
             
-            done?()
+            done?(nil)
         }
     }
     
