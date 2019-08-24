@@ -1,0 +1,60 @@
+
+/* Class = "UILabel"; text = "Posted by:"; ObjectID = "4Qa-sZ-hZm"; */
+"4Qa-sZ-hZm.text" = "מפרסם:";
+
+/* Class = "UITableViewSection"; headerTitle = "Equipment"; ObjectID = "5bP-LV-8El"; */
+"5bP-LV-8El.headerTitle" = "ציוד";
+
+/* Class = "UITableViewSection"; headerTitle = "Event price"; ObjectID = "8U7-lX-6dB"; */
+"8U7-lX-6dB.headerTitle" = "עלות השתתפות";
+
+/* Class = "UILabel"; text = "amount"; ObjectID = "A8u-qW-Dse"; */
+"A8u-qW-Dse.text" = "כמות";
+
+/* Class = "UILabel"; text = "People are going"; ObjectID = "FHC-gj-c6B"; */
+"FHC-gj-c6B.text" = "אנשים הולכים";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "FXf-5l-dDY"; */
+"FXf-5l-dDY.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "10"; ObjectID = "LNJ-Sl-5yi"; */
+"LNJ-Sl-5yi.text" = "10";
+
+/* Class = "UILabel"; text = "date"; ObjectID = "MyD-ac-FPX"; */
+"MyD-ac-FPX.text" = "תאריך";
+
+/* Class = "UITableViewSection"; headerTitle = "Participants"; ObjectID = "Ngn-VH-qWs"; */
+"Ngn-VH-qWs.headerTitle" = "משתתפים";
+
+/* Class = "UITableViewSection"; headerTitle = "Extra notes"; ObjectID = "PAq-nr-i8v"; */
+"PAq-nr-i8v.headerTitle" = "הערות";
+
+/* Class = "UILabel"; text = "At:"; ObjectID = "PiQ-8D-mHB"; */
+"PiQ-8D-mHB.text" = "יהיה ב:";
+
+/* Class = "UITableViewSection"; headerTitle = "Original poster"; ObjectID = "ex4-yj-I05"; */
+"ex4-yj-I05.headerTitle" = "מפרסם האירוע";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fcj-tD-fS7"; */
+"fcj-tD-fS7.text" = "שם";
+
+/* Class = "UITableViewSection"; headerTitle = "Event's location"; ObjectID = "fi7-Sq-PKG"; */
+"fi7-Sq-PKG.headerTitle" = "מיקום האירוע";
+
+/* Class = "UILabel"; text = "out of max"; ObjectID = "fui-GY-Zug"; */
+"fui-GY-Zug.text" = "מתוך ";
+
+/* Class = "UILabel"; text = "lvl"; ObjectID = "hSl-ph-7c2"; */
+"hSl-ph-7c2.text" = "רמה";
+
+/* Class = "UITableViewSection"; headerTitle = "Event's date"; ObjectID = "jsB-YJ-LHC"; */
+"jsB-YJ-LHC.headerTitle" = "תאריך";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "kB9-JX-Cds"; */
+"kB9-JX-Cds.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ";
+
+/* Class = "UITableViewSection"; headerTitle = "Practice level"; ObjectID = "o2y-Cs-YJe"; */
+"o2y-Cs-YJe.headerTitle" = "רמת קושי";
+
+/* Class = "UILabel"; text = "title"; ObjectID = "zas-M4-weQ"; */
+"zas-M4-weQ.text" = "כותרת";

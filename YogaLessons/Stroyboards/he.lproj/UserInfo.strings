@@ -1,0 +1,21 @@
+
+/* Class = "UINavigationItem"; title = "Name"; ObjectID = "1gU-B8-Y3A"; */
+"1gU-B8-Y3A.title" = "שם";
+
+/* Class = "UITextField"; placeholder = "Level"; ObjectID = "Fo4-pu-aql"; */
+"Fo4-pu-aql.placeholder" = "רמה";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "Gy3-NS-LRh"; */
+"Gy3-NS-LRh.title" = "פרופיל";
+
+/* Class = "UITextField"; placeholder = "Birth Date"; ObjectID = "KKe-Nf-Ob5"; */
+"KKe-Nf-Ob5.placeholder" = "תאריך לידה";
+
+/* Class = "UIBarButtonItem"; title = "Sign out"; ObjectID = "SRk-fS-VJ9"; */
+"SRk-fS-VJ9.title" = "התנתק";
+
+/* Class = "UIButton"; normalTitle = "Reset password"; ObjectID = "eaw-SY-zX8"; */
+"eaw-SY-zX8.normalTitle" = "איפוס סיסמא עם אימייל";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "qts-uv-dPj"; */
+"qts-uv-dPj.placeholder" = "שם";

@@ -17,9 +17,9 @@ class ErrorAlert {
             }
             return
         }
-        let alert = UIAlertController(title: title ?? "Problem found", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: title ?? "Problem found".translated, message: message, preferredStyle: .alert)
         
-        alert.addAction(.init(title: "ok", style: .default, handler: nil))
+        alert.addAction(.init(title: "ok".translated, style: .default, handler: nil))
         
         UIApplication.shared.presentedVC?.present(alert, animated: true)
     }

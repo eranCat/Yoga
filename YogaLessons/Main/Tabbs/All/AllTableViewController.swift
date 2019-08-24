@@ -72,14 +72,16 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         
         let names:[Notification.Name] = [._sortTapped,
                                          ._searchStarted,
-                                         ._dataAdded,._dataRemoved,._dataChanged]
+                                         ._dataAdded,._dataRemoved,._dataChanged,
+                                         ._signedTabSelected]
         
         let selectors = [
             #selector(onSortTapped(_:)),
             #selector(initSearch),
             #selector(dataAdded(_:)),
             #selector(dataRemoved(_:)),
-            #selector(dataChanged(_:))
+            #selector(dataChanged(_:)),
+            #selector(signedTabSelected(_:))
         ]
         
         let centerDef = NotificationCenter.default
@@ -88,6 +90,11 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             centerDef.addObserver(self, selector: selector, name: name, object: nil)
         }
     }
+    
+    @objc func signedTabSelected(_ notification:NSNotification){
+        searchController.dismiss(animated: true)
+    }
+    
     @objc func dataChanged(_ notification:NSNotification) {
         guard let type = notification.userInfo?["type"] as? DataType,
             type == currentDataType
@@ -128,8 +135,8 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     @objc func onSortTapped(_ notification:NSNotification) {
         
         // viewController is visible
-        guard viewIfLoaded?.window != nil
-            else{return}
+//        guard viewIfLoaded?.window != nil
+//            else{return}
         
         guard let (dType,sType) = notification.userInfo?["dataTuple"] as? (DataType,SortType)
             else{return}
@@ -145,13 +152,8 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     func updateEmptyBG() {
-        let text:String
+        let text = "\("non".translated) \(currentDataType.translated) \("yet".translated)"
         
-        if Locale.preferredLanguages[0].starts(with: "he"){//hebrew
-            text = "עדיין \(currentDataType.translated) אין"
-        }else{
-            text = "No \(currentDataType.translated) yet"
-        }
         setupEmptyBG(withMessage: text)
     }
     
@@ -333,12 +335,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         guard let obj = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)
             else{return}
         
-        var sureQ: String = "Are you sure you want to sign out of this".translated
-        sureQ += "\(currentDataType.singular)?"
-        
-        let alert = UIAlertController.init(title: "Sign out alert".translated, message: sureQ , preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction.init(title: "Yes".translated, style: .default) { _ in
+        UnsignAlert.show(dType: currentDataType) { _ in
             
             SVProgressHUD.show()
             DataSource.shared
@@ -349,11 +346,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
                     }
                     SVProgressHUD.dismiss()
             }
-        })
-        
-        alert.addAction(.init(title: "No".translated, style: .cancel))
-        
-        present(alert,animated: true)
+        }
     }
     
     

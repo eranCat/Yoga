@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/LoginUser/Signup/SignupViewController.swift"
-            timestampString = "588329372.414621"
+            timestampString = "588365503.937176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "88"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/LoginUser/Signup/SignupViewController.swift"
-            timestampString = "588329372.414942"
+            timestampString = "588365503.938054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "99"
@@ -114,11 +114,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "588329372.415073"
+            timestampString = "588365503.93826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "onSortTapped(_:)"
             landmarkType = "7">
             <Actions>
@@ -276,11 +276,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "588329372.415378"
+            timestampString = "588365503.939168"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "dataAdded(_:)"
             landmarkType = "7">
             <Actions>
@@ -298,33 +298,9 @@
          <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
-            continueAfterRunningActions = "Yes"
-            filePath = "YogaLessons/Utils/LocalCalendarManager.swift"
-            timestampString = "588102821.802222"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "setEvent(objId:title:placeName:location:startDate:endDate:)"
-            landmarkType = "7">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po &quot;canlender granted, run insertEvent()&quot;">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "588329372.415458"
+            timestampString = "588365503.939273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "99"
@@ -348,7 +324,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Data and Classes/Data/DS-Observers.swift"
-            timestampString = "588329372.415688"
+            timestampString = "588365503.940488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
@@ -364,7 +340,7 @@
                   moduleName = "YogaLessons"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/erankaraso/Documents/IOS%20projects/YogaLessons/YogaLessons/Data%20and%20Classes/Data/DS-Observers.swift"
-                  timestampString = "588329372.715939"
+                  timestampString = "588365504.314839"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "50"
@@ -379,7 +355,7 @@
                   moduleName = "YogaLessons"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/erankaraso/Documents/IOS%20projects/YogaLessons/YogaLessons/Data%20and%20Classes/Data/DS-Observers.swift"
-                  timestampString = "588329372.717415"
+                  timestampString = "588365504.3163871"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "50"
@@ -396,7 +372,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Data and Classes/Data/DS-Observers.swift"
-            timestampString = "588329372.41601"
+            timestampString = "588365503.941457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -412,7 +388,7 @@
                   moduleName = "YogaLessons"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/erankaraso/Documents/IOS%20projects/YogaLessons/YogaLessons/Data%20and%20Classes/Data/DS-Observers.swift"
-                  timestampString = "588329372.720997"
+                  timestampString = "588365504.320366"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "22"
@@ -427,7 +403,7 @@
                   moduleName = "YogaLessons"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/erankaraso/Documents/IOS%20projects/YogaLessons/YogaLessons/Data%20and%20Classes/Data/DS-Observers.swift"
-                  timestampString = "588329372.722423"
+                  timestampString = "588365504.322319"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "22"
@@ -444,11 +420,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Data and Classes/Data/DataSourceMain.swift"
-            timestampString = "588329372.416106"
+            timestampString = "588365503.941509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "executeAllLoadQuery(_:_:_:_:_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -460,11 +436,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Data and Classes/Data/DataSourceMain.swift"
-            timestampString = "588329372.416338"
+            timestampString = "588365503.941754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "executeAllLoadQuery(_:_:_:_:_:_:)"
             landmarkType = "7">
          </BreakpointContent>

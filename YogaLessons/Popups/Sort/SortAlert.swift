@@ -61,7 +61,9 @@ class SortAlert: UIViewController {
         segmentType.removeAllSegments()
         
         for (i,dt) in DataType.allCases.enumerated(){
-            segmentType.insertSegment(withTitle: "\(dt.self)".capitalized, at: i, animated: false)
+            
+            let type = dt.translated.capitalized
+            segmentType.insertSegment(withTitle: type, at: i, animated: false)
         }
         
         segmentType.selectedSegmentIndex = SortAlert.currentDataTypeIndex ?? 0
@@ -78,7 +80,7 @@ class SortAlert: UIViewController {
         btn.backgroundColor = .gray
         btn.setTitleColor(.white, for: .normal)
         
-        btn.setTitle("\(sortType.self)".capitalized, for: .normal)
+        btn.setTitle(sortType.translated.capitalized, for: .normal)
         
         btn.titleLabel?.font = btn.titleLabel?.font.withSize(16)
         

@@ -27,4 +27,14 @@ extension Date {
             comps1.month == comps2.month &&
             comps1.year == comps2.year
     }
+    
+    var age:Int{
+        let now = Date()
+        let calendar = Calendar.current
+        
+        let ageComponents = calendar.dateComponents([.year], from: self, to: now)
+        let age = ageComponents.year!
+        
+        return age
+    }
 }

@@ -22,6 +22,8 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
         guard Reachability(queueQoS: .utility, targetQueue: .global())?.connection != .none
             else{return}
         
+        SVProgressHUD.show()
+        
         continueSetup()
     }
     
@@ -34,8 +36,8 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     }
     
     fileprivate func continueSetup() {
-        SVProgressHUD.show()
         
+        SVProgressHUD.showProgress(0)
         ds.loadUsers { usersErr in//closure 1 - loding users finished
             
             if let err = usersErr{
@@ -46,6 +48,8 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
             
             if self.ds.setLoggedUser() { //we have a logged user and also got it from the DB
                 
+                SVProgressHUD.showProgress(0.3)
+
                 self.ds.loadData{ error in //colsure 2 - load all data done
                     if let error = error{
                         SVProgressHUD.dismiss()
@@ -53,8 +57,13 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
                         return
                     }
                     
-                    MoneyConverter.shared.connect
-                        {self.openMain()}//closue 3 - finished connecting to money api
+                    SVProgressHUD.showProgress(0.5)
+                    
+                    
+                    MoneyConverter.shared.connect{
+                        SVProgressHUD.showProgress(1)
+                        self.openMain()
+                    }//closue 3 - finished connecting to money api
                 }
                 
             }else{

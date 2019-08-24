@@ -1,0 +1,69 @@
+
+/* Class = "UITableViewSection"; headerTitle = "Extra notes by teacher"; ObjectID = "0CD-yM-gdB"; */
+"0CD-yM-gdB.headerTitle" = "Extra notes by teacher";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "0Vv-bE-6ML"; */
+"0Vv-bE-6ML.text" = "0";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; ObjectID = "1De-EO-aGE"; */
+"1De-EO-aGE.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+/* Class = "UITableViewSection"; headerTitle = "Participants age range"; ObjectID = "2No-ez-Tl6"; */
+"2No-ez-Tl6.headerTitle" = "Participants age range";
+
+/* Class = "UITableViewSection"; headerTitle = "Lesson price"; ObjectID = "4IW-Se-xMq"; */
+"4IW-Se-xMq.headerTitle" = "Lesson price";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7RV-zS-Xjb"; */
+"7RV-zS-Xjb.text" = "teacher's name";
+
+/* Class = "UILabel"; text = "Place"; ObjectID = "AhA-bg-piP"; */
+"AhA-bg-piP.text" = "Place";
+
+/* Class = "UILabel"; text = "At:"; ObjectID = "FY0-cp-iOH"; */
+"FY0-cp-iOH.text" = "At:";
+
+/* Class = "UITableViewSection"; headerTitle = "Class location"; ObjectID = "G1p-hp-i8w"; */
+"G1p-hp-i8w.headerTitle" = "Class location";
+
+/* Class = "UITableViewSection"; headerTitle = "Participants"; ObjectID = "Rq4-vg-EXg"; */
+"Rq4-vg-EXg.headerTitle" = "Participants";
+
+/* Class = "UITableViewSection"; headerTitle = "About teacher"; ObjectID = "XCD-0n-r5I"; */
+"XCD-0n-r5I.headerTitle" = "About teacher";
+
+/* Class = "UILabel"; text = "date time"; ObjectID = "Xu9-Lp-VeV"; */
+"Xu9-Lp-VeV.text" = "date time";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; ObjectID = "Zuq-Fd-jo2"; */
+"Zuq-Fd-jo2.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+/* Class = "UILabel"; text = "cost"; ObjectID = "bUY-N7-4V6"; */
+"bUY-N7-4V6.text" = "cost";
+
+/* Class = "UITableViewSection"; headerTitle = "Yoga kind"; ObjectID = "byf-t5-yNc"; */
+"byf-t5-yNc.headerTitle" = "Yoga kind";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "d7e-Ep-Rbo"; */
+"d7e-Ep-Rbo.text" = "Type";
+
+/* Class = "UILabel"; text = "10"; ObjectID = "iKu-9y-5fc"; */
+"iKu-9y-5fc.text" = "10";
+
+/* Class = "UILabel"; text = "18-30"; ObjectID = "ih7-dO-hfZ"; */
+"ih7-dO-hfZ.text" = "18-30";
+
+/* Class = "UILabel"; text = "/"; ObjectID = "ihE-XY-0Et"; */
+"ihE-XY-0Et.text" = "/";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; ObjectID = "k1S-ZS-kF1"; */
+"k1S-ZS-kF1.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+/* Class = "UILabel"; text = "People are signed in"; ObjectID = "mfu-Jm-O5c"; */
+"mfu-Jm-O5c.text" = "People are signed in";
+
+/* Class = "UITableViewSection"; headerTitle = "Equipment for the class"; ObjectID = "nha-8c-10J"; */
+"nha-8c-10J.headerTitle" = "Equipment for the class";
+
+/* Class = "UITableViewSection"; headerTitle = "Class's date"; ObjectID = "och-gV-ykB"; */
+"och-gV-ykB.headerTitle" = "Class's date";

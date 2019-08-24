@@ -20,7 +20,7 @@ class LevelTextField: DropDown {
         cTor()
     }
     
-    internal let levels = Level.allCases.map{ "\($0)".capitalized}
+    internal let levels = Level.allCases.map{ $0.translated.capitalized}
     
     
     var didSelectHandler:((Level)->Void)?
@@ -31,7 +31,7 @@ class LevelTextField: DropDown {
                 
         optionArray = levels
         
-        optionIds = Level.allCases.map{ $0.rawValue} //[0..<Level.allcases.count]
+        optionIds = Level.allCases.map{ $0.rawValue}
         
         self.blurBG()
         
@@ -55,7 +55,7 @@ class LevelTextField: DropDown {
     
     func set(level:Level){
         self.level = level
-        text = "\(level)".capitalized
+        text = level.translated.capitalized
         selectedIndex = level.rawValue
     }
     
@@ -68,15 +68,16 @@ class LevelTextField: DropDown {
 
 class UserLevelField: LevelTextField {
     
-    private let offset = 1
+    private let shortLevels = [Level](Level.allCases[1...])
     
     override func cTor() {
         super.cTor()
-        optionArray = [String](levels[offset...])
+        
+        optionArray = shortLevels.map{$0.translated.capitalized}
         
         didSelect { (_, i, _) in
-            self.level = Level.allCases[i + self.offset]
-            self.didSelectHandler?(Level.allCases[i + self.offset])
+            self.level = self.shortLevels[i]
+            self.didSelectHandler?(self.shortLevels[i])
         }
         
         listWillDisappear {

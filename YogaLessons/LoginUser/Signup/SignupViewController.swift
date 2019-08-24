@@ -21,7 +21,7 @@ class SignupViewController: UIViewController,TextFieldReturn {
     
     @IBOutlet weak var tf_pass: UITextField!
     
-    @IBOutlet weak var tf_type: TypeTextField!
+    @IBOutlet weak var tf_type: UserTypeTextField!
     
     @IBOutlet weak var tf_level: LevelTextField!
     

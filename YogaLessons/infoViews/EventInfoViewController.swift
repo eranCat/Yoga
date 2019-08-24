@@ -76,9 +76,9 @@ class EventInfoViewController: UITableViewController {
     
     func setSignBtn(isSigned:Bool) {
         if !isSigned{
-            navigationItem.rightBarButtonItem = .init(title: "Sign in", style: .plain, target: self, action: #selector(signinToEvent))
+            navigationItem.rightBarButtonItem = .init(title: "I'm in".translated, style: .plain, target: self, action: #selector(signinToEvent))
         }else{
-            navigationItem.rightBarButtonItem = .init(title: "I'm out", style: .plain, target: self, action: #selector(signOutOfEvent))
+            navigationItem.rightBarButtonItem = .init(title: "I'm out".translated, style: .plain, target: self, action: #selector(signOutOfEvent))
         }
     }
     
@@ -95,7 +95,7 @@ class EventInfoViewController: UITableViewController {
         if event.cost.amount > 0{
             costLbl.text = event.cost.description
         }else{
-            costLbl.text = "It's Free"
+            costLbl.text = "free".translated
         }
         
         titleView.text = event.title
@@ -121,7 +121,7 @@ class EventInfoViewController: UITableViewController {
         }
         
         if event.maxParticipants != -1{
-            maxPplAmount.text = "out of \(event.maxParticipants)"
+            maxPplAmount.text = maxPplAmount.text ?? "" + "\(event.maxParticipants)"
         }
         else{
             maxPplAmount.isHidden = true
@@ -140,7 +140,7 @@ class EventInfoViewController: UITableViewController {
         
         
         //level
-        levelLbl.text = "\(event.level)"
+        levelLbl.text = event.level.translated
         
         //equipment
         equipmentTv.text = event.equipment
@@ -178,7 +178,7 @@ class EventInfoViewController: UITableViewController {
         }
         
         SVProgressHUD.show()
-        DataSource.shared.add(event: event, .signed){ (err) in
+        DataSource.shared.signTo(.events, dataObj: event){ (err) in
             
             SVProgressHUD.dismiss()
             if let error = err{
@@ -190,9 +190,9 @@ class EventInfoViewController: UITableViewController {
                     switch signErr{
                         
                     case .noPlaceLeft:
-                        title = "Oh no, you're too late"
+                        title = "too late".translated
                     case .alreadySignedToClass, .alreadySignedToEvent:
-                        title = "Sign in twice, not very nice"
+                        title = "signTwice".translated
 //                    case .cantSignToCancled(.events):
 //                        title = nil
                     default:
@@ -211,7 +211,7 @@ class EventInfoViewController: UITableViewController {
     
     @objc func signOutOfEvent() {
         
-        let onSignout:(UIAlertAction)->Void = { _ in
+        UnsignAlert.show(dType: .events) { _ in
             
             SVProgressHUD.show()
             DataSource.shared
@@ -225,14 +225,6 @@ class EventInfoViewController: UITableViewController {
                     self.setSignBtn(isSigned: false)
             }
         }
-        
-        let alert = UIAlertController.init(title: "Sign out alert", message: "sure you want to sign out of this class?", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction.init(title: "Yes", style: .default,handler: onSignout) )
-        
-        alert.addAction(.init(title: "No", style: .cancel))
-        
-        present(alert,animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

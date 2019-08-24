@@ -1,0 +1,15 @@
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "BvD-4K-fMQ"; */
+"BvD-4K-fMQ.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "Yoga"; ObjectID = "FN4-rV-mdD"; */
+"FN4-rV-mdD.text" = "Welcome";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "Gyh-fP-eI2"; */
+"Gyh-fP-eI2.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Log in"; ObjectID = "L3G-rf-3R7"; */
+"L3G-rf-3R7.normalTitle" = "Log in";
+
+/* Class = "UIButton"; normalTitle = "Sign up"; ObjectID = "uSb-gE-kYW"; */
+"uSb-gE-kYW.normalTitle" = "Sign up";

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OZe-Lm-caR">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,35 +15,35 @@
             <objects>
                 <viewController storyboardIdentifier="FilterDialog" id="OZe-Lm-caR" customClass="SortAlert" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o5a-1D-Gv2">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NTP-lo-hqM">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="iMl-GV-uZy">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <color key="backgroundColor" red="0.27153089613432257" green="0.27021915267473645" blue="0.27284263959390864" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JKb-xP-VvS" userLabel="alert">
-                                <rect key="frame" x="16" y="231.5" width="568" height="137"/>
+                                <rect key="frame" x="16" y="382.5" width="382" height="131.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="flk-1B-1h1">
-                                        <rect key="frame" x="8" y="8" width="552" height="121"/>
+                                        <rect key="frame" x="8" y="8" width="366" height="115.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="X84-wZ-jVp">
-                                                <rect key="frame" x="0.0" y="0.0" width="552" height="37"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="366" height="31.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5w-7d-q1j">
-                                                        <rect key="frame" x="0.0" y="0.0" width="276" height="37"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5w-7d-q1j">
+                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="31.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <segmentedControl opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uPy-c2-MmC">
-                                                        <rect key="frame" x="276" y="0.0" width="276" height="38"/>
+                                                        <rect key="frame" x="183" y="0.0" width="183" height="32.5"/>
                                                         <segments>
                                                             <segment title="First"/>
                                                             <segment title="Second"/>
@@ -48,13 +52,13 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="XKx-1p-L6i" userLabel="optionsStack">
-                                                <rect key="frame" x="0.0" y="59" width="552" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="53.5" width="366" height="0.0"/>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="C8Q-hs-ph6">
-                                                <rect key="frame" x="0.0" y="81" width="552" height="40"/>
+                                                <rect key="frame" x="0.0" y="75.5" width="366" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0f-vq-moo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="265" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172" height="40"/>
                                                         <color key="backgroundColor" red="0.80946308369999997" green="0.93192023040000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                                         <state key="normal" title="Close"/>
@@ -68,7 +72,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hD1-7o-2ek">
-                                                        <rect key="frame" x="287" y="0.0" width="265" height="40"/>
+                                                        <rect key="frame" x="194" y="0.0" width="172" height="40"/>
                                                         <color key="backgroundColor" red="0.80946308369999997" green="0.93192023040000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                         <state key="normal" title="Done"/>

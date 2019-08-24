@@ -1,0 +1,21 @@
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "Bgc-vt-8x5"; */
+"Bgc-vt-8x5.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "Level"; ObjectID = "EXW-sk-1Xg"; */
+"EXW-sk-1Xg.placeholder" = "Level";
+
+/* Class = "UINavigationItem"; title = "Sign up"; ObjectID = "T21-9y-FWQ"; */
+"T21-9y-FWQ.title" = "Sign up";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "gKh-st-Myb"; */
+"gKh-st-Myb.placeholder" = "Name";
+
+/* Class = "UITextField"; placeholder = "Birth Date"; ObjectID = "olF-eX-pVC"; */
+"olF-eX-pVC.placeholder" = "Birth Date";
+
+/* Class = "UITextField"; placeholder = "Type"; ObjectID = "yI9-ak-F6e"; */
+"yI9-ak-F6e.placeholder" = "User kind";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "yeD-eh-Pfg"; */
+"yeD-eh-Pfg.placeholder" = "Password";

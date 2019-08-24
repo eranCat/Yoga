@@ -21,6 +21,8 @@ extension MainTabBarController:UITabBarControllerDelegate{
         updateTitle()
         
         navigationItem.setRightBarButtonItems(barItemsForTab[i], animated: true)
+        
+        NotificationCenter.default.post(name: ._signedTabSelected, object: nil)
     }
     
     func createSignedBarItems() -> [UIBarButtonItem] {
@@ -59,8 +61,14 @@ extension MainTabBarController:UITabBarControllerDelegate{
             else{return false}
         
         let viewSize = fromView.frame
-        let scrollRight = controllerIndex > selectedIndex
+        var scrollRight = controllerIndex > selectedIndex
         // Avoid UI issues when switching tabs fast
+        
+        let language = Locale.preferredLanguages[0]
+        if language.starts(with: "he") ||  language.starts(with: "ar"){
+            
+            scrollRight = !scrollRight // switch direction
+        }
         
         guard fromView.superview?.subviews.contains(toView) != true
             else{ return false }

@@ -35,7 +35,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
     var status:Status
     
-    
+    var minAge,maxAge:Int?
     init(type:String,cost:Double,location:CLLocationCoordinate2D,locationName:String,date:(start:Date,end:Date),level:Level,equipment:String,xtraNotes:String? = nil,maxParticipants:Int,teacher:Teacher) {
         
         self.id = nil
@@ -61,6 +61,9 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         self.uid = teacher.id!
         
         self.status = .open
+        
+        minAge = nil//if age < min
+        maxAge = -1//if age > max
     }
     
     func encode() -> JSON {
@@ -88,6 +91,9 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         dict[Status.key] = status.rawValue
         
+        dict[Keys.age_min] = minAge
+        dict[Keys.age_max] = maxAge
+
         return dict
     }
     
@@ -119,6 +125,9 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         let statusRv = dict[Status.key] as? Int ?? 0
         status = Status.allCases[statusRv]
+        
+        minAge = dict[Keys.age_min] as? Int
+        maxAge = dict[Keys.age_max] as? Int
     }
     
 }
@@ -146,6 +155,8 @@ extension Class{
         static let numParticipants = ClassKeys.numParticipants.rawValue
         static let maxParticipants = ClassKeys.maxParticipants.rawValue
         static let teacher = ClassKeys.uid.rawValue
+        static let age_max = ClassKeys.age_max.rawValue
+        static let age_min = ClassKeys.age_min.rawValue
     }
     
     enum ClassKeys:String {
@@ -163,5 +174,7 @@ extension Class{
         case numParticipants = "numOfParticipants"
         case maxParticipants = "maxParticipants"
         case uid = "uid"
+        case age_max = "age_max"
+        case age_min = "age_min"
     }
 }

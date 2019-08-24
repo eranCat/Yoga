@@ -61,9 +61,11 @@ extension ReachabilityObserverDelegate {
     }
     
     func showConnectionAlert() {
-        let alert = UIAlertController(title: "Can't connect to network", message: "please check your internet connection and come back", preferredStyle: .alert)
+        let alert = UIAlertController(title: "noIntenet".translated,
+                                      message: "checkNet".translated,
+                                      preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Open internet from settings", style: .default) { _ in
+        alert.addAction(UIAlertAction(title: "internetSetting".translated, style: .default) { _ in
             self.openInternetSettings()
         })
         

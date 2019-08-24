@@ -37,6 +37,8 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
     var status:Status
     
+    var minAge,maxAge:Int?
+    
     init(title:String,cost:Double,
          locationName:String, location:CLLocationCoordinate2D,
          date:(start:Date,end:Date),level:Level,imageUrl:String? = nil,
@@ -64,6 +66,9 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         self.imageUrl = imageUrl
         
         status = .open
+        
+        minAge = nil//if age < min
+        maxAge = -1//if age > max
     }
     
     func encode() -> JSON{
@@ -91,6 +96,9 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         dict[Keys.imageUrl] = imageUrl
         
         dict[Status.key] = status.rawValue
+        
+        dict[Keys.age_min] = minAge
+        dict[Keys.age_max] = maxAge
         
         return dict
     }
@@ -123,6 +131,9 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         let statusRv = dict[Status.key] as? Int ?? 0
         status = Status.allCases[statusRv]
+        
+        minAge = dict[Keys.age_min] as? Int
+        maxAge = dict[Keys.age_max] as? Int
     }
     
 }
@@ -154,6 +165,9 @@ extension Event{
         static let maxParticipants = EventKeys.maxParticipants.rawValue
         static let user = EventKeys.user.rawValue
         static let imageUrl = EventKeys.imageUrl.rawValue
+        
+        static let age_max = EventKeys.age_max.rawValue
+        static let age_min = EventKeys.age_min.rawValue
     }
     
     enum EventKeys:String {
@@ -172,5 +186,8 @@ extension Event{
         case maxParticipants = "maxParticipants"
         case user = "uid"
         case imageUrl = "imageUrl"
+        
+        case age_max = "age_max"
+        case age_min = "age_min"
     }
 }

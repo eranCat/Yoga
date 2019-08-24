@@ -13,6 +13,9 @@ import GeoFire
 class DataSource {
     static let shared = DataSource()
     
+//        MARK:if you don't want location sort, put false
+    fileprivate let isFilteringLocation = false
+    
     let ref:DatabaseReference
     let geoFire:GeoFire
     
@@ -347,18 +350,15 @@ class DataSource {
     }
     
     func isInRange(currentLocation:CLLocation?,location:CLLocation) -> Bool {
-        //        MARK:add return true if you don't want location sort
-//        return true
+        
         if let loc = currentLocation{
             let distance = location.distance(from: loc)
             let meters = MaxRangeKm * 1000 /*km*/
-            if distance < meters{
-                return true
-            }
-            return false
+            
+            return distance < meters
         }
         
-        return true
+        return !isFilteringLocation
     }
     
     
@@ -456,20 +456,25 @@ class DataSource {
         let placeName = located.locationName
         
         
-        let alert  = UIAlertController(title: "Choose a reminder", message: "remind you before it starts", preferredStyle: .actionSheet)
+        let alert  = UIAlertController(title: "Choose a reminder".translated,
+                                       message: "remindBeforeStart".translated,
+                                       preferredStyle: .actionSheet)
         
-        let notificationAction = UIAlertAction(title: "Notify me", style: .default) { _ in
+        let notificationAction = UIAlertAction(title: "Notify me".translated, style: .default) { _ in
             NotificationManager.shared.setNotification(objId: dataObj.id!, title: title, time: startDate)
         }
         
-        let calendar = UIAlertAction(title: "Add to calendar", style: .default) { _ in
+        let calendar = UIAlertAction(title: "Add to calendar".translated,
+                                     style: .default) { _ in
             LocalCalendarManager.shared.setEvent( objId: dataObj.id!, title: title, placeName: placeName, location: location, startDate: startDate, endDate: endDate)
         }
         
         alert.addAction(notificationAction)
         alert.addAction(calendar)
         
-        alert.addAction(UIAlertAction(title: "Don't remind me", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Don't remind me".translated,
+                                      style: .cancel,
+                                      handler: nil))
         
         UIApplication.shared.presentedVC?.present(alert, animated: true)
     }

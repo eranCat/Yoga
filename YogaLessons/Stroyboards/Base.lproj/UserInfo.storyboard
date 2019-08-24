@@ -109,10 +109,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KqX-3j-j1w"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="2" title="Profile" image="profile" springLoaded="YES" id="Gy3-NS-LRh">
-                        <inset key="imageInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                    </tabBarItem>
                     <navigationItem key="navigationItem" title="Name" id="1gU-B8-Y3A">
                         <barButtonItem key="rightBarButtonItem" title="Sign out" id="SRk-fS-VJ9">
                             <color key="tintColor" red="0.84491989213197971" green="0.22795042967001969" blue="0.08463818317838985" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -142,6 +138,5 @@
     </scenes>
     <resources>
         <image name="camera" width="96" height="96"/>
-        <image name="profile" width="32" height="32"/>
     </resources>
 </document>

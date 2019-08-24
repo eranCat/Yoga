@@ -1,0 +1,51 @@
+
+/* Class = "UITableViewSection"; headerTitle = "If you have to say something else"; ObjectID = "5Jw-CW-Xa6"; */
+"5Jw-CW-Xa6.headerTitle" = "דברים נוספים שצריך לציין";
+
+/* Class = "UISegmentedControl"; A8R-7p-IqX.segmentTitles[0] = "Class"; ObjectID = "A8R-7p-IqX"; */
+"A8R-7p-IqX.segmentTitles[0]" = "שיעור";
+
+/* Class = "UISegmentedControl"; A8R-7p-IqX.segmentTitles[1] = "Event"; ObjectID = "A8R-7p-IqX"; */
+"A8R-7p-IqX.segmentTitles[1]" = "אירוע";
+
+/* Class = "UITableViewSection"; headerTitle = "How much does it cost?"; ObjectID = "ARE-ql-dl9"; */
+"ARE-ql-dl9.headerTitle" = "כמה זה עולה ?";
+
+/* Class = "UITableViewSection"; headerTitle = "Equipment"; ObjectID = "BIa-Bw-5bN"; */
+"BIa-Bw-5bN.headerTitle" = "ציוד שצריך להביא";
+
+/* Class = "UITextField"; placeholder = "Title / Type"; ObjectID = "BPt-7q-ONg"; */
+"BPt-7q-ONg.placeholder" = "כותרת";
+
+/* Class = "UITableViewSection"; headerTitle = "Where is this happening"; ObjectID = "Ckd-Ee-72g"; */
+"Ckd-Ee-72g.headerTitle" = "לאן מגיעים ?";
+
+/* Class = "UITextField"; placeholder = "End Date"; ObjectID = "Do9-EE-Loo"; */
+"Do9-EE-Loo.placeholder" = "תאריך סיום";
+
+/* Class = "UITableViewSection"; headerTitle = "How much people can come?"; ObjectID = "Puo-gi-FZF"; */
+"Puo-gi-FZF.headerTitle" = "כמה אנשים יכולים לבוא ?";
+
+/* Class = "UITextField"; placeholder = "Max people"; ObjectID = "QQI-9M-TcW"; */
+"QQI-9M-TcW.placeholder" = "כמות מירבית";
+
+/* Class = "UITableViewSection"; headerTitle = "Level of practice"; ObjectID = "TX6-Ua-MzE"; */
+"TX6-Ua-MzE.headerTitle" = "הרמה של האימון";
+
+/* Class = "UITextField"; placeholder = "The Level of this"; ObjectID = "Vut-O6-zHX"; */
+"Vut-O6-zHX.placeholder" = "איזה רמה זו";
+
+/* Class = "UITextField"; placeholder = "Cost"; ObjectID = "YS8-vM-HHT"; */
+"YS8-vM-HHT.placeholder" = "מחיר";
+
+/* Class = "UITextField"; placeholder = "Start Date"; ObjectID = "YWE-fa-QeZ"; */
+"YWE-fa-QeZ.placeholder" = "תאריך התחלה";
+
+/* Class = "UITableViewSection"; headerTitle = "Name"; ObjectID = "nJ5-f5-SOo"; */
+"nJ5-f5-SOo.headerTitle" = "שם";
+
+/* Class = "UILabel"; text = "Pick location"; ObjectID = "sJ2-jA-6YL"; */
+"sJ2-jA-6YL.text" = "בחירת מקום";
+
+/* Class = "UITableViewSection"; headerTitle = "Image makes it more attractive"; ObjectID = "tTY-mh-JcS"; */
+"tTY-mh-JcS.headerTitle" = "כדאי לבחור גם תמונה 🙂";

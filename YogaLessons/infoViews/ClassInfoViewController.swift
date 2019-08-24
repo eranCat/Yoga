@@ -68,14 +68,14 @@ class ClassInfoViewController: UITableViewController {
         if !isSigned{
             if classModel.status == .open{
                 
-            navigationItem.rightBarButtonItem = .init(title: "Sign in", style: .plain, target: self, action: #selector(signinToClass))
+            navigationItem.rightBarButtonItem = .init(title: "I'm in".translated, style: .plain, target: self, action: #selector(signinToClass))
                 
             }else{
                 navigationItem.rightBarButtonItem = nil
             }
         }
         else{
-            navigationItem.rightBarButtonItem = .init(title: "I'm out", style: .plain, target: self, action: #selector(signOutClass))
+            navigationItem.rightBarButtonItem = .init(title: "I'm out".translated, style: .plain, target: self, action: #selector(signOutClass))
         }
     }
     
@@ -103,7 +103,7 @@ class ClassInfoViewController: UITableViewController {
         if classModel.maxParticipants > 0{
             lblMaxPplCount.text = String(classModel.maxParticipants)
         }else{
-            lblMaxPplCount.text = "No maximum amount"
+            lblMaxPplCount.text = "noMax".translated
         }
         
         lblCurrentPplAmount.text = "\(classModel.numOfParticipants)"
@@ -116,7 +116,7 @@ class ClassInfoViewController: UITableViewController {
             lblCost.text = classModel.cost.description
         }else{
             //Free!
-            lblCost.text = "It's free"
+            lblCost.text = "free".translated
         }
         
         lblPlace.text = classModel.locationName
@@ -167,7 +167,7 @@ class ClassInfoViewController: UITableViewController {
         
         SVProgressHUD.show()
         DataSource.shared
-            .add(class: classModel, .signed) { (err) in
+            .signTo(.classes,dataObj: classModel) { (err) in
                 SVProgressHUD.dismiss()
                 if let error = err{
                     
@@ -178,9 +178,9 @@ class ClassInfoViewController: UITableViewController {
                         switch signErr{
                             
                         case .noPlaceLeft:
-                            title = "Oh no, you're too late"
+                            title = "too late".translated
                         case .alreadySignedToClass, .alreadySignedToEvent:
-                            title = "Sign in twice, not very nice"
+                            title = "signTwice".translated
                         default:
                             title = nil
                         }
@@ -198,7 +198,7 @@ class ClassInfoViewController: UITableViewController {
     
     
     @objc func signOutClass(){
-        let onSignout:(UIAlertAction)->Void = { _ in
+        UnsignAlert.show(dType: .classes) { _ in
             
             SVProgressHUD.show()
             DataSource.shared
@@ -213,14 +213,6 @@ class ClassInfoViewController: UITableViewController {
                     self.navigationController?.popViewController(animated: true)
             }
         }
-        
-        let alert = UIAlertController.init(title: "Sign out alert", message: "sure you want to sign out of this class?", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction.init(title: "Yes", style: .default,handler: onSignout))
-        
-        alert.addAction(.init(title: "No", style: .cancel))
-        
-        present(alert,animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

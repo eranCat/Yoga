@@ -1,0 +1,51 @@
+
+/* Class = "UITableViewSection"; headerTitle = "If you have to say something else"; ObjectID = "5Jw-CW-Xa6"; */
+"5Jw-CW-Xa6.headerTitle" = "If you have to say something else";
+
+/* Class = "UISegmentedControl"; A8R-7p-IqX.segmentTitles[0] = "Class"; ObjectID = "A8R-7p-IqX"; */
+"A8R-7p-IqX.segmentTitles[0]" = "Class";
+
+/* Class = "UISegmentedControl"; A8R-7p-IqX.segmentTitles[1] = "Event"; ObjectID = "A8R-7p-IqX"; */
+"A8R-7p-IqX.segmentTitles[1]" = "Event";
+
+/* Class = "UITableViewSection"; headerTitle = "How much does it cost?"; ObjectID = "ARE-ql-dl9"; */
+"ARE-ql-dl9.headerTitle" = "How much does it cost?";
+
+/* Class = "UITableViewSection"; headerTitle = "Equipment"; ObjectID = "BIa-Bw-5bN"; */
+"BIa-Bw-5bN.headerTitle" = "Equipment";
+
+/* Class = "UITextField"; placeholder = "Title / Type"; ObjectID = "BPt-7q-ONg"; */
+"BPt-7q-ONg.placeholder" = "Title / Type";
+
+/* Class = "UITableViewSection"; headerTitle = "Where is this happening"; ObjectID = "Ckd-Ee-72g"; */
+"Ckd-Ee-72g.headerTitle" = "Where is this happening";
+
+/* Class = "UITextField"; placeholder = "End Date"; ObjectID = "Do9-EE-Loo"; */
+"Do9-EE-Loo.placeholder" = "End Date";
+
+/* Class = "UITableViewSection"; headerTitle = "How much people can come?"; ObjectID = "Puo-gi-FZF"; */
+"Puo-gi-FZF.headerTitle" = "How much people can come?";
+
+/* Class = "UITextField"; placeholder = "Max people"; ObjectID = "QQI-9M-TcW"; */
+"QQI-9M-TcW.placeholder" = "Max people";
+
+/* Class = "UITableViewSection"; headerTitle = "Level of practice"; ObjectID = "TX6-Ua-MzE"; */
+"TX6-Ua-MzE.headerTitle" = "Level of practice";
+
+/* Class = "UITextField"; placeholder = "The Level of this"; ObjectID = "Vut-O6-zHX"; */
+"Vut-O6-zHX.placeholder" = "The Level of this";
+
+/* Class = "UITextField"; placeholder = "Cost"; ObjectID = "YS8-vM-HHT"; */
+"YS8-vM-HHT.placeholder" = "Cost";
+
+/* Class = "UITextField"; placeholder = "Start Date"; ObjectID = "YWE-fa-QeZ"; */
+"YWE-fa-QeZ.placeholder" = "Start Date";
+
+/* Class = "UITableViewSection"; headerTitle = "Name"; ObjectID = "nJ5-f5-SOo"; */
+"nJ5-f5-SOo.headerTitle" = "Name";
+
+/* Class = "UILabel"; text = "Pick location"; ObjectID = "sJ2-jA-6YL"; */
+"sJ2-jA-6YL.text" = "Pick location";
+
+/* Class = "UITableViewSection"; headerTitle = "Image makes it more attractive"; ObjectID = "tTY-mh-JcS"; */
+"tTY-mh-JcS.headerTitle" = "Image makes it more attractive 🙂";

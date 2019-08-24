@@ -19,7 +19,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     let dataSource =  DataSource.shared
     
     var isTeacher = false,isEmpty = true
-    let sectionsHeaders = ["My uploads","Signed"]
+    let sectionsHeaders = ["My uploads".translated,SourceType.signed.translated]
     
     
     override func viewDidLoad() {
@@ -41,7 +41,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     func updateTitle() {
-        var title = "\(SourceType.signed.tranlated)"
+        var title = "\(SourceType.signed.translated)"
         title += "  \(currentDataType.translated)"
         
         navigationItem.title = title.capitalized
@@ -126,8 +126,8 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     
     @objc func onSortTapped(_ notification:NSNotification) {
         // viewController is visible
-        guard viewIfLoaded?.window != nil
-            else{return}
+//        guard viewIfLoaded?.window != nil
+//            else{return}
         
         guard let (dType,sType) = notification.userInfo?["dataTuple"] as? (DataType,SortType)
             else{return}
@@ -276,15 +276,19 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     
     func unsign(indexPath:IndexPath) {
         //            MARK:check where to remove from
-        SVProgressHUD.show()
         
-        self.dataSource.unsignFrom(currentDataType, at: indexPath){err in
-            SVProgressHUD.dismiss()
-            if let err = err {
-                ErrorAlert.show(message: err.localizedDescription)
+        UnsignAlert.show(dType: currentDataType) { _ in
+            SVProgressHUD.show()
+            
+            self.dataSource.unsignFrom(self.currentDataType, at: indexPath){err in
+                SVProgressHUD.dismiss()
+                if let err = err {
+                    ErrorAlert.show(message: err.localizedDescription)
+                }
+                self.tableView.deleteRows(at: [indexPath], with: .right)
             }
-            self.tableView.deleteRows(at: [indexPath], with: .right)
         }
+        
     }
     
     func cancelPost(indexPath:IndexPath) {

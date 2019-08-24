@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum UserType:Int,CaseIterable {
+enum UserType:Int,CaseIterable,Translateable {
     case student
     case teacher
 //    case both

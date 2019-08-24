@@ -47,8 +47,10 @@ class LocalCalendarManager {
         let calendars = store.calendars(for: .event)
         
         guard let calendar = calendars.first(where:{$0.title == "Calendar"})
-        else{print("No calendar found")
-            return}
+        else{
+            print("No calendar found")
+            return
+        }
                 
         let event = EKEvent(eventStore: store)
         
@@ -77,7 +79,7 @@ class LocalCalendarManager {
         
         let eventStore = EKEventStore()
         
-        let status = EKEventStore.authorizationStatus(for: .event)
+        let status:EKAuthorizationStatus = EKEventStore.authorizationStatus(for: .event)
         
         switch status {
         case .authorized:

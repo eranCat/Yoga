@@ -23,12 +23,18 @@ enum LocationCoordinateErrors:Error {
     case typeNotSupported
 }
 
+enum UserErrors:Error {
+    case noUserFound
+}
 extension Date{
     enum Errors:Error {
         case typeNotSupported
     }
 }
 
+enum JsonErrors:Error {
+    case castFailed
+}
 enum SigningErrors:Error {
     case canNotSignOut
     case noPlaceLeft
@@ -38,49 +44,47 @@ enum SigningErrors:Error {
     case cantSignToCancled(DataType)
 }
 
-extension SigningErrors:LocalizedError{
+extension SigningErrors:LocalizedError,Translateable{
     var errorDescription: String?{
-        let msg = "You're already signed to this "
         switch self {
         case .alreadySignedToClass:
-            return NSLocalizedString(msg + "class", comment: "My error alreadySignedToClass")
-        case .alreadySignedToEvent:
-            return NSLocalizedString(msg + "event", comment: "My error alreadySignedToEvent")
-        case .noPlaceLeft:
-            return NSLocalizedString("No place left", comment: "My error noPlaceLeft")
-        case .canNotSignOut:
-            return NSLocalizedString("Can't sign out", comment: "My error canNotSignOut")
-        case .cantSignToCancled(let dType):
+            return NSLocalizedString( "alreadySigned".translated + DataType.classes.singular, comment: "My error alreadySignedToClass")
             
-            return NSLocalizedString("Can't sign in becuase the \(dType.singular) was cancled",
+        case .alreadySignedToEvent:
+            return NSLocalizedString( "alreadySigned".translated + DataType.events.singular, comment: "My error alreadySignedToEvent")
+            
+        case .noPlaceLeft:
+            return NSLocalizedString("No place left".translated,
+                                     comment: "My error noPlaceLeft")
+            
+        case .canNotSignOut:
+            return NSLocalizedString("Can't sign out".translated,
+                                     comment: "My error canNotSignOut")
+        
+        case .cantSignToCancled(let dType):
+            return NSLocalizedString("signToCancled".translated + dType.singular,
                                      comment: "My error cantDeletePeopleAreAlreadySigned")
         }
         
     }
 }
 
-enum UserErrors:Error {
-    case noUserFound
-}
 
-extension UserErrors:LocalizedError{
+extension UserErrors:LocalizedError,Translateable{
     var errorDescription: String?{
         switch self {
         case .noUserFound:
-            return "User not found!"
+            return "noUserFound".translated
         }
     }
 }
 
 
-enum JsonErrors:Error {
-    case castFailed
-}
-extension JsonErrors:LocalizedError{
+extension JsonErrors:LocalizedError,Translateable{
     var errorDescription: String?{
         switch self {
         case .castFailed:
-            return NSLocalizedString("Can't cast data", comment: "Json casting error")
+            return NSLocalizedString("castFailed".translated, comment: "Json casting error")
         }
     }
 }

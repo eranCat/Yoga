@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum SearchKeyType:Int,CaseIterable,Hashable {
+enum SearchKeyType:Int,CaseIterable,Hashable,Translateable {
     case title,location,teacher
-    
-    var translated:String{
-        return "\(self)".translated
-    }
 }

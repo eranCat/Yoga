@@ -13,3 +13,59 @@
 "fillPass" = "Please fill in your password.";
 
 "searchBy" = "Search by one of the options bellow";
+
+"all-classes" = "all the classes";
+"all-events" = "all the events";
+
+"signed-classes" = "my classes";
+"signed-events" = "my events";
+
+"new-classes" = "New class";
+"new-events" = "New event";
+
+"noMax" = "No maximum amount";
+
+"free" = "It's free 🤩";
+
+"confirmUnsign" = "sure you want to sign out of this ";
+
+"alreadySigned" = "😌You're already signed to this ";
+
+"Can't sign out" = "Can't sign out";
+
+"signToCanceled" = "Can't sign in to a canceled ";
+
+"noUserFound" = "User not found! 😬";
+
+"castFailed" = "Problem found with the database casting 😢";
+
+"remindingYou" = "Reminding you that";
+
+"remindBeforeStart" = "remind you before it starts";
+
+"fill" = "Please fill the ";
+"select" = "Please select a ";
+
+"start" = "start ";
+"end" = "end ";
+
+"startD" = "start date";
+"startT" = "start time";
+
+"endD" = "end date";
+"endT" = "end time";
+
+"Dates problem" = "Problem with dates";
+
+"startD>endD" = "Start date should be before the end date";
+
+"level of" = "level";
+
+"maxPpl" = "maximum number of people";
+
+"noInternet" = "Can't connect to network";
+
+"checkNet" = "please check your internet connection and come back";
+"internetSetting" = "Open internet from settings";
+
+"non" = "No";

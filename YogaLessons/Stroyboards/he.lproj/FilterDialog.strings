@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Choose type"; ObjectID = "L5w-7d-q1j"; */
+"L5w-7d-q1j.text" = "בחר סוג";
+
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "hD1-7o-2ek"; */
+"hD1-7o-2ek.normalTitle" = "סיימתי";
+
+/* Class = "UIButton"; normalTitle = "Close"; ObjectID = "j0f-vq-moo"; */
+"j0f-vq-moo.normalTitle" = "סגור";
+
+/* Class = "UISegmentedControl"; uPy-c2-MmC.segmentTitles[0] = "First"; ObjectID = "uPy-c2-MmC"; */
+"uPy-c2-MmC.segmentTitles[0]" = "ראשון";
+
+/* Class = "UISegmentedControl"; uPy-c2-MmC.segmentTitles[1] = "Second"; ObjectID = "uPy-c2-MmC"; */
+"uPy-c2-MmC.segmentTitles[1]" = "שני";

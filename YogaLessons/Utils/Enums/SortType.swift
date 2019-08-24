@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SortType:Int,CaseIterable{
+enum SortType:Int,CaseIterable,Translateable{
     case best
     case name,level,date,near
 }

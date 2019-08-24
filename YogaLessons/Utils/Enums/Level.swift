@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum Level:Int,CaseIterable{
+enum Level:Int,CaseIterable,Translateable{
     
-    case anyone //= "Anyone"
-    case beginner// = "Beginner"
-    case intermediate// = "Intermediate"
-    case advanced// = "Advanced"
+    case anyone
+    case beginner
+    case intermediate
+    case advanced
     
     static let key = "level"
 }

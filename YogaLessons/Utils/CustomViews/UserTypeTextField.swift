@@ -7,7 +7,7 @@
 //
 import iOSDropDown
 
-class TypeTextField: DropDown{
+class UserTypeTextField: DropDown{
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         cTor()
@@ -18,7 +18,7 @@ class TypeTextField: DropDown{
         cTor()
     }
     
-    private let types = UserType.allCases.map{ "\($0)".capitalized}
+    private let types = UserType.allCases.map{ $0.translated.capitalized}
     
     var didSelectHandler:((UserType)->Void)?
     
@@ -49,7 +49,7 @@ class TypeTextField: DropDown{
     
     func set(type :UserType){
         self.type = type
-        text = "\(type)".capitalized
+        text = type.translated.capitalized
         selectedIndex = type.rawValue
     }
     

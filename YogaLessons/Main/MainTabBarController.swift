@@ -81,28 +81,9 @@ class MainTabBarController: UITabBarController {
     
     func updateTitle() {
         
-        let title:String
-        let traSType = currentSourceType.tranlated
-        let traDType = currentDataType.translated
+        let title = "\(currentSourceType)-\(currentDataType)"
         
-        switch currentSourceType {
-        case .all:
-            title = traSType + " " + "the ".translated + traDType
-
-        case .signed:
-            
-            let mine = "my".translated
-            
-            if Locale.preferredLanguages[0].starts(with: "he"){//hebrew
-                title = "the ".translated + traDType + " " + mine
-                
-            }else{
-                title = mine + " " + traDType
-            }
-        }
-        
-        
-        navigationItem.title = title.capitalized
+        navigationItem.title = title.translated.capitalized
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -162,7 +143,7 @@ class MainTabBarController: UITabBarController {
     }
     
     @objc func onSortTapped(_ notification:NSNotification) {
-        guard let dType = notification.userInfo?["type"] as? DataType
+        guard let (dType,sType) = notification.userInfo?["dataTuple"] as? (DataType,SortType)
             else{return}
         
         currentDataType = dType
@@ -173,10 +154,10 @@ class MainTabBarController: UITabBarController {
     @objc func onSigned(_ notification:NSNotification){
 //        move to signed tab
         
+        selectedIndex = 1
+        
         currentSourceType = .signed
         updateTitle()
-        
-        selectedIndex = 1
         
 //        and sort to type
 //        DataSource.shared.sort(by: .best, dataSource: .signed, dataType: currentDataType)

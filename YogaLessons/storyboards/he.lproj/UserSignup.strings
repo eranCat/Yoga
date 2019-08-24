@@ -1,0 +1,21 @@
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "Bgc-vt-8x5"; */
+"Bgc-vt-8x5.placeholder" = "אימייל";
+
+/* Class = "UITextField"; placeholder = "Level"; ObjectID = "EXW-sk-1Xg"; */
+"EXW-sk-1Xg.placeholder" = "רמה";
+
+/* Class = "UINavigationItem"; title = "Sign up"; ObjectID = "T21-9y-FWQ"; */
+"T21-9y-FWQ.title" = "הרשם";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "gKh-st-Myb"; */
+"gKh-st-Myb.placeholder" = "שם";
+
+/* Class = "UITextField"; placeholder = "Birth Date"; ObjectID = "olF-eX-pVC"; */
+"olF-eX-pVC.placeholder" = "תאריך לידה";
+
+/* Class = "UITextField"; placeholder = "Type"; ObjectID = "yI9-ak-F6e"; */
+"yI9-ak-F6e.placeholder" = "סוג משתמש";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "yeD-eh-Pfg"; */
+"yeD-eh-Pfg.placeholder" = "סיסמא";

@@ -55,7 +55,7 @@ extension ClassCell:PopulateDelegate{
         }
         
         classType.text = aClass.title
-        level.text = "\(aClass.level)"
+        level.text = aClass.level.translated
         
         place.text = aClass.locationName
         

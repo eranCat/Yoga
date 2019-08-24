@@ -346,7 +346,7 @@
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="PlaceHolder" value="extra notes..."/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="PlaceHolder" value="Extra notes..."/>
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
                                             </subviews>

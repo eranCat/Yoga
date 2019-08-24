@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DataType:Int,CaseIterable {
+enum DataType:Int,CaseIterable,Translateable {
     case classes,events
     
     var singular:String{
@@ -19,9 +19,5 @@ enum DataType:Int,CaseIterable {
         case .events:
             return "event".translated
         }
-    }
-    
-    var translated: String{
-        return "\(self)".translated
     }
 }

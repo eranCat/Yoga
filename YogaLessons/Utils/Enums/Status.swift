@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Status:Int,CaseIterable {
+enum Status:Int,CaseIterable,Translateable {
     
     case open
     case full

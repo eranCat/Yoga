@@ -5,11 +5,14 @@
   Created by Eran karaso on 23/08/2019.
   Copyright © 2019 Eran karaso. All rights reserved.
 */
+//userType enum
+"student" = "תלמיד";
+"teacher" = "מורה";
+
 //dataSource enum
 "all" = "כל";
 "signed" = "רשומים";
 
-"the " = "ה";
 
 //dataType enum
 "classes" = "שיעורים";
@@ -17,11 +20,28 @@
 "class" = "שיעור";
 "event" = "אירוע";
 
-//serachTypeKey enum
+//searchTypeKey enum
 "title" = "שם";
 "location" = "מיקום";
 "teacher" = "מורה";
 
+//sortType enum
+"best" = "הכי טוב";
+"name" = "שם";
+"level" = "רמת קושי";
+"date" = "תאריך";
+"near" = "קרוב";
+
+//level enum
+"anyone" = "לכולם";
+"beginner" = "מתחיל";
+"intermediate" = "בינוני";
+"advanced" = "מתקדם";
+
+//status enum
+"open" = "פתוח";
+"full" = "מלא";
+"cancled" = "התבטל";
 
 "too late" = "נראה שלא הספקת להרשם בזמן";
 "signTwice" = "כבר נרשמת, אין צורך להרשם שוב";
@@ -34,6 +54,12 @@
 
 "Yes" = "כן"; "yes" = "כן";
 "No" = "לא"; "no" = "לא";
+"non" = "אין";
+"the " = "ה";
+"ok" = "בסדר";
+"OK" = "בסדר";
+"Ok" = "בסדר";
+"yet" = "עדיין";
 
 "fetching info" = "מביא נתונים";
 
@@ -50,4 +76,78 @@
 
 "searchBy" = "חפש לפי אחת מהאפשרויות";
 
-"my" = "שלי";
+"all-classes" = "כל השיעורים";
+"all-events" = "כל האירועים";
+
+"signed-classes" = "השיעורים שלי";
+"signed-events" = "האירועים שלי";
+
+"My uploads" = "ההעלאות שלי";
+"my uploads" = "ההעלאות שלי";
+
+"new-classes" = "שיעור חדש";
+"new-events" = "אירוע חדש";
+
+"What to bring..." = "מה להביא...";
+"Extra notes..." = "הערות נוספות ...";
+
+"noMax" = "אין הגבלה";
+"free" = "בחינם🤩";
+
+"alreadySigned" = "😌כבר נרשמת ל";
+
+"No place left" = "הכל מלא";
+
+"Can't sign out" = "בעיה בביטול ההרשמה";
+
+"signToCanceled" = "אי אפשר להרשם כי בוטל ה";
+
+"noUserFound" = "משתמש לא נמצא ! 😳";
+
+"castFailed" = "נמצאה בעיה במסד הנתונים בהמרת מידע 😢";
+
+"About me..." = "כמה מילים על עצמי...";
+
+"confirmUnsign" = "בטוח לבטל את ההרשמה ל";
+"Choose a reminder" = "בחר תזכורת";
+"remindingYou" = "להזכירך ";
+"is about to begin at" = "עומד להתחיל ב";
+
+"remindBeforeStart" = "להזכיר לפני שזה מתחיל";
+
+"Notify me" = "תזכיר לי";
+
+"Add to calendar" = "הוסף ללוח השנה";
+
+"Don't remind me" = "אל תזכיר לי";
+
+
+/*מילוי חדש*/
+
+"fill" = "יש למלא את ";
+"select" = "נא לבחור ";
+
+"'s" = " ";
+
+"Problem found" = "יש בעיה";
+
+"time" = "שעה";
+
+"startD" = "תאריך ההתחלה";
+"startT" = "שעת ההתחלה";
+
+"endD" = "תאריך הסיום";
+"endT" = "שעת הסיום";
+
+"Dates problem" = "בעיה עם התאריכים";
+"startD>endD" = "תאריך התחלה צריך להיות לפני תאריך הסיום";
+
+"level of" = "רמת הקושי";
+"maxPpl" = "הכמות המירבית של האנשים";
+"equipment" = "ציוד";
+
+"Only teachers can create clasess!" = "רק מורים יכולים לפרסם שיעורים";
+
+"noInternet" = "אין חיבור לאינטרנט";
+"checkNet" = "כדאי לבדוק את חיבור האינטרנט ולחזור אחרי כן";
+"internetSetting" = "הגדרות אינטרנט";

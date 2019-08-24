@@ -62,7 +62,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         view.backgroundColor = .init(patternImage: #imageLiteral(resourceName: "sea"))
         
-        tfTitle.placeholder = "Yoga kind"
+//        tfTitle.placeholder = "Yoga kind"
         
         navigationItem.hidesSearchBarWhenScrolling = true
         
@@ -116,21 +116,21 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     }
     
     fileprivate func changeToClassView() {
-        tfTitle.placeholder = "Yoga kind"
-        tfstartDate.placeholder = "Start time"
-        tfEndDate.placeholder = "End time"
+//        tfTitle.placeholder = "Yoga kind"
+//        tfstartDate.placeholder = "Start time"
+//        tfEndDate.placeholder = "End time"
 //        eventImgView.isHidden = true
-         navigationItem.title = "New class"
+         navigationItem.title = "new-\(typeSegment.type)".translated
     }
     
     
     
     fileprivate func changeToEventView() {
-        tfTitle.placeholder = "Event name"
-        tfstartDate.placeholder = "Start date"
-        tfEndDate.placeholder = "End date"
+//        tfTitle.placeholder = "Event name"
+//        tfstartDate.placeholder = "Start date"
+//        tfEndDate.placeholder = "End date"
 //        eventImgView.isHidden = false
-         navigationItem.title = "New event"
+         navigationItem.title = "new-\(typeSegment.type)".translated
     }
     
     @IBAction func segmentValueChanged(_ sender: UISegmentedControl) {
@@ -147,14 +147,24 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         tableView.reloadData()
     }
     
-    func createData() -> UserConnectionDelegate? {
+    func validateAndCreateData() -> UserConnectionDelegate? {
         
-        let typeTxt = typeSegment.type == .classes ? "class" : "event"
+        guard let user = YUser.currentUser else{return nil}
+        
+        if typeSegment.type == .classes{
+            guard let teacher = user as? Teacher
+                else{
+                    ErrorAlert.show(message: "Only teachers can create clasess!".translated)
+                    return nil
+            }
+        }
+        
+        let typeTxt = typeSegment.type.singular
 
         guard let title = tfTitle.text,!title.isEmpty
             else {
                 tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                tfTitle.setError(message: "fill "+tfTitle.placeholder!)
+                tfTitle.setError(message: "fill".translated + tfTitle.placeholder!)
                 return nil
         }
         
@@ -163,44 +173,50 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         guard let locationCoordinate = self.selectedCoordinate,
             let locName = self.selectedPlaceName
         else {
-            ErrorAlert.show(message: "please select the \(typeTxt)'s location")
+            let selectMsg = "select".translated + "location".translated
+            ErrorAlert.show(message: selectMsg)
             tableView.selectRow(at: IndexPath(row: 0, section: 2), animated: true, scrollPosition: .top)
             return nil
         }
         
-        let dateTxt = typeSegment.type == .classes ? "time" : "date"
+        let dateTxt = typeSegment.type == .classes ? "T" : "D"
+        
         guard let startDate = tfstartDate.date else{
-            self.tfstartDate.setError(message: "please fill the \(typeTxt)'s start \(dateTxt)")
+            let msg = "fill".translated + "start\(dateTxt)".translated
+            self.tfstartDate.setError(message: msg)
             return nil
         }
         guard let endDate = tfEndDate.date else{
-            self.tfEndDate.setError(message: "please fill the \(typeTxt)'s end \(dateTxt)")
+            let msg = "fill".translated + "end\(dateTxt)".translated
+            self.tfEndDate.setError(message: msg)
             return nil
         }
         
         guard startDate < endDate else {
-            ErrorAlert.show(title: "Dates problem", message: "Start date should be earlier than end date")
+            ErrorAlert.show(title: "Dates problem".translated,
+                            message: "startD>endD".translated)
             return nil
         }
         
         let date = (startDate,endDate)
 
         guard let level = tfLevel.level else {
-            self.tfLevel.setError(message: "Please fill the \(typeTxt)'s level")
+            self.tfLevel.setError(message: "fill".translated + "level of".translated)
             return nil
         }
 
         
+        let maxPplMessage = "fill".translated +  "maxPpl".translated
         guard let maxPplSelectedIndex = maxPplDropDown.selectedIndex
             else{
-                self.maxPplDropDown.setError(message: "Please fill maximum number of people")
+                self.maxPplDropDown.setError(message: maxPplMessage)
                 return nil
                 }
         
         guard (maxPplSelectedIndex == 0 &&  maxPplCount != nil && maxPplCount! > 0)
             || maxPplSelectedIndex != 0
             else{
-                self.maxPplDropDown.setError(message: "Please fill maximum number of people")
+                self.maxPplDropDown.setError(message: maxPplMessage)
                 return nil
             }
         
@@ -209,23 +225,17 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         guard !tvEquipment.isEmpty,let equip = tvEquipment.text
                  else {
-            self.tvEquipment.setError(message: "please fill the equipment needed for this")
+            self.tvEquipment.setError(message: "fill".translated + "equipment".translated)
             return nil
         }
         
         let xtra = !tvExtraNotes.isEmpty ? tvExtraNotes.text : ""
         
-        guard let user = YUser.currentUser else{return nil}
         
         switch typeSegment.type {
         case .classes:
-            guard let teacher = user as? Teacher
-                else{
-                    ErrorAlert.show(message: "Only teachers can create clasess!")
-                    return nil
-            }
             
-            return Class( type: title, cost: cost, location: locationCoordinate, locationName: locName, date: date, level: level, equipment: equip, xtraNotes: xtra, maxParticipants: maxPpl, teacher: teacher)
+            return Class( type: title, cost: cost, location: locationCoordinate, locationName: locName, date: date, level: level, equipment: equip, xtraNotes: xtra, maxParticipants: maxPpl, teacher: user as! Teacher)
         case .events:
             
             return Event(title: title, cost: cost, locationName: locName, location: locationCoordinate, date: date, level: level, equipment: equip, xtraNotes: xtra, maxParticipants: maxPpl, user: user)
@@ -258,15 +268,15 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         switch dType {
             
         case .classes:
-            guard let c = createData() as? Class else{return}
+            guard let c = validateAndCreateData() as? Class else{return}
         
-            ds.add(class: c,taskDone: saveTaskListener)
+            ds.addToAll(.classes, dataObj: c, taskDone: saveTaskListener)
             
         case .events:
-            guard let e = createData() as? Event else{return}
+            guard let e = validateAndCreateData() as? Event else{return}
             
             if hasImage{
-                ds.add(event: e) { err in
+                ds.addToAll(.events, dataObj: e) { err in
 //                    done saving event to DB
                     saveTaskListener(err)
                     guard err == nil,let img = self.eventImgView.image
@@ -276,7 +286,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                 }
             }
             else{
-                ds.add(event: e,taskDone: saveTaskListener)
+                ds.addToAll(.events, dataObj: e, taskDone: saveTaskListener)
             }
         }
         

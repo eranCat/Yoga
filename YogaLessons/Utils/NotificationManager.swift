@@ -67,7 +67,9 @@ class NotificationManager {
         let formattedTime = formatter.string(from: time)
         
         content.title = title
-        content.body = "Reminding you that your \(title) is about to begin in \(formattedTime)"
+        
+        content.body =
+        "remindingYou".translated + " \(title)" + "is about to begin at".translated + " \(formattedTime)"
         //                formatt time from time
         content.sound = .default
         
@@ -101,6 +103,8 @@ class NotificationManager {
 
 //like broadcast manager
 extension Notification.Name{
+    
+    static let _signedTabSelected = Notification.Name("signed tab selected")
     
     static let _dataLoaded = Notification.Name("data loaded")
     
