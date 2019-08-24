@@ -18,7 +18,7 @@ extension MainTabBarController:UITabBarControllerDelegate{
         
         self.currentSourceType = SourceType.allCases[i]
         
-        navigationItem.title = "\(currentSourceType) \(currentDataType)".capitalized
+        updateTitle()
         
         navigationItem.setRightBarButtonItems(barItemsForTab[i], animated: true)
     }

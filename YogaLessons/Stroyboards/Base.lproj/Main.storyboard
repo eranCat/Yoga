@@ -198,12 +198,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="QK4-IU-0ci"/>
                     <connections>
+                        <outlet property="loadingLbl" destination="GzF-ge-fqW" id="YeT-7E-Ark"/>
                         <segue destination="3HF-D4-DGg" kind="presentation" identifier="showLogin" id="x8W-SI-S1n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TZa-Tc-6SI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-665" y="28"/>
+            <point key="canvasLocation" x="-665.21739130434787" y="27.455357142857142"/>
         </scene>
     </scenes>
     <resources>

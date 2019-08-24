@@ -10,4 +10,8 @@ import Foundation
 
 enum SourceType:CaseIterable {
     case all,signed
+    
+    var tranlated:String{
+        return "\(self)".translated
+    }
 }

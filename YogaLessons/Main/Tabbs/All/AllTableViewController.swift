@@ -55,9 +55,9 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         
         refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
-        navigationItem.title = "\(currentDataType)".capitalized
+        navigationItem.title = currentDataType.translated.capitalized
         
-        setupEmptyBG(withMessage : "No \(currentDataType) yet")
+        updateEmptyBG()
         
         tableView.separatorInset.left = 120
         
@@ -137,18 +137,22 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         currentDataType = dType
         sortType = sType
         
-        updateEmptyLabel()
+        updateEmptyBG()
         
         dataSource.sort(by: sType,sourceType: .all,dataType: dType)
         
         reload()
     }
     
-    func updateEmptyLabel() {
-        guard let emptyView = tableView.backgroundView as? EmptyView
-            else{return}
+    func updateEmptyBG() {
+        let text:String
         
-        emptyView.messageLbl.text = "No \(currentDataType) yet"
+        if Locale.preferredLanguages[0].starts(with: "he"){//hebrew
+            text = "עדיין \(currentDataType.translated) אין"
+        }else{
+            text = "No \(currentDataType.translated) yet"
+        }
+        setupEmptyBG(withMessage: text)
     }
     
     func reload() {
@@ -219,14 +223,14 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         let signAction:UITableViewRowAction
         //the user didnt sign up for the class
         if let isSigned = signed[objId] {
-            signAction = .init(style: .default, title: "I'm out", handler: { _,_ in
+            signAction = .init(style: .default, title: "I'm out".translated, handler: { _,_ in
                 
                 self.signUserOut(indexPath)
             })
             signAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         }else{
             
-            signAction = .init(style: .default, title: "I'm in", handler: {(_,_) in
+            signAction = .init(style: .default, title: "I'm in".translated, handler: {(_,_) in
                 
                 self.signinUserTo(indexPath)
             })
@@ -289,9 +293,9 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
                     switch signErr{
                         
                     case .noPlaceLeft:
-                        title = "Oh no ,you're too late"
+                        title = "too late".translated//Oh no ,you're too late
                     case .alreadySignedToClass, .alreadySignedToEvent:
-                        title = "Sign in twice, not very nice."
+                        title = "signTwice".translated //Sign in twice, not very nice."
                     default:
                         title = nil
                     }
@@ -329,9 +333,12 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         guard let obj = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)
             else{return}
         
-        let alert = UIAlertController.init(title: "Sign out alert", message: "Are you sure you want to sign out of this \(currentDataType.singular)?", preferredStyle: .alert)
+        var sureQ: String = "Are you sure you want to sign out of this".translated
+        sureQ += "\(currentDataType.singular)?"
         
-        alert.addAction(UIAlertAction.init(title: "Yes", style: .default) { _ in
+        let alert = UIAlertController.init(title: "Sign out alert".translated, message: sureQ , preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction.init(title: "Yes".translated, style: .default) { _ in
             
             SVProgressHUD.show()
             DataSource.shared
@@ -344,7 +351,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             }
         })
         
-        alert.addAction(.init(title: "No", style: .cancel))
+        alert.addAction(.init(title: "No".translated, style: .cancel))
         
         present(alert,animated: true)
     }

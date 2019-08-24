@@ -15,9 +15,13 @@ enum DataType:Int,CaseIterable {
         switch self {
         
         case .classes:
-            return "class"
+            return "class".translated
         case .events:
-            return "event"
+            return "event".translated
         }
+    }
+    
+    var translated: String{
+        return "\(self)".translated
     }
 }

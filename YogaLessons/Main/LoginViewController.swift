@@ -46,12 +46,12 @@ class LoginViewController: UIViewController,TextFieldReturn {
     func checkFields() -> (String,String)? {
         guard let email = self.email.text,!email.isEmpty
             else{
-                self.email.setError(message: "Please fill in your email.")
+                self.email.setError(message: "fillEmail".translated)
                 return nil
         }
         guard let pass = self.password.text,!pass.isEmpty
             else{
-                self.password.setError(message: "Please fill in your password.")
+                self.password.setError(message: "fillPass".translated)
                 return nil
         }
         

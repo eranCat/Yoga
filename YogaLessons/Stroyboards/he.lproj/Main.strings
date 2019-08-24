@@ -1,0 +1,12 @@
+
+/* Class = "UITabBarItem"; title = "All"; ObjectID = "87h-Pi-vWb"; */
+"87h-Pi-vWb.title" = "ראשי";
+
+/* Class = "UILabel"; text = "Loading..."; ObjectID = "GzF-ge-fqW"; */
+"GzF-ge-fqW.text" = "מוריד...";
+
+/* Class = "UIBarButtonItem"; title = "Profile"; ObjectID = "Rgb-2m-fBP"; */
+"Rgb-2m-fBP.title" = "פרופיל";
+
+/* Class = "UITabBarItem"; title = "Signed"; ObjectID = "zNC-YA-9kQ"; */
+"zNC-YA-9kQ.title" = "רשומים";

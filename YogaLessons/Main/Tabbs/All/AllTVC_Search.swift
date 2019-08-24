@@ -32,9 +32,8 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         
         navigationItem.searchController = controller
         
-        let types = SearchKeyType.allCases.map{ "\($0)"}.joined(separator: ", ")
         
-        searchBar.placeholder = "Search by one of the options bellow"
+        searchBar.placeholder = "searchBy".translated
         
         searchBar.barTintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         
@@ -42,7 +41,9 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelBtnAttr , for: .normal)
         
-        searchBar.scopeButtonTitles = SearchKeyType.allCases.map{"\($0)"}
+        let types:[String] = SearchKeyType.allCases.map{ $0.translated}
+
+        searchBar.scopeButtonTitles = types
         searchBar.scopeBarTextColorNormal = .white
         searchBar.scopeBarTextColorSelected = .black
 

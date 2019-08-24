@@ -10,4 +10,8 @@ import Foundation
 
 enum SearchKeyType:Int,CaseIterable,Hashable {
     case title,location,teacher
+    
+    var translated:String{
+        return "\(self)".translated
+    }
 }

@@ -14,6 +14,7 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     
     lazy var ds = {return DataSource.shared}()
 
+    @IBOutlet weak var loadingLbl: PaddingLabel!
     
     override func viewDidLoad() {
         navigationController?.isToolbarHidden = true

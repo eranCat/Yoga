@@ -75,9 +75,34 @@ class MainTabBarController: UITabBarController {
         delegate = self
         
         subscribeObservers()
-        
+        updateTitle()
         navigationItem.setRightBarButtonItems(allBar, animated: true)
-        navigationItem.title = "\(currentSourceType) \(currentDataType)".capitalized
+    }
+    
+    func updateTitle() {
+        
+        let title:String
+        let traSType = currentSourceType.tranlated
+        let traDType = currentDataType.translated
+        
+        switch currentSourceType {
+        case .all:
+            title = traSType + " " + "the ".translated + traDType
+
+        case .signed:
+            
+            let mine = "my".translated
+            
+            if Locale.preferredLanguages[0].starts(with: "he"){//hebrew
+                title = "the ".translated + traDType + " " + mine
+                
+            }else{
+                title = mine + " " + traDType
+            }
+        }
+        
+        
+        navigationItem.title = title.capitalized
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -101,7 +126,8 @@ class MainTabBarController: UITabBarController {
             else {return true}
         
         if YUser.currentUser == nil{
-            ErrorAlert.show(title: "Fetching your information", message: "Please wait")
+            ErrorAlert.show(title: "Fetching info".translated,
+                            message: "Please wait".translated)
             
             guard DataSource.shared.setLoggedUser()
                 else{return false}
@@ -141,14 +167,14 @@ class MainTabBarController: UITabBarController {
         
         currentDataType = dType
         
-        navigationItem.title = "\(currentSourceType) \(dType)".capitalized
+        updateTitle()
     }
     
     @objc func onSigned(_ notification:NSNotification){
 //        move to signed tab
         
         currentSourceType = .signed
-        navigationItem.title = "\(currentSourceType) \(currentDataType)"
+        updateTitle()
         
         selectedIndex = 1
         

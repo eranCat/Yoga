@@ -29,15 +29,22 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
-        navigationItem.title = "Signed \(currentDataType)".capitalized
+        updateTitle()
         
-        setupEmptyBG(withMessage: "No signed \(currentDataType)")
+        updateEmptyLabel()
         
         isTeacher = (YUser.currentUser?.type == .teacher)
         
         subscribeObservers()
         
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    func updateTitle() {
+        var title = "\(SourceType.signed.tranlated)"
+        title += "  \(currentDataType.translated)"
+        
+        navigationItem.title = title.capitalized
     }
     
 //    override func viewWillAppear(_ animated: Bool) {
@@ -141,7 +148,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         guard let emptyView = tableView.backgroundView as? EmptyView
             else{return}
         
-        emptyView.messageLbl.text = "No signed \(currentDataType)"
+        emptyView.messageLbl.text = "\("No signed".translated) \(currentDataType.translated)"
     }
     
     
@@ -248,8 +255,9 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         case 0:
             let data = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row] as? Statused
             if data?.status != .cancled{
+                let title = "Cancel".translated+" "+currentDataType.singular
                 let cancel = UITableViewRowAction(style: .destructive,
-                                                  title: "Cancel "+currentDataType.singular)
+                                                  title: title)
                                                     {self.cancelPost(indexPath: $1)}
                 
                 return [cancel]
@@ -258,9 +266,9 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
 
         case 1:fallthrough//signed
         default:
-            let unsign = UITableViewRowAction(style: .destructive,
-                                              title: "Unsign from  "+currentDataType.singular)
-                                                {self.unsign(indexPath: $1)}
+            let title = "Unsign from ".translated + currentDataType.singular
+            let unsign = UITableViewRowAction(style: .destructive,title: title)
+                                                            {self.unsign(indexPath: $1)}
             return [unsign]
         }
     }
