@@ -49,7 +49,6 @@
 "I'm in" = "הרשמה";
 "I'm out" = "ביטול הרשמה";
 
-"Are you sure you want to sign out of this" = "בטוח\ה שאת\ה רוצה לבטל הרשמה ?";
 "Sign out alert" = "יציאה";
 
 "Yes" = "כן"; "yes" = "כן";
@@ -108,7 +107,7 @@
 
 "About me..." = "כמה מילים על עצמי...";
 
-"confirmUnsign" = "בטוח לבטל את ההרשמה ל";
+"confirmUnsign" = "בטוח לבטל את ההרשמה מה";
 "Choose a reminder" = "בחר תזכורת";
 "remindingYou" = "להזכירך ";
 "is about to begin at" = "עומד להתחיל ב";
@@ -151,3 +150,5 @@
 "noInternet" = "אין חיבור לאינטרנט";
 "checkNet" = "כדאי לבדוק את חיבור האינטרנט ולחזור אחרי כן";
 "internetSetting" = "הגדרות אינטרנט";
+
+"ages" = "טווח גילאים";

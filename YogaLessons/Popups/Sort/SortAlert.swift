@@ -30,6 +30,52 @@ class SortAlert: UIViewController {
         
         setupSortButtons()
         setupTypeSegment()
+        
+        alertContentView.alpha = 0
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        animateFromTop()
+        animateZoom(into: true)
+    }
+    
+    func animateZoom(into:Bool,completion:((Bool)->Void)? = nil) {
+        
+        alertContentView.alpha = into ? 0.7 : 1
+
+        let from:CGFloat = into ? 0.001 : 1
+        let to:CGFloat = into ? 1 : 0.001
+        
+        alertContentView.transform =
+            CGAffineTransform.identity.scaledBy(x: from, y: from)
+        
+        let duration = into ? 0.7 : 0.5
+        
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 20, options: .curveEaseInOut, animations: {
+            
+            self.alertContentView.transform =
+                CGAffineTransform.identity.scaledBy(x: to, y: to)
+            self.alertContentView.alpha = into ? 1 : 0
+            
+            
+        }, completion: completion)
+    }
+    
+    func animateFromTop() {
+        alertContentView.center.y = -alertContentView.frame.height - 10
+        alertContentView.alpha = 1
+        
+        UIView.animate(withDuration: 0.6,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 10,
+                       options: .curveEaseInOut,
+                       animations: { [weak self] in
+                        guard let self = self else{return}
+                        
+                        self.alertContentView.center.y = self.view.frame.height/2
+            },
+                       completion: nil)
     }
     
     
@@ -77,8 +123,10 @@ class SortAlert: UIViewController {
         
         btn.rounded = 8
         
-        btn.backgroundColor = .gray
-        btn.setTitleColor(.white, for: .normal)
+        btn.backgroundColor = #colorLiteral(red: 0.659389317, green: 0.8405041099, blue: 1, alpha: 1)
+        btn.setTitleColor(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1), for: .normal)
+        btn.setTitleColor(.white, for: .selected)
+
         
         btn.setTitle(sortType.translated.capitalized, for: .normal)
         
@@ -121,15 +169,13 @@ class SortAlert: UIViewController {
     
     func hide(completion:(()->Void)? = nil){
         
-        UIView.animate(withDuration: 0.2,animations:  {
-            self.alertContentView.alpha = 0
-        }){ _ in
+        animateZoom(into: false){ _ in
             self.dismiss(animated: true)
             completion?()
         }
     }
     
-    static func show() {
+    class func show() {
         guard let vc = newVC(storyBoardName: "FilterDialog", id: "FilterDialog") as? SortAlert
             else{return}
         //delegate from outside to call when sort picked

@@ -81,9 +81,9 @@ class MainTabBarController: UITabBarController {
     
     func updateTitle() {
         
-        let title = "\(currentSourceType)-\(currentDataType)"
+        let title = "\(currentSourceType)-\(currentDataType)".translated
         
-        navigationItem.title = title.translated.capitalized
+        navigationItem.title = title.capitalized
     }
     
     override func viewDidDisappear(_ animated: Bool) {

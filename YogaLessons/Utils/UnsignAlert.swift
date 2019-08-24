@@ -11,7 +11,7 @@ import UIKit
 class UnsignAlert {
     class func show(dType:DataType,handler:@escaping (UIAlertAction)->Void) {
         
-        let msg = "confirmUnsign".translated + " " + dType.singular + " ?"
+        let msg = "confirmUnsign".translated + dType.singular + " ?"
         
         let alert = UIAlertController.init(title: nil, message: msg, preferredStyle: .alert)
         

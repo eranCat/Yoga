@@ -44,10 +44,12 @@
                                                     </label>
                                                     <segmentedControl opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uPy-c2-MmC">
                                                         <rect key="frame" x="183" y="0.0" width="183" height="32.5"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <segments>
                                                             <segment title="First"/>
                                                             <segment title="Second"/>
                                                         </segments>
+                                                        <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     </segmentedControl>
                                                 </subviews>
                                             </stackView>
@@ -59,9 +61,11 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0f-vq-moo">
                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="40"/>
-                                                        <color key="backgroundColor" red="0.80946308369999997" green="0.93192023040000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="0.59985017123287676" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
-                                                        <state key="normal" title="Close"/>
+                                                        <state key="normal" title="Close">
+                                                            <color key="titleColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="rounded">
                                                                 <real key="value" value="10"/>
@@ -73,9 +77,11 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hD1-7o-2ek">
                                                         <rect key="frame" x="194" y="0.0" width="172" height="40"/>
-                                                        <color key="backgroundColor" red="0.80946308369999997" green="0.93192023040000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                        <state key="normal" title="Done"/>
+                                                        <state key="normal" title="Done">
+                                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="rounded">
                                                                 <real key="value" value="10"/>

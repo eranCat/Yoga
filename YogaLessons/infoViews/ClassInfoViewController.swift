@@ -108,10 +108,6 @@ class ClassInfoViewController: UITableViewController {
         
         lblCurrentPplAmount.text = "\(classModel.numOfParticipants)"
         
-        //        MARK: to do!
-        //        lblAges.text = classModel.maxParticipantAge
-        //        lblAges.text = classModel.minParticipantAge
-        
         if classModel.cost.amount > 0{
             lblCost.text = classModel.cost.description
         }else{
@@ -147,6 +143,24 @@ class ClassInfoViewController: UITableViewController {
             hasExtraNotes = true
         }else{
             hasExtraNotes = false
+        }
+        
+        switch (classModel.minAge,classModel.maxAge) {
+        case (.some(let min),.some(let max)):
+            if min == max{
+                lblAges.text = "\(min)"
+            }else{
+                lblAges.text = "\(min) - \(max)"
+            }
+            
+        case (.some(let min),nil):
+            lblAges.text = "\(min)"
+            
+        case (nil,.some(let max)):
+            lblAges.text = "\(max)"
+
+        default:
+            lblAges.text = ""
         }
     }
     
@@ -217,26 +231,32 @@ class ClassInfoViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
+        
+        let autoSize = UITableView.automaticDimension
+        
         switch indexPath.section {
-        case 7:
-            if !hasExtraNotes{
-                return 0.0
-            }
-            fallthrough
+        case 8:
+            return !hasExtraNotes ? 0.0 : autoSize
+            
+        case 6://ages section
+            return classModel.minAge == nil && classModel.maxAge == nil ? 0 : autoSize
         default:
-            return UITableView.automaticDimension
+            return autoSize
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        let autoSize = UITableView.automaticDimension
+        
         switch section {
-        case 7:
-            if !hasExtraNotes{
-                return 0.0
-            }
-            fallthrough
+        case 8:
+            return !hasExtraNotes ? 0 : autoSize
+            
+        case 6:
+            return classModel.minAge == nil && classModel.maxAge == nil ? 0 : autoSize
         default:
-            return UITableView.automaticDimension
+            return autoSize
         }
     }
 }

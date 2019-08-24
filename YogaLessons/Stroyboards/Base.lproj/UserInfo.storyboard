@@ -109,7 +109,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KqX-3j-j1w"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Name" id="1gU-B8-Y3A">
+                    <navigationItem key="navigationItem" title="Name" largeTitleDisplayMode="never" id="1gU-B8-Y3A">
                         <barButtonItem key="rightBarButtonItem" title="Sign out" id="SRk-fS-VJ9">
                             <color key="tintColor" red="0.84491989213197971" green="0.22795042967001969" blue="0.08463818317838985" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>

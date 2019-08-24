@@ -72,12 +72,12 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         let names:[Notification.Name] =
             [._sortTapped,
              ._signedDataAdded,
-//             ._signedDataRemoved,
+             ._signedDataRemoved,
              ._dataCancled]
         
         let selectors:[Selector] = [#selector(onSortTapped(_:)),
                                      #selector(signedDataAdded(_:)),
-//                                     #selector(signedDataRemoved(_:)),
+                                     #selector(signedDataRemoved(_:)),
                                      #selector(onDataChanged(_:)),
                                     ]
         

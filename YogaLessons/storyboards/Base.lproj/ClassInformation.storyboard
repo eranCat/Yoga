@@ -266,17 +266,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="18-30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ih7-dO-hfZ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="46.5"/>
+                                                    <rect key="frame" x="0.0" y="8" width="414" height="30.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ih7-dO-hfZ" firstAttribute="top" secondItem="6Uw-pX-Y6E" secondAttribute="top" id="G2s-Y2-eRz"/>
-                                                <constraint firstItem="ih7-dO-hfZ" firstAttribute="leading" secondItem="6Uw-pX-Y6E" secondAttribute="leading" id="Gku-nV-pY9"/>
-                                                <constraint firstAttribute="trailing" secondItem="ih7-dO-hfZ" secondAttribute="trailing" id="qjp-xG-Vmz"/>
-                                                <constraint firstAttribute="bottom" secondItem="ih7-dO-hfZ" secondAttribute="bottom" id="tcc-ek-LoL"/>
+                                                <constraint firstAttribute="bottom" secondItem="ih7-dO-hfZ" secondAttribute="bottom" constant="8" id="MIj-HU-rgL"/>
+                                                <constraint firstItem="ih7-dO-hfZ" firstAttribute="top" secondItem="6Uw-pX-Y6E" secondAttribute="top" constant="8" id="oeS-lD-s8C"/>
+                                                <constraint firstItem="ih7-dO-hfZ" firstAttribute="leading" secondItem="6Uw-pX-Y6E" secondAttribute="leading" id="ppT-W6-t3H"/>
+                                                <constraint firstAttribute="trailing" secondItem="ih7-dO-hfZ" secondAttribute="trailing" id="ze1-QO-oWW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

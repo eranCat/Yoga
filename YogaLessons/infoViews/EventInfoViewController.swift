@@ -43,6 +43,7 @@ class EventInfoViewController: UITableViewController {
     
     @IBOutlet weak var equipmentTv: UITextView!
     
+    @IBOutlet weak var lblAges: UILabel!
     
     @IBOutlet weak var extraNotesTv: UITextView!
     var hasXtraNotes = false
@@ -146,11 +147,35 @@ class EventInfoViewController: UITableViewController {
         equipmentTv.text = event.equipment
         
         //xtra, hide stack if there's non
-        if let xtra = event.xtraNotes{
+        if let xtra = event.xtraNotes,!xtra.isEmpty{
             extraNotesTv.text = xtra
             hasXtraNotes = true
         }else{
             hasXtraNotes = false
+        }
+        
+        if let ageStack = lblAges.superview as? UIStackView{
+            if let ageTxtLbl = ageStack.arrangedSubviews[safe: 0] as? UILabel{
+                ageTxtLbl.text = "ages".translated
+            }
+        }
+        
+        switch (eventModel.minAge,eventModel.maxAge) {
+        case (.some(let min),.some(let max)):
+            if min == max{
+                lblAges.text = "\(min)"
+            }else{
+                lblAges.text = "\(min) - \(max)"
+            }
+            
+        case (.some(let min),nil):
+            lblAges.text = "\(min)"
+            
+        case (nil,.some(let max)):
+            lblAges.text = "\(max)"
+            
+        default:
+            lblAges.text = ""
         }
     }
     
@@ -229,26 +254,31 @@ class EventInfoViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        switch indexPath.section {
-        case 8:
-            if !hasXtraNotes{
-                return 0.0
-            }
-            fallthrough
+        let autoSize = UITableView.automaticDimension
+        
+        switch (indexPath.section,indexPath.row) {
+        case (8,_):
+            return !hasXtraNotes ? 0.0 : autoSize
+            
+        case (4,1)://participants section -> ages row
+            return eventModel.minAge == nil && eventModel.maxAge == nil ? 0 : autoSize
+            
         default:
-            return UITableView.automaticDimension
+            return autoSize
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let autoSize = UITableView.automaticDimension
+        
         switch section {
         case 8:
-            if !hasXtraNotes{
-                return 0.0
-            }
-            fallthrough
+            return !hasXtraNotes ? 0.0 : autoSize
+            
+        case 4://ages section
+            return eventModel.minAge == nil && eventModel.maxAge == nil ? 0 : autoSize
         default:
-            return UITableView.automaticDimension
+            return autoSize
         }
     }
     
