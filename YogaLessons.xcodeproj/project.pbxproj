@@ -45,6 +45,7 @@
 		974394D2230FF24B00A8B48A /* InternetImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974394D1230FF24B00A8B48A /* InternetImagePicker.storyboard */; };
 		974394D4230FF59E00A8B48A /* InternetImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974394D3230FF59E00A8B48A /* InternetImagePickerViewController.swift */; };
 		974394D8231016B000A8B48A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 974394DA231016B000A8B48A /* Localizable.strings */; };
+		974394E62311316700A8B48A /* ClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 974394E52311316700A8B48A /* ClassCell.xib */; };
 		9748928E22E5B58A00C361CA /* ImageViewRound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748928D22E5B58A00C361CA /* ImageViewRound.swift */; };
 		9748929022E6DB0E00C361CA /* BlurredTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748928F22E6DB0E00C361CA /* BlurredTextField.swift */; };
 		974B6A0922DC6A38001867F0 /* MyImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974B6A0822DC6A38001867F0 /* MyImagePicker.swift */; };
@@ -191,6 +192,7 @@
 		974394D52310163600A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Main.strings; sourceTree = "<group>"; };
 		974394D9231016B000A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		974394DB231016B800A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		974394E52311316700A8B48A /* ClassCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClassCell.xib; sourceTree = "<group>"; };
 		9748928D22E5B58A00C361CA /* ImageViewRound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewRound.swift; sourceTree = "<group>"; };
 		9748928F22E6DB0E00C361CA /* BlurredTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredTextField.swift; sourceTree = "<group>"; };
 		974B6A0822DC6A38001867F0 /* MyImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImagePicker.swift; sourceTree = "<group>"; };
@@ -679,6 +681,7 @@
 				97F3DDD322BE14BF00812B33 /* EventCell.xib */,
 				977D32A422EF73DC0084EF77 /* CellsIds.swift */,
 				9713DB642301B46900B00C15 /* ProggressCell.swift */,
+				974394E52311316700A8B48A /* ClassCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				97A4027F22D773A90056BBE7 /* TeachersData.storyboard in Resources */,
 				97AE30EE22C4B1040008CE75 /* FilterDialog.storyboard in Resources */,
 				9719FECE22CE21E5005B865B /* UserSignup.storyboard in Resources */,
+				974394E62311316700A8B48A /* ClassCell.xib in Resources */,
 				97CD956622D0C2590073BF61 /* GoogleService-Info.plist in Resources */,
 				974394D2230FF24B00A8B48A /* InternetImagePicker.storyboard in Resources */,
 			);
