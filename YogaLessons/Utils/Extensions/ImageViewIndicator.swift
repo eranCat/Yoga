@@ -18,7 +18,7 @@ extension UIImageView {
         
         if (activityIndicator == nil) {
             
-            activityIndicator = .init(style: .white)
+            activityIndicator = .init(style: .gray)
             
             activityIndicator.hidesWhenStopped = true
             activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)

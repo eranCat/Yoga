@@ -19,12 +19,7 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     override func viewDidLoad() {
         navigationController?.isToolbarHidden = true
         
-        guard Reachability(queueQoS: .utility, targetQueue: .global())?.connection != .none
-            else{return}
-        
-        SVProgressHUD.show()
-        
-        continueSetup()
+        startSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +28,19 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     
     deinit {
         removeReachabilityObserver()
+    }
+    
+    func startSetup() {
+        let reachability = Reachability(queueQoS: .utility, targetQueue: .global())
+        guard reachability?.connection != .none
+            else{
+                showConnectionAlert()
+                return
+            }
+        
+        SVProgressHUD.show()
+        
+        continueSetup()
     }
     
     fileprivate func continueSetup() {

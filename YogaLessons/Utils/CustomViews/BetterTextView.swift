@@ -17,6 +17,8 @@ class BetterTextView :UITextView,UITextViewDelegate{
     
     var delegate2:UITextViewDelegate?
     
+    @IBInspectable var defaultTextColor:UIColor = .black
+    
     override func awakeFromNib() {
         layer.cornerRadius = 10
         clipsToBounds = true
@@ -32,7 +34,7 @@ class BetterTextView :UITextView,UITextViewDelegate{
         layer.masksToBounds = true
         
         if text != placeHolderString{
-            textColor = .black
+            textColor = defaultTextColor
         }
     }
     
@@ -41,7 +43,7 @@ class BetterTextView :UITextView,UITextViewDelegate{
         {
         didSet(new){ //set from code
             if !new.isEmpty && new != placeHolderString{
-                textColor = .black
+                textColor = defaultTextColor
             }
         }
     }
@@ -69,7 +71,7 @@ class BetterTextView :UITextView,UITextViewDelegate{
             if text == placeHolderString{
                 text = ""
             }
-            textColor = .black
+            textColor = defaultTextColor
         }
         
         delegate2?.textViewDidBeginEditing?(textView)

@@ -49,7 +49,7 @@ class SortAlert: UIViewController {
         alertContentView.transform =
             CGAffineTransform.identity.scaledBy(x: from, y: from)
         
-        let duration = into ? 0.7 : 0.5
+        let duration = into ? 0.4 : 0.3
         
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 20, options: .curveEaseInOut, animations: {
             
@@ -104,6 +104,12 @@ class SortAlert: UIViewController {
     }
     
     func setupTypeSegment() {
+        
+        let font = UIFont(name: "Kailasa", size: 18) ?? UIFont.systemFont(ofSize: 18)
+        segmentType.setTitleTextAttributes(
+            [NSAttributedString.Key.font: font],
+            for: .normal)
+        
         segmentType.removeAllSegments()
         
         for (i,dt) in DataType.allCases.enumerated(){
@@ -130,7 +136,7 @@ class SortAlert: UIViewController {
         
         btn.setTitle(sortType.translated.capitalized, for: .normal)
         
-        btn.titleLabel?.font = btn.titleLabel?.font.withSize(16)
+        btn.titleLabel?.font = btn.titleLabel?.font.withSize(18)
         
         btn.tag = sortType.rawValue
         

@@ -18,7 +18,7 @@ class DateTextField: ToolbarTextField {
         didSet{
             if let d = date{
                 let formatter = DateFormatter()
-                formatter.dateStyle = .medium
+                formatter.dateStyle = .long
                 formatter.locale = .preferredLocale
                 
                 text = formatter.string(from: d)

@@ -33,9 +33,11 @@ extension UITextField{
     
     func setError(message:String) {
         
-        let alert = UIAlertController(title: "Incorrect value", message: message, preferredStyle: .alert)
+        let title:String? = nil//"Incorrect value".translated
         
-        let ok = UIAlertAction(title: "ok", style: .default)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "ok".translated, style: .default)
         { action in
             
             self.shakeEffect(baseColor: .black, revert: false, shakes: 2)

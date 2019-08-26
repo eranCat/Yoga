@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ClassCell" rowHeight="140" id="lkq-tF-xx1" customClass="ClassCell" customModule="YogaLessons" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="420" height="138"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lkq-tF-xx1" id="GRS-pp-xLZ">
+                <rect key="frame" x="0.0" y="0.0" width="420" height="137.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="cOM-p0-27c">
+                        <rect key="frame" x="16" y="16" width="388" height="105.5"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9jS-aT-iPH">
+                                <rect key="frame" x="0.0" y="0.0" width="76.5" height="105.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBk-Q3-rhU">
+                                        <rect key="frame" x="0.0" y="0.0" width="76.5" height="21"/>
+                                        <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guru" translatesAutoresizingMaskIntoConstraints="NO" id="1X5-6h-Uiw" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="29" width="76.5" height="76.5"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="1X5-6h-Uiw" secondAttribute="height" multiplier="1:1" id="bOu-kU-5ff"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="Circled" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uLo-lv-BG7" userLabel="Data">
+                                <rect key="frame" x="92.5" y="0.0" width="295.5" height="105.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8c-xw-cEw">
+                                        <rect key="frame" x="0.0" y="0.0" width="295.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="Damascus" family="Damascus" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="at" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4p-Rm-ueh">
+                                        <rect key="frame" x="0.0" y="28.5" width="295.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="Damascus" family="Damascus" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZh-bD-D8d">
+                                        <rect key="frame" x="0.0" y="57" width="295.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="Damascus" family="Damascus" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1O6-1k-qxo">
+                                        <rect key="frame" x="0.0" y="85" width="295.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="Damascus" family="Damascus" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cancled.png" translatesAutoresizingMaskIntoConstraints="NO" id="hkG-5C-v2n">
+                        <rect key="frame" x="0.0" y="0.0" width="420" height="137.5"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hkG-5C-v2n" firstAttribute="leading" secondItem="GRS-pp-xLZ" secondAttribute="leading" id="RJw-v5-gtc"/>
+                    <constraint firstItem="cOM-p0-27c" firstAttribute="leading" secondItem="GRS-pp-xLZ" secondAttribute="leading" constant="16" id="RPn-0m-vUa"/>
+                    <constraint firstAttribute="trailing" secondItem="hkG-5C-v2n" secondAttribute="trailing" id="UhV-wk-2Wa"/>
+                    <constraint firstAttribute="bottom" secondItem="cOM-p0-27c" secondAttribute="bottom" constant="16" id="f6W-Do-iqn"/>
+                    <constraint firstItem="cOM-p0-27c" firstAttribute="top" secondItem="GRS-pp-xLZ" secondAttribute="top" constant="16" id="mIW-aZ-Olw"/>
+                    <constraint firstItem="hkG-5C-v2n" firstAttribute="top" secondItem="GRS-pp-xLZ" secondAttribute="top" id="oI4-4Z-qVR"/>
+                    <constraint firstAttribute="bottom" secondItem="hkG-5C-v2n" secondAttribute="bottom" id="pb2-9c-VBM"/>
+                    <constraint firstAttribute="trailing" secondItem="cOM-p0-27c" secondAttribute="trailing" constant="16" id="s7S-Uc-IJj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.6027836204" green="0.70567637679999995" blue="0.89021974800000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <connections>
+                <outlet property="cancledImageView" destination="hkG-5C-v2n" id="8mi-Ge-eSE"/>
+                <outlet property="classType" destination="u8c-xw-cEw" id="QIg-qd-S5U"/>
+                <outlet property="level" destination="1O6-1k-qxo" id="V3e-ZX-AK3"/>
+                <outlet property="place" destination="O4p-Rm-ueh" id="Xib-f9-43h"/>
+                <outlet property="teacherImg" destination="1X5-6h-Uiw" id="4kA-zc-wWn"/>
+                <outlet property="teacherName" destination="TBk-Q3-rhU" id="OJG-qO-XQ6"/>
+                <outlet property="time" destination="VZh-bD-D8d" id="jqo-UR-4Rz"/>
+            </connections>
+            <point key="canvasLocation" x="173.91304347826087" y="129.91071428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cancled.png" width="400" height="250"/>
+        <image name="guru" width="50" height="50"/>
+    </resources>
+</document>

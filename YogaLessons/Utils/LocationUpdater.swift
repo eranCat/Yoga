@@ -48,9 +48,10 @@ class LocationUpdater:NSObject {
     }
     
     func showSetting() {
-        let alert = UIAlertController(title: "You need to allow permission if you want current location", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "allowLocation".translated,
+                                      message: nil, preferredStyle: .alert)
         
-        let openSetting: UIAlertAction = .init(title: "open settings", style: .default, handler: { (action) in
+        let openSetting: UIAlertAction = .init(title: "Open settings".translated, style: .default, handler: { (action) in
             
             guard let url = URL(string: UIApplication.openSettingsURLString) else{return}
             
@@ -59,7 +60,7 @@ class LocationUpdater:NSObject {
         
         
         alert.addAction(openSetting)
-        alert.addAction(.init(title: "Cancel", style: .cancel))
+        alert.addAction(.init(title: "Cancel".translated, style: .cancel))
         
         UIApplication.shared.presentedVC?.present(alert, animated: true)
     }
@@ -68,7 +69,7 @@ class LocationUpdater:NSObject {
         var source:MKMapItem?
         if let myLocation = getLastKnowLocation()?.coordinate{
             source = MKMapItem(placemark: MKPlacemark(coordinate: myLocation))
-            source!.name = "My location"
+            source!.name = "My location".translated
         }
         
         let destination = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
@@ -76,7 +77,7 @@ class LocationUpdater:NSObject {
         
         var installedNavigationApps = [UIAlertAction]()
         
-        let mapsAction = UIAlertAction(title: "Open with apple maps", style: .default){ action in
+        let mapsAction = UIAlertAction(title: "Open with apple maps".translated, style: .default){ action in
             if let src = source{
                 MKMapItem.openMaps(with: [src, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
             }else{
@@ -89,7 +90,7 @@ class LocationUpdater:NSObject {
         if let wazeURL = URL(string: "https://waze.com/ul"),
             UIApplication.shared.canOpenURL(wazeURL){
         
-            let wazeAction = UIAlertAction(title: "Open with waze", style: .default){ action in
+            let wazeAction = UIAlertAction(title: "Open with waze".translated, style: .default){ action in
                 
                 guard let url = URL(string:"https://www.waze.com/ul?ll=\(coordinate.latitude),\(coordinate.longitude)&navigate=yes&zoom=17")
                     else{return}
@@ -107,7 +108,7 @@ class LocationUpdater:NSObject {
         
         installedNavigationApps.forEach {alert.addAction($0)}
         
-        alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel, handler: nil))
         
         UIApplication.shared.presentedVC?
             .present(alert, animated: true, completion: nil)

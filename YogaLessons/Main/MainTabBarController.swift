@@ -12,10 +12,12 @@ class MainTabBarController: UITabBarController {
     
     @IBOutlet weak var profileBtn: UIBarButtonItem!
     
+    let barButtonColor = #colorLiteral(red: 0.2615792751, green: 0.2857673466, blue: 0.6650569439, alpha: 1)
+    
     lazy var sortBtn: UIBarButtonItem = {
         var btn = UIBarButtonItem(image: #imageLiteral(resourceName: "filter"), style: .plain, target: self, action: #selector(showSortAlert(_:)))
         
-        btn.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        btn.tintColor = self.barButtonColor
         
         return btn
     }()
@@ -26,7 +28,7 @@ class MainTabBarController: UITabBarController {
             NotificationCenter.default.post(name: ._searchStarted, object: nil)
         }
         
-        searchBtn.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        searchBtn.tintColor = self.barButtonColor
         
         return searchBtn
     }()
@@ -46,18 +48,14 @@ class MainTabBarController: UITabBarController {
             self.present(newNav,animated: true)
         }
         
-        btn.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        btn.tintColor = self.barButtonColor
         
         return btn
     }()
     
     lazy var allBar:[UIBarButtonItem] = {
         
-        if YUser.currentUser?.type == .teacher{
-            return [searchBtn,sortBtn,addBtn]
-        }
-        
-        return [searchBtn,sortBtn]
+        return [searchBtn,sortBtn,addBtn]
     }()
     
     lazy var signedBar:[UIBarButtonItem] = {createSignedBarItems()}()

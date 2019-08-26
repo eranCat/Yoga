@@ -61,7 +61,7 @@ extension ReachabilityObserverDelegate {
     }
     
     func showConnectionAlert() {
-        let alert = UIAlertController(title: "noIntenet".translated,
+        let alert = UIAlertController(title: "noInternet".translated,
                                       message: "checkNet".translated,
                                       preferredStyle: .alert)
         

@@ -16,12 +16,13 @@ extension UITableViewController{
     }
     
     func setupEmptyBG(withMessage msg:String? = nil) {
-        let emptyView = Bundle.main.loadNibNamed("EmptyView", owner: self, options: nil)?.first as? EmptyView
-        guard emptyView != nil else{return}
+        guard
+            let emptyView = Bundle.main.loadNibNamed("EmptyView", owner: self, options: nil)?.first as? EmptyView
+        else{return}
         
         tableView.backgroundView = emptyView
         if msg != nil{
-            emptyView!.messageLbl.text = msg
+            emptyView.messageLbl.text = msg
         }
     }
 }

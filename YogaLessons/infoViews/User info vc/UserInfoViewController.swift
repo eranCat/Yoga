@@ -16,7 +16,7 @@ class UserInfoViewController: UIViewController {
     
     @IBOutlet weak var nameTF: UITextField!
     
-    @IBOutlet weak var levelTF: LevelTextField!
+    @IBOutlet weak var levelTF: UserLevelField!
     
     @IBOutlet weak var birthDateTF: DateTextField!
     
@@ -56,7 +56,8 @@ class UserInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .init(patternImage: UIImage(named: "infoBG")!)
+        view.layer.contents = #imageLiteral(resourceName: "flower").cgImage
+//        view.backgroundColor = .init(patternImage: UIImage(named: "infoBG")!)
         
         for v in view.subviews{
             if let scrollView = v as? UIScrollView{
@@ -98,9 +99,12 @@ class UserInfoViewController: UIViewController {
     
     @IBAction func signoutTapped(_ sender: UIBarButtonItem) {
         
-        let confirmAlert = UIAlertController(title: "Sign out warning", message: "Are you sure you want to sign out?", preferredStyle: .alert)
+        let confirmAlert = UIAlertController(title: "Sign out warning".translated,
+                                             message: "confirmLogout".translated,
+                                             preferredStyle: .alert)
         
-        confirmAlert.addAction(UIAlertAction(title: "Yes, bye.", style: .default) { alert in
+        confirmAlert.addAction(UIAlertAction(title: "Yes, bye.".translated,
+                                             style: .default) { alert in
             
             //show alert - are you sure?!
             do{
@@ -113,7 +117,7 @@ class UserInfoViewController: UIViewController {
             }
         })
         
-        confirmAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        confirmAlert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel))
         
         present(confirmAlert, animated: true)
     }
@@ -127,7 +131,7 @@ class UserInfoViewController: UIViewController {
     @IBAction func nameChanged(_ sender: UITextField) {
         //sender
         guard let name = nameTF.text,!name.isEmpty else {
-            self.nameTF.setError(message: "Please fill in your name.")
+            self.nameTF.setError(message: "fill".translated + "yname".translated)
             return
         }
         guard name != currentUser.name else{return}
@@ -139,7 +143,7 @@ class UserInfoViewController: UIViewController {
     
     func levelChanged(_ level:Level?) {
         guard let level = level else {
-            self.levelTF.setError(message: "Please fill level.")
+            self.levelTF.setError(message: "fill".translated + "level".translated)
             return
         }
         guard level != currentUser.level else{return}
@@ -150,7 +154,7 @@ class UserInfoViewController: UIViewController {
     @IBAction func birthDateChanged(_ sender: DateTextField) {
         
         guard let bDate = birthDateTF.date else {
-            birthDateTF.setError(message: "Please fill birth date.")
+            birthDateTF.setError(message: "fill".translated + "birth date".translated)
             return
         }
         
@@ -168,13 +172,17 @@ class UserInfoViewController: UIViewController {
             SVProgressHUD.dismiss()
             sender.isEnabled = true
             
-            let alert = UIAlertController(title: "Password reset", message: "An email with password reset has been sent. check your email", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Password reset".translated,
+                                          message: "emailSent".translated,
+                                          preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "ok", style: .default))
+            alert.addAction(UIAlertAction(title: "ok".translated, style: .default))
             
-            let checkEmail = UIAlertAction(title: "Check email", style: .default) { _ in
+            let checkEmail = UIAlertAction(title: "Check email".translated, style: .default) { _ in
                 
-                guard let appURL = URL(string: "mailto:BLAH@BLAH.COM")
+                let userEmail = Auth.auth().currentUser?.email
+                
+                guard let appURL = URL(string: "mailto:" + (userEmail ?? "BLAH@BLAH.COM"))
                     else{return}
                 
                 if #available(iOS 10.0, *) {

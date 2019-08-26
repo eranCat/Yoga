@@ -27,8 +27,14 @@ class DataTypeSegmentView: UISegmentedControl {
     func setup() {
         removeAllSegments()
         
+        let font = UIFont(name: "Kailasa", size: 20) ?? UIFont.systemFont(ofSize: 20)
+        setTitleTextAttributes([NSAttributedString.Key.font: font],
+                                for: .normal)
+        
+        tintColor = #colorLiteral(red: 0.2615792751, green: 0.2857673466, blue: 0.6650569439, alpha: 1)
+        
         for (i,dt) in DataType.allCases.enumerated(){
-            insertSegment(withTitle: dt.singular, at: i, animated: false)
+            insertSegment(withTitle: dt.singular.capitalized, at: i, animated: false)
         }
         
         selectedSegmentIndex = 0

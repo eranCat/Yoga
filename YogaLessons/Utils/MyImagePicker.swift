@@ -56,7 +56,7 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
             alert.addAction(remove)
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel,handler: { _ in}))
         
         guard let sourceVC = UIApplication.shared.presentedVC,
             let srcView = sourceVC.view

@@ -63,7 +63,7 @@
                             </stackView>
                         </subviews>
                     </stackView>
-                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cancled" translatesAutoresizingMaskIntoConstraints="NO" id="qFU-5Y-PCm">
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cancled.png" translatesAutoresizingMaskIntoConstraints="NO" id="qFU-5Y-PCm">
                         <rect key="frame" x="0.0" y="0.0" width="437" height="179.5"/>
                     </imageView>
                 </subviews>
@@ -91,6 +91,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="cancled" width="400" height="250"/>
+        <image name="cancled.png" width="400" height="250"/>
     </resources>
 </document>

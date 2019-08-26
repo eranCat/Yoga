@@ -84,9 +84,10 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
 //        subscribeToKeyboard()
         
         if !(YUser.currentUser is Teacher || YUser.currentUser?.type == .teacher) {
-//            typeSegment.removeFromSuperview()
-            navigationItem.titleView = nil
+            typeSegment.type = .events
+            typeSegment.selectedSegmentIndex = 1
             changeToEventView()
+            typeSegment.isUserInteractionEnabled = false
         }
         
         guard let model = model

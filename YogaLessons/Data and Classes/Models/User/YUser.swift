@@ -77,7 +77,7 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
         about = dict[Keys.about] as! String?
         
         let lvlRV = dict[Keys.level] as! Int
-        level = Level(rawValue: lvlRV)!
+        level = Level.allCases[lvlRV]
         
         let typeRV = dict[Keys.type] as! Int
         type = UserType(rawValue: typeRV)!

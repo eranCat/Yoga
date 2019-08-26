@@ -22,7 +22,7 @@ class LoginViewController: UIViewController,TextFieldReturn {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
         
         email.becomeFirstResponder()
         
@@ -31,7 +31,7 @@ class LoginViewController: UIViewController,TextFieldReturn {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField === password{
-           login()
+            login()
         }
         
         return nextTxtField(textField)
@@ -40,7 +40,6 @@ class LoginViewController: UIViewController,TextFieldReturn {
     @IBAction func LoginTapped(_ sender: UIButton) {
         login()
     }
-    
     
     
     func checkFields() -> (String,String)? {
@@ -69,17 +68,33 @@ class LoginViewController: UIViewController,TextFieldReturn {
                 
                 if let error = err{
                     ErrorAlert.show(message: error.localizedDescription)
+                    SVProgressHUD.dismiss()
                 }else{
-                    DataSource.shared.setLoggedUser()
-                    self.show(self.newVC(id: "mainNav"), sender: nil)
+                    
+                    if DataSource.shared.setLoggedUser(){
+                        
+                        self.reloadDataAndContinue()
+                    }
                 }
                 self.loginBtn.isEnabled = true
                 
-                SVProgressHUD.dismiss()
+        }
+    }
+    
+    func reloadDataAndContinue() {
+        let ds: DataSource = DataSource.shared
+        ds.loadData(){ (err) in
+            
+            if let err = err{
+                ErrorAlert.show(message: err.localizedDescription)
+                return
+            }
+            self.show(self.newVC(id: "mainNav"), sender: nil)
+            SVProgressHUD.dismiss()
         }
     }
 
-    
+
     fileprivate func showProggressView() {
         let progress = UIProgressView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         

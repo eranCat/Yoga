@@ -20,24 +20,26 @@ class LevelTextField: DropDown {
         cTor()
     }
     
-    internal let levels = Level.allCases.map{ $0.translated.capitalized}
-    
-    
-    var didSelectHandler:((Level)->Void)?
+    var didSelectHandler:((Level?)->Void)?
     
     var level:Level?
     
     func cTor() {
-                
-        optionArray = levels
         
-        optionIds = Level.allCases.map{ $0.rawValue}
+        optionArray = []
+        optionIds = []
+        
+        for level in Level.allCases{
+            
+            optionArray.append(level.translated.capitalized)
+            optionIds?.append(level.rawValue)
+        }
         
         self.blurBG()
         
-        didSelect { (_, i, _) in
-            self.level = Level.allCases[i]
-            self.didSelectHandler?(Level.allCases[i])
+        didSelect { (_, _, id) in
+            self.level = Level(rawValue: id)
+            self.didSelectHandler?(Level(rawValue: id))
         }
         
         listWillDisappear {
@@ -50,7 +52,7 @@ class LevelTextField: DropDown {
         
         inputView = .init()
         
-//        addTarget(self, action: #selector(openList), for: .touchDown)
+        //        addTarget(self, action: #selector(openList), for: .touchDown)
     }
     
     func set(level:Level){
@@ -65,25 +67,63 @@ class LevelTextField: DropDown {
     }
 }
 
-
-class UserLevelField: LevelTextField {
+class UserLevelField: DropDown {
     
-    private let shortLevels = [Level](Level.allCases[1...])
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        cTor()
+    }
     
-    override func cTor() {
-        super.cTor()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        cTor()
+    }
+    
+    var didSelectHandler:((Level?)->Void)?
+    
+    var level:Level?
+    
+    func cTor() {
         
-        optionArray = shortLevels.map{$0.translated.capitalized}
+        optionArray = []
+        optionIds = []
         
-        didSelect { (_, i, _) in
-            self.level = self.shortLevels[i]
-            self.didSelectHandler?(self.shortLevels[i])
+        for level in Level.allCases[1...]{
+            
+            optionArray.append(level.translated.capitalized)
+            optionIds?.append(level.rawValue)
+        }
+        
+        
+        self.blurBG()
+        
+        didSelect { (_, _, id) in
+            self.level = Level(rawValue: id)
+            self.didSelectHandler?(Level(rawValue: id))
         }
         
         listWillDisappear {
-            guard let i = self.selectedIndex else{return}
-            
-            self.text = self.optionArray[i]
+            if let i = self.selectedIndex{
+                self.text = self.optionArray[i]
+            }
         }
+        
+        selectedRowColor = #colorLiteral(red: 0.7782526016, green: 0.93667835, blue: 1, alpha: 1)
+        
+        inputView = .init()
+        
+        //        addTarget(self, action: #selector(openList), for: .touchDown)
+    }
+    
+    func set(level:Level){
+        self.level = level
+        text = level.translated.capitalized
+        selectedIndex = level.rawValue
+    }
+    
+    
+    @objc func openList() {
+        showList()
     }
 }
+

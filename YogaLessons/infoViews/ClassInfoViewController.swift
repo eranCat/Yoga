@@ -239,7 +239,12 @@ class ClassInfoViewController: UITableViewController {
             return !hasExtraNotes ? 0.0 : autoSize
             
         case 6://ages section
-            return classModel.minAge == nil && classModel.maxAge == nil ? 0 : autoSize
+            if classModel.minAge == nil {
+                let maxAge = classModel.maxAge
+                return (maxAge == -1 || maxAge == nil) ? 0: autoSize
+            }
+            return autoSize
+            
         default:
             return autoSize
         }
@@ -254,7 +259,11 @@ class ClassInfoViewController: UITableViewController {
             return !hasExtraNotes ? 0 : autoSize
             
         case 6:
-            return classModel.minAge == nil && classModel.maxAge == nil ? 0 : autoSize
+            if classModel.minAge == nil {
+                let maxAge = classModel.maxAge
+                return (maxAge == -1 || maxAge == nil) ? 0: autoSize
+            }
+            return autoSize
         default:
             return autoSize
         }

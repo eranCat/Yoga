@@ -5,6 +5,7 @@
   Created by Eran karaso on 23/08/2019.
   Copyright © 2019 Eran karaso. All rights reserved.
 */
+"userType" = "סוג משתמש";
 //userType enum
 "student" = "תלמיד";
 "teacher" = "מורה";
@@ -67,9 +68,10 @@
 "fillEmail" = "נא למלא אימייל";
 "fillPass" = "נא למלא סיסמא";
 
-"No signed" = "לא נרשמת ל";
+"No signed " = "לא נרשמת ל";
 
 "Cancel" = "ביטול";
+"Restore" = "החזר";
 
 "Unsign from " = "ביטול הרשמה מ";
 
@@ -152,3 +154,29 @@
 "internetSetting" = "הגדרות אינטרנט";
 
 "ages" = "טווח גילאים";
+
+"Password reset" = "איפוס סיסמא";
+
+//"An email with password reset has been sent. check your email"
+"emailSent" = "נשלח אימייל לאיפוס. בדוק את האימייל שלך להמשך";
+"Check email" = "פתח אימייל";
+"yname" = "שמך";
+"name" = "שם";
+"birth date" = "תאריך הלידה";
+
+"Sign out warning" = "יציאה מהחשבון";
+"confirmLogout" = "מאשר יציאה מהחשבון ?";
+"Yes, bye." = "כן, להתראות.";
+"Incorrect value" = "ערך לא טוב";
+
+"My location" = "המיקום שלי";
+
+"Open with apple maps" = "פתח מפות";
+"Open with waze" = "פתח עם Waze";
+"Open settings" = "פתח הגדרות";
+
+//"You need to allow permission if you want current location";
+"allowLocation" = "אפשר מיקום בשביל למצוא את מיקומך הנוכחי";
+
+//"Are you sure you want to cancel this ";
+"confirmCancel" = "האם לבטל את ה";

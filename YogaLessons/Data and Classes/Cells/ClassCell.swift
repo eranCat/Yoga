@@ -47,6 +47,7 @@ extension ClassCell:PopulateDelegate{
         
         if let teacher = DataSource.shared.getTeacher(by: aClass.uid){
             teacherName.text = teacher.name
+            undeline(lbl: teacherName)
             
             StorageManager.shared
                 .setImage(withUrl: teacher.profileImageUrl, imgView: teacherImg,placeHolderImg: #imageLiteral(resourceName: "guru"))
@@ -75,8 +76,14 @@ extension ClassCell:PopulateDelegate{
         
         time.text = "\(from) - \(until), \(day)"
         
-        
         cancledImageView.isHidden = aClass.status != .cancled//hidden if not cancled
     }
     
+    func undeline(lbl:UILabel) {
+        let textRange = NSMakeRange(0, lbl.text?.count ?? 0)
+        let attributedText = NSMutableAttributedString(string: lbl.text ?? "")
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value: NSUnderlineStyle.single.rawValue, range: textRange)
+        // Add other attributes if needed
+        lbl.attributedText = attributedText
+    }
 }

@@ -71,3 +71,13 @@
 "non" = "No";
 
 "ages" = "Age range";
+
+"emailSent" = "An email with password reset has been sent. check your email";
+
+"confirmLogout" = "Are you sure you want to log out?";
+
+"userType" = "user type";
+
+"allowLocation" = "You need to allow permission if you want current location";
+
+"confirmCancel" = "Are you sure you want to cancel this ";

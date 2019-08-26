@@ -148,7 +148,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         
         dataSource.sort(by: sType,sourceType: .all,dataType: dType)
         
-        reload()
+        tableView.reloadData()
     }
     
     func updateEmptyBG() {

@@ -13,7 +13,7 @@ import GeoFire
 class DataSource {
     static let shared = DataSource()
     
-//        MARK:if you don't want location sort, put false
+    //        MARK:if you don't want location sort, put false
     fileprivate let isFilteringLocation = false
     
     let ref:DatabaseReference
@@ -80,9 +80,9 @@ class DataSource {
         observeClassChanged()
         observeEventChanged()
         
-//        MARK: remove from comment
-//        observeClassAdded()
-//        observeEventAdded()
+        //        MARK: remove from comment
+        //        observeClassAdded()
+        //        observeEventAdded()
     }
     
     deinit {
@@ -116,15 +116,15 @@ class DataSource {
                         return}
                 let currentLocation = LocationUpdater.shared.getLastKnowLocation()
                 
-                for child in values{
-                    guard child.key != lastPost?.id//!allIds.contains(child.key)
-                        else{continue}
-                    
-                    guard let json = child.value as? JSON
-                        else{break}
-                    
-                    switch dType{
-                    case .classes:
+                
+                switch dType{
+                case .classes:
+                    for child in values{
+                        guard child.key != lastPost?.id//!allIds.contains(child.key)
+                            else{continue}
+                        
+                        guard let json = child.value as? JSON
+                            else{break}
                         let aClass = Class(json)
                         
                         guard self.isInRange(currentLocation: currentLocation, location: aClass.location)
@@ -149,7 +149,14 @@ class DataSource {
                                 self.signed_classes.append(aClass)
                             }
                         }
-                    case .events:
+                    }
+                case .events:
+                    for child in values{
+                        guard child.key != lastPost?.id//!allIds.contains(child.key)
+                            else{continue}
+                        
+                        guard let json = child.value as? JSON
+                            else{break}
                         let event = Event(json)
                         
                         guard self.isInRange(currentLocation: currentLocation, location: event.location)
@@ -161,7 +168,7 @@ class DataSource {
                         }else{
                             self.all_events.append(event)
                         }
-                            
+                        
                         //uploads
                         if event.uid == user.id{
                             self.userCreatedEvents.append(event)
@@ -321,7 +328,7 @@ class DataSource {
             }
             
             let user = YUser.currentUser!
-
+            
             let lastLocation = LocationUpdater.shared.getLastKnowLocation()
             
             switch dType{
@@ -344,7 +351,7 @@ class DataSource {
             
             self.updateMainDict(sourceType: .all, dataType: dType)
             self.updateMainDict(sourceType: .signed, dataType: dType)
-
+            
             loaded?(nil)
         }
     }
@@ -393,7 +400,7 @@ class DataSource {
         
         dataObj.uid = uid
         
-//        add to all classes/events json
+        //        add to all classes/events json
         dataRef.setValue(dataObj.encode())
         
         let arrKey:String
@@ -418,7 +425,7 @@ class DataSource {
             arrKey = YUser.Keys.createdEvents
             user.createdEventsIDs[keyID] = .open
             ids = .init(user.createdEventsIDs.keys)
-
+            
             if self.newEventHandle != nil{
                 break
             }
@@ -442,15 +449,15 @@ class DataSource {
     }
     
     func showReminderAlert(dataObj:DynamicUserCreateable) {
-
+        
         let title = (dataObj as! Titled).title
-
-//        protocol sheduald
+        
+        //        protocol sheduald
         let schedualedObj = dataObj as! Scheduled
         let startDate = schedualedObj.startDate
         let endDate = schedualedObj.endDate
         
-//        protocol located
+        //        protocol located
         let located = dataObj as! Located
         let location = located.location
         let placeName = located.locationName
@@ -466,7 +473,7 @@ class DataSource {
         
         let calendar = UIAlertAction(title: "Add to calendar".translated,
                                      style: .default) { _ in
-            LocalCalendarManager.shared.setEvent( objId: dataObj.id!, title: title, placeName: placeName, location: location, startDate: startDate, endDate: endDate)
+                                        LocalCalendarManager.shared.setEvent( objId: dataObj.id!, title: title, placeName: placeName, location: location, startDate: startDate, endDate: endDate)
         }
         
         alert.addAction(notificationAction)
@@ -495,69 +502,76 @@ class DataSource {
     }
     
     
-    func setCancled(_ dType:DataType ,at index:Int,taskDone:DSTaskListener?) {
+    func toggleCancel(_ dType:DataType ,at index:Int,taskDone:DSTaskListener?) {
         
-        typealias StatusedData = DynamicUserCreateable & Statused
+        typealias StatusedData = DynamicUserCreateable & Statused & Participateable
         
-        var dataObj = getList(sourceType: .all, dType: dType)[index] as! StatusedData
+        var dataObj = getUser_sUploads(dType: dType)[index] as! StatusedData
         
-        guard let teacher = YUser.currentUser as? Teacher,
-            let uid = teacher.id,
-            let objID = dataObj.id
+        guard let objID = dataObj.id
             else{return}
         
-        dataObj.status = .cancled
-        
-        let dataRef = ref.child(TableNames.name(for: dType)).child(objID).child(Status.key)
+        //        Toggle
+        if dataObj.status == .cancled{
+            let currentNum = dataObj.numOfParticipants
+            let max = dataObj.maxParticipants
+            
+            dataObj.status = currentNum < max ? .open : .full
+        }else{
+            dataObj.status = .cancled
+        }
         
         //MARK: from the classes/Events main json
-        dataRef.setValue(Status.cancled.rawValue){ err,childRef in
-            if let error = err{
-                ErrorAlert.show(message: error.localizedDescription)
-                taskDone?(error)
-                return
-            }
-            self.removeFromCreatorsList(uid, dataObj.id!, dType, taskDone: taskDone)
+        ref.child(TableNames.name(for: dType))
+            .child(objID)
+            .child(Status.key)
+            .setValue(dataObj.status.rawValue){ err,childRef in
+                if let error = err{
+                    ErrorAlert.show(message: error.localizedDescription)
+                    taskDone?(error)
+                    return
+                }
+                //            self.removeFromCreatorsList(uid, dataObj.id!, dType, taskDone: taskDone)
+                taskDone?(nil)
+                NotificationCenter.default.post(name: ._dataCancled,userInfo: ["type":dType])
         }
     }
     
-    fileprivate func removeFromCreatorsList(_ uid:String,_ objId:String,_ dType:DataType,taskDone:DSTaskListener?) {
-        //MARK:   remove from db teacher's teahcing list
-        
-        let teacherRef = self.ref.child(TableNames.users.rawValue).child(uid)
-        
-        let arrKey:String
-        
-        switch dType {
-        case .classes:
-            arrKey = Teacher.Keys.teachingC
-            
-        case .events:
-            arrKey = YUser.Keys.createdEvents
-        }
-        
-        let arrayRef = teacherRef.child(arrKey).child(objId)
-        
-        arrayRef.setValue(false) { (err, _) in
-            if let error = err{
-                taskDone?(error)
-                return
-            }
-            
-            taskDone?(nil)
-            NotificationCenter.default.post(name: ._dataCancled,userInfo: ["type":dType])
-        }
-    }
+    //    fileprivate func removeFromCreatorsList(_ uid:String,_ objId:String,_ dType:DataType,taskDone:DSTaskListener?) {
+    //        //MARK:   remove from db teacher's teahcing list
+    //        guard let teacher = YUser.currentUser as? Teacher,
+    //        let uid = teacher.id
+    //        else{return}
+    //
+    //        let teacherRef = self.ref.child(TableNames.users.rawValue).child(uid)
+    //
+    //        let arrKey:String
+    //
+    //        switch dType {
+    //        case .classes:
+    //            arrKey = Teacher.Keys.teachingC
+    //
+    //        case .events:
+    //            arrKey = YUser.Keys.createdEvents
+    //        }
+    //
+    //        let arrayRef = teacherRef.child(arrKey).child(objId)
+    //
+    //        arrayRef.setValue(false) { (err, _) in
+    //            if let error = err{
+    //                taskDone?(error)
+    //                return
+    //            }
+    //
+    //            taskDone?(nil)
+    //            NotificationCenter.default.post(name: ._dataCancled,userInfo: ["type":dType])
+    //        }
+    //    }
     
     
     func get(sourceType:SourceType,dType:DataType,at indexPath:IndexPath) -> DynamicUserCreateable? {
         
-        let arr = getList(sourceType: sourceType, dType: dType)
-        
-        guard indexPath.row < arr.count
-            else{return nil}
-        
-        return arr[indexPath.row]
+        return getList(sourceType: sourceType, dType: dType)[safe: indexPath.row]
     }
     
     func getList(sourceType:SourceType,dType:DataType) -> [DynamicUserCreateable] {

@@ -43,8 +43,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Signed" image="saved" springLoaded="YES" id="zNC-YA-9kQ">
-                        <inset key="imageInsets" minX="0.0" minY="3" maxX="0.0" maxY="-3"/>
-                        <inset key="largeContentSizeImageInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="largeContentSizeImageInsets" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -92,16 +91,17 @@
                 <tabBarController storyboardIdentifier="mainTabBar" id="hOD-uw-X5t" customClass="MainTabBarController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Js7-mc-qiW">
                         <barButtonItem key="leftBarButtonItem" title="Profile" image="profile" id="Rgb-2m-fBP">
-                            <color key="tintColor" red="0.4446590379" green="0.6517441236" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="pQ2-pe-ssi" kind="show" identifier="showUserInfo" id="Ejl-cc-Nbv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6s5-at-iJB">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="6s5-at-iJB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="NavigationBarColor">
@@ -134,7 +134,6 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" tag="1" title="All" image="home" springLoaded="YES" id="87h-Pi-vWb">
-                        <inset key="imageInsets" minX="0.0" minY="3" maxX="0.0" maxY="-3"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

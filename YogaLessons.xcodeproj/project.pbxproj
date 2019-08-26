@@ -43,7 +43,6 @@
 		974394D2230FF24B00A8B48A /* InternetImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974394D1230FF24B00A8B48A /* InternetImagePicker.storyboard */; };
 		974394D4230FF59E00A8B48A /* InternetImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974394D3230FF59E00A8B48A /* InternetImagePickerViewController.swift */; };
 		974394D8231016B000A8B48A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 974394DA231016B000A8B48A /* Localizable.strings */; };
-		974394E62311316700A8B48A /* ClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 974394E52311316700A8B48A /* ClassCell.xib */; };
 		974394E82311322400A8B48A /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974394E72311322400A8B48A /* Translatable.swift */; };
 		974394E923113C3D00A8B48A /* FilterDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974394EB23113C3D00A8B48A /* FilterDialog.storyboard */; };
 		974394F123113CE000A8B48A /* UserLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974394F323113CE000A8B48A /* UserLogin.storyboard */; };
@@ -53,6 +52,8 @@
 		97439508231153AB00A8B48A /* ClassInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9743950A231153AB00A8B48A /* ClassInformation.storyboard */; };
 		9743950F231155D700A8B48A /* EventInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97439511231155D700A8B48A /* EventInformation.storyboard */; };
 		974395162311574D00A8B48A /* UserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974395182311574D00A8B48A /* UserInfo.storyboard */; };
+		9743951F231267B300A8B48A /* ClassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97439521231267B300A8B48A /* ClassCell.xib */; };
+		9743952823126AE700A8B48A /* cancled.png in Resources */ = {isa = PBXBuildFile; fileRef = 9743952A23126AE700A8B48A /* cancled.png */; };
 		9748928E22E5B58A00C361CA /* ImageViewRound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748928D22E5B58A00C361CA /* ImageViewRound.swift */; };
 		9748929022E6DB0E00C361CA /* BlurredTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748928F22E6DB0E00C361CA /* BlurredTextField.swift */; };
 		974B6A0922DC6A38001867F0 /* MyImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974B6A0822DC6A38001867F0 /* MyImagePicker.swift */; };
@@ -190,7 +191,6 @@
 		974394D52310163600A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Main.strings; sourceTree = "<group>"; };
 		974394D9231016B000A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		974394DB231016B800A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		974394E52311316700A8B48A /* ClassCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClassCell.xib; sourceTree = "<group>"; };
 		974394E72311322400A8B48A /* Translatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
 		974394EC23113C4100A8B48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/FilterDialog.storyboard; sourceTree = "<group>"; };
 		974394EE23113C4400A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FilterDialog.strings; sourceTree = "<group>"; };
@@ -215,6 +215,10 @@
 		9743951A2311575300A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UserInfo.strings; sourceTree = "<group>"; };
 		9743951C2311575700A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/UserInfo.strings; sourceTree = "<group>"; };
 		9743951E2311BCE600A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		97439520231267B300A8B48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ClassCell.xib; sourceTree = "<group>"; };
+		9743952923126AE700A8B48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/cancled.png; sourceTree = "<group>"; };
+		9743952B23126AEB00A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = he; path = he.lproj/cancled.png; sourceTree = "<group>"; };
+		9743952C23126B0A00A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/cancled.png; sourceTree = "<group>"; };
 		9748928D22E5B58A00C361CA /* ImageViewRound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewRound.swift; sourceTree = "<group>"; };
 		9748928F22E6DB0E00C361CA /* BlurredTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredTextField.swift; sourceTree = "<group>"; };
 		974B6A0822DC6A38001867F0 /* MyImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImagePicker.swift; sourceTree = "<group>"; };
@@ -373,6 +377,14 @@
 				9713DB5522FC854200B00C15 /* Status.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		9743952723126AD500A8B48A /* images */ = {
+			isa = PBXGroup;
+			children = (
+				9743952A23126AE700A8B48A /* cancled.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		9797647522E0A40700A37954 /* NewClassEvent */ = {
@@ -561,6 +573,7 @@
 				97CD956522D0C2590073BF61 /* GoogleService-Info.plist */,
 				97D6505D22AE5C0700ADF5AC /* AppDelegate.swift */,
 				97D6506422AE5C0800ADF5AC /* Assets.xcassets */,
+				9743952723126AD500A8B48A /* images */,
 				97FEF92E22B3CA36009ECCE6 /* Data and Classes */,
 				97EED8BD22C0A72D009AEB07 /* infoViews */,
 				97097EEA22B54CBC007CD8E4 /* LoginUser */,
@@ -693,7 +706,7 @@
 			children = (
 				97FEF93322B3CAB6009ECCE6 /* ClassCell.swift */,
 				97FEF93522B3CAC9009ECCE6 /* EventCell.swift */,
-				974394E52311316700A8B48A /* ClassCell.xib */,
+				97439521231267B300A8B48A /* ClassCell.xib */,
 				97F3DDD322BE14BF00812B33 /* EventCell.xib */,
 				977D32A422EF73DC0084EF77 /* CellsIds.swift */,
 				9713DB642301B46900B00C15 /* ProggressCell.swift */,
@@ -779,6 +792,7 @@
 			files = (
 				974394D8231016B000A8B48A /* Localizable.strings in Resources */,
 				9743950F231155D700A8B48A /* EventInformation.storyboard in Resources */,
+				9743952823126AE700A8B48A /* cancled.png in Resources */,
 				97EED91F22C0E08E009AEB07 /* LaunchScreen.storyboard in Resources */,
 				97CD957522D262E50073BF61 /* EmptyView.xib in Resources */,
 				97EED92122C0E08E009AEB07 /* Main.storyboard in Resources */,
@@ -791,7 +805,7 @@
 				97A4027F22D773A90056BBE7 /* TeachersData.storyboard in Resources */,
 				974394E923113C3D00A8B48A /* FilterDialog.storyboard in Resources */,
 				974394F823113D8400A8B48A /* UserSignup.storyboard in Resources */,
-				974394E62311316700A8B48A /* ClassCell.xib in Resources */,
+				9743951F231267B300A8B48A /* ClassCell.xib in Resources */,
 				97CD956622D0C2590073BF61 /* GoogleService-Info.plist in Resources */,
 				974394D2230FF24B00A8B48A /* InternetImagePicker.storyboard in Resources */,
 			);
@@ -1062,6 +1076,24 @@
 				9743951C2311575700A8B48A /* he */,
 			);
 			name = UserInfo.storyboard;
+			sourceTree = "<group>";
+		};
+		97439521231267B300A8B48A /* ClassCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				97439520231267B300A8B48A /* Base */,
+			);
+			name = ClassCell.xib;
+			sourceTree = "<group>";
+		};
+		9743952A23126AE700A8B48A /* cancled.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9743952923126AE700A8B48A /* Base */,
+				9743952B23126AEB00A8B48A /* he */,
+				9743952C23126B0A00A8B48A /* en */,
+			);
+			name = cancled.png;
 			sourceTree = "<group>";
 		};
 		97EED90D22C0E08E009AEB07 /* LaunchScreen.storyboard */ = {

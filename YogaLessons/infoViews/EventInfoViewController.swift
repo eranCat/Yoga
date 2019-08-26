@@ -168,7 +168,7 @@ class EventInfoViewController: UITableViewController {
                 lblAges.text = "\(min) - \(max)"
             }
             
-        case (.some(let min),nil):
+        case (.some(let min) ,nil):
             lblAges.text = "\(min)"
             
         case (nil,.some(let max)):
@@ -261,7 +261,12 @@ class EventInfoViewController: UITableViewController {
             return !hasXtraNotes ? 0.0 : autoSize
             
         case (4,1)://participants section -> ages row
-            return eventModel.minAge == nil && eventModel.maxAge == nil ? 0 : autoSize
+            if eventModel.minAge == nil {
+                let maxAge = eventModel.maxAge
+                return (maxAge == -1 || maxAge == nil) ? 0: autoSize
+            }
+            return autoSize
+            
             
         default:
             return autoSize
@@ -275,8 +280,6 @@ class EventInfoViewController: UITableViewController {
         case 8:
             return !hasXtraNotes ? 0.0 : autoSize
             
-        case 4://ages section
-            return eventModel.minAge == nil && eventModel.maxAge == nil ? 0 : autoSize
         default:
             return autoSize
         }

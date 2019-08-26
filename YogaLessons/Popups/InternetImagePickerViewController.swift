@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class InternetImagePickerVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     
@@ -29,4 +30,8 @@ class InternetImagePickerVC: UIViewController,UICollectionViewDelegate,UICollect
 
 extension InternetImagePickerVC:UISearchControllerDelegate{
     
+}
+
+struct DownloadableImage:Codable {
+    let link:String
 }

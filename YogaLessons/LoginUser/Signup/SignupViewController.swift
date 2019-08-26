@@ -23,7 +23,7 @@ class SignupViewController: UIViewController,TextFieldReturn {
     
     @IBOutlet weak var tf_type: UserTypeTextField!
     
-    @IBOutlet weak var tf_level: LevelTextField!
+    @IBOutlet weak var tf_level: UserLevelField!
     
     @IBOutlet weak var tf_bDate: DateTextField!
     
@@ -86,9 +86,8 @@ class SignupViewController: UIViewController,TextFieldReturn {
         UsersManager.shared.createUser(withEmail: email, password: pass, user: user, profileImage: profileImage.image){[weak self](res, error) in
             
             if let error = error{
-                ErrorAlert.show(message: error.localizedDescription)
-//                loadingIndicator.hide()
                 SVProgressHUD.dismiss()
+                ErrorAlert.show(message: error.localizedDescription)
                 return
             }
             
@@ -96,7 +95,7 @@ class SignupViewController: UIViewController,TextFieldReturn {
             
             guard let self = self else{return}
             
-            self.dismiss(animated: true)
+//            self.dismiss(animated: true)
             
             self.show(self.newVC( id: "mainNav"), sender: nil)
         }
@@ -104,37 +103,39 @@ class SignupViewController: UIViewController,TextFieldReturn {
     
     func checkFields() -> (String,String,String,UserType,Level,Date)? {
         guard let name = tf_name.text,!name.isEmpty else {
-            self.tf_name.setError(message: "Please fill in your name.")
+            self.tf_name.setError(message: "fill".translated + "yname".translated)
             return nil
         }
         
         guard let email = tf_email.text,!email.isEmpty else {
-            self.tf_email.setError(message: "Please fill in your email.")
+            self.tf_email.setError(message: "fillEmail".translated)
             return nil
         }
         
         guard let pass = tf_pass.text,!pass.isEmpty else {
-            self.tf_pass.setError(message: "Please fill in your password.")
+            self.tf_pass.setError(message: "fillPass".translated)
             return nil
         }
         
-        guard let type = tf_type.type
+        guard let bDate = tf_bDate.date
             else {
-                tf_type.setError(message: "Please fill type.")
+                tf_bDate.setError(message: "fill".translated +  "birth date".translated)
+                return nil
+        }
+        
+        guard !(tf_type.text?.isEmpty ?? false),
+                let type = tf_type.type
+            else {
+                tf_type.setError(message: "fill".translated + "userType".translated)
                 return nil
         }
         
         guard let level = tf_level.level
             else {
-                tf_level.setError(message: "Please fill level.")
+                tf_level.setError(message: "fill".translated + "level of".translated)
                 return nil
         }
         
-        guard let bDate = tf_bDate.date
-            else {
-                tf_bDate.setError(message: "Please fill birth date.")
-                return nil
-        }
         
         return (name,email,pass,type,level,bDate)
     }
