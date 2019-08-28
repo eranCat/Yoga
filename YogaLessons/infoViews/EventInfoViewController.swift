@@ -15,8 +15,6 @@ class EventInfoViewController: UITableViewController {
     
     @IBOutlet weak var eventImgView: UIImageView!//v
     
-    @IBOutlet weak var titleView: UILabel!//v
-    
     @IBOutlet weak var costCell: UITableViewCell!//v
     
     @IBOutlet weak var costLbl: UILabel!//v
@@ -47,7 +45,7 @@ class EventInfoViewController: UITableViewController {
     
     @IBOutlet weak var extraNotesTv: UITextView!
     var hasXtraNotes = false
-    
+    var hasAges = false
     
     var eventModel :Event!
     var postingUser:YUser?
@@ -55,7 +53,10 @@ class EventInfoViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let e = eventModel else{return}
+        guard eventModel != nil else{
+            navigationController?.popViewController(animated: true)
+            return
+        }
         
         let user = YUser.currentUser!
         //the user didnt sign up for the class
@@ -72,7 +73,26 @@ class EventInfoViewController: UITableViewController {
             stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         }
         
-        fillViews(with: e)
+        fillViews()
+        
+        addObservers()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: ._dataChanged, object: nil)
+    }
+    
+    @objc func dataChanged(_ notif:NSNotification){
+        guard let type = notif.userInfo?["type"] as? DataType,type == .events,
+            let id = notif.userInfo?["id"] as? String,id == eventModel.id
+            else{return}
+        
+        fillViews()
+        tableView.reloadData()
     }
     
     func setSignBtn(isSigned:Bool) {
@@ -84,29 +104,29 @@ class EventInfoViewController: UITableViewController {
     }
     
 
-    private func fillViews(with event:Event) {
+    private func fillViews() {
         
-        if event.imageUrl != nil{
+        if eventModel.imageUrl != nil{
             StorageManager.shared
-            .setImage(of: event, imgView: eventImgView)
+            .setImage(of: eventModel, imgView: eventImgView)
         }else{
             eventImgView.isHidden = true
         }
         
-        if event.cost.amount > 0{
-            costLbl.text = event.cost.description
+        if eventModel.cost.amount > 0{
+            costLbl.text = eventModel.cost.description
         }else{
             costLbl.text = "free".translated
         }
         
-        titleView.text = event.title
+        navigationItem.title = eventModel.title
         
-        locationLbl.text = event.locationName
+        locationLbl.text = eventModel.locationName
         
         
         //MARK: Dates
-        let (start,end) = getFormatted(d1: event.startDate, d2: event.endDate)
-        let isOnlyDateEqual = event.startDate.equalTo(date: event.endDate)
+        let (start,end) = getFormatted(d1: eventModel.startDate, d2: eventModel.endDate)
+        let isOnlyDateEqual = eventModel.startDate.equalTo(date: eventModel.endDate)
         
         if !isOnlyDateEqual{
             dateLbl.text = start + " - " + end
@@ -115,14 +135,14 @@ class EventInfoViewController: UITableViewController {
         }
         
         //        MARK: participants
-        if event.numOfParticipants > 0{
-            amountOfPplGoing.text = event.numOfParticipants.formattedAmount
+        if eventModel.numOfParticipants > 0{
+            amountOfPplGoing.text = eventModel.numOfParticipants.formattedAmount
         }else{
             //maybe hide or say no one's coming
         }
         
-        if event.maxParticipants != -1{
-            maxPplAmount.text = maxPplAmount.text ?? "" + "\(event.maxParticipants)"
+        if eventModel.maxParticipants != -1{
+            maxPplAmount.text = maxPplAmount.text ?? "" + "\(eventModel.maxParticipants)"
         }
         else{
             maxPplAmount.isHidden = true
@@ -130,7 +150,7 @@ class EventInfoViewController: UITableViewController {
         
         
         //get teacher obj from event
-        postingUser = DataSource.shared.getUser(by: event.uid)
+        postingUser = DataSource.shared.getUser(by: eventModel.uid)
         //set name of teacher
         opNameLbl.text = postingUser?.name
         //set image on opProfileImgView
@@ -141,13 +161,13 @@ class EventInfoViewController: UITableViewController {
         
         
         //level
-        levelLbl.text = event.level.translated
+        levelLbl.text = eventModel.level.translated
         
         //equipment
-        equipmentTv.text = event.equipment
+        equipmentTv.text = eventModel.equipment
         
         //xtra, hide stack if there's non
-        if let xtra = event.xtraNotes,!xtra.isEmpty{
+        if let xtra = eventModel.xtraNotes,!xtra.isEmpty{
             extraNotesTv.text = xtra
             hasXtraNotes = true
         }else{
@@ -160,21 +180,17 @@ class EventInfoViewController: UITableViewController {
             }
         }
         
-        switch (eventModel.minAge,eventModel.maxAge) {
-        case (.some(let min),.some(let max)):
-            if min == max{
-                lblAges.text = "\(min)"
+        let minAge = eventModel.minAge
+        let maxAge = eventModel.maxAge
+        self.hasAges = minAge < .max && maxAge > -1
+        if hasAges{
+            if minAge == maxAge{
+                lblAges.text = "\(minAge)"
             }else{
-                lblAges.text = "\(min) - \(max)"
+                lblAges.text = "\(minAge) - \(maxAge)"
             }
-            
-        case (.some(let min) ,nil):
-            lblAges.text = "\(min)"
-            
-        case (nil,.some(let max)):
-            lblAges.text = "\(max)"
-            
-        default:
+        }
+        else{
             lblAges.text = ""
         }
     }
@@ -197,13 +213,9 @@ class EventInfoViewController: UITableViewController {
     
     
     @objc func signinToEvent() {
-        guard let event = eventModel else {
-            print("Event is nil")
-            return
-        }
-        
+       
         SVProgressHUD.show()
-        DataSource.shared.signTo(.events, dataObj: event){ (err) in
+        DataSource.shared.signTo(.events, dataObj: eventModel){ (err) in
             
             SVProgressHUD.dismiss()
             if let error = err{
@@ -261,12 +273,7 @@ class EventInfoViewController: UITableViewController {
             return !hasXtraNotes ? 0.0 : autoSize
             
         case (4,1)://participants section -> ages row
-            if eventModel.minAge == nil {
-                let maxAge = eventModel.maxAge
-                return (maxAge == -1 || maxAge == nil) ? 0: autoSize
-            }
-            return autoSize
-            
+            return hasAges ? autoSize : 0
             
         default:
             return autoSize

@@ -50,7 +50,12 @@ extension ClassCell:PopulateDelegate{
             undeline(lbl: teacherName)
             
             StorageManager.shared
-                .setImage(withUrl: teacher.profileImageUrl, imgView: teacherImg,placeHolderImg: #imageLiteral(resourceName: "guru"))
+                .setImage(withUrl: teacher.profileImageUrl, imgView: teacherImg,placeHolderImg: #imageLiteral(resourceName: "guru")){ (img,err,url) in
+                    
+                    if img != nil{
+                        self.teacherImg.contentMode = .scaleAspectFill
+                    }
+            }
         }else{
             print("Couldn't find teacher")
         }

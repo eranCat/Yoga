@@ -64,13 +64,14 @@ extension DataSource{
             .runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
                 if var post = currentData.value as? [String:AnyObject]{
                     
-                    var currentSigned = post[Class.Keys.numParticipants] as? Int ?? 0
-                    let maxSigned = post[Class.Keys.maxParticipants] as? Int ?? -1
+                    let numKey = ParticipateableKeys.num.rawValue
+                    var currentSigned = post[numKey] as? Int ?? 0
+                    let maxSigned =     post[ParticipateableKeys.max.rawValue] as? Int ?? -1
                     
                     if maxSigned != -1 &&// not unlimited
                         currentSigned >= maxSigned{
                         currentSigned += 1
-                        post[Class.Keys.numParticipants] = currentSigned as AnyObject
+                        post[numKey] = currentSigned as AnyObject
                         
                         // Set value and report transaction success
                         currentData.value = post
@@ -92,6 +93,17 @@ extension DataSource{
         }
     }
     
+    fileprivate func check(age: Int,data: Aged) {
+        if age < data.minAge{
+            data.minAge = age
+        }else if age > data.maxAge{
+            data.maxAge = age
+        }else{
+            data.minAge = age
+            data.maxAge = age
+        }
+    }
+    
     func signTo(_ dType:DataType,dataObj:DynamicUserCreateable ,taskDone:DSTaskListener?) {
         
         guard let cu = YUser.currentUser,
@@ -103,16 +115,17 @@ extension DataSource{
         }
         
         //check on db for place
-        ref.child(TableNames.name(for: dType))
-            .child(objId).observeSingleEvent(of: .value) { (snapshot) in
+        let objectRef = ref.child(TableNames.name(for: dType)).child(objId)
+        
+        objectRef.observeSingleEvent(of: .value) { (snapshot) in
                 guard let json = snapshot.value as? JSON
                     else{
                         taskDone?(JsonErrors.castFailed)//json cast err
                         return
-                }
+                    }
                 
-                var data:(Participateable & Unique & DBCodable & Statused)
-                
+                var data:(Participateable & Aged & Unique & DBCodable & Statused)
+            
                 switch dType{
                     
                 case .classes:
@@ -124,16 +137,24 @@ extension DataSource{
                 switch data.status{
                     
                 case .open:
-                    data.numOfParticipants += 1
                     //save to DB
+                    data.numOfParticipants += 1
                     if data.maxParticipants != -1 &&// limited
                         data.numOfParticipants >= data.maxParticipants{
                         
                         data.status = .full
                     }
                     
-                    self.updateNumOfParticipants(data: data, dType: dType){(err) in
-                        //save to signed array locally and remotely
+                    let age = cu.bDate.age
+                    self.check(age: age, data: data)
+                    
+                    //save to signed array locally and remotely
+                    self.updateValues(data: data, dbRef: objectRef){err in
+                        if let err = err {
+                            taskDone?(err)
+                            return
+                        }
+                        
                         self.addToCurrentUserSigned(dType, cu, objId, taskDone, dataObj, uid)
                     }
                     
@@ -144,8 +165,24 @@ extension DataSource{
                 }
                 
         }
+    }
+    
+    
+    
+    func updateValues(data:Unique,dbRef:DatabaseReference,taskDone:@escaping DSTaskListener) {
+        
+        guard let data = data as? (Statused & Participateable & Aged)
+            else{return}
+        
+        let values = [
+            Status.key : data.status.rawValue,
+            ParticipateableKeys.num.rawValue : data.numOfParticipants,
+            AgedKeys.age_min.rawValue : data.minAge,
+            AgedKeys.age_max.rawValue : data.maxAge
+        ] as JSON
         
         
+        dbRef.updateChildValues(values){ err,_ in taskDone(err)}
     }
     
     private func addToCurrentUserSigned(_ dType: DataType, _ cu: YUser, _ objId: String, _ taskDone: DSTaskListener?, _ dataObj: DynamicUserCreateable, _ uid: String) {
@@ -221,7 +258,7 @@ extension DataSource{
         
         guard let indexPath = index else{return}
         
-        let data:DynamicUserCreateable
+        var data:(Statused & Participateable & DynamicUserCreateable & Aged)
         
         switch dType {
         case .classes:
@@ -229,39 +266,41 @@ extension DataSource{
         case .events:
             data = signed_events.remove(at: indexPath.row)
         }
+        updateMainDict(sourceType: .signed, dataType: dType)
         
-        
-        ref.child(TableNames.name(for: dType))
-            .child(data.id!).observeSingleEvent(of: .value) { (snapshot) in
-                guard let json = snapshot.value as? JSON
-                    else{return}
-                
-                var data:(Participateable & DynamicUserCreateable)
-                
-                switch dType{
-                    case .classes: data = Class(json)
-                    
-                    case .events: data = Event(json)
+        let age = cu.bDate.age
+        if age == data.minAge || age == data.maxAge{
+            for user in usersList.values {
+                if user.id == data.uid{
+                    check(age: user.bDate.age, data: data)
                 }
-                
-                if data.numOfParticipants > 0{
-                    
-                    data.numOfParticipants -= 1
-                    
-                    //save to DB
-                    self.updateNumOfParticipants(data: data, dType: dType){
-                        //save to signed array locally and remotely
-                        if let error = $0{
-                            print(error.localizedDescription)
-                            return
-                        }
-                        self.removeFromCurrentUserSigned(dType, cu, data, uid, taskDone, indexPath)
-                    }
-                    
-                }else{
-                    self.removeFromCurrentUserSigned(dType, cu, data, uid, taskDone, indexPath)
-                }
+            }
         }
+        
+        
+        if data.numOfParticipants > 0{
+            
+            data.numOfParticipants -= 1
+            
+            if data.status != .cancled{
+                data.status = .open
+            }
+            
+            let objectRef = ref.child(TableNames.name(for: dType)).child(data.id!)
+            //save to DB
+            self.updateValues(data: data, dbRef: objectRef){
+                //save to signed array locally and remotely
+                if let error = $0{
+                    ErrorAlert.show(message: error.localizedDescription)
+                    return
+                }
+                self.removeFromCurrentUserSigned(dType, cu, data, uid, taskDone, indexPath)
+            }
+            
+        }else{
+            self.removeFromCurrentUserSigned(dType, cu, data, uid, taskDone, indexPath)
+        }
+        
         
     }
     
@@ -283,13 +322,10 @@ extension DataSource{
         
         
 //        remove on DB
-        let arrayRef = ref
-            .child(TableNames.users.rawValue)
-            .child(uid)
-            .child(arrKey)
+        let userTable = TableNames.users.rawValue
         
-        
-        arrayRef.child(data.id!).removeValue(){ err,_ in
+        ref.child(userTable).child(uid)
+            .child(arrKey).child(data.id!).removeValue(){ err,_ in
             if let error = err{
                 taskDone?(error)
                 return

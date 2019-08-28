@@ -22,27 +22,6 @@ class UserInfoViewController: UIViewController {
     
     @IBOutlet weak var aboutTV: BetterTextView!
     
-    lazy var imagePicker:MyImagePicker = {
-        
-        let newImgPicker = MyImagePicker(){(image,removePicked) in
-            
-            if removePicked{
-                self.profileImgView.image = #imageLiteral(resourceName: "camera")
-                self.hasProfilePic = false
-                StorageManager.shared.removeCurrentUserProfileImage(){
-                    print("image removed")
-                }
-                return
-            }
-            
-            guard image != nil else{return}
-            
-            self.profileImgView.image = image
-            StorageManager.shared.saveCurrentUser( profileImage: image)
-        }
-        
-        return newImgPicker
-    }()
     
     lazy var hasProfilePic:Bool = {
         return self.currentUser.profileImageUrl != nil
@@ -51,6 +30,7 @@ class UserInfoViewController: UIViewController {
     var currentUser:YUser!
     
     let dataSource = DataSource.shared
+    lazy var imagePicker = MyImagePicker(completion: onImagePicked(image:url:removePicked:))
     
     
     override func viewDidLoad() {
@@ -66,7 +46,7 @@ class UserInfoViewController: UIViewController {
             }
         }
         
-        navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 0.2615792751, green: 0.2857673466, blue: 0.6650569439, alpha: 1)
         
         aboutTV.delegate2 = self
         
@@ -109,8 +89,8 @@ class UserInfoViewController: UIViewController {
             //show alert - are you sure?!
             do{
                 try Auth.auth().signOut()
-                let loginVC = self.newVC(storyBoardName: "UserLogin", id: "LoginNavController")
-                self.present(loginVC, animated: true)
+                let loginVC = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
+                self.present(UINavigationController(rootViewController: loginVC), animated: true)
                 self.navigationController?.popViewController(animated: false)
             }catch{
                 print(error)
@@ -197,6 +177,37 @@ class UserInfoViewController: UIViewController {
             
             
             self.present(alert, animated: true)
+        }
+    }
+    
+    func onImagePicked(image:UIImage?,url:URL?,removePicked:Bool) {
+        if removePicked{
+            self.profileImgView.image = #imageLiteral(resourceName: "camera")
+            self.hasProfilePic = false
+            StorageManager.shared.removeCurrentUserProfileImage(){
+                print("image removed")
+            }
+            return
+        }
+        self.hasProfilePic = image != nil || url != nil
+        if let img = image {
+            StorageManager.shared.saveCurrentUser( profileImage: img)
+            DispatchQueue.main.async{
+                self.profileImgView.image = img
+            }
+            
+        }else if let url = url{
+            
+            SVProgressHUD.show()
+            
+            StorageManager.shared.setImage(withUrl: url, imgView: self.profileImgView,placeHolderImg:UIImage(named:"camera")){ sd_img,err,_ in
+                
+                SVProgressHUD.dismiss()
+                
+                if err == nil{
+                    StorageManager.shared.saveCurrentUser( profileImage: sd_img)
+                }
+            }
         }
     }
 }

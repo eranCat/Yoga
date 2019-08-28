@@ -15,3 +15,7 @@ protocol Participateable {
     
 }
 
+enum ParticipateableKeys:String {
+    case num = "numOfParticipants"
+    case max = "maxParticipants"
+}

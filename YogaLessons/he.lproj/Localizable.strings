@@ -170,6 +170,9 @@
 "Incorrect value" = "ערך לא טוב";
 
 "My location" = "המיקום שלי";
+"Current Location" = "מיקום נוכחי";
+"Search for location" = "חיפוש מקום";
+"Location access denied" = "גישה למיקום נדחתה";
 
 "Open with apple maps" = "פתח מפות";
 "Open with waze" = "פתח עם Waze";
@@ -180,3 +183,21 @@
 
 //"Are you sure you want to cancel this ";
 "confirmCancel" = "האם לבטל את ה";
+
+//image picker
+"Search photo online" = "חיפוש תמונה מהאינטרנט";
+"Search photos" = "חפש תמונות";
+"Take a photo" = "צילום תמונה";
+"Camera roll" = "צילומים";
+"Photo library" = "ספריית תמונות";
+"Remove image" = "הסר תמונה";
+"Needs camera access" = "צריך גישה למצלמה";
+
+//"Please change settings of camera access for setting a new picture.";
+"changeCamSetting" = "נא לשנות את ההגדרות על מנת לצלם תמונה חדשה";
+"Allow Camera" = "אפשר מצלמה";
+
+"Choose a number" = "בחר מספר";
+"No maximum" = "בלי הגבלה";
+
+"Grant" = "אפשר";"grant" = "אפשר" ;

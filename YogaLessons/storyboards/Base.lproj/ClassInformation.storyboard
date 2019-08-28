@@ -30,23 +30,23 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9rx-FP-Tk6" userLabel="head">
                                                     <rect key="frame" x="8" y="19" width="398" height="142.5"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hFH-hZ-P16" userLabel="profile">
-                                                            <rect key="frame" x="0.0" y="0.0" width="67" height="142.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hFH-hZ-P16" userLabel="profile">
+                                                            <rect key="frame" x="0.0" y="0.0" width="127" height="142.5"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" contentMode="scaleAspectFill" image="guru" translatesAutoresizingMaskIntoConstraints="NO" id="MDW-FE-bw7" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="67"/>
+                                                                    <rect key="frame" x="13.5" y="0.0" width="100" height="100"/>
                                                                     <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                                                     <gestureRecognizers/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="MDW-FE-bw7" secondAttribute="height" multiplier="1:1" id="SXD-JV-cXs"/>
-                                                                        <constraint firstAttribute="width" constant="67" id="ni0-XP-AYN"/>
+                                                                        <constraint firstAttribute="width" constant="100" id="ni0-XP-AYN"/>
                                                                     </constraints>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="Circled" value="YES"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="teacher name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RV-zS-Xjb">
-                                                                    <rect key="frame" x="0.0" y="75" width="67" height="67.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="teacher name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RV-zS-Xjb" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="111" width="127" height="31.5"/>
                                                                     <color key="backgroundColor" red="0.65535508239999996" green="0.82559119449999996" blue="1" alpha="0.34807551869999998" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                     <nil key="textColor"/>
@@ -54,11 +54,10 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zuq-Fd-jo2">
-                                                            <rect key="frame" x="83" y="0.0" width="315" height="142.5"/>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu," textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zuq-Fd-jo2">
+                                                            <rect key="frame" x="143" y="0.0" width="255" height="142.5"/>
                                                             <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="rounded">
@@ -266,7 +265,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="18-30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ih7-dO-hfZ">
-                                                    <rect key="frame" x="0.0" y="8" width="414" height="30.5"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="30.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -275,8 +274,8 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="ih7-dO-hfZ" secondAttribute="bottom" constant="8" id="MIj-HU-rgL"/>
                                                 <constraint firstItem="ih7-dO-hfZ" firstAttribute="top" secondItem="6Uw-pX-Y6E" secondAttribute="top" constant="8" id="oeS-lD-s8C"/>
-                                                <constraint firstItem="ih7-dO-hfZ" firstAttribute="leading" secondItem="6Uw-pX-Y6E" secondAttribute="leading" id="ppT-W6-t3H"/>
-                                                <constraint firstAttribute="trailing" secondItem="ih7-dO-hfZ" secondAttribute="trailing" id="ze1-QO-oWW"/>
+                                                <constraint firstItem="ih7-dO-hfZ" firstAttribute="leading" secondItem="6Uw-pX-Y6E" secondAttribute="leading" constant="8" id="ppT-W6-t3H"/>
+                                                <constraint firstAttribute="trailing" secondItem="ih7-dO-hfZ" secondAttribute="trailing" constant="8" id="ze1-QO-oWW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -291,14 +290,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1De-EO-aGE">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1De-EO-aGE">
                                                     <rect key="frame" x="8" y="8.5" width="398" height="125"/>
                                                     <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="125" id="Qan-K9-PdY"/>
                                                     </constraints>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="rounded">

@@ -41,11 +41,11 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelBtnAttr , for: .normal)
         
-        let types:[String] = SearchKeyType.allCases.map{ $0.translated}
+        let types:[String] = SearchKeyType.allCases.map{ $0.translated.capitalized}
 
         searchBar.scopeButtonTitles = types
         searchBar.scopeBarTextColorNormal = .white
-        searchBar.scopeBarTextColorSelected = .black
+        searchBar.scopeBarTextColorSelected = .white
 
         return controller
     }

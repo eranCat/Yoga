@@ -11,13 +11,17 @@ import FirebaseAuth
 import SVProgressHUD
 
 class LoginViewController: UIViewController,TextFieldReturn {
+    @IBOutlet weak var titleLbl: UILabel!
     
+    @IBOutlet weak var mainStack: UIStackView!
     
     @IBOutlet weak var email: UITextField!
     
     @IBOutlet weak var password: UITextField!
     
     @IBOutlet weak var loginBtn: UIButton!
+    
+    @IBOutlet weak var signupBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +31,26 @@ class LoginViewController: UIViewController,TextFieldReturn {
         email.becomeFirstResponder()
         
         initTextFields(email,password)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.titleLbl.alpha = 0//transform = .init(scaleX: 0.5, y: 0.7)
+        
+        UIView.reposition(views: mainStack.arrangedSubviews,
+                          transform: .init(translationX: -view.bounds.width, y: 0))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+        typealias UV = UIView
+        
+        UV.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            self.titleLbl.alpha = 1//transform = CGAffineTransform.identity
+        })
+        
+        
+        UV.animateToIdentity(views: mainStack.arrangedSubviews,duration: 1.2)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -93,8 +117,7 @@ class LoginViewController: UIViewController,TextFieldReturn {
             SVProgressHUD.dismiss()
         }
     }
-
-
+    
     fileprivate func showProggressView() {
         let progress = UIProgressView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         

@@ -31,6 +31,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     @IBOutlet weak var lblLocation: UILabel!
     
+    lazy var locationPicker = setLocationPicker()
     var selectedCoordinate:CLLocationCoordinate2D?
     var selectedPlaceName:String?
     
@@ -41,7 +42,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     @IBOutlet weak var tfLevel: LevelTextField!
     
-    @IBOutlet weak var maxPplDropDown: DropDown!
+    @IBOutlet weak var maxPplDropDown: MaxAmountField!
     
     @IBOutlet weak var maxPplStepper: UIStepper!
     var maxPplCount:Int?,noMaxPpl = false
@@ -60,7 +61,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .init(patternImage: #imageLiteral(resourceName: "sea"))
+        tableView.backgroundColor = .init(patternImage: #imageLiteral(resourceName: "sea"))
         
 //        tfTitle.placeholder = "Yoga kind"
         
@@ -87,13 +88,13 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             typeSegment.type = .events
             typeSegment.selectedSegmentIndex = 1
             changeToEventView()
-            typeSegment.isUserInteractionEnabled = false
+//            typeSegment.isUserInteractionEnabled = false
+            typeSegment.setEnabled(false, forSegmentAt: 0)
         }
         
         guard let model = model
             else {return}
         
-        typeSegment.isHidden = true
         navigationController?.navigationBar.prefersLargeTitles = true
         
         if let aClass = model as? Class{
@@ -104,8 +105,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     }
     
     func initDropDown() {
-//        maxPplDropDown.blurBG()
-        maxPplDropDown.optionArray = ["Choose a number","No maximum"]
+        
         maxPplDropDown.didSelect { (selectedTxt, index, id) in
              self.noMaxPpl = index == 1
              self.maxPplCount = index == 0 ? 0 : nil
@@ -243,14 +243,6 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier,id == "goToSearchPlace",
-            let locationPicker = segue.destination as? LocationPicker
-            else{return}
-        
-        locationPicker.delegate = self
-    }
-    
     @IBAction func save(_ sender: UIBarButtonItem) {
         
         let dType = DataType.allCases[ typeSegment.selectedSegmentIndex]
@@ -345,20 +337,28 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     
     @IBAction func imageTap(_ sender: UITapGestureRecognizer) {
-        imagePicker.show(hasImage: hasImage)
+        imagePicker.show(hasImage: hasImage,size: .regular)
     }
     
     
     fileprivate func createImagePicker() -> MyImagePicker {
         let picker =
-            MyImagePicker(allowsEditing: false){ image,removeChosen in
+            MyImagePicker(allowsEditing: false){ image,url,removeChosen in
                 
-                self.hasImage = image != nil
+                self.hasImage = image != nil || url != nil
                 if removeChosen || !self.hasImage{
                     self.eventImgView.image = #imageLiteral(resourceName: "image")
                     self.eventImgView.contentMode = .scaleAspectFit
-                }else{
-                    self.eventImgView.image = image
+                }else {
+                    if let img = image{
+                        DispatchQueue.main.async {
+                            self.eventImgView.image = img
+                        }
+                    }else if let url = url{
+                        DispatchQueue.main.async {
+                            self.eventImgView.sd_setImage(with: url, completed: nil)
+                        }
+                    }
                     self.eventImgView.contentMode = .scaleAspectFill
                 }
             }
@@ -393,12 +393,19 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
 
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.backgroundColor = .clear
+        return cell
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.cellForRow(at: indexPath)?.reuseIdentifier == "locationCell"{
-//        if indexPath.section == 1 && indexPath.row == 0 {//row of location
-        
-            //maybe perform segue
-            performSegue(withIdentifier: "goToSearchPlace", sender: nil)
+            
+            let navC = UINavigationController(rootViewController: self.locationPicker)
+            
+            present(navC,animated: true)
         }
     }
 

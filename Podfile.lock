@@ -85,6 +85,7 @@ PODS:
     - SDWebImage/Core (= 5.1.0)
   - SDWebImage/Core (5.1.0)
   - SVProgressHUD (2.2.5)
+  - UnsplashPhotoPicker (1.0.1)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -98,6 +99,7 @@ DEPENDENCIES:
   - ReachabilitySwift
   - SDWebImage
   - SVProgressHUD
+  - UnsplashPhotoPicker (~> 1.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -120,6 +122,7 @@ SPEC REPOS:
     - ReachabilitySwift
     - SDWebImage
     - SVProgressHUD
+    - UnsplashPhotoPicker
 
 SPEC CHECKSUMS:
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
@@ -141,7 +144,8 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  UnsplashPhotoPicker: 3669aef6d3cd8bc45f19d681eef0af5920325c79
 
-PODFILE CHECKSUM: 62dc744e84897134ddf76f67f032a82f95ff30f3
+PODFILE CHECKSUM: d577d3000ad28d40091292373961d68dcaecbfb1
 
 COCOAPODS: 1.6.2

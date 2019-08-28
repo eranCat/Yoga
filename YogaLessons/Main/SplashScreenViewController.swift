@@ -16,18 +16,28 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
 
     @IBOutlet weak var loadingLbl: PaddingLabel!
     
+    @IBOutlet weak var logoImg: UIImageView!
+    
     override func viewDidLoad() {
         navigationController?.isToolbarHidden = true
         
         startSetup()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         addReachabilityObserver()
     }
-    
     deinit {
         removeReachabilityObserver()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat,.autoreverse,.curveEaseIn], animations: {
+            
+            self.logoImg.transform = .init(translationX: 0, y: -50)
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        logoImg.layer.removeAllAnimations()
     }
     
     func startSetup() {
@@ -75,6 +85,7 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
                 }
                 
             }else{
+                SVProgressHUD.dismiss()
                 self.openLogin()
             }
         }
@@ -82,8 +93,8 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     
 
     fileprivate func openLogin() {
-        self.performSegue(withIdentifier: "showLogin", sender: nil)
-        SVProgressHUD.dismiss()
+        let login = newVC(storyBoardName: "UserLogin", id: "LoginVC")
+        present(UINavigationController(rootViewController: login), animated: true)
     }
     
     

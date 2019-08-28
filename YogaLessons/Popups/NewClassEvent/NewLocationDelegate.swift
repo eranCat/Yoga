@@ -11,13 +11,11 @@ import LocationPickerViewController
 extension NewClassEventViewController:LocationPickerDelegate{
     
     func locationDidSelect(locationItem: LocationItem) {
-        updateLocationFeilds( locationItem)
-        popLocationPicker()
+        
     }
     
     func locationDidPick(locationItem: LocationItem) {
         updateLocationFeilds(locationItem)
-        popLocationPicker()
     }
     
     func locationDidDeny(locationPicker: LocationPicker) {
@@ -33,10 +31,28 @@ extension NewClassEventViewController:LocationPickerDelegate{
         }
     }
     
-    func popLocationPicker() {
+    
+    func setLocationPicker() -> LocationPicker {
         
-        if navigationController?.viewControllers.last! is LocationPicker {
-            navigationController?.popViewController(animated: true)
-        }
+        let  locPicker = LocationPicker()
+        
+        locPicker.setColors(themeColor: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), primaryTextColor: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), secondaryTextColor: #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1))
+        locPicker.currentLocationText = "Current Location".translated
+        locPicker.searchBarPlaceholder = "Search for location".translated
+        locPicker.locationDeniedAlertTitle = "Location access denied".translated
+        locPicker.locationDeniedAlertMessage = "allowLocation".translated
+        locPicker.locationDeniedGrantText = "Grant".translated
+        locPicker.locationDeniedCancelText = "Cancel".translated
+        
+        locPicker.searchResultLocationIcon = #imageLiteral(resourceName: "locationPlace")
+        
+        locPicker.navigationController?.isNavigationBarHidden = false
+        locPicker.addBarButtons()
+        
+        //        locationPicker.searchDistance = 10_000//in meters
+        locPicker.longitudinalDistance = 600
+        locPicker.delegate = self
+        
+        return locPicker
     }
 }

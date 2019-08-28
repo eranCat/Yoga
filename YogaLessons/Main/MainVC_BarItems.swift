@@ -11,10 +11,28 @@ import UIKit
 //MARK: tab bar button items
 extension MainTabBarController:UITabBarControllerDelegate{
     
+    private var bounceAnimation: CAKeyframeAnimation {
+        let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+        bounceAnimation.values = [1.0, 1.3, 0.9, 1.02, 1.0]
+        bounceAnimation.duration = 0.3
+        bounceAnimation.calculationMode = .cubic
+        return bounceAnimation
+    }
+    
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         
         guard let i = tabBar.items?.firstIndex(of: item)
             else { return }
+        
+        if tabBar.subviews.count > i + 1{
+            
+            let subs = tabBar.subviews[i + 1].subviews
+            
+            if let imageView = subs.first(where: { $0 is UIImageView }){
+                imageView.layer.add(bounceAnimation, forKey: nil)
+            }
+            
+        }
         
         self.currentSourceType = SourceType.allCases[i]
         

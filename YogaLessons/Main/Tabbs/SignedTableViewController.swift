@@ -40,7 +40,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         subscribeObservers()
         
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.largeTitleDisplayMode = .automatic
     }
     
     func updateTitle() {

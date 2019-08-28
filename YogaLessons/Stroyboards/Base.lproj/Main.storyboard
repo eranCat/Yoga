@@ -88,9 +88,9 @@
         <!--Main Tab Bar Controller-->
         <scene sceneID="ZYO-hm-arR">
             <objects>
-                <tabBarController storyboardIdentifier="mainTabBar" id="hOD-uw-X5t" customClass="MainTabBarController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="mainTabBar" modalTransitionStyle="crossDissolve" id="hOD-uw-X5t" customClass="MainTabBarController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Js7-mc-qiW">
-                        <barButtonItem key="leftBarButtonItem" title="Profile" image="profile" id="Rgb-2m-fBP">
+                        <barButtonItem key="leftBarButtonItem" image="profileDetails" springLoaded="YES" id="Rgb-2m-fBP">
                             <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="pQ2-pe-ssi" kind="show" identifier="showUserInfo" id="Ejl-cc-Nbv"/>
@@ -156,15 +156,7 @@
                 <viewControllerPlaceholder storyboardName="UserInfo" id="pQ2-pe-ssi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AWT-To-ZDL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2391" y="42"/>
-        </scene>
-        <!--LoginNavController-->
-        <scene sceneID="qaa-o7-gsZ">
-            <objects>
-                <viewControllerPlaceholder storyboardName="UserLogin" referencedIdentifier="LoginNavController" id="3HF-D4-DGg" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FuV-Aq-Qob" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="73" y="27"/>
+            <point key="canvasLocation" x="2377" y="42"/>
         </scene>
         <!--Splash Screen View Controller-->
         <scene sceneID="uxO-GO-H8C">
@@ -198,18 +190,18 @@
                     <navigationItem key="navigationItem" id="QK4-IU-0ci"/>
                     <connections>
                         <outlet property="loadingLbl" destination="GzF-ge-fqW" id="YeT-7E-Ark"/>
-                        <segue destination="3HF-D4-DGg" kind="presentation" identifier="showLogin" id="x8W-SI-S1n"/>
+                        <outlet property="logoImg" destination="b0W-oY-Hen" id="w5p-xB-Bh8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TZa-Tc-6SI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-665.21739130434787" y="27.455357142857142"/>
+            <point key="canvasLocation" x="-241" y="42"/>
         </scene>
     </scenes>
     <resources>
         <image name="home" width="32" height="32"/>
         <image name="logo" width="418" height="691"/>
-        <image name="profile" width="32" height="32"/>
+        <image name="profileDetails" width="32" height="32"/>
         <image name="saved" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -73,34 +73,16 @@ extension DataSource{
         classChangedHandle = ref.child(tableKey)
             .observe( .childChanged){ (snapshot, string) in
                 
-                guard let json = snapshot.value as? JSON
+                guard let json = snapshot.value as? JSON,
+                        let classID = json[Class.Keys.id] as? String,
+                        let aClass = self.all_classes.first(where: {$0.id == classID})
                     else{return}
                 
-                let user = YUser.currentUser!
-                
-                let aClass = Class(json)
-                
-                let predicate:((Class)->Bool) = {$0.id == aClass.id}
-                
-                //                    all
-                if self.all_classes.replaceFirst(where: predicate,data: aClass){
-                    self.updateMainDict(sourceType: .all, dataType: .classes)
-                }
-                
-                //                        uploads
-                if user.type == .teacher && aClass.uid == user.id{
-                    self.teacherCreatedClasses.replaceFirst(where: predicate, data: aClass)
-                }
-                
-                //                        signed
-                if user.signedClassesIDS[aClass.id!] != nil{
-                    if self.signed_classes.replaceFirst(where: predicate,data: aClass){
-                        self.updateMainDict(sourceType: .signed, dataType: .classes)
-                    }
-                }
+                aClass.update(from: json)
                 
                 var userInfo: [String : Any] = ["type" : DataType.classes]
                 userInfo["status"] = aClass.status
+                userInfo["id"] = classID
                 
                 NotificationCenter.default.post(name: ._dataChanged, userInfo: userInfo)
         }
@@ -111,35 +93,16 @@ extension DataSource{
         eventChangedHandle = ref.child(tableKey)
             .observe( .childChanged){ (snapshot, string) in
                 
-                guard let json = snapshot.value as? JSON
+                guard let json = snapshot.value as? JSON,
+                        let eventID = json[Event.Keys.id] as? String,
+                        let event = self.all_events.first(where: {$0.id == eventID})
                     else{return}
                 
-                
-                let user = YUser.currentUser!
-                
-                let event = Event(json)
-                
-                let predicate:((Event)->Bool) = {$0.id == event.id}
-                
-                //                    all
-                if self.all_events.replaceFirst(where: predicate, data: event){
-                    self.updateMainDict(sourceType: .all, dataType: .events)
-                }
-                
-                //                        uploads
-                if event.uid == user.id{
-                    self.userCreatedEvents.replaceFirst(where: predicate, data: event)
-                }
-                
-                //                        signed
-                if user.signedEventsIDS[event.id!] != nil{
-                    if self.signed_events.replaceFirst(where: predicate, data: event){
-                        self.updateMainDict(sourceType: .signed, dataType: .events)
-                    }
-                }
+                event.update(from: json)
                 
                 var userInfo: [String : Any] = ["type" : DataType.events]
                 userInfo["status"] = event.status
+                userInfo["id"] = eventID
                 
                 NotificationCenter.default.post(name: ._dataChanged, userInfo: userInfo)
         }

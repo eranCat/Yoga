@@ -37,7 +37,7 @@ class ClassInfoViewController: UITableViewController {
     
     @IBOutlet weak var extraNotes: UITextView!
     var hasExtraNotes:Bool = false
-    
+    var hasAges:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,13 +57,28 @@ class ClassInfoViewController: UITableViewController {
         
         fillViews()
         
-        let user = YUser.currentUser!
-        //the user didnt sign up for the class
-        setSigninBtn(isSigned: user.signedClassesIDS[classModel.id!] != nil)
-       
-        
         navigationItem.rightBarButtonItem?.tintColor =  #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        
+        addObservers()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: ._dataChanged, object: nil)
+    }
+    
+    @objc func dataChanged(_ notif:NSNotification){
+        guard let type = notif.userInfo?["type"] as? DataType,type == .classes,
+            let id = notif.userInfo?["id"] as? String,id == classModel.id
+            else{return}
+        
+        fillViews()
+        tableView.reloadData()
+    }
+    
     fileprivate func setSigninBtn( isSigned:Bool) {
         if !isSigned{
             if classModel.status == .open{
@@ -82,6 +97,10 @@ class ClassInfoViewController: UITableViewController {
     
     private func fillViews() {
         
+        let user = YUser.currentUser!
+        //the user didnt sign up for the class
+        setSigninBtn(isSigned: user.signedClassesIDS[classModel.id!] != nil)
+        
         lblTeachersName.text = teacher.name
         
         if let imgUrl = teacher.profileImageUrl{
@@ -98,7 +117,7 @@ class ClassInfoViewController: UITableViewController {
         }
         
         lblClassTitle.text = classModel.title
-        
+        navigationItem.title = classModel.title
         
         if classModel.maxParticipants > 0{
             lblMaxPplCount.text = String(classModel.maxParticipants)
@@ -145,21 +164,17 @@ class ClassInfoViewController: UITableViewController {
             hasExtraNotes = false
         }
         
-        switch (classModel.minAge,classModel.maxAge) {
-        case (.some(let min),.some(let max)):
-            if min == max{
-                lblAges.text = "\(min)"
+        let minAge = classModel.minAge
+        let maxAge = classModel.maxAge
+        self.hasAges = minAge < .max && maxAge > -1
+        if hasAges{
+            if minAge == maxAge{
+                lblAges.text = "\(minAge)"
             }else{
-                lblAges.text = "\(min) - \(max)"
+                lblAges.text = "\(minAge) - \(maxAge)"
             }
-            
-        case (.some(let min),nil):
-            lblAges.text = "\(min)"
-            
-        case (nil,.some(let max)):
-            lblAges.text = "\(max)"
-
-        default:
+        }
+        else{
             lblAges.text = ""
         }
     }
@@ -207,6 +222,7 @@ class ClassInfoViewController: UITableViewController {
                 }
                 self.navigationController?.popViewController(animated: true)
                 self.setSigninBtn(isSigned: true)
+                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 6)], with: .middle)
         }
     }
     
@@ -239,11 +255,7 @@ class ClassInfoViewController: UITableViewController {
             return !hasExtraNotes ? 0.0 : autoSize
             
         case 6://ages section
-            if classModel.minAge == nil {
-                let maxAge = classModel.maxAge
-                return (maxAge == -1 || maxAge == nil) ? 0: autoSize
-            }
-            return autoSize
+            return hasAges ? autoSize : 0
             
         default:
             return autoSize
@@ -259,11 +271,7 @@ class ClassInfoViewController: UITableViewController {
             return !hasExtraNotes ? 0 : autoSize
             
         case 6:
-            if classModel.minAge == nil {
-                let maxAge = classModel.maxAge
-                return (maxAge == -1 || maxAge == nil) ? 0: autoSize
-            }
-            return autoSize
+            return hasAges ? autoSize : 0
         default:
             return autoSize
         }

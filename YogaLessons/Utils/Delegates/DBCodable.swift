@@ -11,8 +11,9 @@ import Foundation
 protocol DBCodable {
     func encode()->JSON
     init?(_ dict:JSON)
+    func update(from dict:JSON)
 }
 
-protocol Unique {
-    var id:String? {get set}
+extension DBCodable{
+    func update(from dict:JSON){}
 }

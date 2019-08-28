@@ -8,46 +8,66 @@
 
 import UIKit
 import AVFoundation
+import UnsplashPhotoPicker
 
 open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
     
     let imgPicker:UIImagePickerController
     
-    var completion:(
-    (UIImage?,Bool/*if remove*/)->Void)?
+    private static let unsplashAccessKey = "68e53687dea3f09526831a1c53b61e8f8abfd26716f92850f8f37388e73c90fe";
+    private static let unsplashSecretKey = "4b986b301dd029a522512ed8dfa5662acfce127fc45ac512d306880acc4c7fe4";
     
-    init(allowsEditing:Bool = true,completion:@escaping (UIImage?,Bool)->Void) {
+    private let unsplashVC:UnsplashPhotoPicker
+    private var size:UnsplashPhoto.URLKind = .small
+
+    typealias PickerCompletion = (UIImage?,URL?/*url for image search*/,Bool/*if remove*/)->Void
+    var completion:PickerCompletion
+    
+    
+    init(allowsEditing:Bool = true,completion:@escaping PickerCompletion) {
         self.completion = completion
         
         imgPicker = UIImagePickerController()
         imgPicker.allowsEditing = allowsEditing
         imgPicker.sourceType = .photoLibrary
+        let unsplashConfig = UnsplashPhotoPickerConfiguration(accessKey: MyImagePicker.unsplashAccessKey,secretKey: MyImagePicker.unsplashSecretKey)
+        
+        unsplashVC = UnsplashPhotoPicker(configuration: unsplashConfig)
+        //                                         allowsMultipleSelection: false,
+        //                                         memoryCapacity: Int,
+        //                                         diskCapacity: Int)
+        
         super.init()
         imgPicker.delegate = self
+        unsplashVC.photoPickerDelegate = self
     }
     
-    func show( hasImage:Bool) {
+    func show( hasImage:Bool,size:UnsplashPhoto.URLKind = .small) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
+        alert.addAction(UIAlertAction(title: "Search photo online".translated, style: .default){ (_) in
+            self.size = size
+            self.openSplashPicker()
+        })
         
-        if let action = action(for: .camera, title: "Take a photo") {
+        if let action = action(for: .camera, title: "Take a photo".translated) {
             alert.addAction(action)
             action.setValue(#imageLiteral(resourceName: "slr_camera"), forKey: "image")
         }
         
-        if let action = action(for: .savedPhotosAlbum, title: "Camera roll") {
+        if let action = action(for: .savedPhotosAlbum, title: "Camera roll".translated) {
             alert.addAction(action)
             action.setValue(#imageLiteral(resourceName: "pictures_folder"), forKey: "image")
         }
         
-        if let action = action(for: .photoLibrary, title: "Photo library") {
+        if let action = action(for: .photoLibrary, title: "Photo library".translated) {
             alert.addAction(action)
             action.setValue(#imageLiteral(resourceName: "pictures_folder"), forKey: "image")
         }
         
         if hasImage {
-            let remove = UIAlertAction(title: "Remove image", style: .destructive) { (action) in
-                self.completion?(nil,true)
+            let remove = UIAlertAction(title: "Remove image".translated, style: .destructive) { (action) in
+                self.completion(nil,nil,true)
             }
             let trashImg = UIImage(imageLiteralResourceName: "trash")
             
@@ -56,7 +76,7 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
             alert.addAction(remove)
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel,handler: { _ in}))
+        alert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel,handler: { _ in}))
         
         guard let sourceVC = UIApplication.shared.presentedVC,
             let srcView = sourceVC.view
@@ -98,13 +118,13 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
         
         let image = info[infoKey] as? UIImage
         
-        completion?(image,false)
+        completion(image,nil,false)
         
         picker.dismiss(animated: true)
     }
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
-        completion?(nil,false)
+        completion(nil,nil,false)
     }
     
     private func isCameraAvailble() -> Bool {
@@ -153,14 +173,14 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
     
     private func enableCamPermissionInSetting() {
         let alert = UIAlertController(
-            title: "Need Camera Access",
-            message: "Please change settings of camera access for setting a new picture.",
+            title: "Needs camera access".translated,
+            message: "changeCamSetting".translated,
             preferredStyle: .alert
         )
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel))
         
-        let openSetting = UIAlertAction(title: "Open settings", style: .default) { alert in
+        let openSetting = UIAlertAction(title: "Open settings".translated, style: .default) { alert in
             let settingsAppURL = URL(string:UIApplication.openSettingsURLString)!
             
             UIApplication.shared.open(settingsAppURL)
@@ -174,17 +194,39 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
     private func alertCameraAccessNeeded() {
         
         let alert = UIAlertController(
-            title: "Need Camera Access",
-            message: "Camera access is required for setting a new picture.",
+            title: "Needs Camera Access".translated,
+            message: "Needs camera access".translated,
             preferredStyle: .alert
         )
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel))
         
-        alert.addAction(UIAlertAction(title: "Allow Camera", style: .default) { alert in
+        alert.addAction(UIAlertAction(title: "Allow Camera".translated, style: .default) { alert in
             self.requestCameraPermission()
         })
         
         UIApplication.shared.presentedVC?.present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension MyImagePicker:UnsplashPhotoPickerDelegate{
+    public func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
+        
+        if let downloadLink = photos.first?.urls[.small]{
+            
+            completion(nil,downloadLink,false)
+        }
+        else{
+            self.completion(nil,nil,false)
+        }
+    }
+    
+    public func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) {
+        
+    }
+    
+    func openSplashPicker() {
+        UIApplication.shared.presentedVC?.present(unsplashVC, animated: true)
     }
 }

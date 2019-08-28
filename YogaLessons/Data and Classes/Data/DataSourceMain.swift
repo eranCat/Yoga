@@ -486,22 +486,6 @@ class DataSource {
         UIApplication.shared.presentedVC?.present(alert, animated: true)
     }
     
-    func updateNumOfParticipants(data:(Unique & Participateable),dType:DataType,completionBlock:@escaping DSTaskListener) {
-        let key:String
-        switch dType {
-        case .classes:
-            key = Class.Keys.numParticipants
-        case .events:
-            key = Event.Keys.numParticipants
-        }
-        
-        ref.child(TableNames.name(for: dType))
-            .child(data.id!).updateChildValues([key : data.numOfParticipants ]){err,snap in
-                completionBlock(err)
-        }
-    }
-    
-    
     func toggleCancel(_ dType:DataType ,at index:Int,taskDone:DSTaskListener?) {
         
         typealias StatusedData = DynamicUserCreateable & Statused & Participateable

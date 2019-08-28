@@ -33,17 +33,24 @@ class SignupViewController: UIViewController,TextFieldReturn {
     let levelPicker = UIPickerView()
     
     lazy var imagePicker = {
-        return MyImagePicker(){ image,removePicked in
+        return MyImagePicker(){ image,url,removePicked in
             
             if removePicked{
                 self.profileImage.image = #imageLiteral(resourceName: "camera")
                 self.hasProfilePic = false
                 return
             }
+            self.hasProfilePic = image != nil || url != nil
             
-            if image != nil{
-                self.profileImage.image = image
-                self.hasProfilePic = true
+            if let img = image {
+                DispatchQueue.main.async {
+                    self.profileImage.image = img
+                }
+                
+            }else if let url = url{
+                DispatchQueue.main.async {
+                    self.profileImage.sd_setImage(with: url, completed: nil)
+                }
             }
         }
     }()

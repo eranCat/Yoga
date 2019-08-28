@@ -103,12 +103,13 @@ class LocalCalendarManager {
     }
     
     func removeEvent(objId:String) {
+        guard let eventId = self.createdEventsIds[objId]
+            else{return}
+        
         let store = EKEventStore();
         store.requestAccess(to: .event) { (granted, error) in
             
-            guard granted,
-                let eventId = self.createdEventsIds[objId]
-            else{return}
+            guard granted else{return}
             
             if let eventToRemove = store.event(withIdentifier: eventId){
             

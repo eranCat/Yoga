@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   YogaLessons
 
@@ -81,3 +81,4 @@
 "allowLocation" = "You need to allow permission if you want current location";
 
 "confirmCancel" = "Are you sure you want to cancel this ";
+"changeCamSetting" = "Please change settings of camera access for setting a new picture.";

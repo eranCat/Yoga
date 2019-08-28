@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Located{
+class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Located,Aged{
 
     var id:String? //may set after init
     
@@ -35,7 +35,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
     var status:Status
     
-    var minAge,maxAge:Int?
+    var minAge,maxAge:Int
     init(type:String,cost:Double,location:CLLocationCoordinate2D,locationName:String,date:(start:Date,end:Date),level:Level,equipment:String,xtraNotes:String? = nil,maxParticipants:Int,teacher:Teacher) {
         
         self.id = nil
@@ -62,7 +62,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         self.status = .open
         
-        minAge = nil//if age < min
+        minAge = .max//if age < min
         maxAge = -1//if age > max
     }
     
@@ -84,15 +84,15 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         dict[Keys.level] = level.rawValue
         dict[Keys.equip] = equipment
         dict[Keys.xtraNotes] = xtraNotes
-        dict[Keys.numParticipants] = numOfParticipants
-        dict[Keys.maxParticipants] = maxParticipants
+        dict[ParticipateableKeys.num.rawValue] = numOfParticipants
+        dict[ParticipateableKeys.max.rawValue] = maxParticipants
         
         dict[Keys.teacher] = uid
         
         dict[Status.key] = status.rawValue
         
-        dict[Keys.age_min] = minAge
-        dict[Keys.age_max] = maxAge
+        dict[AgedKeys.age_min.rawValue] = minAge
+        dict[AgedKeys.age_max.rawValue] = maxAge
 
         return dict
     }
@@ -117,8 +117,8 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         xtraNotes = dict[Keys.xtraNotes] as! String?
         
-        numOfParticipants = dict[Keys.numParticipants] as! UInt
-        maxParticipants = dict[Keys.maxParticipants] as! Int
+        numOfParticipants = dict[ParticipateableKeys.num.rawValue] as! UInt
+        maxParticipants = dict[ParticipateableKeys.max.rawValue] as! Int
         
 //        userDict = dict[Keys.teacher] as! [String : String]
         uid = dict[Keys.teacher] as! String
@@ -126,8 +126,8 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         let statusRv = dict[Status.key] as? Int ?? 0
         status = Status.allCases[statusRv]
         
-        minAge = dict[Keys.age_min] as? Int
-        maxAge = dict[Keys.age_max] as? Int
+        minAge = dict[AgedKeys.age_min.rawValue] as? Int ?? .max
+        maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
     }
     
 }
@@ -136,6 +136,38 @@ extension Class:CustomStringConvertible{
     var description: String{
         let encoded = encode().description.replacingOccurrences(of: ",", with: "\n")
         return "Class{\(encoded)}"
+    }
+}
+
+extension Class{
+    func update(from dict:JSON) {
+        
+        guard self.id == dict[Keys.id] as! String?
+            else{return}
+        
+        title = dict[Keys.type] as! String
+        cost = .init(dict[Keys.cost] as! JSON)
+        
+        locationCoordinate = .init(dict[Keys.location] as! JSON)
+        locationName = dict[Keys.place] as! String
+        
+        startDate = Date(timeIntervalSince1970: dict[Keys.startDate] as! TimeInterval)
+        endDate = Date(timeIntervalSince1970: dict[Keys.endDate] as! TimeInterval)
+        
+        level = Level.allCases[dict[Keys.level] as! Int]
+        
+        equipment = dict[Keys.equip] as! String
+        
+        xtraNotes = dict[Keys.xtraNotes] as! String?
+        
+        numOfParticipants = dict[ParticipateableKeys.num.rawValue] as! UInt
+        maxParticipants = dict[ParticipateableKeys.max.rawValue] as! Int
+        
+        let statusRv = dict[Status.key] as? Int ?? 0
+        status = Status.allCases[statusRv]
+        
+        minAge = dict[AgedKeys.age_min.rawValue] as? Int ?? .max
+        maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
     }
 }
 
@@ -152,11 +184,7 @@ extension Class{
         static let level = ClassKeys.level.rawValue
         static let equip = ClassKeys.equip.rawValue
         static let xtraNotes = ClassKeys.xtraNotes.rawValue
-        static let numParticipants = ClassKeys.numParticipants.rawValue
-        static let maxParticipants = ClassKeys.maxParticipants.rawValue
         static let teacher = ClassKeys.uid.rawValue
-        static let age_max = ClassKeys.age_max.rawValue
-        static let age_min = ClassKeys.age_min.rawValue
     }
     
     enum ClassKeys:String {
@@ -171,10 +199,6 @@ extension Class{
         case level = "level"
         case equip = "equip"
         case xtraNotes = "xtraNotes"
-        case numParticipants = "numOfParticipants"
-        case maxParticipants = "maxParticipants"
         case uid = "uid"
-        case age_max = "age_max"
-        case age_min = "age_min"
     }
 }

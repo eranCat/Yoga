@@ -29,7 +29,7 @@ target 'YogaLessons' do
   pod 'Firebase/Storage'
   
   #firebase GeoFire - location represntation for DB and filtering with firebase
-  pod 'GeoFire', '~> 3.0'
+#  pod 'GeoFire', '~> 3.0'
 
   #for auto complete
   pod 'LocationPickerViewController'
@@ -39,5 +39,8 @@ target 'YogaLessons' do
   
   #dropdown
   pod 'iOSDropDown'
+  
+  #Online image search
+  pod 'UnsplashPhotoPicker', '~> 1.0'
 
 end

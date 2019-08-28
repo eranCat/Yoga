@@ -26,7 +26,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     var searchType:SearchKeyType?
     
     // Search controller
-    lazy var searchController:UISearchController = { return createSearchController()}()
+    lazy var searchController:UISearchController = createSearchController()
     
     lazy var filtered:[DataType:[DynamicUserCreateable]] = { [.classes:[],.events:[]]}()
     //    var filteredClasses:[Class] = []
@@ -70,23 +70,18 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     
     func createObservers() {
         
-        let names:[Notification.Name] = [._sortTapped,
-                                         ._searchStarted,
-                                         ._dataAdded,._dataRemoved,._dataChanged,
-                                         ._signedTabSelected]
-        
-        let selectors = [
-            #selector(onSortTapped(_:)),
-            #selector(initSearch),
-            #selector(dataAdded(_:)),
-            #selector(dataRemoved(_:)),
-            #selector(dataChanged(_:)),
-            #selector(signedTabSelected(_:))
+        let observersDiect:[Notification.Name:Selector] = [
+            ._sortTapped : #selector(onSortTapped(_:)),
+            ._searchStarted : #selector(initSearch),
+            ._dataAdded : #selector(dataAdded(_:)),
+            ._dataRemoved : #selector(dataRemoved(_:)),
+            ._dataChanged : #selector(dataChanged(_:)),
+            ._signedTabSelected : #selector(signedTabSelected(_:))
         ]
         
         let centerDef = NotificationCenter.default
         
-        for (name,selector) in zip(names,selectors){
+        for (name,selector) in observersDiect{
             centerDef.addObserver(self, selector: selector, name: name, object: nil)
         }
     }

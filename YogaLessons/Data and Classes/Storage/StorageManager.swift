@@ -10,6 +10,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 import SDWebImage
+import SVProgressHUD
 
 class StorageManager {
     
@@ -96,17 +97,29 @@ class StorageManager {
         }
     }
     
-    func setImage(withUrl url:String?,imgView:UIImageView,placeHolderImg:UIImage? = nil ){
+    func setImage(withUrl url:String?,imgView:UIImageView,placeHolderImg:UIImage? = nil,completion:((UIImage?, Error?, URL?)->Void)? = nil ){
     
         guard let url = url, let imgUrl = URL(string: url)
             else {return}//check to not show indicator
         
+        setImage(withUrl: imgUrl, imgView: imgView,placeHolderImg: placeHolderImg,completion: completion)
+    }
+    func setImage(withUrl url:URL?,imgView:UIImageView,placeHolderImg:UIImage? = nil,completion:((UIImage?, Error?, URL?)->Void)? = nil ){
+        
+//        SVProgressHUD.setContainerView(imgView)
+//        SVProgressHUD.show()
+       
         imgView.showActivityIndicator()
         
-        imgView.sd_setImage(with: imgUrl,placeholderImage:placeHolderImg)
+        imgView.sd_setImage(with: url,placeholderImage: placeHolderImg)
         { (image, error, type, url) in
+//            SVProgressHUD.dismiss()
+            
             imgView.hideActivityIndicator()
+            
+            completion?(image,error,url)
         }
+    
     }
     
     func setImage(of aClass:Class, imgView:UIImageView){

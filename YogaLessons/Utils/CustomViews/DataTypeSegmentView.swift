@@ -27,7 +27,7 @@ class DataTypeSegmentView: UISegmentedControl {
     func setup() {
         removeAllSegments()
         
-        let font = UIFont(name: "Kailasa", size: 20) ?? UIFont.systemFont(ofSize: 20)
+        let font = UIFont(name: "Avenir Book", size: 20) ?? UIFont.systemFont(ofSize: 20)
         setTitleTextAttributes([NSAttributedString.Key.font: font],
                                 for: .normal)
         
