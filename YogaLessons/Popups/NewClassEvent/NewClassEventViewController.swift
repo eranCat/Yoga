@@ -310,29 +310,31 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             sender.value = 0
         }
         
-//        if sender.value == 0{
-//            maxPplDropDown.selectedIndex = 1
-//            maxPplCount = nil
-//            return
-//        }
         maxPplCount = Int(sender.value)
-        self.maxPplDropDown.text = "\(maxPplCount!)"
+        maxPplDropDown.text = "\(maxPplCount!)"
+        
+        if sender.value == sender.maximumValue{
+            maxPplDropDown.showList()
+            maxPplDropDown.selectedIndex = 1
+        }
     }
     
     
     @IBAction func maxPplEndEdit(_ sender: UITextField) {
-        guard let text = sender.text,!text.isEmpty,//not empty
-            let value = Int(text),value > 0//and no negative
+        guard let text = sender.text,
+            !text.isEmpty,//not empty
+            var value = Int(text),value > 0//and no negative
             else {return}
+        
+        let stepperMax = Int(maxPplStepper.maximumValue)
+        let stepperMin = Int(maxPplStepper.minimumValue)
+        value = value.clamp(lower: stepperMin,stepperMax)
+        
+        sender.text = "\(value)"
         
         maxPplCount = value
         maxPplDropDown.selectedIndex = 0
         maxPplStepper.value = Double(value)
-        
-//        let stepperMax = Int(maxPplStepper.maximumValue)
-//        let stepperMin = Int(maxPplStepper.minimumValue)
-//        guard (stepperMin...stepperMax).contains(value)//and in range
-//            else{return}
     }
     
     

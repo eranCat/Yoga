@@ -46,7 +46,7 @@ class UserInfoViewController: UIViewController {
             }
         }
         
-        navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 0.2615792751, green: 0.2857673466, blue: 0.6650569439, alpha: 1)
+        navigationItem.backBarButtonItem?.tintColor = UIColor._btnTint
         
         aboutTV.delegate2 = self
         

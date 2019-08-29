@@ -12,12 +12,11 @@ class MainTabBarController: UITabBarController {
     
     @IBOutlet weak var profileBtn: UIBarButtonItem!
     
-    let barButtonColor = #colorLiteral(red: 0.2615792751, green: 0.2857673466, blue: 0.6650569439, alpha: 1)
     
     lazy var sortBtn: UIBarButtonItem = {
         var btn = UIBarButtonItem(image: #imageLiteral(resourceName: "filter"), style: .plain, target: self, action: #selector(showSortAlert(_:)))
         
-        btn.tintColor = self.barButtonColor
+        btn.tintColor = UIColor._btnTint
         
         return btn
     }()
@@ -28,7 +27,7 @@ class MainTabBarController: UITabBarController {
             NotificationCenter.default.post(name: ._searchStarted, object: nil)
         }
         
-        searchBtn.tintColor = self.barButtonColor
+        searchBtn.tintColor = UIColor._btnTint
         
         return searchBtn
     }()
@@ -41,7 +40,7 @@ class MainTabBarController: UITabBarController {
             self.present(UINavigationController(rootViewController: newNav),animated: true)
         }
         
-        btn.tintColor = self.barButtonColor
+        btn.tintColor = UIColor._btnTint
         
         return btn
     }()

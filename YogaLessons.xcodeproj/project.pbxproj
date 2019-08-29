@@ -55,6 +55,10 @@
 		9743952E2313B52400A8B48A /* Aged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743952D2313B52400A8B48A /* Aged.swift */; };
 		974395302313DF9B00A8B48A /* Unique.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743952F2313DF9B00A8B48A /* Unique.swift */; };
 		9743953623167FC000A8B48A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743953523167FC000A8B48A /* UIViewExtension.swift */; };
+		974395382316DBBE00A8B48A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 974395372316DBBE00A8B48A /* Assets.xcassets */; };
+		9743953A2316DC6500A8B48A /* Theme.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 974395392316DC6400A8B48A /* Theme.xcassets */; };
+		9743953E2316E51B00A8B48A /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743953D2316E51B00A8B48A /* UIColorExtension.swift */; };
+		974395402316F97800A8B48A /* ComparableExtensionClamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743953F2316F97800A8B48A /* ComparableExtensionClamp.swift */; };
 		9748928E22E5B58A00C361CA /* ImageViewRound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748928D22E5B58A00C361CA /* ImageViewRound.swift */; };
 		9748929022E6DB0E00C361CA /* BlurredTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9748928F22E6DB0E00C361CA /* BlurredTextField.swift */; };
 		974B6A0922DC6A38001867F0 /* MyImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974B6A0822DC6A38001867F0 /* MyImagePicker.swift */; };
@@ -109,7 +113,6 @@
 		97CD958E22D4972B0073BF61 /* DataTypeSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD958D22D4972B0073BF61 /* DataTypeSegmentView.swift */; };
 		97CD959022D4C1890073BF61 /* CurrencyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD958F22D4C1890073BF61 /* CurrencyField.swift */; };
 		97D6505E22AE5C0700ADF5AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D6505D22AE5C0700ADF5AC /* AppDelegate.swift */; };
-		97D6506522AE5C0800ADF5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D6506422AE5C0800ADF5AC /* Assets.xcassets */; };
 		97EED8C222C0AD25009AEB07 /* ClassInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EED8C122C0AD25009AEB07 /* ClassInfoViewController.swift */; };
 		97EED8C422C0AD35009AEB07 /* EventInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EED8C322C0AD35009AEB07 /* EventInfoViewController.swift */; };
 		97EED8CF22C0D571009AEB07 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EED8CE22C0D571009AEB07 /* String+Extensions.swift */; };
@@ -221,6 +224,10 @@
 		9743952D2313B52400A8B48A /* Aged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aged.swift; sourceTree = "<group>"; };
 		9743952F2313DF9B00A8B48A /* Unique.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unique.swift; sourceTree = "<group>"; };
 		9743953523167FC000A8B48A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		974395372316DBBE00A8B48A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		974395392316DC6400A8B48A /* Theme.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Theme.xcassets; sourceTree = "<group>"; };
+		9743953D2316E51B00A8B48A /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		9743953F2316F97800A8B48A /* ComparableExtensionClamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparableExtensionClamp.swift; sourceTree = "<group>"; };
 		9748928D22E5B58A00C361CA /* ImageViewRound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewRound.swift; sourceTree = "<group>"; };
 		9748928F22E6DB0E00C361CA /* BlurredTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredTextField.swift; sourceTree = "<group>"; };
 		974B6A0822DC6A38001867F0 /* MyImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImagePicker.swift; sourceTree = "<group>"; };
@@ -277,7 +284,6 @@
 		97CD958F22D4C1890073BF61 /* CurrencyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyField.swift; sourceTree = "<group>"; };
 		97D6505A22AE5C0700ADF5AC /* YogaLessons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YogaLessons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D6505D22AE5C0700ADF5AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		97D6506422AE5C0800ADF5AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97D6506922AE5C0800ADF5AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97EED8C122C0AD25009AEB07 /* ClassInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassInfoViewController.swift; sourceTree = "<group>"; };
 		97EED8C322C0AD35009AEB07 /* EventInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfoViewController.swift; sourceTree = "<group>"; };
@@ -387,6 +393,15 @@
 				9743952A23126AE700A8B48A /* cancled.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		9743953C2316DC7F00A8B48A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				974395372316DBBE00A8B48A /* Assets.xcassets */,
+				974395392316DC6400A8B48A /* Theme.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		9797647522E0A40700A37954 /* NewClassEvent */ = {
@@ -570,11 +585,11 @@
 		97D6505C22AE5C0700ADF5AC /* YogaLessons */ = {
 			isa = PBXGroup;
 			children = (
+				9743953C2316DC7F00A8B48A /* Resources */,
 				97B3749C22F88F7C000736F1 /* YogaLessons.entitlements */,
 				97D6506922AE5C0800ADF5AC /* Info.plist */,
 				97CD956522D0C2590073BF61 /* GoogleService-Info.plist */,
 				97D6505D22AE5C0700ADF5AC /* AppDelegate.swift */,
-				97D6506422AE5C0800ADF5AC /* Assets.xcassets */,
 				9743952723126AD500A8B48A /* images */,
 				97FEF92E22B3CA36009ECCE6 /* Data and Classes */,
 				97EED8BD22C0A72D009AEB07 /* infoViews */,
@@ -689,6 +704,8 @@
 				979AAD3F22F3FCE700420670 /* IntFormat.swift */,
 				9713DB5A22FDCBA600B00C15 /* SearchBarExtension.swift */,
 				9743953523167FC000A8B48A /* UIViewExtension.swift */,
+				9743953D2316E51B00A8B48A /* UIColorExtension.swift */,
+				9743953F2316F97800A8B48A /* ComparableExtensionClamp.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -799,8 +816,8 @@
 				97EED91F22C0E08E009AEB07 /* LaunchScreen.storyboard in Resources */,
 				97CD957522D262E50073BF61 /* EmptyView.xib in Resources */,
 				97EED92122C0E08E009AEB07 /* Main.storyboard in Resources */,
+				974395382316DBBE00A8B48A /* Assets.xcassets in Resources */,
 				974395162311574D00A8B48A /* UserInfo.storyboard in Resources */,
-				97D6506522AE5C0800ADF5AC /* Assets.xcassets in Resources */,
 				974394FF23113E4300A8B48A /* NewClassEvent.storyboard in Resources */,
 				97F3DDD422BE14BF00812B33 /* EventCell.xib in Resources */,
 				97439508231153AB00A8B48A /* ClassInformation.storyboard in Resources */,
@@ -808,6 +825,7 @@
 				97A4027F22D773A90056BBE7 /* TeachersData.storyboard in Resources */,
 				974394E923113C3D00A8B48A /* FilterDialog.storyboard in Resources */,
 				974394F823113D8400A8B48A /* UserSignup.storyboard in Resources */,
+				9743953A2316DC6500A8B48A /* Theme.xcassets in Resources */,
 				9743951F231267B300A8B48A /* ClassCell.xib in Resources */,
 				97CD956622D0C2590073BF61 /* GoogleService-Info.plist in Resources */,
 			);
@@ -970,6 +988,7 @@
 				97A45E0D22E3510F0072764A /* StorageEventsImages.swift in Sources */,
 				9743953623167FC000A8B48A /* UIViewExtension.swift in Sources */,
 				97EED8C222C0AD25009AEB07 /* ClassInfoViewController.swift in Sources */,
+				974395402316F97800A8B48A /* ComparableExtensionClamp.swift in Sources */,
 				97F38F5922E8C5D3004C90C9 /* BarButtonItem.swift in Sources */,
 				97F38F5D22EADE87004C90C9 /* MyErrors.swift in Sources */,
 				977D329F22ECB14F0084EF77 /* UserKeys.swift in Sources */,
@@ -992,6 +1011,7 @@
 				9755256D22E4EB4600608DAC /* NewTextViewDelegate.swift in Sources */,
 				97CD958E22D4972B0073BF61 /* DataTypeSegmentView.swift in Sources */,
 				9719FE5622CA7665005B865B /* UIColor+.swift in Sources */,
+				9743953E2316E51B00A8B48A /* UIColorExtension.swift in Sources */,
 				97097EDB22B4FEE3007CD8E4 /* Event.swift in Sources */,
 				97B374A022F8A334000736F1 /* Titled.swift in Sources */,
 			);

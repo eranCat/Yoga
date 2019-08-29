@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -221,9 +222,9 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kRg-hE-rDU">
                                                     <rect key="frame" x="8" y="8" width="398" height="27.5"/>
                                                     <subviews>
-                                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="H4v-8T-n5s">
+                                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="120" translatesAutoresizingMaskIntoConstraints="NO" id="H4v-8T-n5s">
                                                             <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
-                                                            <color key="backgroundColor" red="0.4446590379" green="0.6517441236" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                            <color key="backgroundColor" name="AppButtonTint"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <connections>
                                                                 <action selector="stepperValueChange:" destination="qXf-9o-2cr" eventType="valueChanged" id="dhk-7s-PwP"/>
@@ -334,7 +335,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="image-holder" translatesAutoresizingMaskIntoConstraints="NO" id="FxV-XP-pkH">
                                                     <rect key="frame" x="16" y="16" width="382" height="110"/>
-                                                    <color key="backgroundColor" red="0.73336675380000005" green="0.78702925450000005" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="backgroundColor" name="Ok"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="110" id="fmp-aA-0cV"/>
@@ -363,7 +364,7 @@
                     <navigationItem key="navigationItem" id="URl-ue-sqv">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="trash" id="2Gg-xU-7iG">
-                            <color key="tintColor" red="0.96620899439999997" green="0.26395444620000003" blue="0.095674013949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" name="ColorDanger"/>
                             <connections>
                                 <action selector="discard:" destination="qXf-9o-2cr" id="jw0-oa-XDp"/>
                             </connections>
@@ -386,7 +387,7 @@
                             </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="pPJ-eS-d0B">
-                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" name="AppButtonTint"/>
                             <connections>
                                 <action selector="save:" destination="qXf-9o-2cr" id="Vp9-b6-Cym"/>
                             </connections>
@@ -419,5 +420,14 @@
     </scenes>
     <resources>
         <image name="image-holder" width="614" height="460"/>
+        <namedColor name="AppButtonTint">
+            <color red="0.24300000071525574" green="0.090999998152256012" blue="0.62800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ColorDanger">
+            <color red="0.84200000762939453" green="0.2370000034570694" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Ok">
+            <color red="0.24899999797344208" green="0.74800002574920654" blue="0.51499998569488525" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

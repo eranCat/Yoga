@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -88,7 +89,7 @@
                     <constraint firstAttribute="trailing" secondItem="cOM-p0-27c" secondAttribute="trailing" constant="16" id="s7S-Uc-IJj"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.6027836204" green="0.70567637679999995" blue="0.89021974800000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="backgroundColor" name="ColorPrimary"/>
             <connections>
                 <outlet property="cancledImageView" destination="hkG-5C-v2n" id="8mi-Ge-eSE"/>
                 <outlet property="classType" destination="u8c-xw-cEw" id="QIg-qd-S5U"/>
@@ -104,5 +105,8 @@
     <resources>
         <image name="cancled.png" width="400" height="250"/>
         <image name="guru" width="50" height="50"/>
+        <namedColor name="ColorPrimary">
+            <color red="0.34400001168251038" green="0.7929999828338623" blue="0.89099997282028198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

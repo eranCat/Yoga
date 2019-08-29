@@ -26,6 +26,8 @@ class LevelTextField: DropDown {
     
     func cTor() {
         
+        arrowColor = .white
+        
         optionArray = []
         optionIds = []
         
@@ -48,7 +50,7 @@ class LevelTextField: DropDown {
             }
         }
         
-        selectedRowColor = #colorLiteral(red: 0.7782526016, green: 0.93667835, blue: 1, alpha: 1)
+        selectedRowColor = UIColor._accent
         
         inputView = .init()
         
@@ -84,6 +86,7 @@ class UserLevelField: DropDown {
     var level:Level?
     
     func cTor() {
+        arrowColor = .white
         
         optionArray = []
         optionIds = []
@@ -108,7 +111,7 @@ class UserLevelField: DropDown {
             }
         }
         
-        selectedRowColor = #colorLiteral(red: 0.7782526016, green: 0.93667835, blue: 1, alpha: 1)
+        selectedRowColor = UIColor._accent
         
         inputView = .init()
         

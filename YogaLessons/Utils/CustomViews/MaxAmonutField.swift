@@ -31,8 +31,10 @@ class MaxAmountField: DropDown {
     }
     
     func setup() {
+        arrowColor = .white
+        
         optionArray = ["Choose a number".translated,"No maximum".translated]
-        selectedRowColor = #colorLiteral(red: 0.7782526016, green: 0.93667835, blue: 1, alpha: 1)
+        selectedRowColor = UIColor._accent
         blurBG()
     }
     

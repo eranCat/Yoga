@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -65,6 +66,7 @@
                     </stackView>
                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cancled.png" translatesAutoresizingMaskIntoConstraints="NO" id="qFU-5Y-PCm">
                         <rect key="frame" x="0.0" y="0.0" width="437" height="179.5"/>
+                        <color key="tintColor" name="ColorAccent"/>
                     </imageView>
                 </subviews>
                 <constraints>
@@ -78,7 +80,7 @@
                     <constraint firstAttribute="bottom" secondItem="UfP-Fl-IFo" secondAttribute="bottom" constant="8" id="vMb-ja-Nt7"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.6027836204" green="0.70567637679999995" blue="0.89021974800000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="backgroundColor" name="ColorPrimary"/>
             <connections>
                 <outlet property="cancledImageView" destination="qFU-5Y-PCm" id="HT3-Nz-ohn"/>
                 <outlet property="eventImgView" destination="h7r-9P-dm9" id="L0p-MX-Igp"/>
@@ -92,5 +94,11 @@
     </objects>
     <resources>
         <image name="cancled.png" width="400" height="250"/>
+        <namedColor name="ColorAccent">
+            <color red="0.0" green="0.62099999189376831" blue="0.67799997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ColorPrimary">
+            <color red="0.34400001168251038" green="0.7929999828338623" blue="0.89099997282028198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

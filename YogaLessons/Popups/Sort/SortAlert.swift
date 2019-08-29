@@ -129,8 +129,8 @@ class SortAlert: UIViewController {
         
         btn.rounded = 8
         
-        btn.backgroundColor = #colorLiteral(red: 0.659389317, green: 0.8405041099, blue: 1, alpha: 1)
-        btn.setTitleColor(#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1), for: .normal)
+        btn.backgroundColor = UIColor._primary
+        btn.setTitleColor(UIColor._accent, for: .normal)
         btn.setTitleColor(.white, for: .selected)
 
         

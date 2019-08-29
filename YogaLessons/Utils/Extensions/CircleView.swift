@@ -15,7 +15,7 @@ class CircledView: UIImageView {
         layer.cornerRadius = maxSize / 2
         
         layer.borderWidth = 1
-        layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        layer.borderColor = UIColor._border.cgColor
         
         clipsToBounds = true
     }

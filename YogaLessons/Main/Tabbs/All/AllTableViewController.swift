@@ -224,14 +224,14 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
                 
                 self.signUserOut(indexPath)
             })
-            signAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            signAction.backgroundColor = UIColor._danger
         }else{
             
             signAction = .init(style: .default, title: "I'm in".translated, handler: {(_,_) in
                 
                 self.signinUserTo(indexPath)
             })
-            signAction.backgroundColor =  #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+            signAction.backgroundColor =  UIColor._accent
         }
         
         return [signAction]

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -88,7 +89,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Reset password">
-                                    <color key="titleColor" red="1" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" name="ColorDanger"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rounded">
@@ -118,7 +119,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Name" largeTitleDisplayMode="never" id="1gU-B8-Y3A">
                         <barButtonItem key="rightBarButtonItem" title="Sign out" id="SRk-fS-VJ9">
-                            <color key="tintColor" red="0.84491989213197971" green="0.22795042967001969" blue="0.08463818317838985" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" name="ColorDanger"/>
                             <connections>
                                 <action selector="signoutTapped:" destination="wjS-2q-Fqn" id="bsk-1I-tWA"/>
                             </connections>
@@ -145,5 +146,8 @@
     </scenes>
     <resources>
         <image name="camera" width="96" height="96"/>
+        <namedColor name="ColorDanger">
+            <color red="0.84200000762939453" green="0.2370000034570694" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

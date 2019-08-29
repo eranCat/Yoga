@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -91,7 +92,7 @@
                 <tabBarController storyboardIdentifier="mainTabBar" modalTransitionStyle="crossDissolve" id="hOD-uw-X5t" customClass="MainTabBarController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Js7-mc-qiW">
                         <barButtonItem key="leftBarButtonItem" image="profileDetails" springLoaded="YES" id="Rgb-2m-fBP">
-                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" name="AppButtonTint"/>
                             <connections>
                                 <segue destination="pQ2-pe-ssi" kind="show" identifier="showUserInfo" id="Ejl-cc-Nbv"/>
                             </connections>
@@ -101,7 +102,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" name="AppButtonTint"/>
                     </tabBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="NavigationBarColor">
@@ -170,7 +171,7 @@
                                 <rect key="frame" x="199" y="291" width="16" height="314"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzF-ge-fqW" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
-                                <rect key="frame" x="8" y="613" width="398" height="40"/>
+                                <rect key="frame" x="8" y="613" width="398" height="30"/>
                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -203,9 +204,12 @@
         <image name="logo" width="418" height="691"/>
         <image name="profileDetails" width="32" height="32"/>
         <image name="saved" width="32" height="32"/>
+        <namedColor name="AppButtonTint">
+            <color red="0.24300000071525574" green="0.090999998152256012" blue="0.62800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qjR-ui-CAz"/>
-        <segue reference="p1e-ZV-hEA"/>
+        <segue reference="N6G-mz-cfe"/>
+        <segue reference="oqs-1K-oWG"/>
     </inferredMetricsTieBreakers>
 </document>

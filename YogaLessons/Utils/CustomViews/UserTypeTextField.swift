@@ -25,6 +25,7 @@ class UserTypeTextField: DropDown{
     var type:UserType?
     
     func cTor() {
+        arrowColor = .white
         self.blurBG()
         
         optionArray = types
@@ -40,7 +41,7 @@ class UserTypeTextField: DropDown{
             }
         }
         
-        selectedRowColor = #colorLiteral(red: 0.7782526016, green: 0.93667835, blue: 1, alpha: 1)
+        selectedRowColor = UIColor._accent
         
         inputView = .init()
         

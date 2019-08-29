@@ -37,8 +37,9 @@ class LoginViewController: UIViewController,TextFieldReturn {
         
         self.titleLbl.alpha = 0//transform = .init(scaleX: 0.5, y: 0.7)
         
-        UIView.reposition(views: mainStack.arrangedSubviews,
-                          transform: .init(translationX: -view.bounds.width, y: 0))
+        for (i,v) in mainStack.arrangedSubviews.enumerated(){
+            v.transform = .init(translationX: (i%2 == 0 ? 1 : -1)*view.bounds.width, y: 0)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

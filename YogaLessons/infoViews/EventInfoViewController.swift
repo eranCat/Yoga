@@ -62,7 +62,7 @@ class EventInfoViewController: UITableViewController {
         //the user didnt sign up for the class
         setSignBtn(isSigned: user.signedEventsIDS[eventModel.id!] != nil)
         
-        navigationItem.rightBarButtonItem?.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        navigationItem.rightBarButtonItem?.tintColor = UIColor._btnTint
         
         equipmentTv.roundCorners()
         extraNotesTv.roundCorners()

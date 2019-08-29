@@ -13,8 +13,6 @@ class BetterTextView :UITextView,UITextViewDelegate{
     
     var placeHolderString:String?
     
-    var placeholderColor:UIColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 0.5)// .lightGray
-    
     var delegate2:UITextViewDelegate?
     
     @IBInspectable var defaultTextColor:UIColor = .black
@@ -56,7 +54,7 @@ class BetterTextView :UITextView,UITextViewDelegate{
         set {
             text = newValue?.translated
             placeHolderString = newValue
-            textColor = placeholderColor
+            textColor = UIColor._placeholderTxt
             delegate = self
         }
     }
@@ -67,7 +65,7 @@ class BetterTextView :UITextView,UITextViewDelegate{
     
     
     public func textViewDidBeginEditing(_ textView: UITextView) {
-        if textColor == placeholderColor {
+        if textColor == UIColor._placeholderTxt {
             if text == placeHolderString{
                 text = ""
             }
@@ -80,7 +78,7 @@ class BetterTextView :UITextView,UITextViewDelegate{
     public func textViewDidEndEditing(_ textView: UITextView) {
         if text.isEmpty {
             text = placeHolderString
-            textColor = placeholderColor
+            textColor = UIColor._placeholderTxt
         }
         
         delegate2?.textViewDidEndEditing?(textView)

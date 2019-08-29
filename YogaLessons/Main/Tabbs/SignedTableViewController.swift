@@ -196,7 +196,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             lbl.textColor = .white
         }
         
-        header.tintColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+        header.tintColor = UIColor._headerTint
         
         if tableView.numberOfSections == 1 {//no need for header if there's only one section
             header.isHidden = true
@@ -257,12 +257,12 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         switch indexPath.section{
         case 1:
             data = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row]
-            cell.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+            cell.backgroundColor = UIColor._userUploads
             cell.selectionStyle = .none
         case 0:fallthrough
         default:
             data = dataSource.get(sourceType: .signed, dType: currentDataType, at: indexPath)
-            cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+            cell.backgroundColor = UIColor._signedCell
         }
         
         
@@ -285,7 +285,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
                 let restore =
                     UITableViewRowAction(style: .default,title: title)
                     {self.toggleCancel(indexPath: $1)}
-                restore.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+                restore.backgroundColor = ._accent
                 
                 return [restore]
                 
@@ -294,7 +294,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
                 let cancel =
                     UITableViewRowAction(style: .destructive,title: title)
                     {self.cancelPost(indexPath: $1)}
-                
+                cancel.backgroundColor = ._danger
                 return [cancel]
             }
 
@@ -303,6 +303,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             let title = "Unsign from ".translated + currentDataType.singular
             let unsign = UITableViewRowAction(style: .destructive,title: title)
                                                             {self.unsign(indexPath: $1)}
+            unsign.backgroundColor = ._danger
             return [unsign]
         }
     }

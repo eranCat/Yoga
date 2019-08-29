@@ -31,7 +31,7 @@ class DataTypeSegmentView: UISegmentedControl {
         setTitleTextAttributes([NSAttributedString.Key.font: font],
                                 for: .normal)
         
-        tintColor = #colorLiteral(red: 0.2615792751, green: 0.2857673466, blue: 0.6650569439, alpha: 1)
+        tintColor = UIColor._btnTint
         
         for (i,dt) in DataType.allCases.enumerated(){
             insertSegment(withTitle: dt.singular.capitalized, at: i, animated: false)

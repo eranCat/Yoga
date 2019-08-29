@@ -82,7 +82,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "588681177.983984"
+            timestampString = "588752467.216141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "144"
@@ -140,7 +140,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "588681177.984121"
+            timestampString = "588752467.216291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "173"
@@ -164,7 +164,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "588681177.9841779"
+            timestampString = "588752467.216355"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "151"
@@ -188,7 +188,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "588681177.98423"
+            timestampString = "588752467.216411"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "45"
@@ -244,7 +244,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "588681177.984279"
+            timestampString = "588752467.216464"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "123"
@@ -268,7 +268,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "588681177.984333"
+            timestampString = "588752467.216529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
@@ -292,7 +292,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "588681177.9844151"
+            timestampString = "588752467.2166229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "236"
@@ -307,22 +307,6 @@
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "588681177.984491"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "dataChanged(_:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

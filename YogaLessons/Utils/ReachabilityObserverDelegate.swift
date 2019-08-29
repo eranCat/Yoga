@@ -8,6 +8,7 @@
 
 import Foundation
 import Reachability
+import SVProgressHUD
 
 //Reachability
 //declare this property where it won't go out of scope relative to your listener
@@ -61,6 +62,7 @@ extension ReachabilityObserverDelegate {
     }
     
     func showConnectionAlert() {
+        SVProgressHUD.dismiss()
         let alert = UIAlertController(title: "noInternet".translated,
                                       message: "checkNet".translated,
                                       preferredStyle: .alert)
