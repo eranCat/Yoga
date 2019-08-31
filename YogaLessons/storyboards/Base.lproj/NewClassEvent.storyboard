@@ -403,6 +403,7 @@
                         <outlet property="tfLevel" destination="Vut-O6-zHX" id="Myg-o2-bTb"/>
                         <outlet property="tfTitle" destination="BPt-7q-ONg" id="bDZ-Ey-NeF"/>
                         <outlet property="tfstartDate" destination="YWE-fa-QeZ" id="Jma-CK-iL2"/>
+                        <outlet property="trashBarBtn" destination="2Gg-xU-7iG" id="qyk-QY-BYh"/>
                         <outlet property="tvEquipment" destination="SqJ-dH-ouR" id="vnP-zk-5NH"/>
                         <outlet property="tvExtraNotes" destination="qw8-Mb-TV6" id="z2r-1G-83q"/>
                         <outlet property="typeSegment" destination="A8R-7p-IqX" id="vhN-Ib-Ia9"/>

@@ -51,6 +51,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     @IBOutlet weak var tvExtraNotes: BetterTextView!
     
+    @IBOutlet weak var trashBarBtn: UIBarButtonItem!
     var focusedField:UIView?
     
     

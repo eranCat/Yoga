@@ -130,7 +130,7 @@ class SortAlert: UIViewController {
         btn.rounded = 8
         
         btn.backgroundColor = UIColor._primary
-        btn.setTitleColor(UIColor._accent, for: .normal)
+        btn.setTitleColor(._btnTint, for: .normal)
         btn.setTitleColor(.white, for: .selected)
 
         

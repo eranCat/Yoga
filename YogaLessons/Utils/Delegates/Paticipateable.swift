@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Participateable {
-    
+    var signed:[String:Bool] {get set}
     var numOfParticipants:UInt{get set}
     var maxParticipants:Int{get set}
     
@@ -18,4 +18,5 @@ protocol Participateable {
 enum ParticipateableKeys:String {
     case num = "numOfParticipants"
     case max = "maxParticipants"
+    case signed = "signedUID"
 }

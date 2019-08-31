@@ -171,7 +171,7 @@
                                 <rect key="frame" x="199" y="291" width="16" height="314"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzF-ge-fqW" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
-                                <rect key="frame" x="8" y="613" width="398" height="30"/>
+                                <rect key="frame" x="8" y="613" width="398" height="40"/>
                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

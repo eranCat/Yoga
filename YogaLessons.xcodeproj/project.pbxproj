@@ -96,6 +96,7 @@
 		97B374A022F8A334000736F1 /* Titled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3749F22F8A334000736F1 /* Titled.swift */; };
 		97B374A222F8A3E7000736F1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B374A122F8A3E7000736F1 /* NotificationManager.swift */; };
 		97B374A422F94C4D000736F1 /* LocalCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B374A322F94C4D000736F1 /* LocalCalendarManager.swift */; };
+		97C5DC66231A6BF900E944E5 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C5DC65231A6BF900E944E5 /* CustomAlert.swift */; };
 		97CD955C22CF72BE0073BF61 /* ClassCmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD955B22CF72BE0073BF61 /* ClassCmp.swift */; };
 		97CD955E22CF72CB0073BF61 /* EventCmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD955D22CF72CB0073BF61 /* EventCmp.swift */; };
 		97CD956622D0C2590073BF61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97CD956522D0C2590073BF61 /* GoogleService-Info.plist */; };
@@ -266,6 +267,7 @@
 		97B3749F22F8A334000736F1 /* Titled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Titled.swift; sourceTree = "<group>"; };
 		97B374A122F8A3E7000736F1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		97B374A322F94C4D000736F1 /* LocalCalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCalendarManager.swift; sourceTree = "<group>"; };
+		97C5DC65231A6BF900E944E5 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		97CD955B22CF72BE0073BF61 /* ClassCmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCmp.swift; sourceTree = "<group>"; };
 		97CD955D22CF72CB0073BF61 /* EventCmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCmp.swift; sourceTree = "<group>"; };
 		97CD956522D0C2590073BF61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				974B6A1222DDD216001867F0 /* MaxAmonutField.swift */,
 				97CD957C22D3101A0073BF61 /* Picker textField */,
 				97CD957F22D3107F0073BF61 /* UserTypeTextField.swift */,
+				97C5DC65231A6BF900E944E5 /* CustomAlert.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -1014,6 +1017,7 @@
 				9743953E2316E51B00A8B48A /* UIColorExtension.swift in Sources */,
 				97097EDB22B4FEE3007CD8E4 /* Event.swift in Sources */,
 				97B374A022F8A334000736F1 /* Titled.swift in Sources */,
+				97C5DC66231A6BF900E944E5 /* CustomAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

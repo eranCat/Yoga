@@ -198,13 +198,15 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             return 0
         }
     }
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let status = (dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath) as? Statused)?.status
+        
+        return status == .open
+    }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let data = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)!
-        guard let statused = data as? Statused,
-            statused.status == .open
-            else{return []}
         
         let objId = data.id!
         let signed:[String:Bool]
@@ -219,7 +221,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         
         let signAction:UITableViewRowAction
         //the user didnt sign up for the class
-        if let isSigned = signed[objId] {
+        if signed[objId] != nil {
             signAction = .init(style: .default, title: "I'm out".translated, handler: { _,_ in
                 
                 self.signUserOut(indexPath)

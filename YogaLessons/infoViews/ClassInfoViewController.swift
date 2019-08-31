@@ -57,8 +57,6 @@ class ClassInfoViewController: UITableViewController {
         
         fillViews()
         
-        navigationItem.rightBarButtonItem?.tintColor =  UIColor._btnTint
-        
         addObservers()
     }
     
@@ -80,17 +78,26 @@ class ClassInfoViewController: UITableViewController {
     }
     
     fileprivate func setSigninBtn( isSigned:Bool) {
+        
+        if navigationItem.rightBarButtonItem == nil{
+            navigationItem.rightBarButtonItem = .init(title: nil, style: .plain, target: self, action: nil)
+        }
+        
+        let signBtn = navigationItem.rightBarButtonItem
         if !isSigned{
             if classModel.status == .open{
                 
-            navigationItem.rightBarButtonItem = .init(title: "I'm in".translated, style: .plain, target: self, action: #selector(signinToClass))
-                
+                signBtn?.title = "I'm in".translated
+                signBtn?.action = #selector(signinToClass)
+                signBtn?.isEnabled = true
             }else{
-                navigationItem.rightBarButtonItem = nil
+                signBtn?.isEnabled = false
             }
         }
         else{
-            navigationItem.rightBarButtonItem = .init(title: "I'm out".translated, style: .plain, target: self, action: #selector(signOutClass))
+            signBtn?.title = "I'm out".translated
+            signBtn?.action = #selector(signOutClass)
+            signBtn?.isEnabled = true
         }
     }
     

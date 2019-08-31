@@ -46,8 +46,6 @@ class UserInfoViewController: UIViewController {
             }
         }
         
-        navigationItem.backBarButtonItem?.tintColor = UIColor._btnTint
-        
         aboutTV.delegate2 = self
         
         levelTF.didSelectHandler = {self.levelChanged($0)}

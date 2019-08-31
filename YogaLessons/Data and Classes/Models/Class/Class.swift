@@ -18,7 +18,6 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     var locationCoordinate: CLLocationCoordinate2D
     var locationName:String
     
-    
     var postedDate: Date
     var startDate,endDate:Date
     
@@ -36,6 +35,8 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     var status:Status
     
     var minAge,maxAge:Int
+    
+    var signed:[String:Bool]//user id
     init(type:String,cost:Double,location:CLLocationCoordinate2D,locationName:String,date:(start:Date,end:Date),level:Level,equipment:String,xtraNotes:String? = nil,maxParticipants:Int,teacher:Teacher) {
         
         self.id = nil
@@ -64,6 +65,8 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         minAge = .max//if age < min
         maxAge = -1//if age > max
+        
+        signed = [:]
     }
     
     func encode() -> JSON {
@@ -93,6 +96,8 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         dict[AgedKeys.age_min.rawValue] = minAge
         dict[AgedKeys.age_max.rawValue] = maxAge
+        
+        dict[ParticipateableKeys.signed.rawValue] = signed
 
         return dict
     }
@@ -128,6 +133,8 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         minAge = dict[AgedKeys.age_min.rawValue] as? Int ?? .max
         maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
+        
+        signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Bool] ?? [:]
     }
     
 }
@@ -168,6 +175,8 @@ extension Class{
         
         minAge = dict[AgedKeys.age_min.rawValue] as? Int ?? .max
         maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
+        
+        signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Bool] ?? [:]
     }
 }
 

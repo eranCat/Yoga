@@ -57,41 +57,6 @@ extension DataSource{
         updateMainDict(sourceType: .signed, dataType: dType)
     }
     
-    func signToWithTask(_ dType:DataType,dataObj:DynamicUserCreateable ,taskDone:DSTaskListener?) {
-        
-        ref.child(TableNames.name(for: dType)).child(dataObj.id!)
-            
-            .runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-                if var post = currentData.value as? [String:AnyObject]{
-                    
-                    let numKey = ParticipateableKeys.num.rawValue
-                    var currentSigned = post[numKey] as? Int ?? 0
-                    let maxSigned =     post[ParticipateableKeys.max.rawValue] as? Int ?? -1
-                    
-                    if maxSigned != -1 &&// not unlimited
-                        currentSigned >= maxSigned{
-                        currentSigned += 1
-                        post[numKey] = currentSigned as AnyObject
-                        
-                        // Set value and report transaction success
-                        currentData.value = post
-                    }
-                    
-                    self.updateMainDict(sourceType: .signed, dataType: dType)
-                    
-                    return TransactionResult.success(withValue: currentData)
-                }
-                
-                self.updateMainDict(sourceType: .signed, dataType: dType)
-                
-                return TransactionResult.success(withValue: currentData)
-                
-            }) { (error, committed, snapshot) in
-                if let error = error {
-                    taskDone?(error)
-                }
-        }
-    }
     
     fileprivate func check(age: Int,data: Aged) {
         if age < data.minAge{
@@ -103,35 +68,33 @@ extension DataSource{
             data.maxAge = age
         }
     }
-    
     func signTo(_ dType:DataType,dataObj:DynamicUserCreateable ,taskDone:DSTaskListener?) {
         
-        guard let cu = YUser.currentUser,
-            let uid = cu.id,//user id
-            let objId = dataObj.id // data id
-            else{
-                taskDone?(UserErrors.noUserFound)//no user error
-                return
-        }
-        
-        //check on db for place
-        let objectRef = ref.child(TableNames.name(for: dType)).child(objId)
-        
-        objectRef.observeSingleEvent(of: .value) { (snapshot) in
-                guard let json = snapshot.value as? JSON
+        let objRef = ref.child(TableNames.name(for: dType)).child(dataObj.id!)
+            
+        objRef.runTransactionBlock(){ (currentData: MutableData) -> TransactionResult in
+            guard let post = currentData.value as? JSON
+                else{
+                    taskDone?(JsonErrors.castFailed)
+                    return TransactionResult.abort()
+                }
+                    
+                guard let cu = YUser.currentUser,
+                    let uid = cu.id,//user id
+                    let objId = dataObj.id // data id
                     else{
-                        taskDone?(JsonErrors.castFailed)//json cast err
-                        return
-                    }
+                        taskDone?(UserErrors.noUserFound)//no user error
+                        return TransactionResult.abort()
+                }
                 
                 var data:(Participateable & Aged & Unique & DBCodable & Statused)
-            
+                
                 switch dType{
                     
                 case .classes:
-                    data = Class(json)
+                    data = Class(post)
                 case .events:
-                    data = Event(json)
+                    data = Event(post)
                 }
                 
                 switch data.status{
@@ -148,25 +111,25 @@ extension DataSource{
                     let age = cu.bDate.age
                     self.check(age: age, data: data)
                     
-                    //save to signed array locally and remotely
-                    self.updateValues(data: data, dbRef: objectRef){err in
-                        if let err = err {
-                            taskDone?(err)
-                            return
-                        }
-                        
-                        self.addToCurrentUserSigned(dType, cu, objId, taskDone, dataObj, uid)
-                    }
+                    data.signed[uid] = true
                     
+                    //save to signed array locally and remotely
+                    currentData.value = data.encode()
+                    
+                    self.addToCurrentUserSigned(dType, cu, objId, taskDone, dataObj, uid)
+                        
                 case .full:
                     taskDone?(SigningErrors.noPlaceLeft)
                 case .cancled:
                     taskDone?(SigningErrors.cantSignToCancled(dType))
                 }
                 
-        }
-    }
+                    self.updateMainDict(sourceType: .signed, dataType: dType)
+                    
+                    return TransactionResult.success(withValue: currentData)
+            }
     
+    }
     
     
     func updateValues(data:Unique,dbRef:DatabaseReference,taskDone:@escaping DSTaskListener) {
@@ -178,11 +141,26 @@ extension DataSource{
             Status.key : data.status.rawValue,
             ParticipateableKeys.num.rawValue : data.numOfParticipants,
             AgedKeys.age_min.rawValue : data.minAge,
-            AgedKeys.age_max.rawValue : data.maxAge
+            AgedKeys.age_max.rawValue : data.maxAge,
+            ParticipateableKeys.signed.rawValue : data.signed
         ] as JSON
         
-        
-        dbRef.updateChildValues(values){ err,_ in taskDone(err)}
+        dbRef.runTransactionBlock { (currentData) -> TransactionResult in
+            guard var post = currentData.value as? JSON
+                else{
+                    taskDone(JsonErrors.castFailed)
+                    return TransactionResult.success(withValue: currentData)
+                }
+            
+            values.forEach{post[$0] = $1}
+            
+            currentData.value = post
+            
+            taskDone(nil)
+            
+            return TransactionResult.success(withValue: currentData)
+        }
+//        dbRef.updateChildValues(values){ err,_ in taskDone(err)}
     }
     
     private func addToCurrentUserSigned(_ dType: DataType, _ cu: YUser, _ objId: String, _ taskDone: DSTaskListener?, _ dataObj: DynamicUserCreateable, _ uid: String) {
@@ -266,6 +244,9 @@ extension DataSource{
         case .events:
             data = signed_events.remove(at: indexPath.row)
         }
+        
+        data.signed.removeValue(forKey: uid)
+        
         updateMainDict(sourceType: .signed, dataType: dType)
         
         let age = cu.bDate.age

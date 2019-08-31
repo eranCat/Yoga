@@ -45,8 +45,6 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
 
         searchBar.scopeButtonTitles = types
         
-        searchBar.tintColor = UIColor._btnTint
-        
         searchBar.scopeBarTextColorNormal = .white
         searchBar.scopeBarTextColorSelected = .white
 

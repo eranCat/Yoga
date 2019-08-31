@@ -16,8 +16,6 @@ class MainTabBarController: UITabBarController {
     lazy var sortBtn: UIBarButtonItem = {
         var btn = UIBarButtonItem(image: #imageLiteral(resourceName: "filter"), style: .plain, target: self, action: #selector(showSortAlert(_:)))
         
-        btn.tintColor = UIColor._btnTint
-        
         return btn
     }()
     
@@ -26,8 +24,6 @@ class MainTabBarController: UITabBarController {
         let searchBtn = BlockBarButtonItem(barButtonItemSystem: .search){
             NotificationCenter.default.post(name: ._searchStarted, object: nil)
         }
-        
-        searchBtn.tintColor = UIColor._btnTint
         
         return searchBtn
     }()
@@ -39,8 +35,6 @@ class MainTabBarController: UITabBarController {
             
             self.present(UINavigationController(rootViewController: newNav),animated: true)
         }
-        
-        btn.tintColor = UIColor._btnTint
         
         return btn
     }()
@@ -67,6 +61,16 @@ class MainTabBarController: UITabBarController {
         subscribeObservers()
         updateTitle()
         navigationItem.setRightBarButtonItems(allBar, animated: true)
+        configureNavBarLayout()
+    }
+    
+    fileprivate func configureNavBarLayout() {
+        let appearance = UINavigationBar.appearance()
+        appearance.tintColor = ._btnTint
+        let backImg = #imageLiteral(resourceName: "backArrow").sd_resizedImage(with: .init(width: 26, height: 26),
+                                                                               scaleMode: .aspectFit)
+        appearance.backIndicatorImage = backImg
+        appearance.backIndicatorTransitionMaskImage = backImg
     }
     
     func updateTitle() {

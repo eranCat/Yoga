@@ -8,16 +8,17 @@
 
 import FirebaseDatabase
 import UserNotifications
-import GeoFire
+import CoreLocation
 
 class DataSource {
     static let shared = DataSource()
     
     //        MARK:if you don't want location sort, put false
-    fileprivate let isFilteringLocation = false
-    
+    fileprivate let isFilteringLocation = true
+    //        MARK:if you don't want today sort, put false
+    fileprivate let isFilteringToday = false,isFilteringMonth = true
+
     let ref:DatabaseReference
-    let geoFire:GeoFire
     
     enum TableNames:String {
         case users  = "users"
@@ -34,8 +35,8 @@ class DataSource {
         }
     }
     
-    let MaxPerBatch = 30 as UInt
-    let MaxRangeKm = 100 as CLLocationDistance
+    let MaxPerBatch:UInt = 30
+    let MaxRangeKm:CLLocationDistance = 100
     
     var usersList:[String:YUser]//Dictionary<id:User>
     var teachersList:[String:Teacher]//Dictionary<id:Teacher>
@@ -75,7 +76,6 @@ class DataSource {
         userCreatedEvents = []
         
         ref = Database.database().reference()
-        geoFire = GeoFire(firebaseRef: ref)
         
         observeClassChanged()
         observeEventChanged()
@@ -247,6 +247,10 @@ class DataSource {
     }
     
     fileprivate func convertValuesToClasses(_ values: [DataSnapshot], _ lastLocation: CLLocation?, _ user: YUser) {
+        
+        let today = Date()
+        let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: today)!
+        
         for child in values{
             guard let json = child.value as? JSON
                 else{continue}
@@ -256,30 +260,40 @@ class DataSource {
             guard self.isInRange(currentLocation: lastLocation, location: aClass.location)
                 else{continue}
             
-            //                    for class is cancled
-            if aClass.status != .cancled{
-                self.all_classes.insert(aClass, at: 0)//push to top
-            }else{
-                self.all_classes.append(aClass)//add to bottom
+            if aClass.endDate >= today || !isFilteringToday{
+                //                    for class is cancled
+                if aClass.status != .cancled{
+                    self.all_classes.insert(aClass, at: 0)//push to top
+                }else{
+                    self.all_classes.append(aClass)//add to bottom
+                }
             }
             
-            //                        uploads
-            if user.type == .teacher && aClass.uid == user.id{
-                
-                self.teacherCreatedClasses.append(aClass)
+//                        uploads
+            if aClass.postedDate >= nextMonth || !isFilteringMonth{
+                if user.type == .teacher && aClass.uid == user.id{
+                    
+                    self.teacherCreatedClasses.append(aClass)
+                }
             }
             //                        signed
-            if let _ = user.signedClassesIDS[aClass.id!]{
-                if aClass.status != .cancled{
-                    self.signed_classes.insert(aClass, at: 0)
-                }else{
-                    self.signed_classes.append(aClass)
+            if aClass.endDate >= today || !isFilteringToday{
+                if let _ = user.signedClassesIDS[aClass.id!]{
+                    if aClass.status != .cancled{
+                        self.signed_classes.insert(aClass, at: 0)
+                    }else{
+                        self.signed_classes.append(aClass)
+                    }
                 }
             }
         }
     }
     
     fileprivate func convertValuesToEvents(_ values: [DataSnapshot], _ lastLocation: CLLocation?, _ user: YUser) {
+        
+        let today = Date()
+        let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: today)!
+        
         for child in values{
             guard let json = child.value as? JSON
                 else{continue}
@@ -289,22 +303,27 @@ class DataSource {
             guard self.isInRange(currentLocation: lastLocation, location: event.location)
                 else{continue}
             
-            
-            if event.status != .cancled{
-                self.all_events.insert(event, at: 0)//push to top
-            }else{
-                self.all_events.append(event)//add to bottom
+            if event.endDate >= today || !isFilteringToday{
+                if event.status != .cancled{
+                    self.all_events.insert(event, at: 0)//push to top
+                }else{
+                    self.all_events.append(event)//add to bottom
+                }
             }
-            //                        uploads
-            if event.uid == user.id{
-                self.userCreatedEvents.append(event)
+//                        uploads
+            if event.postedDate >= nextMonth || !isFilteringMonth{
+                if event.uid == user.id{
+                    self.userCreatedEvents.append(event)
+                }
             }
             //                        signed
-            if let _ = user.signedEventsIDS[event.id!]{
-                if event.status != .cancled{
-                    self.signed_events.insert(event, at: 0)
-                }else{
-                    self.signed_events.append(event)
+            if event.endDate >= today || !isFilteringToday{
+                if let _ = user.signedEventsIDS[event.id!]{
+                    if event.status != .cancled{
+                        self.signed_events.insert(event, at: 0)
+                    }else{
+                        self.signed_events.append(event)
+                    }
                 }
             }
         }
@@ -315,7 +334,9 @@ class DataSource {
         let tableKey = TableNames.name(for: dType)//classes/events
         
         //        MARK: Important! don't user 2 orderd or limited queries
-        let queriedRef = ref.child(tableKey).queryLimited(toLast: MaxPerBatch)
+        let queriedRef = ref.child(tableKey)
+            .queryOrdered(byChild: Class.Keys.postedDate)
+            .queryLimited(toLast: MaxPerBatch)
         
         
         queriedRef.observeSingleEvent(of: .value)
@@ -358,14 +379,16 @@ class DataSource {
     
     func isInRange(currentLocation:CLLocation?,location:CLLocation) -> Bool {
         
-        if let loc = currentLocation{
-            let distance = location.distance(from: loc)
-            let meters = MaxRangeKm * 1000 /*km*/
-            
-            return distance < meters
-        }
+        guard isFilteringLocation
+            else{return true}
         
-        return !isFilteringLocation
+        guard let loc = currentLocation
+            else{return false}
+        
+        let distance = location.distance(from: loc)
+        let meters = MaxRangeKm * 1000 /*km*/
+        
+        return distance < meters
     }
     
     

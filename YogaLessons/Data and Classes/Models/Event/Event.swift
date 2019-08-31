@@ -39,6 +39,8 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
     var minAge,maxAge:Int
     
+    var signed:[String:Bool]
+    
     init(title:String,cost:Double,
          locationName:String, location:CLLocationCoordinate2D,
          date:(start:Date,end:Date),level:Level,imageUrl:String? = nil,
@@ -69,6 +71,8 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         minAge = .max//if age < min
         maxAge = -1//if age > max
+        
+        signed = [:]
     }
     
     func encode() -> JSON{
@@ -99,6 +103,8 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         dict[AgedKeys.age_min.rawValue] = minAge
         dict[AgedKeys.age_max.rawValue] = maxAge
+        
+        dict[ParticipateableKeys.signed.rawValue] = signed
         
         return dict
     }
@@ -134,6 +140,8 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         minAge = dict[AgedKeys.age_min.rawValue] as? Int ?? .max
         maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
+        
+        signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Bool] ?? [:]
     }
     
 }
@@ -177,25 +185,12 @@ extension Event{
         
         minAge = dict[AgedKeys.age_min.rawValue] as? Int ?? .max
         maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
+        
+        signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Bool] ?? [:]
     }
 }
 
 extension Event{
-    struct Keys {
-        static let id = EventKeys.id.rawValue
-        static let title = EventKeys.title.rawValue
-        static let cost = EventKeys.cost.rawValue
-        static let location = EventKeys.location.rawValue
-        static let place = EventKeys.place.rawValue
-        static let postedDate = EventKeys.postedDate.rawValue
-        static let startDate = EventKeys.startDate.rawValue
-        static let endDate = EventKeys.endDate.rawValue
-        static let level = EventKeys.level.rawValue
-        static let equip = EventKeys.equip.rawValue
-        static let xtraNotes = EventKeys.xtraNotes.rawValue
-        static let user = EventKeys.user.rawValue
-        static let imageUrl = EventKeys.imageUrl.rawValue
-    }
     
     enum EventKeys:String {
         case id = "id"
@@ -211,5 +206,20 @@ extension Event{
         case xtraNotes = "xtraNotes"
         case user = "uid"
         case imageUrl = "imageUrl"
+    }
+    struct Keys {
+        static let id = EventKeys.id.rawValue
+        static let title = EventKeys.title.rawValue
+        static let cost = EventKeys.cost.rawValue
+        static let location = EventKeys.location.rawValue
+        static let place = EventKeys.place.rawValue
+        static let postedDate = EventKeys.postedDate.rawValue
+        static let startDate = EventKeys.startDate.rawValue
+        static let endDate = EventKeys.endDate.rawValue
+        static let level = EventKeys.level.rawValue
+        static let equip = EventKeys.equip.rawValue
+        static let xtraNotes = EventKeys.xtraNotes.rawValue
+        static let user = EventKeys.user.rawValue
+        static let imageUrl = EventKeys.imageUrl.rawValue
     }
 }

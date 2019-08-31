@@ -62,8 +62,7 @@ class EventInfoViewController: UITableViewController {
         //the user didnt sign up for the class
         setSignBtn(isSigned: user.signedEventsIDS[eventModel.id!] != nil)
         
-        navigationItem.rightBarButtonItem?.tintColor = UIColor._btnTint
-        
+
         equipmentTv.roundCorners()
         extraNotesTv.roundCorners()
         eventImgView.roundCorners()
@@ -96,10 +95,26 @@ class EventInfoViewController: UITableViewController {
     }
     
     func setSignBtn(isSigned:Bool) {
+        
+        if navigationItem.rightBarButtonItem == nil{
+            navigationItem.rightBarButtonItem = .init(title: nil, style: .plain, target: self, action: nil)
+        }
+        
+        let signBtn = navigationItem.rightBarButtonItem
         if !isSigned{
-            navigationItem.rightBarButtonItem = .init(title: "I'm in".translated, style: .plain, target: self, action: #selector(signinToEvent))
-        }else{
-            navigationItem.rightBarButtonItem = .init(title: "I'm out".translated, style: .plain, target: self, action: #selector(signOutOfEvent))
+            if eventModel.status == .open{
+                
+                signBtn?.title = "I'm in".translated
+                signBtn?.action = #selector(signinToEvent)
+                signBtn?.isEnabled = true
+            }else{
+                signBtn?.isEnabled = false
+            }
+        }
+        else{
+            signBtn?.title = "I'm out".translated
+            signBtn?.action = #selector(signOutOfEvent)
+            signBtn?.isEnabled = true
         }
     }
     

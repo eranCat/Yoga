@@ -52,7 +52,6 @@ extension MainTabBarController:UITabBarControllerDelegate{
         
         let editBtn = signedVC.editButtonItem
         
-        editBtn.tintColor = UIColor._btnTint
         
         //        guard let t = YUser.currentUser?.type ,
         //            t != .student else{

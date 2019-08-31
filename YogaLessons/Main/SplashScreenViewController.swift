@@ -21,19 +21,16 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     override func viewDidLoad() {
         navigationController?.isToolbarHidden = true
         
+        UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat,.autoreverse,.curveEaseIn], animations: {
+            
+            self.logoImg.transform = .init(translationX: 0, y: -20)
+        })
+        
         startSetup()
         addReachabilityObserver()
     }
     deinit {
         removeReachabilityObserver()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat,.autoreverse,.curveEaseIn], animations: {
-            
-            self.logoImg.transform = .init(translationX: 0, y: -50)
-        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {

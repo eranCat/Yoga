@@ -28,6 +28,9 @@ target 'YogaLessons' do
   #firebase storage - for users images (and bigger data)
   pod 'Firebase/Storage'
   
+#  #firevase messaging - for notifications
+#  pod 'Firebase/Messaging'
+#  
   #firebase GeoFire - location represntation for DB and filtering with firebase
 #  pod 'GeoFire', '~> 3.0'
 
