@@ -32,20 +32,10 @@ extension UITextField{
     }
     
     func setError(message:String) {
-        
-        let title:String? = nil//"Incorrect value".translated
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let ok = UIAlertAction(title: "ok".translated, style: .default)
-        { action in
-            
-            self.shakeEffect(baseColor: .black, revert: false, shakes: 2)
-            self.becomeFirstResponder()
-        }
-        
-        alert.addAction(ok)
-        
-        UIApplication.shared.presentedVC?.present(alert, animated: true)
+        ErrorAlert(title: nil,message: message,
+                   onDismissed: { _ in
+                    self.shakeEffect(baseColor: .black, revert: false, shakes: 2)
+                    self.resignFirstResponder()
+        })
     }
 }

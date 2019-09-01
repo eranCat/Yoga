@@ -115,16 +115,9 @@ class BetterTextView :UITextView,UITextViewDelegate{
     
     func setError(message:String) {
         
-        let alert = UIAlertController(title: "Incorrect value", message: message, preferredStyle: .alert)
-        
-        alert.addAction(.init(title: "ok", style: .default, handler: { (action) in
-            
+        ErrorAlert(title: nil,message: message){ _ in
             self.shakeEffect(baseColor: .black, revert: false, shakes: 2)
-        }))
-        
-        
-        UIApplication.shared.presentedVC?.present(alert, animated: true) {
-            self.resignFirstResponder()
+            self.becomeFirstResponder()
         }
     }
 }

@@ -17,10 +17,22 @@ class ErrorAlert {
             }
             return
         }
-        let alert = UIAlertController(title: title ?? "Problem found".translated, message: message, preferredStyle: .alert)
+        let alert = UIAlertController.create(title: title ?? "Problem found".translated, message: message, preferredStyle: .alert)
         
-        alert.addAction(.init(title: "ok".translated, style: .default, handler: nil))
+        alert.bgColor = ._errAlertBg
         
-        UIApplication.shared.presentedVC?.present(alert, animated: true)
+        alert.aAction(.init(title: "ok".translated, style: .default, handler: nil)).show()
+    }
+    
+    let alert:UIAlertController
+    
+    init(title: String?, message: String?,
+         onDismissed:@escaping (UIAlertAction)->Void) {
+        alert = UIAlertController.create(title: title, message: message, preferredStyle: .alert)
+        
+        alert.bgColor = ._errAlertBg
+        
+        let okAction = UIAlertAction(title: "ok".translated, style: .default, handler: onDismissed)
+        alert.aAction(okAction).show()
     }
 }

@@ -48,21 +48,19 @@ class LocationUpdater:NSObject {
     }
     
     func showSetting() {
-        let alert = UIAlertController(title: "allowLocation".translated,
-                                      message: nil, preferredStyle: .alert)
-        
-        let openSetting: UIAlertAction = .init(title: "Open settings".translated, style: .default, handler: { (action) in
+        let openSetting = UIAlertAction(title: "Open settings".translated, style: .default, handler: { (action) in
             
             guard let url = URL(string: UIApplication.openSettingsURLString) else{return}
             
             UIApplication.shared.open(url, options: [:])
         })
         
-        
-        alert.addAction(openSetting)
-        alert.addAction(.init(title: "Cancel".translated, style: .cancel))
-        
-        UIApplication.shared.presentedVC?.present(alert, animated: true)
+        UIAlertController.create(title: "allowLocation".translated,
+                                             message: nil,
+                                             preferredStyle: .alert)
+            .aAction(openSetting)
+            .aAction(.init(title: "Cancel".translated, style: .cancel))
+        .show()
     }
     
     func openDirections(coordinate:CLLocationCoordinate2D,name:String?) {
@@ -104,14 +102,10 @@ class LocationUpdater:NSObject {
         }
     
         
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        installedNavigationApps.forEach {alert.addAction($0)}
-        
-        alert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel, handler: nil))
-        
-        UIApplication.shared.presentedVC?
-            .present(alert, animated: true, completion: nil)
+        UIAlertController.create(title: nil, message: nil, preferredStyle: .actionSheet)
+            .addActions(installedNavigationApps)
+            .aAction(.init(title: "Cancel".translated, style: .cancel, handler: nil))
+            .show()
     }
     
     func getPlace(for location: CLLocation,

@@ -154,14 +154,13 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         guard let user = YUser.currentUser else{return nil}
         
         if typeSegment.type == .classes{
-            guard let teacher = user as? Teacher
+            guard user is Teacher
                 else{
                     ErrorAlert.show(message: "Only teachers can create clasess!".translated)
                     return nil
-            }
+                }
         }
         
-        let typeTxt = typeSegment.type.singular
 
         guard let title = tfTitle.text,!title.isEmpty
             else {

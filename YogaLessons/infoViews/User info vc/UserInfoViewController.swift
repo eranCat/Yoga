@@ -77,11 +77,11 @@ class UserInfoViewController: UIViewController {
     
     @IBAction func signoutTapped(_ sender: UIBarButtonItem) {
         
-        let confirmAlert = UIAlertController(title: "Sign out warning".translated,
+        let confirmAlert = UIAlertController.create(title: "Sign out warning".translated,
                                              message: "confirmLogout".translated,
                                              preferredStyle: .alert)
         
-        confirmAlert.addAction(UIAlertAction(title: "Yes, bye.".translated,
+            .aAction(.init(title: "Yes, bye.".translated,
                                              style: .default) { alert in
             
             //show alert - are you sure?!
@@ -94,8 +94,7 @@ class UserInfoViewController: UIViewController {
                 print(error)
             }
         })
-        
-        confirmAlert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel))
+            .aAction(UIAlertAction(title: "Cancel".translated, style: .cancel))
         
         present(confirmAlert, animated: true)
     }
@@ -150,11 +149,6 @@ class UserInfoViewController: UIViewController {
             SVProgressHUD.dismiss()
             sender.isEnabled = true
             
-            let alert = UIAlertController(title: "Password reset".translated,
-                                          message: "emailSent".translated,
-                                          preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "ok".translated, style: .default))
             
             let checkEmail = UIAlertAction(title: "Check email".translated, style: .default) { _ in
                 
@@ -170,11 +164,15 @@ class UserInfoViewController: UIViewController {
                     UIApplication.shared.openURL(appURL as URL)
                 }
             }
+            
+            UIAlertController.create(title: "Password reset".translated,
+                                                 message: "emailSent".translated,
+                                                 preferredStyle: .alert)
+            
+            .aAction(UIAlertAction(title: "ok".translated, style: .default))
             //MARK: check if he's signed
-            alert.addAction(checkEmail)
-            
-            
-            self.present(alert, animated: true)
+            .aAction(checkEmail)
+            .show()
         }
     }
     

@@ -342,14 +342,14 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         let msg = "confirmCancel".translated + currentDataType.singular + " ?"
         
-        let alert = UIAlertController(title: nil, message: msg,preferredStyle: .alert)
+        let alert = UIAlertController.create(title: nil, message: msg,preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "yes".translated, style: .default) { (_) in
+        .aAction(UIAlertAction(title: "yes".translated, style: .default) { (_) in
             
             self.toggleCancel(indexPath: indexPath)
         })
         
-        alert.addAction(.init(title: "No".translated, style: .cancel, handler: nil))
+        .aAction(.init(title: "No".translated, style: .cancel, handler: nil))
         
         present(alert, animated: true)
     }

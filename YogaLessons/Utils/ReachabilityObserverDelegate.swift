@@ -63,15 +63,12 @@ extension ReachabilityObserverDelegate {
     
     func showConnectionAlert() {
         SVProgressHUD.dismiss()
-        let alert = UIAlertController(title: "noInternet".translated,
-                                      message: "checkNet".translated,
-                                      preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "internetSetting".translated, style: .default) { _ in
+        let alert = UIAlertController.create(title: "noInternet".translated,message: "checkNet".translated,preferredStyle: .alert)
+        .aAction(.init(title: "internetSetting".translated, style: .default) { _ in
             self.openInternetSettings()
         })
-        
-        UIApplication.shared.presentedVC?.present(alert, animated: true)
+            
+        alert.show()
         
         
         NotificationCenter.default.addObserver(forName: ._connectionMade, object: nil, queue: .main) { (notif) in

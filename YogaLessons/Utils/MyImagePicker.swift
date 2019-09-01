@@ -43,7 +43,7 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
     }
     
     func show( hasImage:Bool,size:UnsplashPhoto.URLKind = .small) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController.create(title: nil, message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Search photo online".translated, style: .default){ (_) in
             self.size = size
@@ -172,40 +172,29 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
     
     
     private func enableCamPermissionInSetting() {
-        let alert = UIAlertController(
+        UIAlertController.create(
             title: "Needs camera access".translated,
             message: "changeCamSetting".translated,
             preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel))
-        
-        let openSetting = UIAlertAction(title: "Open settings".translated, style: .default) { alert in
+        ).aAction(.init(title: "Cancel".translated, style: .cancel))
+        .aAction(.init(title: "Open settings".translated, style: .default) { alert in
             let settingsAppURL = URL(string:UIApplication.openSettingsURLString)!
             
             UIApplication.shared.open(settingsAppURL)
-        }
-        
-        alert.addAction(openSetting)
-        
-        UIApplication.shared.presentedVC?.present(alert, animated: true, completion: nil)
+        }).show()
     }
     
     private func alertCameraAccessNeeded() {
         
-        let alert = UIAlertController(
+        UIAlertController.create(
             title: "Needs Camera Access".translated,
             message: "Needs camera access".translated,
             preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel))
-        
-        alert.addAction(UIAlertAction(title: "Allow Camera".translated, style: .default) { alert in
+        ).aAction(UIAlertAction(title: "Cancel".translated, style: .cancel))
+        .aAction(UIAlertAction(title: "Allow Camera".translated, style: .default) { alert in
             self.requestCameraPermission()
         })
-        
-        UIApplication.shared.presentedVC?.present(alert, animated: true, completion: nil)
+        .show()
     }
     
 }

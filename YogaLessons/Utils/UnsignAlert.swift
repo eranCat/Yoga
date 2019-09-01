@@ -13,13 +13,10 @@ class UnsignAlert {
         
         let msg = "confirmUnsign".translated + dType.singular + " ?"
         
-        let alert = UIAlertController.init(title: nil, message: msg, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction.init(title: "Yes".translated, style: .default,handler: handler) )
-        
-        alert.addAction(.init(title: "No".translated, style: .cancel))
-        
-        UIApplication.shared.presentedVC?.present(alert,animated: true)
+        UIAlertController.create(title: nil, message: msg, preferredStyle: .alert)
+            .aAction(.init(title: "Yes".translated, style: .default,handler: handler))
+            .aAction(.init(title: "No".translated, style: .cancel))
+            .show()
     }
 }
 

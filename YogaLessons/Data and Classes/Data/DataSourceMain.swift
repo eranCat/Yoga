@@ -16,7 +16,9 @@ class DataSource {
     //        MARK:if you don't want location sort, put false
     fileprivate let isFilteringLocation = true
     //        MARK:if you don't want today sort, put false
-    fileprivate let isFilteringToday = false,isFilteringMonth = true
+    fileprivate let isFilteringToday = true
+    //        MARK:if you don't want monthly sort, put false
+    fileprivate let isFilteringMonth = true
 
     let ref:DatabaseReference
     
@@ -486,10 +488,6 @@ class DataSource {
         let placeName = located.locationName
         
         
-        let alert  = UIAlertController(title: "Choose a reminder".translated,
-                                       message: "remindBeforeStart".translated,
-                                       preferredStyle: .actionSheet)
-        
         let notificationAction = UIAlertAction(title: "Notify me".translated, style: .default) { _ in
             NotificationManager.shared.setNotification(objId: dataObj.id!, title: title, time: startDate)
         }
@@ -498,15 +496,13 @@ class DataSource {
                                      style: .default) { _ in
                                         LocalCalendarManager.shared.setEvent( objId: dataObj.id!, title: title, placeName: placeName, location: location, startDate: startDate, endDate: endDate)
         }
-        
-        alert.addAction(notificationAction)
-        alert.addAction(calendar)
-        
-        alert.addAction(UIAlertAction(title: "Don't remind me".translated,
-                                      style: .cancel,
-                                      handler: nil))
-        
-        UIApplication.shared.presentedVC?.present(alert, animated: true)
+        UIAlertController.create(title: "Choose a reminder".translated,
+                                              message: "remindBeforeStart".translated,
+                                              preferredStyle: .actionSheet)
+        .aAction(notificationAction)
+        .aAction(calendar)
+        .aAction(.init(title: "Don't remind me".translated,style: .cancel,handler: nil))
+            .show()
     }
     
     func toggleCancel(_ dType:DataType ,at index:Int,taskDone:DSTaskListener?) {

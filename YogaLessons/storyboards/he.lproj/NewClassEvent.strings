@@ -15,7 +15,7 @@
 "BIa-Bw-5bN.headerTitle" = "ציוד שצריך להביא";
 
 /* Class = "UITextField"; placeholder = "Title / Type"; ObjectID = "BPt-7q-ONg"; */
-"BPt-7q-ONg.placeholder" = "כותרת";
+"BPt-7q-ONg.placeholder" = "הכותרת/הסוג";
 
 /* Class = "UITableViewSection"; headerTitle = "Where is this happening"; ObjectID = "Ckd-Ee-72g"; */
 "Ckd-Ee-72g.headerTitle" = "לאן מגיעים ?";
