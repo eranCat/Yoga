@@ -16,9 +16,9 @@ class DataSource {
     //        MARK:if you don't want location sort, put false
     fileprivate let isFilteringLocation = false
     //        MARK:if you don't want today sort, put false
-    fileprivate let isFilteringToday = true
+    fileprivate let isFilteringToday = false
     //        MARK:if you don't want monthly sort, put false
-    fileprivate let isFilteringMonth = true
+    fileprivate let isFilteringMonth = false
 
     let ref:DatabaseReference
     

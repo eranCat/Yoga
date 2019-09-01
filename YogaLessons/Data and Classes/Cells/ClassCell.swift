@@ -41,6 +41,7 @@ class ClassCell: UITableViewCell {
 }
 
 extension ClassCell:PopulateDelegate{
+    
     func populate(with:UserConnectionDelegate) {
         
         guard let aClass = with as? Class else {return}

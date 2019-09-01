@@ -34,13 +34,13 @@ class EventCell: UITableViewCell {
         time.adjustsFontSizeToFitWidth = true
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//    }
 }
 
 extension EventCell:PopulateDelegate{
-    func populate(with:UserConnectionDelegate) {
+    func populate(with: UserConnectionDelegate) {
         
         guard let event = with as? Event
             else {return}
@@ -70,11 +70,16 @@ extension EventCell:PopulateDelegate{
         StorageManager.shared
             .setImage(of: event, imgView: eventImgView)
         }
-        
-        UIView.animate(withDuration: 0.2) {
-            self.eventImgView.isHidden = (event.imageUrl == nil) //true when no image,false for image
+        else{
+            self.eventImgView.image = nil
         }
         
+        let priority: UILayoutPriority =
+            event.imageUrl == nil ? .defaultLow : .init(rawValue: 750)
+        
+        eventImgView.setContentCompressionResistancePriority(priority,for: .horizontal)
+//            self.layoutIfNeeded()
+
         cancledImageView.isHidden = event.status != .cancled
         cancledImageView.layer.zPosition = 10
     }

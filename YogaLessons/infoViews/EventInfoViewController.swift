@@ -289,7 +289,8 @@ class EventInfoViewController: UITableViewController {
             
         case (4,1)://participants section -> ages row
             return hasAges ? autoSize : 0
-            
+        case (0,0):
+            return eventImgView.isHidden ? 0.0 : autoSize
         default:
             return autoSize
         }

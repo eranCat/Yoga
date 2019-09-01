@@ -54,6 +54,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height)
         
         refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        refreshControl = nil//cancel pull to refresh
         
         navigationItem.title = currentDataType.translated.capitalized
         
@@ -263,7 +264,6 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         
         
         if let populateable = cell as? PopulateDelegate,let data = data{
-            
             populateable.populate(with: data)
         }
         
