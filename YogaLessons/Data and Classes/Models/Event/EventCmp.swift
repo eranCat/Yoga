@@ -68,3 +68,12 @@ extension Event:Filterable{
         return filteredString.contains(q.lowercased())
     }
 }
+
+extension Event:Equatable{
+    static func == (lhs: Event, rhs: Event) -> Bool {
+        if lhs === rhs{
+            return true
+        }
+        return lhs.id == rhs.id
+    }
+}

@@ -13,8 +13,9 @@ import UIKit
 class LocationUpdater:NSObject {
     static let shared = LocationUpdater()
     
-    
     private let locationManager = CLLocationManager()
+    
+    var currentCountryCode:String?
     
     override private init() {
         super.init()
@@ -102,7 +103,7 @@ class LocationUpdater:NSObject {
         }
     
         
-        UIAlertController.create(title: nil, message: nil, preferredStyle: .actionSheet)
+        UIAlertController.create(title: nil, message: nil, preferredStyle: .alert)
             .addActions(installedNavigationApps)
             .aAction(.init(title: "Cancel".translated, style: .cancel, handler: nil))
             .show()
@@ -127,6 +128,19 @@ class LocationUpdater:NSObject {
             }
             
             completion(placemark)
+        }
+    }
+    
+    
+    func getCurrentCountryCode(done:@escaping (String?)->Void) {
+        if let lastLocation = getLastKnowLocation(){
+            getPlace(for: lastLocation) { (mark) in
+                let code: String? = mark?.isoCountryCode
+                done(code)
+                self.currentCountryCode = code
+            }
+        }else{
+            done(nil)
         }
     }
 }

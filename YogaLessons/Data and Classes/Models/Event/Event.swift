@@ -18,6 +18,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
     var locationCoordinate: CLLocationCoordinate2D
     var locationName:String
+    var countryCode: String
     
     var postedDate: Date
     var startDate,endDate:Date
@@ -42,7 +43,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     var signed:[String:Bool]
     
     init(title:String,cost:Double,
-         locationName:String, location:CLLocationCoordinate2D,
+         locationName:String, location:CLLocationCoordinate2D,countryCode:String,
          date:(start:Date,end:Date),level:Level,imageUrl:String? = nil,
          equipment:String,xtraNotes:String? = nil,maxParticipants:Int,user:YUser) {
         self.id = nil
@@ -52,6 +53,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         self.locationCoordinate = location
         self.locationName = locationName
+        self.countryCode = countryCode
         
         self.postedDate = .init()
         self.startDate = date.start
@@ -84,6 +86,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         dict[Keys.location] = locationCoordinate.encode()//dictionary
         dict[Keys.place] = locationName
+        dict["countryCode"] = countryCode
         
         dict[Keys.postedDate] = postedDate.timeIntervalSince1970
         dict[Keys.startDate] = startDate.timeIntervalSince1970
@@ -116,6 +119,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         locationCoordinate = .init(dict[Keys.location] as! JSON)
         locationName = dict[Keys.place] as! String
+        countryCode = dict["countryCode"] as? String ?? ""
         
         let today = Date().timeIntervalSince1970
         postedDate = Date(timeIntervalSince1970: dict[Keys.startDate] as? TimeInterval ?? today)
@@ -165,6 +169,7 @@ extension Event{
         
         locationCoordinate = .init(dict[Keys.location] as! JSON)
         locationName = dict[Keys.place] as! String
+        countryCode = dict["countryCode"] as? String ?? ""
         
         startDate = Date(timeIntervalSince1970: dict[Keys.startDate] as! TimeInterval)
         endDate = Date(timeIntervalSince1970: dict[Keys.endDate] as! TimeInterval)

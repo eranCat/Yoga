@@ -96,7 +96,7 @@ class DataSource {
     //MARK: -------loaders------
     func loadData(loaded:DSTaskListener?) {
         
-        loadAll(.classes){ error in
+        self.loadAll(.classes){ error in
             if error != nil{
                 loaded?(error)
                 return
@@ -105,6 +105,60 @@ class DataSource {
                 loaded?(error)
             }
         }
+        
+    }
+    
+    func loadAllBatch(_ dType:DataType,loadFromBegining:Bool,loadedHandler:((Bool)->Void)?) {
+        
+        let user = YUser.currentUser!
+        
+        let tableKey = TableNames.name(for: dType)//classes/events
+        
+        let allRef = ref.child(tableKey)
+        
+        //        MARK: Important! don't user 2 orderd or limited queries
+        var queriedRef = allRef.queryOrdered(byChild: Class.Keys.postedDate)
+        //(byChild: Class.Keys.startDate)
+        
+        
+        var signedIds:[String:Bool]//for faster search
+        
+        var lastPost:(DynamicUserCreateable & Scheduled)?
+        
+        
+        switch dType{
+            
+        case .classes:
+            
+            if loadFromBegining{
+                all_classes.removeAll(keepingCapacity: true)
+                teacherCreatedClasses.removeAll(keepingCapacity: true)
+                signed_classes.removeAll(keepingCapacity: true)
+            }
+            
+            signedIds = user.signedClassesIDS
+            lastPost = all_classes.last
+        case .events:
+            
+            if loadFromBegining{
+                all_events.removeAll(keepingCapacity: true)
+                userCreatedEvents.removeAll(keepingCapacity: true)
+                signed_events.removeAll(keepingCapacity: true)
+            }
+            
+            signedIds = user.signedEventsIDS
+            lastPost = all_events.last
+        }
+        
+        
+        
+        if !loadFromBegining, let last = lastPost  {
+            
+            let lastTimestamp = last.postedDate.timeIntervalSince1970
+            queriedRef = queriedRef.queryEnding(atValue: lastTimestamp)
+        }
+        
+        executeAllLoadQuery(queriedRef, loadedHandler, dType, user, signedIds,lastPost)
     }
     
     fileprivate func executeAllLoadQuery(_ queriedRef: DatabaseQuery, _ loaded: ((Bool) -> Void)?, _ dType: DataType, _ user: YUser, _ signedIds: [String:Bool],_ lastPost:(DynamicUserCreateable & Scheduled)?) {
@@ -195,60 +249,7 @@ class DataSource {
         }
     }
     
-    func loadAllBatch(_ dType:DataType,loadFromBegining:Bool,loadedHandler:((Bool)->Void)?) {
-        
-        let user = YUser.currentUser!
-        
-        let tableKey = TableNames.name(for: dType)//classes/events
-        
-        let allRef = ref.child(tableKey)
-        
-        //        MARK: Important! don't user 2 orderd or limited queries
-        var queriedRef = allRef.queryOrdered(byChild: Class.Keys.postedDate)
-        //(byChild: Class.Keys.startDate)
-        
-        
-        var signedIds:[String:Bool]//for faster search
-        
-        var lastPost:(DynamicUserCreateable & Scheduled)?
-        
-        
-        switch dType{
-            
-        case .classes:
-            
-            if loadFromBegining{
-                all_classes.removeAll(keepingCapacity: true)
-                teacherCreatedClasses.removeAll(keepingCapacity: true)
-                signed_classes.removeAll(keepingCapacity: true)
-            }
-            
-            signedIds = user.signedClassesIDS
-            lastPost = all_classes.last
-        case .events:
-            
-            if loadFromBegining{
-                all_events.removeAll(keepingCapacity: true)
-                userCreatedEvents.removeAll(keepingCapacity: true)
-                signed_events.removeAll(keepingCapacity: true)
-            }
-            
-            signedIds = user.signedEventsIDS
-            lastPost = all_events.last
-        }
-        
-        
-        
-        if !loadFromBegining, let last = lastPost  {
-            
-            let lastTimestamp = last.postedDate.timeIntervalSince1970
-            queriedRef = queriedRef.queryEnding(atValue: lastTimestamp)
-        }
-        
-        executeAllLoadQuery(queriedRef, loadedHandler, dType, user, signedIds,lastPost)
-    }
-    
-    fileprivate func convertValuesToClasses(_ values: [DataSnapshot], _ lastLocation: CLLocation?, _ user: YUser) {
+    fileprivate func convertValuesToClasses(_ values: [DataSnapshot], _ user: YUser) {
         
         let today = Date()
         let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: today)!
@@ -257,10 +258,12 @@ class DataSource {
             guard let json = child.value as? JSON
                 else{continue}
             
-            let aClass = Class(json)
+//            let coordinate = CLLocationCoordinate2D(json[Class.Keys.location] as! JSON)
+//            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//            guard self.isInRange(currentLocation: lastLocation, location: location)
+//                else{continue}
             
-            guard self.isInRange(currentLocation: lastLocation, location: aClass.location)
-                else{continue}
+            let aClass = Class(json)
             
             if aClass.endDate >= today || !isFilteringToday{
                 //                    for class is cancled
@@ -291,7 +294,7 @@ class DataSource {
         }
     }
     
-    fileprivate func convertValuesToEvents(_ values: [DataSnapshot], _ lastLocation: CLLocation?, _ user: YUser) {
+    fileprivate func convertValuesToEvents(_ values: [DataSnapshot], _ user: YUser) {
         
         let today = Date()
         let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: today)!
@@ -300,10 +303,12 @@ class DataSource {
             guard let json = child.value as? JSON
                 else{continue}
             
-            let event = Event(json)
+//            let coordinate = CLLocationCoordinate2D(json[Event.Keys.location] as! JSON)
+//            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//            guard self.isInRange(currentLocation: lastLocation, location: location)
+//                else{continue}
             
-            guard self.isInRange(currentLocation: lastLocation, location: event.location)
-                else{continue}
+            let event = Event(json)
             
             if event.endDate >= today || !isFilteringToday{
                 if event.status != .cancled{
@@ -334,14 +339,17 @@ class DataSource {
     func loadAll(_ dType:DataType,loaded:DSTaskListener?) {
         
         let tableKey = TableNames.name(for: dType)//classes/events
-        
         //        MARK: Important! don't user 2 orderd or limited queries
-        let queriedRef = ref.child(tableKey)
-            .queryOrdered(byChild: Class.Keys.postedDate)
-            .queryLimited(toLast: MaxPerBatch)
-        
-        
-        queriedRef.observeSingleEvent(of: .value)
+        let tableRef = ref.child(tableKey)
+        var queriedRef:DatabaseQuery? = nil
+
+        if isFilteringLocation ,let code = LocationUpdater.shared.currentCountryCode{
+            queriedRef = tableRef.queryEqual(toValue: code, childKey: "countryCode")
+        }
+    
+        (queriedRef ?? tableRef).queryOrdered(byChild: Class.Keys.postedDate)
+            .queryLimited(toLast: self.MaxPerBatch)
+            .observeSingleEvent(of: .value)
         { (snapshot, string) in
             
             guard let values = snapshot.children.allObjects as? [DataSnapshot]
@@ -352,8 +360,6 @@ class DataSource {
             
             let user = YUser.currentUser!
             
-            let lastLocation = LocationUpdater.shared.getLastKnowLocation()
-            
             switch dType{
                 
             case .classes:
@@ -362,14 +368,14 @@ class DataSource {
                 self.signed_classes.removeAll()
                 self.teacherCreatedClasses.removeAll()
                 
-                self.convertValuesToClasses(values, lastLocation, user)
+                self.convertValuesToClasses(values, user)
             case .events:
                 
                 self.all_events.removeAll()
                 self.signed_events.removeAll()
                 self.userCreatedEvents.removeAll()
                 
-                self.convertValuesToEvents(values, lastLocation, user)
+                self.convertValuesToEvents(values, user)
             }
             
             self.updateMainDict(sourceType: .all, dataType: dType)
@@ -377,6 +383,7 @@ class DataSource {
             
             loaded?(nil)
         }
+        
     }
     
     func isInRange(currentLocation:CLLocation?,location:CLLocation) -> Bool {
@@ -411,7 +418,7 @@ class DataSource {
     
     func addToAll(_ dType:DataType, dataObj:DynamicUserCreateable,taskDone:DSTaskListener?) {
         
-        let dataRef = ref.child(TableNames.name(for: dType)).childByAutoId()
+        let dataRef:DatabaseReference = ref.child(TableNames.name(for: dType)).childByAutoId()
         
         guard let user = YUser.currentUser,
             let uid = user.id,
@@ -498,7 +505,7 @@ class DataSource {
         }
         UIAlertController.create(title: "Choose a reminder".translated,
                                               message: "remindBeforeStart".translated,
-                                              preferredStyle: .actionSheet)
+                                              preferredStyle: .alert)
         .aAction(notificationAction)
         .aAction(calendar)
         .aAction(.init(title: "Don't remind me".translated,style: .cancel,handler: nil))

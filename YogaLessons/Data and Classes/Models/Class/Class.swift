@@ -17,6 +17,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
     var locationCoordinate: CLLocationCoordinate2D
     var locationName:String
+    var countryCode: String
     
     var postedDate: Date
     var startDate,endDate:Date
@@ -37,7 +38,11 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     var minAge,maxAge:Int
     
     var signed:[String:Bool]//user id
-    init(type:String,cost:Double,location:CLLocationCoordinate2D,locationName:String,date:(start:Date,end:Date),level:Level,equipment:String,xtraNotes:String? = nil,maxParticipants:Int,teacher:Teacher) {
+    init(type:String,cost:Double,
+         location:CLLocationCoordinate2D,locationName:String,countryCode:String,
+         date:(start:Date,end:Date),
+         level:Level,equipment:String,xtraNotes:String? = nil,
+         maxParticipants:Int,teacher:Teacher) {
         
         self.id = nil
         self.title = type
@@ -45,6 +50,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         self.locationCoordinate = location
         self.locationName = locationName
+        self.countryCode = countryCode
         
         self.postedDate = .init()
         self.startDate = date.start
@@ -56,9 +62,6 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         self.numOfParticipants = 0
         self.maxParticipants = maxParticipants
         
-//        self.userDict = [:]
-//        self.userID = teacher.id!
-//        self.teacherName = teacher.name
         self.uid = teacher.id!
         
         self.status = .open
@@ -78,7 +81,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         
         dict[Keys.location] = locationCoordinate.encode()//dictionary
         dict[Keys.place] = locationName
-        
+        dict["countryCode"] = countryCode
         
         dict[Keys.postedDate] = postedDate.timeIntervalSince1970
         dict[Keys.startDate] = startDate.timeIntervalSince1970
@@ -109,7 +112,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
         locationCoordinate = .init(dict[Keys.location] as! JSON)
         locationName = dict[Keys.place] as! String
-        
+        countryCode = dict["countryCode"] as? String ?? ""
         
         let today = Date().timeIntervalSince1970
         postedDate = Date(timeIntervalSince1970: dict[Keys.startDate] as? TimeInterval ?? today)
@@ -125,7 +128,6 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         numOfParticipants = dict[ParticipateableKeys.num.rawValue] as! UInt
         maxParticipants = dict[ParticipateableKeys.max.rawValue] as! Int
         
-//        userDict = dict[Keys.teacher] as! [String : String]
         uid = dict[Keys.teacher] as! String
         
         let statusRv = dict[Status.key] as? Int ?? 0
@@ -157,6 +159,7 @@ extension Class{
         
         locationCoordinate = .init(dict[Keys.location] as! JSON)
         locationName = dict[Keys.place] as! String
+        countryCode = dict["countryCode"] as? String ?? ""
         
         startDate = Date(timeIntervalSince1970: dict[Keys.startDate] as! TimeInterval)
         endDate = Date(timeIntervalSince1970: dict[Keys.endDate] as! TimeInterval)

@@ -70,32 +70,24 @@ extension DataSource{
     }
     func signTo(_ dType:DataType,dataObj:DynamicUserCreateable ,taskDone:DSTaskListener?) {
         
-        let objRef = ref.child(TableNames.name(for: dType)).child(dataObj.id!)
-            
-        objRef.runTransactionBlock(){ (currentData: MutableData) -> TransactionResult in
-            guard let post = currentData.value as? JSON
+        guard let cu = YUser.currentUser,let uid = cu.id,//user id
+            let objId = dataObj.id // data id
+            else{
+                taskDone?(UserErrors.noUserFound)//no user error
+                return
+            }
+        
+        ref.child(TableNames.name(for: dType)).child(objId)
+        .runTransactionBlock(){ (currentData: MutableData) -> TransactionResult in
+            guard let json = currentData.value as? JSON
                 else{
                     taskDone?(JsonErrors.castFailed)
                     return TransactionResult.abort()
                 }
-                    
-                guard let cu = YUser.currentUser,
-                    let uid = cu.id,//user id
-                    let objId = dataObj.id // data id
-                    else{
-                        taskDone?(UserErrors.noUserFound)//no user error
-                        return TransactionResult.abort()
-                }
-                
-                var data:(Participateable & Aged & Unique & DBCodable & Statused)
-                
-                switch dType{
-                    
-                case .classes:
-                    data = Class(post)
-                case .events:
-                    data = Event(post)
-                }
+            
+                dataObj.update(from: json)
+                var data = dataObj as! (Participateable & Aged & Unique & DBCodable & Statused)
+            
                 
                 switch data.status{
                     
@@ -124,44 +116,13 @@ extension DataSource{
                     taskDone?(SigningErrors.cantSignToCancled(dType))
                 }
                 
-                    self.updateMainDict(sourceType: .signed, dataType: dType)
-                    
-                    return TransactionResult.success(withValue: currentData)
+                self.updateMainDict(sourceType: .signed, dataType: dType)
+            
+                return TransactionResult.success(withValue: currentData)
             }
     
     }
     
-    
-    func updateValues(data:Unique,dbRef:DatabaseReference,taskDone:@escaping DSTaskListener) {
-        
-        guard let data = data as? (Statused & Participateable & Aged)
-            else{return}
-        
-        let values = [
-            Status.key : data.status.rawValue,
-            ParticipateableKeys.num.rawValue : data.numOfParticipants,
-            AgedKeys.age_min.rawValue : data.minAge,
-            AgedKeys.age_max.rawValue : data.maxAge,
-            ParticipateableKeys.signed.rawValue : data.signed
-        ] as JSON
-        
-        dbRef.runTransactionBlock { (currentData) -> TransactionResult in
-            guard var post = currentData.value as? JSON
-                else{
-                    taskDone(JsonErrors.castFailed)
-                    return TransactionResult.success(withValue: currentData)
-                }
-            
-            values.forEach{post[$0] = $1}
-            
-            currentData.value = post
-            
-            taskDone(nil)
-            
-            return TransactionResult.success(withValue: currentData)
-        }
-//        dbRef.updateChildValues(values){ err,_ in taskDone(err)}
-    }
     
     private func addToCurrentUserSigned(_ dType: DataType, _ cu: YUser, _ objId: String, _ taskDone: DSTaskListener?, _ dataObj: DynamicUserCreateable, _ uid: String) {
         //add to local users list of id's
@@ -191,9 +152,7 @@ extension DataSource{
             idsArr = cu.signedEventsIDS
             signed_events.insert(dataObj as! Event,at: 0)
         }
-        
-        
-        //        .updateChildValues([arrKey:idsArr])
+        updateMainDict(sourceType: .signed, dataType: dType)
         ref.child(TableNames.users.rawValue).child(uid)//might need to set value
             .child(arrKey).setValue(idsArr)
             { err,childRef in
@@ -205,8 +164,6 @@ extension DataSource{
                 }
                 
                 self.showReminderAlert(dataObj: dataObj)
-                
-                self.updateMainDict(sourceType: .signed, dataType: dType)
                 
                 NotificationCenter.default
                     .post(name: ._signedDataAdded,userInfo: ["type":dType])
@@ -249,43 +206,55 @@ extension DataSource{
         
         updateMainDict(sourceType: .signed, dataType: dType)
         
-        let age = cu.bDate.age
-        if age == data.minAge || age == data.maxAge{
-            for user in usersList.values {
-                if user.id == data.uid{
-                    check(age: user.bDate.age, data: data)
+        ref.child(TableNames.name(for: dType)).child(data.id!)
+        .runTransactionBlock { (currentData) -> TransactionResult in
+            guard var post = currentData.value as? JSON
+                else{
+                    taskDone?(JsonErrors.castFailed)
+                    return TransactionResult.success(withValue: currentData)
+            }
+            
+            data.update(from: post)
+            
+            if data.numOfParticipants > 0{
+                
+                data.numOfParticipants -= 1
+                
+                if data.status != .cancled{
+                    data.status = .open
                 }
             }
-        }
-        
-        
-        if data.numOfParticipants > 0{
-            
-            data.numOfParticipants -= 1
-            
-            if data.status != .cancled{
-                data.status = .open
-            }
-            
-            let objectRef = ref.child(TableNames.name(for: dType)).child(data.id!)
-            //save to DB
-            self.updateValues(data: data, dbRef: objectRef){
-                //save to signed array locally and remotely
-                if let error = $0{
-                    ErrorAlert.show(message: error.localizedDescription)
-                    return
+            let age = cu.bDate.age
+            if age == data.minAge || age == data.maxAge{
+                
+                for uid in data.signed.keys{
+                    if let signedUser = self.usersList[uid]{
+                        self.check(age: signedUser.bDate.age, data: data)
+                    }
                 }
-                self.removeFromCurrentUserSigned(dType, cu, data, uid, taskDone, indexPath)
             }
             
-        }else{
+            post[Status.key ] = data.status.rawValue
+            post[ParticipateableKeys.num.rawValue] = data.numOfParticipants
+            post[ParticipateableKeys.signed.rawValue] = data.signed
+            post[AgedKeys.age_min.rawValue] = data.minAge
+            post[AgedKeys.age_max.rawValue] = data.maxAge
+            
+            currentData.value = post
+            
+            taskDone?(nil)
+            
             self.removeFromCurrentUserSigned(dType, cu, data, uid, taskDone, indexPath)
+            
+            return TransactionResult.success(withValue: currentData)
         }
-        
         
     }
     
-    fileprivate func removeFromCurrentUserSigned(_ dType: DataType, _ cu: YUser, _ data: Unique, _ uid: String, _ taskDone: DSTaskListener?, _ indexPath: IndexPath?) {
+    fileprivate func removeFromCurrentUserSigned(_ dType: DataType, _ cu: YUser,
+                                                 _ data: Unique, _ uid: String,
+                                                 _ taskDone: DSTaskListener?,
+                                                 _ indexPath: IndexPath?) {
         
         
         //remove from user's list of id's localy

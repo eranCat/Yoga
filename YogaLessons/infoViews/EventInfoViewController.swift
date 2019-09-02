@@ -275,6 +275,9 @@ class EventInfoViewController: UITableViewController {
                         return
                     }
                     self.setSignBtn(isSigned: false)
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
             }
         }
     }

@@ -45,13 +45,6 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
                 return
             }
         
-        SVProgressHUD.show()
-        
-        continueSetup()
-    }
-    
-    fileprivate func continueSetup() {
-        
         SVProgressHUD.showProgress(0)
         ds.loadUsers { usersErr in//closure 1 - loding users finished
             
@@ -65,20 +58,24 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
                 
                 SVProgressHUD.showProgress(0.3)
 
-                self.ds.loadData{ error in //colsure 2 - load all data done
-                    if let error = error{
-                        SVProgressHUD.dismiss()
-                        ErrorAlert.show(message: error.localizedDescription)
-                        return
+                LocationUpdater.shared.getCurrentCountryCode() { (code) in
+                    SVProgressHUD.showProgress(0.4)
+                    
+                    self.ds.loadData{ error in //colsure 2 - load all data done
+                        if let error = error{
+                            SVProgressHUD.dismiss()
+                            ErrorAlert.show(message: error.localizedDescription)
+                            return
+                        }
+                        
+                        SVProgressHUD.showProgress(0.5)
+                        
+                        
+                        MoneyConverter.shared.connect{
+                            SVProgressHUD.showProgress(1)
+                            self.openMain()
+                        }//closue 3 - finished connecting to money api
                     }
-                    
-                    SVProgressHUD.showProgress(0.5)
-                    
-                    
-                    MoneyConverter.shared.connect{
-                        SVProgressHUD.showProgress(1)
-                        self.openMain()
-                    }//closue 3 - finished connecting to money api
                 }
                 
             }else{

@@ -71,7 +71,6 @@ extension UIAlertController {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         
-        
         alertController.bgColor = ._accent
 
         // Change Title With Color and Font:
@@ -91,8 +90,6 @@ extension UIAlertController {
     func aAction(_ action: UIAlertAction) -> UIAlertController {
         self.addAction(action)
         
-        action.textColor = .white
-        
         return self
     }
     func addActions(_ actions:[UIAlertAction]) -> UIAlertController {
@@ -100,19 +97,4 @@ extension UIAlertController {
         return self
     }
     
-}
-
-extension UIAlertAction{
-    var actionFont: UIFont { return UIFont(name: "AmericanTypewriter-CondensedBold ", size: 16.0)!}
-    
-    var textColor:UIColor?{
-        set(c){
-            if let color = c{
-                setValue(color,forKey: "titleTextColor")
-            }
-        }
-        get{
-            return value(forKey: "titleTextColor") as? UIColor
-        }
-    }
 }

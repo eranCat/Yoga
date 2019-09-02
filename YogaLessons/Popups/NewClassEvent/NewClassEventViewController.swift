@@ -34,6 +34,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     lazy var locationPicker = setLocationPicker()
     var selectedCoordinate:CLLocationCoordinate2D?
     var selectedPlaceName:String?
+    var selectedCountryCode:String?
     
     
     @IBOutlet weak var tfstartDate: DateTimeTextField!
@@ -172,7 +173,8 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         let cost = tfCost.doubleValue
         
         guard let locationCoordinate = self.selectedCoordinate,
-            let locName = self.selectedPlaceName
+            let locName = self.selectedPlaceName,
+            let code = self.selectedCountryCode
         else {
             let selectMsg = "select".translated + "location".translated
             ErrorAlert.show(message: selectMsg)
@@ -236,10 +238,15 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         switch typeSegment.type {
         case .classes:
             
-            return Class( type: title, cost: cost, location: locationCoordinate, locationName: locName, date: date, level: level, equipment: equip, xtraNotes: xtra, maxParticipants: maxPpl, teacher: user as! Teacher)
+            return Class( type: title, cost: cost,
+                          location: locationCoordinate, locationName: locName,countryCode: code,
+                          date: date, level: level, equipment: equip,
+                          xtraNotes: xtra, maxParticipants: maxPpl, teacher: user as! Teacher)
         case .events:
             
-            return Event(title: title, cost: cost, locationName: locName, location: locationCoordinate, date: date, level: level, equipment: equip, xtraNotes: xtra, maxParticipants: maxPpl, user: user)
+            return Event(title: title, cost: cost,
+                         locationName: locName, location: locationCoordinate,countryCode: code,
+                         date: date, level: level, equipment: equip, xtraNotes: xtra, maxParticipants: maxPpl, user: user)
         }
     }
     

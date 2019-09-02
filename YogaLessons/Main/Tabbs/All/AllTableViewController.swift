@@ -199,11 +199,6 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             return 0
         }
     }
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let status = (dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath) as? Statused)?.status
-        
-        return status == .open
-    }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
@@ -227,23 +222,26 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
                 
                 self.signUserOut(indexPath)
             })
-            signAction.backgroundColor = UIColor._danger
+            signAction.backgroundColor = ._danger
+            
+            return [signAction]
         }else{
             
             signAction = .init(style: .default, title: "I'm in".translated, handler: {(_,_) in
                 
                 self.signinUserTo(indexPath)
             })
-            signAction.backgroundColor =  UIColor._accent
+            signAction.backgroundColor =  ._accent
+            
+            return (data as! Statused).status == .open ?  [signAction] : []
         }
-        
-        return [signAction]
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 1{//show loading cell on section 1
-            let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell",for: indexPath) as! ProggressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell",
+                                                     for: indexPath) as! ProggressCell
             cell.spinner.startAnimating()
             return cell
         }
@@ -273,7 +271,10 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let sender = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)
+        guard let sender = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)
+            else{
+                return
+            }
         
         let ids:[DataType:SeguesIDs] = [.classes:.classInfo,.events:.eventInfo]
         

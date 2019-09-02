@@ -43,7 +43,7 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
     }
     
     func show( hasImage:Bool,size:UnsplashPhoto.URLKind = .small) {
-        let alert = UIAlertController.create(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController.create(title: nil, message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Search photo online".translated, style: .default){ (_) in
             self.size = size

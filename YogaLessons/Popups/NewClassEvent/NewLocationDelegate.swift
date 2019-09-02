@@ -29,6 +29,9 @@ extension NewClassEventViewController:LocationPickerDelegate{
             let (lat,lon) = item.coordinate!
             selectedCoordinate = .init(latitude: lat, longitude: lon)
         }
+        if let code = item.addressDictionary?["CountryCode"] as? String{
+            selectedCountryCode = code
+        }
     }
     
     

@@ -70,3 +70,12 @@ extension Class:Filterable{
         return filteredString.contains(q.lowercased())
     }
 }
+
+extension Class:Equatable{
+    static func == (lhs: Class, rhs: Class) -> Bool {
+        if lhs === rhs{
+            return true
+        }
+        return lhs.id == rhs.id
+    }
+}

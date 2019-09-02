@@ -257,7 +257,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         switch indexPath.section{
         case 1:
             data = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row]
-            cell.backgroundColor = UIColor._userUploads
+            cell.backgroundColor = ._userUploads
             cell.selectionStyle = .none
         case 0:fallthrough
         default:
@@ -317,10 +317,17 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             
             self.dataSource.unsignFrom(self.currentDataType, at: indexPath){err in
                 SVProgressHUD.dismiss()
+                
                 if let err = err {
                     ErrorAlert.show(message: err.localizedDescription)
+                }else{
+                    DispatchQueue.main.async{
+                        //                        MARK: fix this crash
+//                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        
+                        self.tableView.reloadData()
+                    }
                 }
-                self.tableView.deleteRows(at: [indexPath], with: .right)
             }
         }
     }

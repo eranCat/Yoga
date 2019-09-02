@@ -247,7 +247,9 @@ class ClassInfoViewController: UITableViewController {
                         return
                     }
                     self.setSigninBtn(isSigned: false)
-                    self.navigationController?.popViewController(animated: true)
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
             }
         }
     }
