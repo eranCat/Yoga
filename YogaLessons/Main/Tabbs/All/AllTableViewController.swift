@@ -200,12 +200,20 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         }
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let data = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)!
         
         let objId = data.id!
         let signed:[String:Bool]
+        
+        
+        let shareAction = UIContextualAction(style: .normal, title: "Share".translated) { (_, actionView, complete) in
+            
+            ShatringManager.share(data: data)
+        }
+        shareAction.image = #imageLiteral(resourceName: "share")
+        shareAction.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         
         let user = YUser.currentUser!
         switch currentDataType {
@@ -215,25 +223,27 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             signed = user.signedEventsIDS
         }
         
-        let signAction:UITableViewRowAction
+        let signAction:UIContextualAction
         //the user didnt sign up for the class
         if signed[objId] != nil {
-            signAction = .init(style: .default, title: "I'm out".translated, handler: { _,_ in
+            signAction = .init(style: .normal, title:  "I'm out".translated) { (_, _, _) in
                 
                 self.signUserOut(indexPath)
-            })
+            }
+            
             signAction.backgroundColor = ._danger
             
-            return [signAction]
+            return .init(actions: [signAction,shareAction])
         }else{
             
-            signAction = .init(style: .default, title: "I'm in".translated, handler: {(_,_) in
+            signAction = .init(style: .normal, title: "I'm in".translated){(_,_,_) in
                 
                 self.signinUserTo(indexPath)
-            })
+            }
             signAction.backgroundColor =  ._accent
             
-            return (data as! Statused).status == .open ?  [signAction] : []
+            let actions = (data as! Statused).status == .open ?  [signAction,shareAction] : [shareAction]
+            return .init(actions: actions)
         }
     }
     

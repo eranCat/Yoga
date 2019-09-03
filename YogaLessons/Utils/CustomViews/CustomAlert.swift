@@ -10,8 +10,8 @@ import UIKit
 
 extension UIAlertController {
     
-    var preferedFont: UIFont{ return UIFont(name: "AmericanTypewriter", size: 18.0)!}
-    var titleFont :UIFont { return UIFont(name: "AmericanTypewriter-Bold", size: 20.0)!}
+    var preferedFont: UIFont{ return UIFont(name: "Al Nile", size: 18.0)!}
+    var titleFont :UIFont { return UIFont(name: "AlNile-Bold", size: 20.0)!}
     
 
     var bgColor:UIColor?{

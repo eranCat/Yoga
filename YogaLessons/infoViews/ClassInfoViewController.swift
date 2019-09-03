@@ -55,6 +55,7 @@ class ClassInfoViewController: UITableViewController {
         
         teacher = DataSource.shared.getTeacher(by: classModel.uid)
         
+        setMenuItems()
         fillViews()
         
         addObservers()
@@ -76,28 +77,36 @@ class ClassInfoViewController: UITableViewController {
         fillViews()
         tableView.reloadData()
     }
+    private func setMenuItems() {
+        
+        let shareBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "share"), style: .plain, target: self, action: #selector(openShareMenu))
+        
+        navigationItem.rightBarButtonItems = [.init(title: nil, style: .plain, target: self, action: nil),shareBtn]
+    }
+    
+    @objc func openShareMenu() {
+        ShatringManager.share(data:classModel)
+    }
     
     fileprivate func setSigninBtn( isSigned:Bool) {
         
-        if navigationItem.rightBarButtonItem == nil{
-            navigationItem.rightBarButtonItem = .init(title: nil, style: .plain, target: self, action: nil)
-        }
+        guard let signBtn = navigationItem.rightBarButtonItems?[0]
+            else{return}
         
-        let signBtn = navigationItem.rightBarButtonItem
         if !isSigned{
             if classModel.status == .open{
                 
-                signBtn?.title = "I'm in".translated
-                signBtn?.action = #selector(signinToClass)
-                signBtn?.isEnabled = true
+                signBtn.title = "I'm in".translated
+                signBtn.action = #selector(signinToClass)
+                signBtn.isEnabled = true
             }else{
-                signBtn?.isEnabled = false
+                signBtn.isEnabled = false
             }
         }
         else{
-            signBtn?.title = "I'm out".translated
-            signBtn?.action = #selector(signOutClass)
-            signBtn?.isEnabled = true
+            signBtn.title = "I'm out".translated
+            signBtn.action = #selector(signOutClass)
+            signBtn.isEnabled = true
         }
     }
     

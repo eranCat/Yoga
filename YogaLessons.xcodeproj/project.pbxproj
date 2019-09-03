@@ -73,6 +73,7 @@
 		977D32A522EF73DC0084EF77 /* CellsIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D32A422EF73DC0084EF77 /* CellsIds.swift */; };
 		9797646922E04D6D00A37954 /* RangeReplaceableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9797646822E04D6D00A37954 /* RangeReplaceableCollection.swift */; };
 		9797647722E0A4CA00A37954 /* LocationUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9797647622E0A4CA00A37954 /* LocationUpdater.swift */; };
+		979A8AE8231E4F7900D1E61E /* ShatringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A8AE7231E4F7900D1E61E /* ShatringManager.swift */; };
 		979AAD4022F3FCE700420670 /* IntFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AAD3F22F3FCE700420670 /* IntFormat.swift */; };
 		97A4027A22D65AFF0056BBE7 /* LabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A4027922D65AFF0056BBE7 /* LabelExtension.swift */; };
 		97A4027D22D673120056BBE7 /* ReturnProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A4027C22D673120056BBE7 /* ReturnProtocol.swift */; };
@@ -243,6 +244,7 @@
 		977D32A422EF73DC0084EF77 /* CellsIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellsIds.swift; sourceTree = "<group>"; };
 		9797646822E04D6D00A37954 /* RangeReplaceableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeReplaceableCollection.swift; sourceTree = "<group>"; };
 		9797647622E0A4CA00A37954 /* LocationUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUpdater.swift; sourceTree = "<group>"; };
+		979A8AE7231E4F7900D1E61E /* ShatringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShatringManager.swift; sourceTree = "<group>"; };
 		979AAD3F22F3FCE700420670 /* IntFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntFormat.swift; sourceTree = "<group>"; };
 		97A4027922D65AFF0056BBE7 /* LabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtension.swift; sourceTree = "<group>"; };
 		97A4027C22D673120056BBE7 /* ReturnProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnProtocol.swift; sourceTree = "<group>"; };
@@ -656,6 +658,7 @@
 				9713DB5E22FEE30F00B00C15 /* ReachabilityObserverDelegate.swift */,
 				974394CF230FC5DD00A8B48A /* CollectionExtension.swift */,
 				9743950623114C7300A8B48A /* UnsignAlert.swift */,
+				979A8AE7231E4F7900D1E61E /* ShatringManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1005,6 +1008,7 @@
 				97AE30E822C4A6280008CE75 /* UIApplicationExtension.swift in Sources */,
 				97EED8CF22C0D571009AEB07 /* String+Extensions.swift in Sources */,
 				97A4027D22D673120056BBE7 /* ReturnProtocol.swift in Sources */,
+				979A8AE8231E4F7900D1E61E /* ShatringManager.swift in Sources */,
 				97CD958022D3107F0073BF61 /* UserTypeTextField.swift in Sources */,
 				97FEF92722B38161009ECCE6 /* MainTabBarController.swift in Sources */,
 				97F3DDC322BD6B5300812B33 /* TypeAliases.swift in Sources */,

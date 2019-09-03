@@ -58,20 +58,19 @@ class EventInfoViewController: UITableViewController {
             return
         }
         
-        let user = YUser.currentUser!
-        //the user didnt sign up for the class
-        setSignBtn(isSigned: user.signedEventsIDS[eventModel.id!] != nil)
-        
-
         equipmentTv.roundCorners()
         extraNotesTv.roundCorners()
         eventImgView.roundCorners()
         opNameLbl.roundCorners()
-
+        
         if let stack = view.subviews.first as? UIStackView{
             stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        }
-        
+        }        
+
+        let user = YUser.currentUser!
+        //the user didnt sign up for the class
+        setMenuItems()
+        setSignBtn(isSigned: user.signedEventsIDS[eventModel.id!] != nil)
         fillViews()
         
         addObservers()
@@ -94,27 +93,37 @@ class EventInfoViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    private func setMenuItems() {
+        
+        let signBtn = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
+        let shareBtn = UIBarButtonItem(image: #imageLiteral(resourceName: "share"), style: .plain, target: self,
+                                       action: #selector(openShareMenu))
+        
+        navigationItem.rightBarButtonItems = [signBtn,shareBtn]
+    }
+    @objc func openShareMenu() {
+        ShatringManager.share(data:self.eventModel)
+    }
+    
     func setSignBtn(isSigned:Bool) {
         
-        if navigationItem.rightBarButtonItem == nil{
-            navigationItem.rightBarButtonItem = .init(title: nil, style: .plain, target: self, action: nil)
-        }
+        guard let signBtn = navigationItem.rightBarButtonItems?[0]
+            else{return}
         
-        let signBtn = navigationItem.rightBarButtonItem
         if !isSigned{
             if eventModel.status == .open{
                 
-                signBtn?.title = "I'm in".translated
-                signBtn?.action = #selector(signinToEvent)
-                signBtn?.isEnabled = true
+                signBtn.title = "I'm in".translated
+                signBtn.action = #selector(signinToEvent)
+                signBtn.isEnabled = true
             }else{
-                signBtn?.isEnabled = false
+                signBtn.isEnabled = false
             }
         }
         else{
-            signBtn?.title = "I'm out".translated
-            signBtn?.action = #selector(signOutOfEvent)
-            signBtn?.isEnabled = true
+            signBtn.title = "I'm out".translated
+            signBtn.action = #selector(signOutOfEvent)
+            signBtn.isEnabled = true
         }
     }
     
