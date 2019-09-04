@@ -243,6 +243,7 @@
 		9797646822E04D6D00A37954 /* RangeReplaceableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeReplaceableCollection.swift; sourceTree = "<group>"; };
 		9797647622E0A4CA00A37954 /* LocationUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUpdater.swift; sourceTree = "<group>"; };
 		979A8AE7231E4F7900D1E61E /* SharingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingManager.swift; sourceTree = "<group>"; };
+		979A8AF32320558700D1E61E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		979AAD3F22F3FCE700420670 /* IntFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntFormat.swift; sourceTree = "<group>"; };
 		97A4027922D65AFF0056BBE7 /* LabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtension.swift; sourceTree = "<group>"; };
 		97A4027C22D673120056BBE7 /* ReturnProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnProtocol.swift; sourceTree = "<group>"; };
@@ -286,7 +287,6 @@
 		97CD958F22D4C1890073BF61 /* CurrencyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyField.swift; sourceTree = "<group>"; };
 		97D6505A22AE5C0700ADF5AC /* YogaLessons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YogaLessons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97D6505D22AE5C0700ADF5AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		97D6506922AE5C0800ADF5AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97EED8C122C0AD25009AEB07 /* ClassInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassInfoViewController.swift; sourceTree = "<group>"; };
 		97EED8C322C0AD35009AEB07 /* EventInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfoViewController.swift; sourceTree = "<group>"; };
 		97EED8CE22C0D571009AEB07 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -581,7 +581,7 @@
 			children = (
 				9743953C2316DC7F00A8B48A /* Resources */,
 				97B3749C22F88F7C000736F1 /* YogaLessons.entitlements */,
-				97D6506922AE5C0800ADF5AC /* Info.plist */,
+				979A8AF32320558700D1E61E /* Info.plist */,
 				97CD956522D0C2590073BF61 /* GoogleService-Info.plist */,
 				97D6505D22AE5C0700ADF5AC /* AppDelegate.swift */,
 				9743952723126AD500A8B48A /* images */,
@@ -1264,7 +1264,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3BRBYH95B5;
-				INFOPLIST_FILE = YogaLessons/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/YogaLessons/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1283,7 +1283,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3BRBYH95B5;
-				INFOPLIST_FILE = YogaLessons/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/YogaLessons/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

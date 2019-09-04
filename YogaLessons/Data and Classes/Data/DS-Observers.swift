@@ -33,8 +33,9 @@ extension DataSource{
                     
                     self.updateMainDict(sourceType: .all, dataType: .classes)
                     
-                    let userInfo = ["type" : DataType.classes,
-                                "indexPath":IndexPath(row: 0, section: 0)] as [String : Any]
+                    let userInfo:JSON =
+                        ["type" : DataType.classes,
+                        "indexPath":IndexPath(row: 0, section: 0)]
                 
                     NotificationCenter.default.post(name: ._dataAdded,userInfo: userInfo)
                 }
@@ -78,13 +79,19 @@ extension DataSource{
                         let aClass = self.all_classes.first(where: {$0.id == classID})
                     else{return}
                 
+                let statusBefore = aClass.status
                 aClass.update(from: json)
                 
-                var userInfo: [String : Any] = ["type" : DataType.classes]
+                var userInfo: JSON = ["type" : DataType.classes]
                 userInfo["status"] = aClass.status
                 userInfo["id"] = classID
                 
                 NotificationCenter.default.post(name: ._dataChanged, userInfo: userInfo)
+                
+                if self.signed_classes.contains(aClass){
+                    self.notifyForStatusIfNeeded(data: aClass, statusBefore: statusBefore)
+                    NotificationCenter.default.post(name: ._signedDataChanged, userInfo: userInfo)
+                }
         }
     }
     func observeEventChanged() {
@@ -98,6 +105,7 @@ extension DataSource{
                         let event = self.all_events.first(where: {$0.id == eventID})
                     else{return}
                 
+                let statusBefore = event.status
                 event.update(from: json)
                 
                 var userInfo: [String : Any] = ["type" : DataType.events]
@@ -105,6 +113,10 @@ extension DataSource{
                 userInfo["id"] = eventID
                 
                 NotificationCenter.default.post(name: ._dataChanged, userInfo: userInfo)
+                if self.signed_events.contains(event){
+                    self.notifyForStatusIfNeeded(data: event, statusBefore: statusBefore)
+                    NotificationCenter.default.post(name: ._signedDataChanged, userInfo: userInfo)
+                }
         }
     }
     
@@ -144,6 +156,44 @@ extension DataSource{
 
         case .events:
             removeEventObserver(tableKey)
+        }
+    }
+    
+    func notifyForStatusIfNeeded(data:DynamicUserCreateable,statusBefore:Status) {
+        
+        guard
+            //if it's a class that the user has signed to
+            (data is Class && signed_classes.contains(data as! Class))
+            ||//or
+            //if it's an event that the user has signed to
+            (data is Event && signed_events.contains(data as! Event)),
+            
+            let id = data.id
+            else {return}
+        
+        let currentStatus = (data as! Statused).status
+        let title = (data as! Titled).title
+        let startTime = (data as! Scheduled).startDate
+        
+        let hadBeenCanceled = statusBefore != .cancled && currentStatus == .cancled
+        
+        let hadBeenRestored = statusBefore == .cancled && currentStatus != .cancled
+        
+        let notifManger = NotificationManager.shared
+        
+        if hadBeenCanceled{
+            //1.remove notification and event from calendar
+            notifManger.removeNotification(objId: id)
+            LocalCalendarManager.shared.removeEvent(objId: id)
+            
+            //2.notify that it was cancled immidietly
+            notifManger.setNotification(objId: id, title: title, time: startTime,kind: .canceled)
+            
+        }else if hadBeenRestored{
+            //1.notify the this has been restored
+            notifManger.setNotification(objId: id, title: title, time: startTime,kind: .restored)
+            
+            //2.make somehow show reminder alert  when tapped on notification
         }
     }
 }

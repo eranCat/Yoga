@@ -26,7 +26,9 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
             self.logoImg.transform = .init(translationX: 0, y: -20)
         })
         
-        startSetup()
+        NotificationManager.shared.askForPermission { (isPermitted) in
+            self.startSetup()
+        }
         addReachabilityObserver()
     }
     deinit {

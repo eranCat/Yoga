@@ -82,8 +82,8 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidDisappear(_ animated: Bool) {
         let ds = DataSource.shared
-        ds.removeAllObserver(dataType: .classes)
-        ds.removeAllObserver(dataType: .events)
+//        ds.removeAllObserver(dataType: .classes)
+//        ds.removeAllObserver(dataType: .events)
     }
     
     override func viewDidAppear(_ animated: Bool) {

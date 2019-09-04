@@ -76,7 +76,9 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             [._sortTapped:#selector(onSortTapped(_:)),
             ._signedDataAdded:#selector(signedDataAdded(_:)),
             ._signedDataRemoved:#selector(signedDataRemoved(_:)),
-            ._dataCancled:#selector(onDataChanged(_:))]
+            ._signedDataChanged:#selector(onDataChanged(_:)),
+            ._dataCancled:#selector(onDataChanged(_:))
+        ]
         
         let centerDef = NotificationCenter.default
        
@@ -114,7 +116,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             
             let type = ui["type"] as? DataType,type == currentDataType,
             
-            let status = ui["status"] as? Status,status == .cancled
+            let status = ui["status"] as? Status//,status == .cancled
             
             else{return}
         

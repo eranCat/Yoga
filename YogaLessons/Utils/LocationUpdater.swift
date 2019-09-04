@@ -152,10 +152,10 @@ extension LocationUpdater:CLLocationManagerDelegate{
         case .notDetermined:
             print("we didn't request location permission yet")
         case .denied:
-            print("no permission")
+            print("no  location permission")
             showSetting()
         case .authorizedAlways,.authorizedWhenInUse:
-            print("we got permission")
+            print("we got location permission")
             startLocationUpdates()
         default:
             break

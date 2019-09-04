@@ -496,7 +496,7 @@ class DataSource {
         
         
         let notificationAction = UIAlertAction(title: "Notify me".translated, style: .default) { _ in
-            NotificationManager.shared.setNotification(objId: dataObj.id!, title: title, time: startDate)
+            NotificationManager.shared.setNotification(objId: dataObj.id!, title: title, time: startDate, kind: .starting)
         }
         
         let calendar = UIAlertAction(title: "Add to calendar".translated,
