@@ -26,9 +26,10 @@ class EventInfoViewController: UITableViewController {
     
     @IBOutlet weak var dateLbl: UILabel!//v
    
-    @IBOutlet weak var peopleStack: UIStackView!
-    
     @IBOutlet weak var amountOfPplGoing: UILabel!//√x
+    
+    @IBOutlet weak var pplAreGoingLbl: UILabel!
+    var pplAreGoingDefaultText:String?
     
     @IBOutlet weak var maxPplAmount: UILabel!//v
     
@@ -102,7 +103,7 @@ class EventInfoViewController: UITableViewController {
         navigationItem.rightBarButtonItems = [signBtn,shareBtn]
     }
     @objc func openShareMenu() {
-        ShatringManager.share(data:self.eventModel)
+        SharingManager.share(data:self.eventModel)
     }
     
     func setSignBtn(isSigned:Bool) {
@@ -159,19 +160,24 @@ class EventInfoViewController: UITableViewController {
         }
         
         //        MARK: participants
+        
         if eventModel.numOfParticipants > 0{
+            [amountOfPplGoing,pplAreGoingLbl,maxPplAmount].forEach{$0.isHidden = false}
+            pplAreGoingLbl.text = pplAreGoingDefaultText ?? pplAreGoingLbl.text
             amountOfPplGoing.text = eventModel.numOfParticipants.formattedAmount
         }else{
             //maybe hide or say no one's coming
+            pplAreGoingDefaultText = pplAreGoingLbl.text
+            pplAreGoingLbl.text = "be the first one to sign in 🥳".translated
+            [amountOfPplGoing,maxPplAmount].forEach{$0.isHidden = true}
         }
         
         if eventModel.maxParticipants != -1{
-            maxPplAmount.text = maxPplAmount.text ?? "" + "\(eventModel.maxParticipants)"
-        }
-        else{
+            maxPplAmount.text = "out of ".translated + "\(eventModel.maxParticipants)"
+//            maxPplAmount.isHidden = false
+        }else{
             maxPplAmount.isHidden = true
         }
-        
         
         //get teacher obj from event
         postingUser = DataSource.shared.getUser(by: eventModel.uid)

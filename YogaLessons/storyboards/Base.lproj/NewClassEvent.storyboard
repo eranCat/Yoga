@@ -335,7 +335,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="image-holder" translatesAutoresizingMaskIntoConstraints="NO" id="FxV-XP-pkH">
                                                     <rect key="frame" x="16" y="16" width="382" height="110"/>
-                                                    <color key="backgroundColor" name="Ok"/>
+                                                    <color key="backgroundColor" name="ColorPrimary"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="110" id="fmp-aA-0cV"/>
@@ -427,8 +427,8 @@
         <namedColor name="ColorDanger">
             <color red="0.84200000762939453" green="0.2370000034570694" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Ok">
-            <color red="0.24899999797344208" green="0.74800002574920654" blue="0.51499998569488525" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="ColorPrimary">
+            <color red="0.34400001168251038" green="0.7929999828338623" blue="0.89099997282028198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

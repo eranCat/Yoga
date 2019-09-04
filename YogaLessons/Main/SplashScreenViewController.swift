@@ -45,7 +45,7 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
                 return
             }
         
-        SVProgressHUD.showProgress(0)
+        SVProgressHUD.show()
         ds.loadUsers { usersErr in//closure 1 - loding users finished
             
             if let err = usersErr{
@@ -54,46 +54,33 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
                 return
             }
             
-            if self.ds.setLoggedUser() { //we have a logged user and also got it from the DB
+            if self.ds.setLoggedUser() { //#2 we have a logged user and also got it from the DB
                 
-                SVProgressHUD.showProgress(0.3)
-
                 LocationUpdater.shared.getCurrentCountryCode() { (code) in
-                    SVProgressHUD.showProgress(0.4)
                     
-                    self.ds.loadData{ error in //colsure 2 - load all data done
+                    self.ds.loadData{ error in //colsure 3 - load all data done
                         if let error = error{
                             SVProgressHUD.dismiss()
                             ErrorAlert.show(message: error.localizedDescription)
                             return
                         }
                         
-                        SVProgressHUD.showProgress(0.5)
-                        
-                        
-                        MoneyConverter.shared.connect{
-                            SVProgressHUD.showProgress(1)
-                            self.openMain()
-                        }//closue 3 - finished connecting to money api
+                        MoneyConverter.shared.connect{//closue 4 - finished connecting to money api
+                            
+                            SVProgressHUD.dismiss()
+                            
+                            self.show(self.newVC(id: "mainNav"), sender: nil)
+                        }
                     }
                 }
                 
             }else{
                 SVProgressHUD.dismiss()
-                self.openLogin()
+                
+                let login = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
+                self.present(UINavigationController(rootViewController: login), animated: true)
             }
         }
     }
     
-
-    fileprivate func openLogin() {
-        let login = newVC(storyBoardName: "UserLogin", id: "LoginVC")
-        present(UINavigationController(rootViewController: login), animated: true)
-    }
-    
-    
-    func openMain() {
-        SVProgressHUD.dismiss()
-        show(newVC(id: "mainNav"), sender: nil)
-    }
 }

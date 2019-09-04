@@ -124,16 +124,14 @@ class MainTabBarController: UITabBarController {
     
     func subscribeObservers() {
         
-        let names:[Notification.Name] = [._sortTapped,._signedDataAdded]
+        let observers :[Notification.Name : Selector] =
+            [._sortTapped:#selector(onSortTapped(_:)),
+             ._signedDataAdded:#selector(onSigned(_:))]
         
-        let selectors = [#selector(onSortTapped(_:)),#selector(onSigned(_:))]
-        
-        zip(names, selectors).forEach{addObserver($0,$1)}
-    }
-    
-    func addObserver(_ name:Notification.Name,_ selector:Selector) {
-        NotificationCenter.default
-            .addObserver(self, selector: selector, name: name, object: nil)
+        let def = NotificationCenter.default
+        observers.forEach{
+            def.addObserver(self, selector: $1, name: $0, object: nil)
+        }
     }
     
     @objc func onSortTapped(_ notification:NSNotification) {

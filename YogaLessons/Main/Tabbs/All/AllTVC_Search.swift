@@ -35,8 +35,8 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         
         searchBar.placeholder = "searchBy".translated
         
-        searchBar.barTintColor = UIColor._accent
-        
+        searchBar.barTintColor = ._accent
+        searchBar.tintColor = ._btnTint
         let cancelBtnAttr:[NSAttributedString.Key:UIColor] = [.foregroundColor: .white]
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelBtnAttr , for: .normal)
@@ -75,10 +75,6 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
     }
     
     func updateSearch(_ query:String) {
-        
-        /*let info = ["q":query,"filterKey":searchType ?? SearchKeyType.title] as [String : Any]
-        
-        NotificationCenter.default.post(name: ._searchQueryTyped, object: nil, userInfo: info)*/
         
         filtered[currentDataType] = dataSource.filter(dataType: currentDataType, by: searchType ?? SearchKeyType.title, query: query)
         reload()

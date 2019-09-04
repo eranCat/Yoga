@@ -61,14 +61,6 @@ class SignupViewController: UIViewController,TextFieldReturn {
         
         navigationController?.isNavigationBarHidden = false
         
-        for v in view.subviews{
-            if let scroller = v as? UIScrollView{
-                scroller.keyboardDismissMode = .onDrag
-            }
-        }
-        
-        delegateTextFields(root: scrollView)
-        
         tf_name.becomeFirstResponder()
         initTextFields(tf_name,tf_email,tf_pass)
     }

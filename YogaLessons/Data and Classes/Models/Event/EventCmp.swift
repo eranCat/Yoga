@@ -56,16 +56,16 @@ extension Event:Filterable{
         switch key {
             
         case .title:
-            filteredString = title.lowercased()
+            filteredString = title
         case .location:
-            filteredString = locationName.lowercased()
+            filteredString = locationName
         case .teacher:
             let ds = DataSource.shared
             let user = ds.teachersList[uid] ?? ds.usersList[uid]
             filteredString = user?.name ?? ""
         }
         
-        return filteredString.contains(q.lowercased())
+        return filteredString.lowercased().starts(with:q.lowercased())
     }
 }
 

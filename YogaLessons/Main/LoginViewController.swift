@@ -27,6 +27,7 @@ class LoginViewController: UIViewController,TextFieldReturn {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = true
+        UINavigationBar.appearance().tintColor = ._btnTint
         
         email.becomeFirstResponder()
         
@@ -51,7 +52,7 @@ class LoginViewController: UIViewController,TextFieldReturn {
         })
         
         
-        UV.animateToIdentity(views: mainStack.arrangedSubviews,duration: 1.2)
+        UV.animateToIdentity(views: mainStack.arrangedSubviews,duration: 1)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

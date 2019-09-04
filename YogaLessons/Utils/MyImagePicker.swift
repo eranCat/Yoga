@@ -51,17 +51,17 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
         })
         
         if let action = action(for: .camera, title: "Take a photo".translated) {
-            alert.addAction(action)
+            alert.aAction(action)
             action.setValue(#imageLiteral(resourceName: "slr_camera"), forKey: "image")
         }
         
         if let action = action(for: .savedPhotosAlbum, title: "Camera roll".translated) {
-            alert.addAction(action)
+            alert.aAction(action)
             action.setValue(#imageLiteral(resourceName: "pictures_folder"), forKey: "image")
         }
         
         if let action = action(for: .photoLibrary, title: "Photo library".translated) {
-            alert.addAction(action)
+            alert.aAction(action)
             action.setValue(#imageLiteral(resourceName: "pictures_folder"), forKey: "image")
         }
         
@@ -73,10 +73,10 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
             
             remove.setValue(trashImg, forKey: "image")
             
-            alert.addAction(remove)
+            alert.aAction(remove)
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel".translated, style: .cancel,handler: { _ in}))
+        alert.aAction(UIAlertAction(title: "Cancel".translated, style: .cancel,handler: { _ in}))
         
         guard let sourceVC = UIApplication.shared.presentedVC,
             let srcView = sourceVC.view

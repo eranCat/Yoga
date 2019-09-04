@@ -90,6 +90,15 @@ extension UIAlertController {
     func aAction(_ action: UIAlertAction) -> UIAlertController {
         self.addAction(action)
         
+        switch action.style {
+        case .destructive:
+            action.tintColor = ._danger
+        case .cancel:
+            break
+        default:
+            break
+        }
+        
         return self
     }
     func addActions(_ actions:[UIAlertAction]) -> UIAlertController {
@@ -97,4 +106,17 @@ extension UIAlertController {
         return self
     }
     
+}
+
+extension UIAlertAction{
+    var tintColor:UIColor?{
+        get{
+            return value(forKey: "titleTextColor") as? UIColor
+        }
+        set(c){
+            if let color = c{
+                setValue(color, forKey: "titleTextColor")
+            }
+        }
+    }
 }

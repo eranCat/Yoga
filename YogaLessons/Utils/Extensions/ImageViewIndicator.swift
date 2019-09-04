@@ -29,7 +29,8 @@ extension UIImageView {
             activityIndicator.roundCorners(radius: activityIndicator.frame.width/2)
 
 
-            activityIndicator.center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+            activityIndicator.center = CGPoint(x: frame.size.width / 2,
+                                                    y: frame.size.height / 2)
 
             activityIndicator.autoresizingMask =
                 [.flexibleLeftMargin , .flexibleRightMargin , .flexibleTopMargin , .flexibleBottomMargin]

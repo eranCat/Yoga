@@ -85,7 +85,7 @@ class ClassInfoViewController: UITableViewController {
     }
     
     @objc func openShareMenu() {
-        ShatringManager.share(data:classModel)
+        SharingManager.share(data:classModel)
     }
     
     fileprivate func setSigninBtn( isSigned:Bool) {

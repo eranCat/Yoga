@@ -72,22 +72,16 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     
     func subscribeObservers() {
         
-        let names:[Notification.Name] =
-            [._sortTapped,
-             ._signedDataAdded,
-             ._signedDataRemoved,
-             ._dataCancled]
-        
-        let selectors:[Selector] = [#selector(onSortTapped(_:)),
-                                     #selector(signedDataAdded(_:)),
-                                     #selector(signedDataRemoved(_:)),
-                                     #selector(onDataChanged(_:)),
-                                    ]
-        
+        let observers:[Notification.Name:Selector] =
+            [._sortTapped:#selector(onSortTapped(_:)),
+            ._signedDataAdded:#selector(signedDataAdded(_:)),
+            ._signedDataRemoved:#selector(signedDataRemoved(_:)),
+            ._dataCancled:#selector(onDataChanged(_:))]
         
         let centerDef = NotificationCenter.default
-        for (name,selector) in zip(names, selectors){
-            centerDef.addObserver(self,selector: selector,name: name,object: nil)
+       
+        observers.forEach{
+            centerDef.addObserver(self, selector: $1, name: $0, object: nil)
         }
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShatringManager {
+class SharingManager {
     class func share(data:DynamicUserCreateable) {
         
         let data = data as! (Titled & Located & Scheduled)

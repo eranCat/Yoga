@@ -109,16 +109,16 @@
 
 "About me..." = "כמה מילים על עצמי...";
 
-"confirmUnsign" = "בטוח לבטל את ההרשמה מה";
-"Choose a reminder" = "בחר תזכורת";
+"confirmUnsign" = "האם לבטל את ההרשמה מה";
+"Choose a reminder" = "בחירת תזכורת";
 "remindingYou" = "להזכירך ";
 "is about to begin at" = "עומד להתחיל ב";
 
-"remindBeforeStart" = "להזכיר לפני שזה מתחיל";
+"remindBeforeStart" = "האם להזכיר לך לפני שזה מתחיל";
 
 "Notify me" = "תזכיר לי";
 
-"Add to calendar" = "הוסף ללוח השנה";
+"Add to calendar" = "הוספה ללוח השנה";
 
 "Don't remind me" = "אל תזכיר לי";
 
@@ -150,7 +150,7 @@
 "Only teachers can create clasess!" = "רק מורים יכולים לפרסם שיעורים";
 
 "noInternet" = "אין חיבור לאינטרנט";
-"checkNet" = "כדאי לבדוק את חיבור האינטרנט ולחזור אחרי כן";
+"checkNet" = "יש לבדוק את חיבור האינטרנט ולחזור אחרי כן";
 "internetSetting" = "הגדרות אינטרנט";
 
 "ages" = "טווח גילאים";
@@ -159,13 +159,13 @@
 
 //"An email with password reset has been sent. check your email"
 "emailSent" = "נשלח אימייל לאיפוס. בדוק את האימייל שלך להמשך";
-"Check email" = "פתח אימייל";
+"Check email" = "פתיחת אימייל";
 "yname" = "שמך";
 "name" = "שם";
 "birth date" = "תאריך הלידה";
 
 "Sign out warning" = "יציאה מהחשבון";
-"confirmLogout" = "מאשר יציאה מהחשבון ?";
+"confirmLogout" = "האם לצאת מהחשבון ?";
 "Yes, bye." = "כן, להתראות.";
 "Incorrect value" = "ערך לא טוב";
 
@@ -174,19 +174,19 @@
 "Search for location" = "חיפוש מקום";
 "Location access denied" = "גישה למיקום נדחתה";
 
-"Open with apple maps" = "פתח מפות";
-"Open with waze" = "פתח עם Waze";
-"Open settings" = "פתח הגדרות";
+"Open with apple maps" = "פתיחת מפות";
+"Open with waze" = "פתיחה עם Waze";
+"Open settings" = "פתיחת הגדרות";
 
 //"You need to allow permission if you want current location";
-"allowLocation" = "אפשר מיקום בשביל למצוא את מיקומך הנוכחי";
+"allowLocation" = "יש לאפשר מיקום בשביל למצוא את מיקומך הנוכחי";
 
 //"Are you sure you want to cancel this ";
 "confirmCancel" = "האם לבטל את ה";
 
 //image picker
 "Search photo online" = "חיפוש תמונה מהאינטרנט";
-"Search photos" = "חפש תמונות";
+"Search photos" = "חיפוש תמונות";
 "Take a photo" = "צילום תמונה";
 "Camera roll" = "צילומים";
 "Photo library" = "ספריית תמונות";
@@ -197,7 +197,7 @@
 "changeCamSetting" = "נא לשנות את ההגדרות על מנת לצלם תמונה חדשה";
 "Allow Camera" = "אפשר מצלמה";
 
-"Choose a number" = "בחר מספר";
+"Choose a number" = "נא לבחור מספר";
 "No maximum" = "בלי הגבלה";
 
 "Grant" = "אפשר";"grant" = "אפשר" ;
@@ -207,3 +207,5 @@
 "atD" = "בתאריך";
 "on" = "ב:";
 "between the hours " = "בין השעות ";
+"out of " = "מתוך ";
+"be the first one to sign in 🥳" = "לא נרשמו עדיין";

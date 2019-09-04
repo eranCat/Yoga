@@ -210,7 +210,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         
         let shareAction = UIContextualAction(style: .normal, title: "Share".translated) { (_, actionView, complete) in
             
-            ShatringManager.share(data: data)
+            SharingManager.share(data: data)
         }
         shareAction.image = #imageLiteral(resourceName: "share")
         shareAction.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
@@ -242,7 +242,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             }
             signAction.backgroundColor =  ._accent
             
-            let actions = (data as! Statused).status == .open ?  [signAction,shareAction] : [shareAction]
+            let actions = (data as! Statused).status == .open ?  [signAction,shareAction] : []
             return .init(actions: actions)
         }
     }

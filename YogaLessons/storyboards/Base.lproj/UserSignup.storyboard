@@ -19,122 +19,110 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infoBG" translatesAutoresizingMaskIntoConstraints="NO" id="gUi-Ix-x7H">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="896"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wxp-h1-WgN">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="6Ft-ju-Kks" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
-                                        <rect key="frame" x="157" y="20" width="100" height="100"/>
-                                        <color key="backgroundColor" red="0.99175518750000002" green="0.99721795319999995" blue="0.93332499270000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="9LL-Dh-aGV"/>
-                                            <constraint firstAttribute="width" secondItem="6Ft-ju-Kks" secondAttribute="height" multiplier="1:1" id="lnh-Si-hbT"/>
-                                            <constraint firstAttribute="height" constant="100" id="w8J-pu-h9O"/>
-                                        </constraints>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="Jy5-wI-lPF" appends="YES" id="bHK-9E-MFf"/>
-                                        </connections>
-                                    </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="UHm-9r-1Lq" userLabel="inputs">
-                                        <rect key="frame" x="20" y="136" width="374" height="202"/>
-                                        <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="753" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gKh-st-Myb" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="374" height="33"/>
-                                                <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <textInputTraits key="textInputTraits" textContentType="name"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bgc-vt-8x5" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="57" width="374" height="33"/>
-                                                <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yeD-eh-Pfg" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="114" width="374" height="33"/>
-                                                <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birth Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="olF-eX-pVC" customClass="DateTextField" customModule="YogaLessons" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="171" width="374" height="31"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eed-dC-NTs" customClass="BetterTextView" customModule="YogaLessons" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="354" width="374" height="170"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="170" id="ZM4-9u-tcJ"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="PlaceHolder" value="About me..."/>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="defaultTextColor">
-                                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="czo-gm-Ax9">
-                                        <rect key="frame" x="20" y="540" width="374" height="31"/>
-                                        <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="yI9-ak-F6e" customClass="UserTypeTextField" customModule="YogaLessons" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="162" height="31"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Level" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EXW-sk-1Xg" customClass="UserLevelField" customModule="YogaLessons" customModuleProvider="target">
-                                                <rect key="frame" x="178" y="0.0" width="196" height="31"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="user" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="6Ft-ju-Kks" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
+                                <rect key="frame" x="157" y="64" width="100" height="100"/>
+                                <color key="backgroundColor" red="0.99175518750000002" green="0.99721795319999995" blue="0.93332499270000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="UHm-9r-1Lq" secondAttribute="trailing" constant="20" id="1jV-Fl-5ue"/>
-                                    <constraint firstItem="eed-dC-NTs" firstAttribute="leading" secondItem="wxp-h1-WgN" secondAttribute="leading" constant="20" id="HUk-u7-wX8"/>
-                                    <constraint firstItem="UHm-9r-1Lq" firstAttribute="top" secondItem="6Ft-ju-Kks" secondAttribute="bottom" constant="16" id="JH9-T1-nMh"/>
-                                    <constraint firstItem="6Ft-ju-Kks" firstAttribute="top" secondItem="wxp-h1-WgN" secondAttribute="top" constant="20" id="b6d-rR-33S"/>
-                                    <constraint firstAttribute="bottom" secondItem="eed-dC-NTs" secondAttribute="bottom" constant="244" id="cBJ-oZ-DOU"/>
-                                    <constraint firstAttribute="trailing" secondItem="eed-dC-NTs" secondAttribute="trailing" constant="20" id="eSw-5l-azy"/>
-                                    <constraint firstAttribute="trailing" secondItem="czo-gm-Ax9" secondAttribute="trailing" constant="20" id="eer-Mr-zWM"/>
-                                    <constraint firstItem="eed-dC-NTs" firstAttribute="top" secondItem="UHm-9r-1Lq" secondAttribute="bottom" constant="16" id="fif-dj-oiv"/>
-                                    <constraint firstItem="UHm-9r-1Lq" firstAttribute="leading" secondItem="wxp-h1-WgN" secondAttribute="leading" constant="20" id="iXk-ap-x8P"/>
-                                    <constraint firstItem="czo-gm-Ax9" firstAttribute="top" secondItem="eed-dC-NTs" secondAttribute="bottom" constant="16" id="mPU-oh-YJ5"/>
-                                    <constraint firstItem="6Ft-ju-Kks" firstAttribute="centerX" secondItem="wxp-h1-WgN" secondAttribute="centerX" id="uy2-lE-fPG"/>
-                                    <constraint firstItem="czo-gm-Ax9" firstAttribute="leading" secondItem="wxp-h1-WgN" secondAttribute="leading" constant="20" id="vf9-dc-gIy"/>
-                                    <constraint firstItem="UHm-9r-1Lq" firstAttribute="centerX" secondItem="wxp-h1-WgN" secondAttribute="centerX" id="y5d-aD-1dk"/>
+                                    <constraint firstAttribute="width" constant="100" id="9LL-Dh-aGV"/>
+                                    <constraint firstAttribute="width" secondItem="6Ft-ju-Kks" secondAttribute="height" multiplier="1:1" id="lnh-Si-hbT"/>
+                                    <constraint firstAttribute="height" constant="100" id="w8J-pu-h9O"/>
                                 </constraints>
-                            </scrollView>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Jy5-wI-lPF" appends="YES" id="bHK-9E-MFf"/>
+                                </connections>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="UHm-9r-1Lq" userLabel="inputs">
+                                <rect key="frame" x="20" y="180" width="374" height="202"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="753" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gKh-st-Myb" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="33"/>
+                                        <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <textInputTraits key="textInputTraits" textContentType="name"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bgc-vt-8x5" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="57" width="374" height="33"/>
+                                        <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yeD-eh-Pfg" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="114" width="374" height="33"/>
+                                        <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birth Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="olF-eX-pVC" customClass="DateTextField" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="171" width="374" height="31"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eed-dC-NTs" customClass="BetterTextView" customModule="YogaLessons" customModuleProvider="target">
+                                <rect key="frame" x="20" y="398" width="374" height="188"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="170" id="ZM4-9u-tcJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="PlaceHolder" value="About me..."/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="defaultTextColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="czo-gm-Ax9">
+                                <rect key="frame" x="20" y="602" width="374" height="31"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="yI9-ak-F6e" customClass="UserTypeTextField" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="162" height="31"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Level" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EXW-sk-1Xg" customClass="UserLevelField" customModule="YogaLessons" customModuleProvider="target">
+                                        <rect key="frame" x="178" y="0.0" width="196" height="31"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="user" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="UHm-9r-1Lq" firstAttribute="top" secondItem="6Ft-ju-Kks" secondAttribute="bottom" constant="16" id="1l5-yK-ChP"/>
+                            <constraint firstItem="xGM-y5-Rl7" firstAttribute="trailing" secondItem="eed-dC-NTs" secondAttribute="trailing" constant="20" id="4r4-zc-5IY"/>
+                            <constraint firstItem="eed-dC-NTs" firstAttribute="top" secondItem="UHm-9r-1Lq" secondAttribute="bottom" constant="16" id="5sr-0v-fm5"/>
+                            <constraint firstItem="eed-dC-NTs" firstAttribute="leading" secondItem="xGM-y5-Rl7" secondAttribute="leading" constant="20" id="7hC-Km-Yuo"/>
+                            <constraint firstItem="eed-dC-NTs" firstAttribute="height" secondItem="DVf-St-k7h" secondAttribute="height" multiplier="0.2" id="80S-28-xsT"/>
                             <constraint firstItem="gUi-Ix-x7H" firstAttribute="top" secondItem="xGM-y5-Rl7" secondAttribute="top" id="BIk-GH-WZT"/>
                             <constraint firstItem="gUi-Ix-x7H" firstAttribute="leading" secondItem="xGM-y5-Rl7" secondAttribute="leading" id="CoF-gg-I80"/>
                             <constraint firstAttribute="bottom" secondItem="gUi-Ix-x7H" secondAttribute="bottom" id="I4w-hj-Fzc"/>
+                            <constraint firstItem="czo-gm-Ax9" firstAttribute="top" secondItem="eed-dC-NTs" secondAttribute="bottom" constant="16" id="Myn-IV-SKm"/>
                             <constraint firstItem="gUi-Ix-x7H" firstAttribute="trailing" secondItem="xGM-y5-Rl7" secondAttribute="trailing" id="XiS-ap-Pjq"/>
-                            <constraint firstItem="wxp-h1-WgN" firstAttribute="width" secondItem="xGM-y5-Rl7" secondAttribute="width" id="idk-g4-GgS"/>
-                            <constraint firstItem="wxp-h1-WgN" firstAttribute="top" secondItem="xGM-y5-Rl7" secondAttribute="top" id="qYc-ks-XZT"/>
-                            <constraint firstItem="wxp-h1-WgN" firstAttribute="height" secondItem="xGM-y5-Rl7" secondAttribute="height" id="w5r-bB-Nt2"/>
-                            <constraint firstItem="wxp-h1-WgN" firstAttribute="leading" secondItem="gUi-Ix-x7H" secondAttribute="leading" id="wYM-wq-TSK"/>
+                            <constraint firstItem="6Ft-ju-Kks" firstAttribute="centerX" secondItem="DVf-St-k7h" secondAttribute="centerX" id="ZvA-U8-mVm"/>
+                            <constraint firstItem="UHm-9r-1Lq" firstAttribute="leading" secondItem="xGM-y5-Rl7" secondAttribute="leading" constant="20" id="cj4-sn-cV9"/>
+                            <constraint firstItem="xGM-y5-Rl7" firstAttribute="trailing" secondItem="czo-gm-Ax9" secondAttribute="trailing" constant="20" id="hjm-3K-aBj"/>
+                            <constraint firstItem="czo-gm-Ax9" firstAttribute="leading" secondItem="xGM-y5-Rl7" secondAttribute="leading" constant="20" id="jbZ-id-Yze"/>
+                            <constraint firstItem="xGM-y5-Rl7" firstAttribute="trailing" secondItem="UHm-9r-1Lq" secondAttribute="trailing" constant="20" id="jgQ-KR-Nmh"/>
+                            <constraint firstItem="6Ft-ju-Kks" firstAttribute="top" secondItem="xGM-y5-Rl7" secondAttribute="top" constant="20" id="xxM-Bz-9Kz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xGM-y5-Rl7"/>
                     </view>
@@ -147,7 +135,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="profileImage" destination="6Ft-ju-Kks" id="lNh-FA-MAj"/>
-                        <outlet property="scrollView" destination="wxp-h1-WgN" id="ykA-A6-UKf"/>
                         <outlet property="tf_bDate" destination="olF-eX-pVC" id="X5Q-cI-nC1"/>
                         <outlet property="tf_email" destination="Bgc-vt-8x5" id="w4e-1q-AM3"/>
                         <outlet property="tf_level" destination="EXW-sk-1Xg" id="MPE-xQ-eu0"/>
