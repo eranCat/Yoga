@@ -14,11 +14,11 @@ class DataSource {
     static let shared = DataSource()
     
     //        MARK:if you don't want location sort, put false
-    fileprivate let isFilteringLocation = false
+    var isFilteringLocation = true
     //        MARK:if you don't want today sort, put false
-    fileprivate let isFilteringToday = false
+    var isFilteringToday = true
     //        MARK:if you don't want monthly sort, put false
-    fileprivate let isFilteringMonth = false
+    var isFilteringMonth = true
 
     let ref:DatabaseReference
     
@@ -85,11 +85,15 @@ class DataSource {
         //        MARK: remove from comment
         //        observeClassAdded()
         //        observeEventAdded()
+        
+        //        MARK: settings
+        listenToSettingsChanged()
     }
     
     deinit {
         removeAllObserver(dataType: .classes)
         removeAllObserver(dataType: .events)
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -251,44 +255,47 @@ class DataSource {
     
     fileprivate func convertValuesToClasses(_ values: [DataSnapshot], _ user: YUser) {
         
-        let today = Date()
-        let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: today)!
+        let today = Date().dateComps
+        let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: .init())!
+        
+        all_classes.removeAll()
+        signed_classes.removeAll()
+        teacherCreatedClasses.removeAll()
         
         for child in values{
             guard let json = child.value as? JSON
                 else{continue}
             
-//            let coordinate = CLLocationCoordinate2D(json[Class.Keys.location] as! JSON)
-//            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-//            guard self.isInRange(currentLocation: lastLocation, location: location)
-//                else{continue}
-            
             let aClass = Class(json)
             
-            if aClass.endDate >= today || !isFilteringToday{
-                //                    for class is cancled
+            if aClass.endDate.dateComps == today || !isFilteringToday{
+                
+                
+                let isUserSigned = user.signedClassesIDS.keys.contains(aClass.id!)
+                
                 if aClass.status != .cancled{
+                    
                     self.all_classes.insert(aClass, at: 0)//push to top
+                    
+                    if isUserSigned{
+                        self.signed_classes.insert(aClass, at: 0)
+                    }
+                    
                 }else{
+                    
                     self.all_classes.append(aClass)//add to bottom
+                    
+                    if isUserSigned{
+                        self.signed_classes.append(aClass)
+                    }
                 }
+                
             }
-            
-//                        uploads
+            //                        uploads
             if aClass.postedDate >= nextMonth || !isFilteringMonth{
                 if user.type == .teacher && aClass.uid == user.id{
                     
                     self.teacherCreatedClasses.append(aClass)
-                }
-            }
-            //                        signed
-            if aClass.endDate >= today || !isFilteringToday{
-                if let _ = user.signedClassesIDS[aClass.id!]{
-                    if aClass.status != .cancled{
-                        self.signed_classes.insert(aClass, at: 0)
-                    }else{
-                        self.signed_classes.append(aClass)
-                    }
                 }
             }
         }
@@ -296,41 +303,42 @@ class DataSource {
     
     fileprivate func convertValuesToEvents(_ values: [DataSnapshot], _ user: YUser) {
         
-        let today = Date()
-        let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: today)!
+        let today = Date().dateComps
+        let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: .init())!
+        
+        all_events.removeAll()
+        signed_events.removeAll()
+        userCreatedEvents.removeAll()
         
         for child in values{
             guard let json = child.value as? JSON
                 else{continue}
             
-//            let coordinate = CLLocationCoordinate2D(json[Event.Keys.location] as! JSON)
-//            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-//            guard self.isInRange(currentLocation: lastLocation, location: location)
-//                else{continue}
-            
             let event = Event(json)
             
-            if event.endDate >= today || !isFilteringToday{
+            if event.endDate.dateComps == today || !isFilteringToday{
+                
+                let isUserSigned = user.signedEventsIDS.keys.contains(event.id!)
+                
                 if event.status != .cancled{
-                    self.all_events.insert(event, at: 0)//push to top
+                    
+                    all_events.insert(event, at: 0)//push to top
+                    if isUserSigned{
+                        signed_events.insert(event, at: 0)
+                    }
+                    
                 }else{
-                    self.all_events.append(event)//add to bottom
+                    
+                    all_events.append(event)//add to bottom
+                    if isUserSigned{
+                        signed_events.append(event)
+                    }
                 }
             }
 //                        uploads
             if event.postedDate >= nextMonth || !isFilteringMonth{
                 if event.uid == user.id{
-                    self.userCreatedEvents.append(event)
-                }
-            }
-            //                        signed
-            if event.endDate >= today || !isFilteringToday{
-                if let _ = user.signedEventsIDS[event.id!]{
-                    if event.status != .cancled{
-                        self.signed_events.insert(event, at: 0)
-                    }else{
-                        self.signed_events.append(event)
-                    }
+                    userCreatedEvents.append(event)
                 }
             }
         }
@@ -343,12 +351,17 @@ class DataSource {
         let tableRef = ref.child(tableKey)
         var queriedRef:DatabaseQuery? = nil
 
-        if isFilteringLocation ,let code = LocationUpdater.shared.currentCountryCode{
-            queriedRef = tableRef.queryEqual(toValue: code, childKey: "countryCode")
+        if isFilteringLocation ,
+            let code = LocationUpdater.shared.currentCountryCode{
+            queriedRef = tableRef.queryOrdered(byChild: "countryCode")
+                                .queryEqual(toValue: code)
         }
     
-        (queriedRef ?? tableRef).queryOrdered(byChild: Class.Keys.postedDate)
-            .queryLimited(toLast: self.MaxPerBatch)
+        
+        let postedDateKey =  dType == .classes ? Class.Keys.postedDate : Event.Keys.postedDate
+        
+        (queriedRef ?? tableRef.queryOrdered(byChild: postedDateKey))
+            .queryLimited(toLast: MaxPerBatch)
             .observeSingleEvent(of: .value)
         { (snapshot, string) in
             
@@ -358,23 +371,15 @@ class DataSource {
                     return
             }
             
-            let user = YUser.currentUser!
+            guard let user = YUser.currentUser
+                else{return}
             
             switch dType{
                 
             case .classes:
-                
-                self.all_classes.removeAll()
-                self.signed_classes.removeAll()
-                self.teacherCreatedClasses.removeAll()
-                
                 self.convertValuesToClasses(values, user)
+                
             case .events:
-                
-                self.all_events.removeAll()
-                self.signed_events.removeAll()
-                self.userCreatedEvents.removeAll()
-                
                 self.convertValuesToEvents(values, user)
             }
             

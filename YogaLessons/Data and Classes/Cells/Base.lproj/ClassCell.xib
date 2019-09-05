@@ -37,9 +37,6 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1X5-6h-Uiw" secondAttribute="height" multiplier="1:1" id="bOu-kU-5ff"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="Circled" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                             </stackView>

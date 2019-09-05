@@ -77,7 +77,9 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             ._dataAdded : #selector(dataAdded(_:)),
             ._dataRemoved : #selector(dataRemoved(_:)),
             ._dataChanged : #selector(dataChanged(_:)),
-            ._signedTabSelected : #selector(signedTabSelected(_:))
+            ._signedTabSelected : #selector(signedTabSelected(_:)),
+            ._settingChanged : #selector(settingChanged(_:)),
+            ._reloadedAfterSettingChanged : #selector(reloadedAfterSettingChanged(_:))
         ]
         
         let centerDef = NotificationCenter.default
@@ -87,6 +89,14 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         }
     }
     
+    @objc func settingChanged(_ notification:NSNotification){
+        SVProgressHUD.show()
+    }
+    @objc func reloadedAfterSettingChanged(_ notification:NSNotification){
+        SVProgressHUD.dismiss()
+        tableView.reloadData()
+    }
+
     @objc func signedTabSelected(_ notification:NSNotification){
         searchController.dismiss(animated: true)
     }

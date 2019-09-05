@@ -80,20 +80,20 @@ class MainTabBarController: UITabBarController {
         navigationItem.title = title.capitalized
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        let ds = DataSource.shared
+//    override func viewDidDisappear(_ animated: Bool) {
+//        let ds = DataSource.shared
 //        ds.removeAllObserver(dataType: .classes)
 //        ds.removeAllObserver(dataType: .events)
-    }
+//    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        let ds = DataSource.shared
-//        ds.observeClassAdded()
-        ds.observeClassChanged()
-//        ds.observeEventAdded()
-        ds.observeEventChanged()
-        
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        let ds = DataSource.shared
+////        ds.observeClassAdded()
+//        ds.observeClassChanged()
+////        ds.observeEventAdded()
+//        ds.observeEventChanged()
+//
+//    }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         

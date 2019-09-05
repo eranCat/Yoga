@@ -42,12 +42,9 @@
                                                                         <constraint firstAttribute="width" secondItem="MDW-FE-bw7" secondAttribute="height" multiplier="1:1" id="SXD-JV-cXs"/>
                                                                         <constraint firstAttribute="width" constant="100" id="ni0-XP-AYN"/>
                                                                     </constraints>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="Circled" value="YES"/>
-                                                                    </userDefinedRuntimeAttributes>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="teacher name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RV-zS-Xjb" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
-                                                                    <rect key="frame" x="8" y="121" width="111" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="111" width="127" height="31.5"/>
                                                                     <color key="backgroundColor" name="ColorPrimary"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                     <nil key="textColor"/>

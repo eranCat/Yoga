@@ -13,16 +13,21 @@ import UIKit
 class LocationUpdater:NSObject {
     static let shared = LocationUpdater()
     
-    private let locationManager = CLLocationManager()
+    private lazy var locationManager = CLLocationManager()
     
     var currentCountryCode:String?
     
     override private init() {
         super.init()
+                
         locationManager.delegate = self
         
-//        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+//        locationManager.requestAlwaysAuthorization()
+        
+        getCurrentCountryCode { (code) in
+            
+        }
     }
     
     func getLastKnowLocation() -> CLLocation? {
@@ -35,6 +40,8 @@ class LocationUpdater:NSObject {
         locationManager.distanceFilter = 1000//kCLDistanceFilterNone// in meters
         
         locationManager.startUpdatingLocation()
+        
+        locationManager.requestLocation()
     }
     
     class func hasPermission() -> Bool{
@@ -77,11 +84,14 @@ class LocationUpdater:NSObject {
         var installedNavigationApps = [UIAlertAction]()
         
         let mapsAction = UIAlertAction(title: "Open with apple maps".translated, style: .default){ action in
+            
+            var items:[MKMapItem] = [destination]
+            
             if let src = source{
-                MKMapItem.openMaps(with: [src, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-            }else{
-                MKMapItem.openMaps(with: [destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+                items.insert(src, at: 0)
             }
+            
+            MKMapItem.openMaps(with: [destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
         }
         
         installedNavigationApps += [mapsAction]

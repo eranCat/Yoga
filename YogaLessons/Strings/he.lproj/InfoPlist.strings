@@ -1,0 +1,19 @@
+/* 
+  InfoPlist.strings
+  YogaLessons
+
+  Created by Eran karaso on 05/09/2019.
+  Copyright © 2019 Eran karaso. All rights reserved.
+*/
+//MARK: Permissions
+
+//MARK: location
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "נצטרך את המיקום שלך ";
+"NSLocationWhenInUseUsageDescription" = "נצטרך גישה למיקום בזמן שימוש באפליקציה";
+
+//MARK: Canledar
+"NSCalendarsUsageDescription" = "נצטרך גישה ללוח השנה כדי להוסיף תזכורות לשיעורים ואירועים";
+
+//MARK: Camera and gallery
+"NSCameraUsageDescription" = "יש צורך באישור גישה למצלמה כדי לצלם תמונה";
+"NSPhotoLibraryUsageDescription" = "יש צורך בגישה לגלריה כדי לבחור תמונה";

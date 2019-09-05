@@ -12,8 +12,6 @@ import Reachability
 
 class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate {
     
-    lazy var ds = {return DataSource.shared}()
-
     @IBOutlet weak var loadingLbl: PaddingLabel!
     
     @IBOutlet weak var logoImg: UIImageView!
@@ -21,13 +19,15 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     override func viewDidLoad() {
         navigationController?.isToolbarHidden = true
         
-        UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat,.autoreverse,.curveEaseIn], animations: {
+        UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat,.autoreverse,.curveEaseOut], animations: {
             
             self.logoImg.transform = .init(translationX: 0, y: -20)
         })
         
-        NotificationManager.shared.askForPermission { (isPermitted) in
-            self.startSetup()
+        NotificationManager.shared.askForPermission { (granted) in
+            DispatchQueue.main.async {
+                self.startSetup()
+            }
         }
         addReachabilityObserver()
     }
@@ -48,41 +48,43 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
             }
         
         SVProgressHUD.show()
+        
+        let ds = DataSource.shared
+        
         ds.loadUsers { usersErr in//closure 1 - loding users finished
             
-            if let err = usersErr{
-                SVProgressHUD.dismiss()
-                ErrorAlert.show(message: err.localizedDescription)
-                return
-            }
-            
-            if self.ds.setLoggedUser() { //#2 we have a logged user and also got it from the DB
-                
-                LocationUpdater.shared.getCurrentCountryCode() { (code) in
-                    
-                    self.ds.loadData{ error in //colsure 3 - load all data done
-                        if let error = error{
-                            SVProgressHUD.dismiss()
-                            ErrorAlert.show(message: error.localizedDescription)
-                            return
-                        }
-                        
-                        MoneyConverter.shared.connect{//closue 4 - finished connecting to money api
-                            
-                            SVProgressHUD.dismiss()
-                            
-                            self.show(self.newVC(id: "mainNav"), sender: nil)
-                        }
-                    }
+                if let err = usersErr{
+                    SVProgressHUD.dismiss()
+                    ErrorAlert.show(message: err.localizedDescription)
+                    return
                 }
                 
-            }else{
-                SVProgressHUD.dismiss()
-                
-                let login = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
-                self.present(UINavigationController(rootViewController: login), animated: true)
+                if ds.setLoggedUser() {
+                    
+                    LocationUpdater.shared.getCurrentCountryCode() { (code) in
+                    
+                        MoneyConverter.shared.connect{
+                            ds.loadData{ error in
+                                if let error = error{
+                                    SVProgressHUD.dismiss()
+                                    ErrorAlert.show(message: error.localizedDescription)
+                                    return
+                                }
+                            
+                                
+                                SVProgressHUD.dismiss()
+                                
+                                self.show(self.newVC(id: "mainNav"), sender: nil)
+                            }
+                        }
+                    }
+                }else{
+                    SVProgressHUD.dismiss()
+                    
+                    let login = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
+                    self.present(UINavigationController(rootViewController: login),
+                                 animated: true)
+                }
             }
-        }
     }
-    
 }

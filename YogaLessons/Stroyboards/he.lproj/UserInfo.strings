@@ -1,4 +1,3 @@
-
 /* Class = "UINavigationItem"; title = "Name"; ObjectID = "1gU-B8-Y3A"; */
 "1gU-B8-Y3A.title" = "שם";
 
@@ -12,10 +11,16 @@
 "KKe-Nf-Ob5.placeholder" = "תאריך לידה";
 
 /* Class = "UIBarButtonItem"; title = "Sign out"; ObjectID = "SRk-fS-VJ9"; */
-"SRk-fS-VJ9.title" = "התנתק";
+"SRk-fS-VJ9.title" = "התנתקות";
 
 /* Class = "UIButton"; normalTitle = "Reset password"; ObjectID = "eaw-SY-zX8"; */
 "eaw-SY-zX8.normalTitle" = "איפוס סיסמא עם אימייל";
 
 /* Class = "UITextField"; placeholder = "Name"; ObjectID = "qts-uv-dPj"; */
 "qts-uv-dPj.placeholder" = "שם";
+
+/* Class = "UIButton"; highlightedTitle = "Open settings"; ObjectID = "RcA-NB-PEC"; */
+"RcA-NB-PEC.highlightedTitle" = "פתיחת הגדרות";
+
+/* Class = "UIButton"; normalTitle = "Open settings"; ObjectID = "RcA-NB-PEC"; */
+"RcA-NB-PEC.normalTitle" = "פתיחת הגדרות";

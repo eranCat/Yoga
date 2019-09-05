@@ -33,34 +33,34 @@
                                 </connections>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="T4u-98-t3Q" userLabel="inputs">
-                                <rect key="frame" x="20" y="176" width="374" height="262"/>
+                                <rect key="frame" x="20" y="176" width="374" height="264"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="753" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qts-uv-dPj" customClass="BlurredTextField" customModule="YogaLessons" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="31"/>
                                         <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" textContentType="username"/>
                                         <connections>
                                             <action selector="nameChanged:" destination="wjS-2q-Fqn" eventType="editingDidEnd" id="DPG-7o-Y2g"/>
                                         </connections>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Nbv-LY-Tr5" userLabel="tf pickers">
-                                        <rect key="frame" x="0.0" y="54" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="55" width="374" height="31"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Level" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fo4-pu-aql" customClass="UserLevelField" customModule="YogaLessons" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="136" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="131" height="31"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="user" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birth Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KKe-Nf-Ob5" customClass="DateTextField" customModule="YogaLessons" customModuleProvider="target">
-                                                <rect key="frame" x="146" y="0.0" width="228" height="30"/>
+                                                <rect key="frame" x="141" y="0.0" width="233" height="31"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
                                                     <action selector="birthDateChanged:" destination="wjS-2q-Fqn" eventType="editingDidEnd" id="5PK-b8-Wch"/>
@@ -70,10 +70,10 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bXr-1M-UQZ" customClass="BetterTextView" customModule="YogaLessons" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="108" width="374" height="154"/>
+                                        <rect key="frame" x="0.0" y="110" width="374" height="154"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="PlaceHolder" value="About me..."/>
@@ -85,9 +85,9 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaw-SY-zX8">
-                                <rect key="frame" x="24" y="462" width="366" height="39"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <rect key="frame" x="24" y="464" width="366" height="42"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="22"/>
                                 <state key="normal" title="Reset password">
                                     <color key="titleColor" name="ColorDanger"/>
                                 </state>
@@ -100,17 +100,42 @@
                                     <action selector="resetPasswordWithEmail:" destination="wjS-2q-Fqn" eventType="touchUpInside" id="ggO-fU-X6f"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RcA-NB-PEC">
+                                <rect key="frame" x="24" y="522" width="366" height="48"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="21"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
+                                <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Open settings" image="settings">
+                                    <color key="titleColor" name="ColorAccent"/>
+                                </state>
+                                <state key="highlighted" title="Open settings" image="settings">
+                                    <color key="titleColor" name="darkGray"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="openSettings:" destination="wjS-2q-Fqn" eventType="touchUpInside" id="dOc-4e-AcQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="T4u-98-t3Q" firstAttribute="top" secondItem="E6X-hX-kP6" secondAttribute="bottom" constant="16" id="0Fs-0a-lKQ"/>
                             <constraint firstItem="T4u-98-t3Q" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="AHO-SM-7HQ"/>
+                            <constraint firstItem="RcA-NB-PEC" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="DA6-YJ-sef"/>
                             <constraint firstItem="bXr-1M-UQZ" firstAttribute="height" secondItem="KqX-3j-j1w" secondAttribute="height" multiplier="0.2" id="Kdu-cM-EGH"/>
                             <constraint firstItem="T4u-98-t3Q" firstAttribute="leading" secondItem="KqX-3j-j1w" secondAttribute="leading" constant="20" id="UDg-db-FEL"/>
                             <constraint firstItem="KqX-3j-j1w" firstAttribute="trailing" secondItem="T4u-98-t3Q" secondAttribute="trailing" constant="20" id="W9f-rK-Dqi"/>
                             <constraint firstItem="eaw-SY-zX8" firstAttribute="top" secondItem="T4u-98-t3Q" secondAttribute="bottom" constant="24" id="aLJ-rd-0SF"/>
+                            <constraint firstItem="KqX-3j-j1w" firstAttribute="trailing" secondItem="RcA-NB-PEC" secondAttribute="trailing" constant="24" id="fjC-iD-2sq"/>
                             <constraint firstItem="eaw-SY-zX8" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="kHc-tZ-crN"/>
                             <constraint firstItem="E6X-hX-kP6" firstAttribute="top" secondItem="KqX-3j-j1w" secondAttribute="top" constant="16" id="lyd-hf-vLA"/>
+                            <constraint firstItem="RcA-NB-PEC" firstAttribute="leading" secondItem="KqX-3j-j1w" secondAttribute="leading" constant="24" id="mCQ-4Y-r5D"/>
+                            <constraint firstItem="RcA-NB-PEC" firstAttribute="top" secondItem="eaw-SY-zX8" secondAttribute="bottom" constant="16" id="mWh-4z-f6c"/>
                             <constraint firstItem="KqX-3j-j1w" firstAttribute="trailing" secondItem="eaw-SY-zX8" secondAttribute="trailing" constant="24" id="mw3-DE-SHH"/>
                             <constraint firstItem="eaw-SY-zX8" firstAttribute="leading" secondItem="KqX-3j-j1w" secondAttribute="leading" constant="24" id="vZl-69-iKZ"/>
                             <constraint firstItem="E6X-hX-kP6" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="zq1-5V-rIz"/>
@@ -131,6 +156,7 @@
                         <outlet property="birthDateTF" destination="KKe-Nf-Ob5" id="foN-NM-p0B"/>
                         <outlet property="levelTF" destination="Fo4-pu-aql" id="gH3-Gk-Zwg"/>
                         <outlet property="nameTF" destination="qts-uv-dPj" id="Dr2-j2-xgk"/>
+                        <outlet property="openSettingBtn" destination="RcA-NB-PEC" id="tMi-LQ-m3z"/>
                         <outlet property="profileImgView" destination="E6X-hX-kP6" id="pV7-Ww-u70"/>
                     </connections>
                 </viewController>
@@ -146,8 +172,15 @@
     </scenes>
     <resources>
         <image name="camera" width="96" height="96"/>
+        <image name="settings" width="32" height="32"/>
+        <namedColor name="ColorAccent">
+            <color red="0.0" green="0.62099999189376831" blue="0.67799997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="ColorDanger">
             <color red="0.84200000762939453" green="0.2370000034570694" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="darkGray">
+            <color name="ibMissingResourceColor" catalog="#$assets-com.apple.dt.DVTKit" colorSpace="catalog"/>
         </namedColor>
     </resources>
 </document>

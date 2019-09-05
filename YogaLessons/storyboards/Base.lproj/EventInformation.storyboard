@@ -217,34 +217,34 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Original poster" id="ex4-yj-I05">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="96" id="glL-89-djC">
-                                        <rect key="frame" x="0.0" y="580" width="414" height="96"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="130" id="glL-89-djC">
+                                        <rect key="frame" x="0.0" y="580" width="414" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="glL-89-djC" id="VnE-KN-O63">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="95.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="129.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RB5-pG-R2R" userLabel="poster Stack">
-                                                    <rect key="frame" x="8" y="8" width="398" height="79.5"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="113.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Posted by:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qa-sZ-hZm">
-                                                            <rect key="frame" x="0.0" y="0.0" width="195" height="79.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="195" height="113.5"/>
                                                             <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="21"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-a5-BUU" userLabel="Pofile Stack ">
-                                                            <rect key="frame" x="203" y="0.0" width="195" height="79.5"/>
+                                                            <rect key="frame" x="203" y="0.0" width="195" height="113.5"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="g5V-El-NLf" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
-                                                                    <rect key="frame" x="72.5" y="0.0" width="50" height="50"/>
+                                                                    <rect key="frame" x="57.5" y="0.0" width="80" height="80"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="g5V-El-NLf" secondAttribute="height" multiplier="1:1" id="8tp-Aw-Eut"/>
-                                                                        <constraint firstAttribute="width" constant="100" id="t9f-Yr-hf4"/>
+                                                                        <constraint firstAttribute="width" constant="80" id="t9f-Yr-hf4"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcj-tD-fS7" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
-                                                                    <rect key="frame" x="68.5" y="58" width="58" height="21.5"/>
+                                                                    <rect key="frame" x="68.5" y="88" width="58" height="25.5"/>
                                                                     <color key="backgroundColor" name="ColorPrimary"/>
                                                                     <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -275,9 +275,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="RB5-pG-R2R" firstAttribute="leading" secondItem="VnE-KN-O63" secondAttribute="leading" constant="8" id="1jP-3C-dn0"/>
-                                                <constraint firstAttribute="bottom" secondItem="RB5-pG-R2R" secondAttribute="bottom" constant="8" id="I5L-gx-hZR"/>
+                                                <constraint firstItem="RB5-pG-R2R" firstAttribute="top" secondItem="VnE-KN-O63" secondAttribute="top" constant="8" id="7kW-d5-zl0"/>
                                                 <constraint firstAttribute="trailing" secondItem="RB5-pG-R2R" secondAttribute="trailing" constant="8" id="nxI-jL-83w"/>
-                                                <constraint firstItem="RB5-pG-R2R" firstAttribute="top" secondItem="VnE-KN-O63" secondAttribute="top" constant="8" id="tvt-2I-4Sc"/>
+                                                <constraint firstAttribute="bottom" secondItem="RB5-pG-R2R" secondAttribute="bottom" constant="8" id="oMG-i2-TTC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -286,7 +286,7 @@
                             <tableViewSection headerTitle="Practice level" id="o2y-Cs-YJe">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="42" id="mr7-SV-lNm">
-                                        <rect key="frame" x="0.0" y="704" width="414" height="42"/>
+                                        <rect key="frame" x="0.0" y="738" width="414" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mr7-SV-lNm" id="npd-IT-0LL">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="41.5"/>
@@ -312,7 +312,7 @@
                             <tableViewSection headerTitle="Equipment" id="5bP-LV-8El">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="134" id="B3K-zp-5lS">
-                                        <rect key="frame" x="0.0" y="774" width="414" height="134"/>
+                                        <rect key="frame" x="0.0" y="808" width="414" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B3K-zp-5lS" id="mfk-S4-CIj">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="133.5"/>
@@ -342,17 +342,17 @@
                             <tableViewSection headerTitle="Extra notes" id="PAq-nr-i8v">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="120" id="yim-CT-J2w" userLabel="Xtra cell">
-                                        <rect key="frame" x="0.0" y="936" width="414" height="120"/>
+                                        <rect key="frame" x="0.0" y="970" width="414" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yim-CT-J2w" id="kk2-ya-UnN">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FXf-5l-dDY">
-                                                    <rect key="frame" x="16" y="16.5" width="398" height="120"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="120.5"/>
                                                     <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="120" id="HBj-DX-H4Y"/>
+                                                        <constraint firstAttribute="height" constant="120" id="kHG-3M-Zab"/>
                                                     </constraints>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="14"/>
@@ -360,10 +360,10 @@
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="FXf-5l-dDY" firstAttribute="bottom" secondItem="kk2-ya-UnN" secondAttribute="bottomMargin" constant="8" id="IRc-gE-kdv"/>
-                                                <constraint firstItem="FXf-5l-dDY" firstAttribute="trailing" secondItem="kk2-ya-UnN" secondAttribute="trailingMargin" constant="8" id="Udc-Yg-qaT"/>
-                                                <constraint firstItem="FXf-5l-dDY" firstAttribute="top" secondItem="kk2-ya-UnN" secondAttribute="topMargin" constant="8" id="eby-AZ-BYn"/>
-                                                <constraint firstItem="FXf-5l-dDY" firstAttribute="leading" secondItem="kk2-ya-UnN" secondAttribute="leadingMargin" constant="8" id="mVX-uy-U6N"/>
+                                                <constraint firstItem="FXf-5l-dDY" firstAttribute="top" secondItem="kk2-ya-UnN" secondAttribute="top" constant="8" id="ASz-l6-stv"/>
+                                                <constraint firstAttribute="bottom" secondItem="FXf-5l-dDY" secondAttribute="bottom" constant="8" id="cXl-CH-8Te"/>
+                                                <constraint firstAttribute="trailing" secondItem="FXf-5l-dDY" secondAttribute="trailing" constant="8" id="uAF-0W-7yE"/>
+                                                <constraint firstItem="FXf-5l-dDY" firstAttribute="leading" secondItem="kk2-ya-UnN" secondAttribute="leading" constant="8" id="v4t-ia-fes"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

@@ -53,9 +53,8 @@ class BetterTextView :UITextView,UITextViewDelegate{
         }
         set {
             text = newValue?.translated
-            placeHolderString = newValue
-            textColor = UIColor._placeholderTxt
-            delegate = self
+            placeHolderString = newValue?.translated
+            textColor = ._placeholderTxt
         }
     }
     

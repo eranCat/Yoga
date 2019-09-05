@@ -196,4 +196,45 @@ extension DataSource{
             //2.make somehow show reminder alert  when tapped on notification
         }
     }
+    
+    
+    func listenToSettingsChanged() {
+        registerSettingsBundle()
+        NotificationCenter.default
+            .addObserver(self, selector: #selector(defaultsChanged),
+                         name: UserDefaults.didChangeNotification, object: nil)
+        defaultsChanged()
+    }
+    
+    func registerSettingsBundle(){
+        let appDefaults = [String:AnyObject]()
+        UserDefaults.standard.register(defaults: appDefaults)
+    }
+    @objc func defaultsChanged(){
+        
+        let standard = UserDefaults.standard
+        isFilteringToday = standard.bool(forKey: "today_preference")
+        isFilteringMonth = standard.bool(forKey: "month_preference")
+        isFilteringLocation = standard.bool(forKey: "location_preference")
+        
+        if isFilteringLocation{
+            LocationUpdater.shared.getCurrentCountryCode { code in
+                
+                let def = NotificationCenter.default
+                
+                def.post(name: ._settingChanged, object: nil)
+                self.loadData { (err) in
+                    def.post(name: ._reloadedAfterSettingChanged, object: nil)
+                }
+            }
+        }
+        else{
+            let def = NotificationCenter.default
+            
+            def.post(name: ._settingChanged, object: nil)
+            self.loadData { (err) in
+                def.post(name: ._reloadedAfterSettingChanged, object: nil)
+            }
+        }
+    }
 }

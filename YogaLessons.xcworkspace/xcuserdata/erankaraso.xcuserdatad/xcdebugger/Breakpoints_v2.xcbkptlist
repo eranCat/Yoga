@@ -82,11 +82,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "589321773.131724"
+            timestampString = "589369209.264226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "onSortTapped(_:)"
             landmarkType = "7">
             <Actions>
@@ -244,11 +244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "589321773.1328239"
+            timestampString = "589369209.26463"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "dataAdded(_:)"
             landmarkType = "7">
             <Actions>
@@ -268,18 +268,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "589321773.132954"
+            timestampString = "589400672.105791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "signedDataAdded(_:)"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
                   <ActionContent
-                     consoleCommand = "po dataSource.count(sourceType: .signed, dType: currentDataType)">
+                     consoleCommand = "po isDataEmpty">
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>
@@ -291,22 +291,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "589321773.13361"
+            filePath = "YogaLessons/Utils/LocationUpdater.swift"
+            timestampString = "589369209.264926"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "getCurrentCountryCode(done:)"
             landmarkType = "7">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po isDataEmpty">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

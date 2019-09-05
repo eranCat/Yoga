@@ -22,6 +22,7 @@ class UserInfoViewController: UIViewController {
     
     @IBOutlet weak var aboutTV: BetterTextView!
     
+    @IBOutlet weak var openSettingBtn: UIButton!
     
     lazy var hasProfilePic:Bool = {
         return self.currentUser.profileImageUrl != nil
@@ -55,6 +56,10 @@ class UserInfoViewController: UIViewController {
         if let user = YUser.currentUser {
             currentUser = user
             fillFieldsFromUser()
+        }
+        
+        if Locale.preferredLanguages.first?.starts(with: "he") ?? false{
+            openSettingBtn.imageEdgeInsets =  .init(top: 0, left: 0, bottom: 0, right: -20)
         }
     }
     
@@ -116,6 +121,16 @@ class UserInfoViewController: UIViewController {
         navigationItem.title = name
         
         dataSource.updateCurrentUserValue(forKey: .name, name)
+    }
+    @IBAction func openSettings(_ sender: UIButton) {
+        
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+        UIApplication.shared.canOpenURL(settingsUrl)
+            else {return}
+        
+        UIApplication.shared.open(settingsUrl) { (success) in
+            print("Settings opened: \(success)") // Prints true
+        }
     }
     
     func levelChanged(_ level:Level?) {

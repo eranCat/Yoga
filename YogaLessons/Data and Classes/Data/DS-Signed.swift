@@ -23,35 +23,37 @@ extension DataSource{
             guard !user.signedClassesIDS.isEmpty
                 else{return}
             
-//            signed_classes.removeAll()
-//
-//            for id in user.signedClassesIDS{
-//                if let c = (all_classes.first{ $0.id == id}){
-//                    signed_classes.append(c)
-//                }
-//            }
+            let today = Date()
             
-            signed_classes = user.signedClassesIDS.keys
-                .compactMap{ (id) -> Class? in
-                    return all_classes.first{ $0.id == id}
+            for key in user.signedClassesIDS.keys{
+                guard let aClass = all_classes.first(where: {$0.id == key}),
+                    aClass.endDate >= today || !isFilteringToday
+                    else{continue}
+                
+                if aClass.status != .cancled{
+                    signed_classes.insert(aClass, at: 0)
+                }else{
+                    signed_classes.append(aClass)
                 }
-            
+            }
+
         case .events:
             guard !user.signedEventsIDS.isEmpty
                 else{return}
+
+            let today = Date()
             
-//            signed_events.removeAll()
-//
-//            for id in user.signedEventsIDS{
-//                if let e = (all_events.first{ $0.id == id}){
-//                    signed_events.append(e)
-//                }
-//            }
-            
-            signed_events = user.signedEventsIDS.keys
-                .compactMap{ id -> Event? in
-                    return all_events.first{ $0.id == id}
+            for key in user.signedEventsIDS.keys{
+                guard let event = all_events.first(where: {$0.id == key}),
+                    event.endDate >= today || !isFilteringToday
+                    else{continue}
+                
+                if event.status != .cancled{
+                    signed_events.insert(event, at: 0)
+                }else{
+                    signed_events.append(event)
                 }
+            }
         }
         
         updateMainDict(sourceType: .signed, dataType: dType)

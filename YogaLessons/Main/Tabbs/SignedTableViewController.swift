@@ -74,10 +74,13 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         let observers:[Notification.Name:Selector] =
             [._sortTapped:#selector(onSortTapped(_:)),
-            ._signedDataAdded:#selector(signedDataAdded(_:)),
+             ._signedDataAdded:#selector(signedDataAdded(_:)),
+             ._dataAdded:#selector(dataAdded(_:)),
             ._signedDataRemoved:#selector(signedDataRemoved(_:)),
             ._signedDataChanged:#selector(onDataChanged(_:)),
-            ._dataCancled:#selector(onDataChanged(_:))
+            ._dataCancled:#selector(onDataChanged(_:)),
+            ._settingChanged : #selector(settingChanged(_:)),
+            ._reloadedAfterSettingChanged : #selector(reloadedAfterSettingChanged(_:))
         ]
         
         let centerDef = NotificationCenter.default
@@ -85,6 +88,13 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         observers.forEach{
             centerDef.addObserver(self, selector: $1, name: $0, object: nil)
         }
+    }
+    @objc func settingChanged(_ notification:NSNotification){
+        SVProgressHUD.show()
+    }
+    @objc func reloadedAfterSettingChanged(_ notification:NSNotification){
+        SVProgressHUD.dismiss()
+        tableView.reloadData()
     }
 
     @objc func signedDataAdded(_ notif: Notification) {
@@ -94,6 +104,18 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             else{return}
         
         let ip: IndexPath = .init(row: 0, section: 0)
+        
+        tableView.insertRows(at: [ip], with: .automatic)
+        tableView.reloadRows(at: [ip], with: .none)
+        tableView.scrollToRow(at: ip, at: .top, animated: true)
+    }
+    @objc func dataAdded(_ notif: Notification) {
+        
+        guard let type = notif.userInfo?["type"] as? DataType,
+            type == currentDataType
+            else{return}
+        
+        let ip: IndexPath = .init(row: 1, section: 0)
         
         tableView.insertRows(at: [ip], with: .automatic)
         tableView.reloadRows(at: [ip], with: .none)
@@ -192,7 +214,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             lbl.textColor = .white
         }
         
-        header.tintColor = UIColor._headerTint
+        header.tintColor = ._headerTint
         
         if tableView.numberOfSections == 1 {//no need for header if there's only one section
             header.isHidden = true
@@ -244,8 +266,6 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         let cellName = CellIds.id(for: currentDataType)
         
-//        let cell = Bundle.main.loadNibNamed(cellName, owner: self, options: nil)?.first as! UITableViewCell
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellName,for: indexPath)
         
         let data:DynamicUserCreateable?
@@ -258,7 +278,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         case 0:fallthrough
         default:
             data = dataSource.get(sourceType: .signed, dType: currentDataType, at: indexPath)
-            cell.backgroundColor = UIColor._signedCell
+            cell.backgroundColor = ._signedCell
         }
         
         

@@ -164,39 +164,59 @@ class NotificationManager {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [objId])
     }
    
+    fileprivate func askSystemPermission(done:((Bool?)->Void)?) {
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        let options: UNAuthorizationOptions = [.alert, .sound]
+        
+        notificationCenter.requestAuthorization(options: options) { didAllow, error in
+            if !didAllow {
+                
+                
+                //                        system alert for permission
+                notificationCenter.getNotificationSettings { (settings) in
+                    switch settings.authorizationStatus{
+                        
+                    case .authorized:
+                        done?(true)
+                    case .notDetermined,.denied,.provisional:
+                        self.showNotificationsSettingAlert(done:done)
+                    @unknown default:
+                        print("new unhandled notification status:",settings.authorizationStatus)
+                    }
+                }
+                
+            }else{
+                done?(didAllow)
+            }
+        }
+    }
+    
     func askForPermission(done:((Bool?)->Void)?) {
         
-//      let alert = UIAlertController.create(title: "",message: "allowNotifications".translated,
-//                                                                        preferredStyle: .alert)
-//
-//        alert.aAction(.init(title: "ok".translated, style: .default, handler: { _ in
-        
-            let notificationCenter = UNUserNotificationCenter.current()
-            let options: UNAuthorizationOptions = [.alert, .sound]
-            
-            notificationCenter.requestAuthorization(options: options) { didAllow, error in
-                if !didAllow {
-                    print("User has declined notifications")
-                    
-                    notificationCenter.getNotificationSettings { (settings) in
-                        switch settings.authorizationStatus{
-                            
-                        case .authorized:
-                            done?(true)
-                        case .notDetermined,.denied,.provisional:
-                            self.showNotificationsSettingAlert(done:done)
-                        @unknown default:
-                            print("new unhandled notification status:",settings.authorizationStatus)
-                        }
-                    }
-                }else{
-                    done?(didAllow)
-                }
+        //                        system alert for permission
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            switch settings.authorizationStatus{
+
+            case .authorized:
+                done?(true)
+            case .notDetermined,.denied,.provisional:
+                let permissionAlert = UIAlertController.create(title: "",message: "allowNotifications".translated,preferredStyle: .alert)
+                
+                permissionAlert.aAction(.init(title: "ok".translated, style: .default){ _ in
+                    self.askSystemPermission(done: done)
+                })
+                
+                permissionAlert.aAction(.init(title: "Cancel".translated, style: .cancel){ (_) in
+                    done?(false)
+                })
+                
+                permissionAlert.show()
+
+            @unknown default:
+                print("new unhandled notification status:",settings.authorizationStatus)
             }
-            
-//        })).aAction(.init(title: "Cancel".translated, style: .cancel, handler: { (_) in
-//            done?(false)
-//        })).show()
+        }
     }
 }
 
@@ -236,6 +256,10 @@ extension Notification.Name{
     static let keyboardWillHide = UIResponder.keyboardWillHideNotification
     
     static let _connectionMade = Notification.Name("Internet connection made")
+    
+    static let _settingChanged = Notification.Name("setting.changed")
+    static let _reloadedAfterSettingChanged = Notification.Name("reloaded.after.setting.changed")
+
 }
 
 extension NotificationCenter{

@@ -37,4 +37,8 @@ extension Date {
         
         return age
     }
+    
+    var dateComps:DateComponents{
+        return Calendar.current.dateComponents([.year,.month,.day], from: self)
+    }
 }
