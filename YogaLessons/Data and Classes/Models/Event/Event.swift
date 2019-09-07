@@ -11,7 +11,7 @@ import CoreLocation
 
 class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Located,Aged{
     
-    var id:String? //may set after init
+    var id:String //may set after init
     
     var title:String
     var cost:Money
@@ -46,7 +46,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
          locationName:String, location:CLLocationCoordinate2D,countryCode:String,
          date:(start:Date,end:Date),level:Level,imageUrl:String? = nil,
          equipment:String,xtraNotes:String? = nil,maxParticipants:Int,user:YUser) {
-        self.id = nil
+        self.id = ""
         
         self.title = title
         self.cost = Money(amount: cost)
@@ -65,7 +65,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         self.numOfParticipants = 0
         self.maxParticipants = maxParticipants
         
-        self.uid = user.id!
+        self.uid = user.id
         
         self.imageUrl = imageUrl
         
@@ -113,7 +113,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     }
     
     required init(_ dict: JSON) {
-        id = dict[Keys.id] as! String?
+        id = dict[Keys.id] as! String
         title = dict[Keys.title] as! String
         cost = .init(dict[Keys.cost] as! JSON)
         
@@ -159,7 +159,7 @@ extension Event:CustomStringConvertible{
     }
 }
 
-extension Event{
+extension Event:Updateable{
     func update(from dict:JSON) {
         guard id == dict[Keys.id] as! String?
             else{return}
@@ -192,6 +192,29 @@ extension Event{
         maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
         
         signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Bool] ?? [:]
+    }
+    func update(withNew new: DynamicUserCreateable) {
+        guard id == new.id,
+        let new = new as? Event
+            else{return}
+        
+        title = new.title
+        cost = new.cost
+        locationCoordinate = new.locationCoordinate
+        locationName = new.locationName
+        countryCode = new.countryCode
+        postedDate = new.postedDate
+        startDate = new.startDate
+        endDate = new.endDate
+        level = new.level
+        equipment = new.equipment
+        xtraNotes = new.xtraNotes
+        numOfParticipants = new.numOfParticipants
+        maxParticipants = new.maxParticipants
+        imageUrl = new.imageUrl
+        status = new.status
+        minAge = new.minAge
+        maxAge = new.maxAge
     }
 }
 

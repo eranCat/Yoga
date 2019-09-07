@@ -10,7 +10,7 @@ import CoreLocation
 
 class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Located,Aged{
 
-    var id:String? //may set after init
+    var id:String //may set after init
     
     var title:String
     var cost:Money
@@ -44,7 +44,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
          level:Level,equipment:String,xtraNotes:String? = nil,
          maxParticipants:Int,teacher:Teacher) {
         
-        self.id = nil
+        self.id = ""
         self.title = type
         self.cost = Money(amount: cost)
         
@@ -62,7 +62,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         self.numOfParticipants = 0
         self.maxParticipants = maxParticipants
         
-        self.uid = teacher.id!
+        self.uid = teacher.id
         
         self.status = .open
         
@@ -106,7 +106,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     }
     
     required init(_ dict: JSON) {
-        id =   dict[Keys.id] as! String?
+        id =   dict[Keys.id] as! String
         title = dict[Keys.type] as! String
         cost = .init(dict[Keys.cost] as! JSON)
     
@@ -148,7 +148,7 @@ extension Class:CustomStringConvertible{
     }
 }
 
-extension Class{
+extension Class:Updateable{
     func update(from dict:JSON) {
         
         guard self.id == dict[Keys.id] as! String?
@@ -180,6 +180,36 @@ extension Class{
         maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
         
         signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Bool] ?? [:]
+    }
+    func update(withNew new: DynamicUserCreateable) {
+        guard id == new.id,
+        let new = new as? Class
+            else{return}
+        
+        title = new.title
+        cost = new.cost
+        
+        locationCoordinate = new.locationCoordinate
+        locationName = new.locationName
+        countryCode = new.countryCode
+        
+        postedDate = new.postedDate
+        startDate = new.startDate
+        endDate = new.endDate
+        
+        level = new.level
+        
+        equipment = new.equipment
+        
+        xtraNotes = new.xtraNotes
+        
+        numOfParticipants  = new.numOfParticipants
+        maxParticipants = new.maxParticipants
+        
+        status = new.status
+        
+        minAge = new.minAge
+        maxAge = new.maxAge
     }
 }
 

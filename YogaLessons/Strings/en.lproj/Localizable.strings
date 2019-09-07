@@ -39,6 +39,8 @@
 
 "castFailed" = "Problem found with the database casting 😢";
 
+"locationAmbiguous" = "location doesn't have enough details";
+
 "remindingYou" = "Reminding you that";
 
 "remindBeforeStart" = "remind you before it starts";
@@ -86,3 +88,4 @@
 "on" = "on ";
 "atD" = "at:";
 "allowNotifications" = "Needs permission for notifications";
+"incompatibleType" =  "Data type is incompatible";

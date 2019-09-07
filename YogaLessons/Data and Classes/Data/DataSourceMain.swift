@@ -202,7 +202,7 @@ class DataSource {
                         }
                         
                         //signed
-                        if signedIds[aClass.id!] != nil{
+                        if signedIds[aClass.id] != nil{
                             if aClass.status != .cancled{
                                 self.signed_classes.insert(aClass, at: 0)
                             }else{
@@ -235,7 +235,7 @@ class DataSource {
                         }
                         
                         //signed
-                        if signedIds[event.id!] != nil{
+                        if signedIds[event.id] != nil{
                             if event.status != .cancled{
                                 self.signed_events.insert(event, at: 0)
                             }else{
@@ -255,7 +255,7 @@ class DataSource {
     
     fileprivate func convertValuesToClasses(_ values: [DataSnapshot], _ user: YUser) {
         
-        let today = Date().dateComps
+        let today = Date()
         let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: .init())!
         
         all_classes.removeAll()
@@ -268,10 +268,10 @@ class DataSource {
             
             let aClass = Class(json)
             
-            if aClass.endDate.dateComps == today || !isFilteringToday{
+            if aClass.endDate >= today || !isFilteringToday{
                 
                 
-                let isUserSigned = user.signedClassesIDS.keys.contains(aClass.id!)
+                let isUserSigned = user.signedClassesIDS.keys.contains(aClass.id)
                 
                 if aClass.status != .cancled{
                     
@@ -293,9 +293,10 @@ class DataSource {
             }
             //                        uploads
             if aClass.postedDate >= nextMonth || !isFilteringMonth{
-                if user.type == .teacher && aClass.uid == user.id{
+                if let teacher = user as? Teacher,
+                    teacher.teachingClassesIDs[aClass.id] != nil{
                     
-                    self.teacherCreatedClasses.append(aClass)
+                    self.teacherCreatedClasses.insert(aClass,at: 0)
                 }
             }
         }
@@ -303,7 +304,7 @@ class DataSource {
     
     fileprivate func convertValuesToEvents(_ values: [DataSnapshot], _ user: YUser) {
         
-        let today = Date().dateComps
+        let today = Date()
         let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: .init())!
         
         all_events.removeAll()
@@ -316,9 +317,9 @@ class DataSource {
             
             let event = Event(json)
             
-            if event.endDate.dateComps == today || !isFilteringToday{
+            if event.endDate >= today || !isFilteringToday{
                 
-                let isUserSigned = user.signedEventsIDS.keys.contains(event.id!)
+                let isUserSigned = user.signedEventsIDS.keys.contains(event.id)
                 
                 if event.status != .cancled{
                     
@@ -337,8 +338,8 @@ class DataSource {
             }
 //                        uploads
             if event.postedDate >= nextMonth || !isFilteringMonth{
-                if event.uid == user.id{
-                    userCreatedEvents.append(event)
+                if let status = user.createdEventsIDs[event.id] {
+                    userCreatedEvents.insert(event,at: 0)
                 }
             }
         }
@@ -372,7 +373,10 @@ class DataSource {
             }
             
             guard let user = YUser.currentUser
-                else{return}
+                else{
+                    loaded?(UserErrors.noUserFound)
+                    return
+            }
             
             switch dType{
                 
@@ -411,11 +415,24 @@ class DataSource {
         guard let user = YUser.currentUser
             else {return}
         
-        userCreatedEvents = all_events.filter { $0.uid == user.id }
-        
-        if user.type == .teacher && user is Teacher{//just for clarity both checks
+        if let teacher = user as? Teacher{//just for clarity both checks
             
-            teacherCreatedClasses = all_classes.filter { $0.uid == user.id }
+            teacherCreatedClasses.removeAll()
+            
+            for id in teacher.teachingClassesIDs.keys{
+                if let aClass = all_classes.first(where: {$0.id == id}){
+                    teacherCreatedClasses.insert(aClass,at: 0)
+                }
+            }
+        }
+
+        
+        userCreatedEvents.removeAll()
+        
+        for id in user.createdEventsIDs.keys{
+            if let event = all_events.first(where: {$0.id == id}){
+                userCreatedEvents.insert(event,at: 0)
+            }
         }
     }
     
@@ -426,10 +443,13 @@ class DataSource {
         let dataRef:DatabaseReference = ref.child(TableNames.name(for: dType)).childByAutoId()
         
         guard let user = YUser.currentUser,
-            let uid = user.id,
             let keyID = dataRef.key
-            else{return}
+            else{
+                taskDone?(UserErrors.noUserFound)
+                return
+            }
         
+        let uid = user.id
         
         var dataObj = dataObj
         
@@ -441,34 +461,35 @@ class DataSource {
         dataRef.setValue(dataObj.encode())
         
         let arrKey:String
-        let ids:[String]
+        let ids:[String:Int]
         //can be teaching + type.lowercased + IDS
         switch dType {
         case .classes:
             
-            guard let teacher = user as? Teacher else{return}
+            guard let teacher = user as? Teacher else{
+                taskDone?(nil)
+                return
+            }
             
             arrKey = Teacher.Keys.teachingC
             teacher.teachingClassesIDs[keyID] = .open
-            ids = .init(teacher.teachingClassesIDs.keys)
+            ids = teacher.teachingClassesIDs.compactMapValues{$0.rawValue}
             
-            if self.newClassHandle != nil{
-                break
+            if newClassHandle == nil{
+                all_classes.insert(dataObj as! Class,at: 0)
             }
-            self.all_classes.insert(dataObj as! Class,at: 0)
             
         case .events:
             
             arrKey = YUser.Keys.createdEvents
             user.createdEventsIDs[keyID] = .open
-            ids = .init(user.createdEventsIDs.keys)
+            ids = user.createdEventsIDs.compactMapValues{$0.rawValue}
             
-            if self.newEventHandle != nil{
-                break
+            if newEventHandle == nil{
+                all_events.insert(dataObj as! Event, at: 0)
             }
-            self.all_events.insert(dataObj as! Event, at: 0)
         }
-        self.updateMainDict(sourceType: .all, dataType: dType)
+        updateMainDict(sourceType: .all, dataType: dType)
         
         NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
         
@@ -477,7 +498,6 @@ class DataSource {
             .child(arrKey).setValue(ids){ err,childRef in
                 
                 if let error = err{
-                    ErrorAlert.show(message: error.localizedDescription)
                     taskDone?(error)
                     return
                 }
@@ -501,12 +521,12 @@ class DataSource {
         
         
         let notificationAction = UIAlertAction(title: "Notify me".translated, style: .default) { _ in
-            NotificationManager.shared.setNotification(objId: dataObj.id!, title: title, time: startDate, kind: .starting)
+            NotificationManager.shared.setNotification(objId: dataObj.id, title: title, time: startDate, kind: .starting)
         }
         
         let calendar = UIAlertAction(title: "Add to calendar".translated,
                                      style: .default) { _ in
-                                        LocalCalendarManager.shared.setEvent( objId: dataObj.id!, title: title, placeName: placeName, location: location, startDate: startDate, endDate: endDate)
+                                        LocalCalendarManager.shared.setEvent( objId: dataObj.id, title: title, placeName: placeName, location: location, startDate: startDate, endDate: endDate)
         }
         UIAlertController.create(title: "Choose a reminder".translated,
                                               message: "remindBeforeStart".translated,
@@ -523,8 +543,8 @@ class DataSource {
         
         var dataObj = getUser_sUploads(dType: dType)[index] as! StatusedData
         
-        guard let objID = dataObj.id
-            else{return}
+        let objID = dataObj.id
+        
         
         //        Toggle
         if dataObj.status == .cancled{
@@ -615,5 +635,34 @@ class DataSource {
             mainDict[.signed]![dataType] = dataType == .classes ? signed_classes : signed_events
         }
         
+    }
+    
+    
+    func update<T:Updateable & DynamicUserCreateable>(localModel:T,withNew new:T,taskDone:DSTaskListener?) {
+//        updates on data change from dict
+        localModel.update(withNew: new)
+        
+        
+        //        add to all classes/events json
+        let dataRef:DatabaseReference
+        switch new {
+        case let aClass as Class:
+            dataRef = ref.child(TableNames.clases.rawValue)
+
+            
+        case let event as Event:
+            dataRef = ref.child(TableNames.events.rawValue)
+            
+        default:
+//            show some error
+            taskDone?(DataTypeError.incompatibleType)
+            return
+        }
+        
+        
+        dataRef.child(new.id)
+            .updateChildValues( new.encode()) { (err, _) in
+                taskDone?(err)
+            }
     }
 }

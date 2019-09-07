@@ -13,7 +13,7 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
     
     static var currentUser:YUser?
     
-    var id:String?
+    var id:String
     
     var name: String
     
@@ -32,9 +32,9 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
     
     var email:String?
     
-    init(id:String? = nil,name:String,about:String? = nil,level:Level = .beginner,type:UserType, profileImage img:String? = nil,birthDate:Date,email:String){
+    init(name:String,about:String? = nil,level:Level = .beginner,type:UserType, profileImage img:String? = nil,birthDate:Date,email:String){
         
-        self.id = id
+        self.id = ""
         self.name = name
         self.about = about
         self.level = level
@@ -63,8 +63,8 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
         dict[Keys.signedC] = signedClassesIDS
         dict[Keys.signedE] = signedEventsIDS
         
-        dict[Keys.createdEvents] = createdEventsIDs.mapValues{$0.rawValue}
         
+        dict[Keys.createdEvents] = createdEventsIDs.compactMapValues{$0.rawValue}
         dict[Keys.email] = email
         
         return dict
@@ -72,7 +72,7 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
     
     required init(_ dict: JSON) {
         
-        id = dict[Keys.id] as! String?
+        id = dict[Keys.id] as! String
         name = dict[Keys.name] as! String
         about = dict[Keys.about] as! String?
         

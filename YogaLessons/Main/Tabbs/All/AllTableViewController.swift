@@ -214,7 +214,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
         
         let data = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)!
         
-        let objId = data.id!
+        let objId = data.id
         let signed:[String:Bool]
         
         
@@ -320,7 +320,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
                         title = nil
                     }
                     
-                    ErrorAlert.show(title: title, message: err.localizedDescription)
+                    ErrorAlert.show(title: title, message: signErr.errorDescription ?? err.localizedDescription)
                     
                 }else{
                     ErrorAlert.show(message: err.localizedDescription)

@@ -72,12 +72,14 @@ extension DataSource{
     }
     func signTo(_ dType:DataType,dataObj:DynamicUserCreateable ,taskDone:DSTaskListener?) {
         
-        guard let cu = YUser.currentUser,let uid = cu.id,//user id
-            let objId = dataObj.id // data id
+        guard let cu = YUser.currentUser
             else{
                 taskDone?(UserErrors.noUserFound)//no user error
                 return
             }
+        
+        let uid = cu.id//user id
+        let objId = dataObj.id // data id
         
         ref.child(TableNames.name(for: dType)).child(objId)
         .runTransactionBlock(){ (currentData: MutableData) -> TransactionResult in
@@ -186,12 +188,12 @@ extension DataSource{
     
     func unsignFrom(_ dType:DataType,at index:IndexPath? ,taskDone:DSTaskListener?) {
         
-        guard let cu = YUser.currentUser,
-            let uid = cu.id//user id
+        guard let cu = YUser.currentUser
             else{
                 taskDone?(UserErrors.noUserFound)
                 return
         }
+        let uid = cu.id//user id
         
         guard let indexPath = index else{return}
         
@@ -208,7 +210,7 @@ extension DataSource{
         
         updateMainDict(sourceType: .signed, dataType: dType)
         
-        ref.child(TableNames.name(for: dType)).child(data.id!)
+        ref.child(TableNames.name(for: dType)).child(data.id)
         .runTransactionBlock { (currentData) -> TransactionResult in
             guard var post = currentData.value as? JSON
                 else{
@@ -265,11 +267,11 @@ extension DataSource{
         switch dType {
         case .classes:
             arrKey = YUser.Keys.signedC
-            cu.signedClassesIDS.removeValue(forKey: data.id!)
+            cu.signedClassesIDS.removeValue(forKey: data.id)
             
         case .events:
             arrKey = YUser.Keys.signedE
-            cu.signedEventsIDS.removeValue(forKey: data.id!)
+            cu.signedEventsIDS.removeValue(forKey: data.id)
         }
         
         
@@ -277,7 +279,7 @@ extension DataSource{
         let userTable = TableNames.users.rawValue
         
         ref.child(userTable).child(uid)
-            .child(arrKey).child(data.id!).removeValue(){ err,_ in
+            .child(arrKey).child(data.id).removeValue(){ err,_ in
             if let error = err{
                 taskDone?(error)
                 return
@@ -290,9 +292,9 @@ extension DataSource{
                 userInfo["indexPath"] = i
             }
             
-            NotificationManager.shared.removeNotification(objId: data.id!)
-            
-            LocalCalendarManager.shared.removeEvent(objId: data.id!)
+            NotificationManager.shared.removeNotification(objId: data.id)
+        
+            LocalCalendarManager.shared.removeEvent(objId: data.id)
             
             NotificationCenter.default
                 .post(name: ._signedDataRemoved, userInfo: userInfo)

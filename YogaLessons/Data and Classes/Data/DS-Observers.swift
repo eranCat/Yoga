@@ -166,10 +166,11 @@ extension DataSource{
             (data is Class && signed_classes.contains(data as! Class))
             ||//or
             //if it's an event that the user has signed to
-            (data is Event && signed_events.contains(data as! Event)),
+            (data is Event && signed_events.contains(data as! Event))
             
-            let id = data.id
             else {return}
+        
+        let id = data.id
         
         let currentStatus = (data as! Statused).status
         let title = (data as! Titled).title

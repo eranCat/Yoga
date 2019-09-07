@@ -15,6 +15,7 @@ import LocationPickerViewController
 class NewClassEventViewController: UITableViewController,TextFieldReturn {
 
     @IBOutlet weak var typeSegment: DataTypeSegmentView!
+    var currentType:DataType?
     
     @IBOutlet weak var tfTitle: UITextField!
     
@@ -25,7 +26,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         return createImagePicker()
     }()
     
-    var hasImage = false
+    var selectedImage:UIImage? = nil
     
     @IBOutlet weak var tfCost: CurrencyField!
     
@@ -55,8 +56,6 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     @IBOutlet weak var trashBarBtn: UIBarButtonItem!
     var focusedField:UIView?
     
-    
-    
     var model:DynamicUserCreateable?
     
     
@@ -65,14 +64,9 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         tableView.backgroundColor = .init(patternImage: #imageLiteral(resourceName: "sea"))
         
-//        tfTitle.placeholder = "Yoga kind"
-        
         navigationItem.hidesSearchBarWhenScrolling = true
         
         eventImgView.round()
-//        eventImgView.frame = .init(origin: eventImgView.frame.origin,
-//                                   size: .init(width: eventImgView.frame.width,
-//                                               height: UIScreen.main.bounds.height * 0.1))
         
         maxPplStepper.layer.cornerRadius = 5
         maxPplStepper.clipsToBounds = true
@@ -84,9 +78,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         initTextFields(tfTitle,maxPplDropDown,tfstartDate,tfEndDate,tfCost,tfLevel)
         
-//        subscribeToKeyboard()
-        
-        if !(YUser.currentUser is Teacher || YUser.currentUser?.type == .teacher) {
+        if !(YUser.currentUser is Teacher) {
             typeSegment.type = .events
             typeSegment.selectedSegmentIndex = 1
             changeToEventView()
@@ -94,15 +86,34 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             typeSegment.setEnabled(false, forSegmentAt: 0)
         }
         
-        guard let model = model
-            else {return}
+        currentType = typeSegment.type
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        if let aClass = model as? Class{
-            fill(classModel: aClass)
-        }else if let event = model as? Event{
-            fill(event:event)
+        if model != nil {
+            
+            navigationItem.titleView = nil
+            
+            
+            let updateBtn = UIBarButtonItem(title: "Update".translated, style: .plain,
+                                            target: self, action: #selector(update))
+            
+            updateBtn.tintColor = ._btnTint
+            
+            navigationItem.rightBarButtonItem = updateBtn
+            
+            switch model {
+            case let aClass as Class:
+                currentType = .classes
+                typeSegment?.type = currentType!
+                changeToClassView()
+                fill(aClass)
+            case let event as Event:
+                currentType = .events
+                typeSegment?.type = currentType!
+                changeToEventView()
+                fill(event)
+            default:
+                break
+            }
         }
     }
     
@@ -119,24 +130,32 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     }
     
     fileprivate func changeToClassView() {
-//        tfTitle.placeholder = "Yoga kind"
-//        tfstartDate.placeholder = "Start time"
-//        tfEndDate.placeholder = "End time"
-//        eventImgView.isHidden = true
-         navigationItem.title = "new-\(typeSegment.type)".translated
+
+        tfstartDate.placeholder = "startT".translated.capitalized
+        tfEndDate.placeholder = "endT".translated.capitalized
+
+         navigationItem.title = "new-\(currentType!)".translated
+        
+        tableView.reloadRows(at: [.init(row: 0, section: 8)], with: .automatic)
+        tableView.reloadData()
     }
     
     
     
     fileprivate func changeToEventView() {
-//        tfTitle.placeholder = "Event name"
-//        tfstartDate.placeholder = "Start date"
-//        tfEndDate.placeholder = "End date"
-//        eventImgView.isHidden = false
-         navigationItem.title = "new-\(typeSegment.type)".translated
+
+        tfstartDate.placeholder = "startD".translated.capitalized
+        tfEndDate.placeholder = "endD".translated.capitalized
+
+         navigationItem.title = "new-\(currentType!)".translated
+        
+        tableView.reloadRows(at: [.init(row: 0, section: 8)], with: .automatic)
+        tableView.reloadData()
     }
     
     @IBAction func segmentValueChanged(_ sender: UISegmentedControl) {
+        
+        currentType = typeSegment.type
         
         switch typeSegment.type {
         case .classes:
@@ -144,17 +163,13 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         case .events:
             changeToEventView()
         }
-        
-//        tableView.reloadSections([8], with: .automatic)
-        tableView.reloadRows(at: [.init(row: 0, section: 8)], with: .automatic)
-        tableView.reloadData()
     }
     
     func validateAndCreateData() -> UserConnectionDelegate? {
         
         guard let user = YUser.currentUser else{return nil}
         
-        if typeSegment.type == .classes{
+        if currentType == .classes{
             guard user is Teacher
                 else{
                     ErrorAlert.show(message: "Only teachers can create clasess!".translated)
@@ -181,16 +196,14 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             tableView.selectRow(at: IndexPath(row: 0, section: 2), animated: true, scrollPosition: .top)
             return nil
         }
-        
-        let dateTxt = typeSegment.type == .classes ? "T" : "D"
-        
+                
         guard let startDate = tfstartDate.date else{
-            let msg = "fill".translated + "start\(dateTxt)".translated
+            let msg = "fill".translated + tfstartDate.placeholder!
             self.tfstartDate.setError(message: msg)
             return nil
         }
         guard let endDate = tfEndDate.date else{
-            let msg = "fill".translated + "end\(dateTxt)".translated
+            let msg = "fill".translated + tfEndDate.placeholder!
             self.tfEndDate.setError(message: msg)
             return nil
         }
@@ -235,7 +248,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         let xtra = !tvExtraNotes.isEmpty ? tvExtraNotes.text : ""
         
         
-        switch typeSegment.type {
+        switch currentType! {
         case .classes:
             
             return Class( type: title, cost: cost,
@@ -252,49 +265,100 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     @IBAction func save(_ sender: UIBarButtonItem) {
         
-        let dType = DataType.allCases[ typeSegment.selectedSegmentIndex]
-        
         let ds = DataSource.shared
-        
         
         let saveTaskListener:DSTaskListener = { err in
             SVProgressHUD.dismiss()
             if let error = err{
-                ErrorAlert.show(message: error.localizedDescription)
+                let description = (error as? LocalizedError)?.errorDescription ??
+                                    error.localizedDescription
+                ErrorAlert.show(message: description)
                 return
             }
         }
         
-        switch dType {
+        switch validateAndCreateData() {
             
-        case .classes:
-            guard let c = validateAndCreateData() as? Class else{return}
+        case let aClass as Class:
         
-            ds.addToAll(.classes, dataObj: c, taskDone: saveTaskListener)
+            ds.addToAll(.classes, dataObj: aClass, taskDone: saveTaskListener)
             
-        case .events:
-            guard let e = validateAndCreateData() as? Event else{return}
+        case let event as Event:
             
-            if hasImage{
-                ds.addToAll(.events, dataObj: e) { err in
+            if let img = selectedImage{
+                ds.addToAll(.events, dataObj: event) { err in
 //                    done saving event to DB
                     saveTaskListener(err)
-                    guard err == nil,let img = self.eventImgView.image
-                        else{return}
+                    if err == nil{
 //                    call image save for finished image
-                    StorageManager.shared.save(image: img, for: e)
+                        StorageManager.shared.save(image: img, for: event)
+                    }
                 }
             }
             else{
-                ds.addToAll(.events, dataObj: e, taskDone: saveTaskListener)
+                ds.addToAll(.events, dataObj: event, taskDone: saveTaskListener)
             }
+        default:
+            return
         }
         
         SVProgressHUD.show()
-        self.dismiss(animated: true)
+        dismiss(animated: true)
         //            self.navigationController?.popViewController(animated: true)
         //only show after synchronic code finished
         //and dismissed when done saving
+    }
+    
+    @objc func update() {
+        
+        let ds = DataSource.shared
+        
+        let updatedTaskListener:DSTaskListener = { err in
+            SVProgressHUD.dismiss()
+            
+            switch err {
+            case .some(let DTErr as DataTypeError):
+                ErrorAlert.show(message: DTErr.errorDescription!)
+                return
+            case .some(let err):
+                ErrorAlert.show(message: err.localizedDescription)
+                return
+            default:
+                break
+            }
+            self.dismiss(animated: true)
+        }
+        
+        switch validateAndCreateData() {
+            
+        case let aClass as Class:
+            aClass.id = self.model!.id
+            if let localClass = model as? Class{
+                ds.update(localModel: localClass, withNew: aClass, taskDone: updatedTaskListener)
+            }
+            
+        case let event as Event:
+            event.id = self.model!.id
+            guard let localModel = model as? Event
+                else{return}
+            
+            if let img = selectedImage{
+                ds.update(localModel: localModel, withNew: event){ err in
+                    //                    done saving event to DB
+                    updatedTaskListener(err)
+                    
+//                    call image save for finished image
+                    StorageManager.shared.save(image: img, for: self.model as! Event)
+                }
+            }
+            else{
+                ds.update(localModel: localModel, withNew: event, taskDone: updatedTaskListener)
+            }
+        default:
+            return
+        }
+        
+        SVProgressHUD.show()
     }
     
     @IBAction func discard(_ sender: UIBarButtonItem) {
@@ -346,7 +410,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     
     @IBAction func imageTap(_ sender: UITapGestureRecognizer) {
-        imagePicker.show(hasImage: hasImage,size: .regular)
+        imagePicker.show(hasImage: selectedImage != nil,size: .regular)
     }
     
     
@@ -354,18 +418,30 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         let picker =
             MyImagePicker(allowsEditing: false){ image,url,removeChosen in
                 
-                self.hasImage = image != nil || url != nil
-                if removeChosen || !self.hasImage{
+                let hasImage = image != nil || url != nil
+                if removeChosen || !hasImage{
+                    
                     self.eventImgView.image = #imageLiteral(resourceName: "image")
                     self.eventImgView.contentMode = .scaleAspectFit
+                    
                 }else {
                     if let img = image{
+                        self.selectedImage = img
                         DispatchQueue.main.async {
                             self.eventImgView.image = img
                         }
                     }else if let url = url{
                         DispatchQueue.main.async {
-                            self.eventImgView.sd_setImage(with: url, completed: nil)
+                            self.eventImgView.sd_setImage(with: url) { (sd_img, err, _, _) in
+                                if let error = err{
+                                    ErrorAlert.show(message: error.localizedDescription)
+                                    return
+                                }
+                            
+                                if let img = sd_img{
+                                    self.selectedImage = img
+                                }
+                            }
                         }
                     }
                     self.eventImgView.contentMode = .scaleAspectFill
@@ -379,7 +455,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         switch section {
         case 8://image section
-            if typeSegment.type == .classes{
+            if currentType == .classes{
                 return 0
             }
             fallthrough
@@ -392,7 +468,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
 
         switch indexPath.section {
         case 8://image section
-            if typeSegment.type == .classes{
+            if currentType == .classes{
                 return 0
             }
             fallthrough
@@ -420,53 +496,69 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
 
     //MARK: fill data for edit
     
-    func fill(classModel:Class) {
+    func fill(_ aClass:Class) {
         
         navigationItem.title = DataType.classes.singular
         
-        tfTitle.text = classModel.title
+        tfTitle.text = aClass.title
         
-        lblLocation.text = classModel.locationName
+        lblLocation.text = aClass.locationName
+        selectedPlaceName = aClass.locationName
+        selectedCoordinate = aClass.locationCoordinate
+        selectedCountryCode = aClass.countryCode
         
-        tfstartDate.date = classModel.startDate
-        tfEndDate.date = classModel.endDate
+        tfstartDate.date = aClass.startDate
+        tfEndDate.date = aClass.endDate
         
-        tfLevel.level = classModel.level
+        tfLevel.set(level:  aClass.level)
         
-        tfCost.money = classModel.cost
-        
-        if classModel.maxParticipants != -1{
-            maxPplDropDown.text = "\(classModel.maxParticipants)"
+        tfCost.money = aClass.cost//first time just for init
+        tfCost.money = aClass.cost
+
+        if aClass.maxParticipants != -1{
+            maxPplDropDown.text = "\(aClass.maxParticipants)"
+            maxPplDropDown.selectedIndex = 0
         }else{
             maxPplDropDown.selectedIndex = 1
         }
         
-        tvEquipment.text = classModel.equipment
-        tvExtraNotes.text = classModel.xtraNotes
+        maxPplCount = aClass.maxParticipants
+        
+        tvEquipment.text = aClass.equipment
+        tvExtraNotes.text = aClass.xtraNotes
     }
     
-    func fill(event :Event) {
+    func fill(_ event :Event) {
         
-        StorageManager.shared.setImage(of: event, imgView: eventImgView)
+        if event.imageUrl != nil{
+            StorageManager.shared.setImage(of: event, imgView: eventImgView)
+            eventImgView.contentMode = .scaleAspectFill
+        }
         
-        navigationItem.title = DataType.classes.singular
+        navigationItem.title = DataType.events.singular
         
         tfTitle.text = event.title
         
         lblLocation.text = event.locationName
+        selectedPlaceName = event.locationName
+        selectedCoordinate = event.locationCoordinate
+        selectedCountryCode = event.countryCode
         
         tfstartDate.date = event.startDate
         tfEndDate.date = event.endDate
         
-        tfLevel.level = event.level
+        tfLevel.set(level: event.level)
         
         tfCost.money = event.cost
-        
+        tfCost.money = event.cost
+
         if event.maxParticipants != -1{
             maxPplDropDown.text = "\(event.maxParticipants)"
+            maxPplDropDown.selectedIndex = 0
         }else{
             maxPplDropDown.selectedIndex = 1
         }
+        maxPplCount = event.maxParticipants
         
         tvEquipment.text = event.equipment
         tvExtraNotes.text = event.xtraNotes

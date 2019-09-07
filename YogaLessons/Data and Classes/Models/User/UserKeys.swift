@@ -49,7 +49,7 @@ extension YUser{
         
         switch key {
         case .id:
-            self.id = value as? String? ?? nil
+            self.id = value as! String
             return id
         case .name:
             self.name = value as! String

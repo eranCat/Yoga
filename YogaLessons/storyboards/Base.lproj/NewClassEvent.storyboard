@@ -363,7 +363,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="URl-ue-sqv">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="2Gg-xU-7iG">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2Gg-xU-7iG">
                             <color key="tintColor" name="ColorDanger"/>
                             <connections>
                                 <action selector="discard:" destination="qXf-9o-2cr" id="jw0-oa-XDp"/>

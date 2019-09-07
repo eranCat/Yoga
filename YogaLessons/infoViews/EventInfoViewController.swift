@@ -71,7 +71,7 @@ class EventInfoViewController: UITableViewController {
         let user = YUser.currentUser!
         //the user didnt sign up for the class
         setMenuItems()
-        setSignBtn(isSigned: user.signedEventsIDS[eventModel.id!] != nil)
+        setSignBtn(isSigned: user.signedEventsIDS[eventModel.id] != nil)
         fillViews()
         
         addObservers()
@@ -265,7 +265,7 @@ class EventInfoViewController: UITableViewController {
                     default:
                         title = nil
                     }
-                    ErrorAlert.show(title: title, message: error.localizedDescription)
+                    ErrorAlert.show(title: title, message:signErr.errorDescription ?? error.localizedDescription)
                 }
                 else{
                     ErrorAlert.show(message: error.localizedDescription)

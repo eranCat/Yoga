@@ -34,7 +34,7 @@ class MaxAmountField: DropDown {
         arrowColor = .white
         
         optionArray = ["Choose a number".translated,"No maximum".translated]
-        selectedRowColor = UIColor._accent
+        selectedRowColor = ._accent
         blurBG()
     }
     

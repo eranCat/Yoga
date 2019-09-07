@@ -70,9 +70,9 @@ class StorageManager {
     
     private func saveImgToDB(from path:String,completion:(()->Void)?){
         
-        guard let currentUser = YUser.currentUser,
-                let uid = currentUser.id
+        guard let currentUser = YUser.currentUser
         else {return}
+        let uid = currentUser.id
         
         //save the image url in current users obj
         currentUser.profileImageUrl = path
@@ -154,9 +154,9 @@ class StorageManager {
     }
     
     private func removeUserProfileImageFromDB(completion:(()->Void)?){
-        guard let currentUser = YUser.currentUser,
-            let uid = currentUser.id
+        guard let currentUser = YUser.currentUser
             else {return}
+        let uid = currentUser.id
         
         //save the image url in current users obj
         currentUser.profileImageUrl = nil

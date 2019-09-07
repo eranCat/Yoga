@@ -76,6 +76,7 @@
 		979A8AF62320DEEF00D1E61E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 979A8AF52320DEEF00D1E61E /* Settings.bundle */; };
 		979A8AFB2321862D00D1E61E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 979A8AFD2321862D00D1E61E /* InfoPlist.strings */; };
 		979AAD4022F3FCE700420670 /* IntFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AAD3F22F3FCE700420670 /* IntFormat.swift */; };
+		979CF3852323C2780082496F /* Updateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979CF3842323C2780082496F /* Updateable.swift */; };
 		97A4027A22D65AFF0056BBE7 /* LabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A4027922D65AFF0056BBE7 /* LabelExtension.swift */; };
 		97A4027D22D673120056BBE7 /* ReturnProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A4027C22D673120056BBE7 /* ReturnProtocol.swift */; };
 		97A4027F22D773A90056BBE7 /* TeachersData.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97A4027E22D773A90056BBE7 /* TeachersData.storyboard */; };
@@ -250,6 +251,7 @@
 		979A8AFC2321862D00D1E61E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		979A8AFE2321862F00D1E61E /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		979AAD3F22F3FCE700420670 /* IntFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntFormat.swift; sourceTree = "<group>"; };
+		979CF3842323C2780082496F /* Updateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updateable.swift; sourceTree = "<group>"; };
 		97A4027922D65AFF0056BBE7 /* LabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtension.swift; sourceTree = "<group>"; };
 		97A4027C22D673120056BBE7 /* ReturnProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnProtocol.swift; sourceTree = "<group>"; };
 		97A4027E22D773A90056BBE7 /* TeachersData.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = TeachersData.storyboard; path = YogaLessons/storyboards/TeachersData.storyboard; sourceTree = SOURCE_ROOT; };
@@ -513,6 +515,7 @@
 				974394E72311322400A8B48A /* Translatable.swift */,
 				9743952D2313B52400A8B48A /* Aged.swift */,
 				9743952F2313DF9B00A8B48A /* Unique.swift */,
+				979CF3842323C2780082496F /* Updateable.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -1002,6 +1005,7 @@
 				97F38F5D22EADE87004C90C9 /* MyErrors.swift in Sources */,
 				977D329F22ECB14F0084EF77 /* UserKeys.swift in Sources */,
 				97AE30AF22C220440008CE75 /* DateExtension.swift in Sources */,
+				979CF3852323C2780082496F /* Updateable.swift in Sources */,
 				9748928E22E5B58A00C361CA /* ImageViewRound.swift in Sources */,
 				97AE310522C77F550008CE75 /* NewClassEventViewController.swift in Sources */,
 				97FFDA8B22DDFDF000BA7498 /* CircleView.swift in Sources */,

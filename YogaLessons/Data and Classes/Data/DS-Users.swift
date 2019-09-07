@@ -25,10 +25,10 @@ extension DataSource{
             switch userType{
             case .student:
                 let user = YUser(userDict)
-                self.usersList[user.id!] = user
+                self.usersList[user.id] = user
             case .teacher:
                 let teacher = Teacher(userDict)
-                self.teachersList[teacher.id!] = teacher
+                self.teachersList[teacher.id] = teacher
             }
         }
     }
@@ -50,14 +50,15 @@ extension DataSource{
     }
     
     func setLoggedUser()->Bool {
-        guard let uid = Auth.auth().currentUser?.uid
+        guard let uid = Auth.auth().currentUser?.uid,
+        let user = usersList[uid] ?? teachersList[uid]
             else{ return false}
         
         //find first in users/teachers
         
-        YUser.currentUser = usersList[uid] ?? teachersList[uid]
+        YUser.currentUser = user
         
-        return YUser.currentUser != nil
+        return true
     }
     
     /*func fetchLoggedUser(forceDownload:Bool = false,done:((YUser?)->Void)? = nil) {
@@ -129,7 +130,8 @@ extension DataSource{
             .reference(withPath: TableNames.users.rawValue)
             .child(uid)
         
-        let val = currentUser.setValue(value, forKey: key)
+        guard let val = currentUser.setValue(value, forKey: key)
+            else{return}
         
         
         usersList[uid] = currentUser
@@ -146,8 +148,6 @@ extension DataSource{
     
     func saveUserToDb(user: YUser,_ completion:@escaping ()->Void) {
         
-        guard let uid = user.id else {return}
-        
         let encoded:JSON
         
         switch user.type {
@@ -160,7 +160,7 @@ extension DataSource{
         
         let ref = Database.database().reference()
         
-        ref.child(TableNames.users.rawValue).child(uid)
+        ref.child(TableNames.users.rawValue).child(user.id)
             .setValue(encoded){error,FBRef in
                 if let err = error{
                     ErrorAlert.show(message: err.localizedDescription)

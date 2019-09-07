@@ -7,6 +7,7 @@
 //
 
 import LocationPickerViewController
+import CoreLocation
 
 extension NewClassEventViewController:LocationPickerDelegate{
     
@@ -23,15 +24,28 @@ extension NewClassEventViewController:LocationPickerDelegate{
     }
     
     func updateLocationFeilds(_ item: LocationItem) {
-        lblLocation.text = item.name
-        selectedPlaceName = item.name
-        if item.coordinate != nil{
-            let (lat,lon) = item.coordinate!
-            selectedCoordinate = .init(latitude: lat, longitude: lon)
+        guard let (lat,lon) = item.coordinate,
+        let code = item.addressDictionary?["CountryCode"] as? String,
+        let address = item.addressDictionary?["Street"] as? String,
+        let city = item.addressDictionary?["City"] as? String
+        else{
+            ErrorAlert.show(message: LocationErrors.locationAmbiguous.errorDescription!)
+            return
         }
-        if let code = item.addressDictionary?["CountryCode"] as? String{
-            selectedCountryCode = code
-        }
+        
+        updateLocationCompnents(name: "\(address), \(city)",
+                                coordinate: .init(latitude: lat, longitude: lon),
+                                countryCode: code)
+    }
+    
+    func updateLocationCompnents(name:String,coordinate:CLLocationCoordinate2D,countryCode:String)  {
+        
+        lblLocation.text = name
+        selectedPlaceName = name
+        
+        selectedCoordinate = coordinate
+        
+        selectedCountryCode = countryCode
     }
     
     

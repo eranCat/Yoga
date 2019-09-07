@@ -107,6 +107,8 @@
 
 "castFailed" = "נמצאה בעיה במסד הנתונים בהמרת מידע 😢";
 
+"locationAmbiguous" = "למיקום אין מספיק פרטים";//"location doesn't have enough details";
+
 "About me..." = "כמה מילים על עצמי...";
 
 "confirmUnsign" = "האם לבטל את ההרשמה מה";
@@ -212,3 +214,6 @@
 "was canceled" = "התבטל";
 "has been restored" = "הוחזר";
 "allowNotifications" = "יש לאפשר התראות";
+"incompatibleType" = "סוג הנתון לא מתאים";
+"Update" = "עדכון";
+"update" = "עדכון";

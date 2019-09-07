@@ -37,24 +37,27 @@ class SignupViewController: UIViewController,TextFieldReturn {
             
             if removePicked{
                 self.profileImage.image = #imageLiteral(resourceName: "camera")
-                self.hasProfilePic = false
+                self.selectedPicture = nil
                 return
             }
-            self.hasProfilePic = image != nil || url != nil
+            
             
             if let img = image {
                 DispatchQueue.main.async {
                     self.profileImage.image = img
                 }
+                self.selectedPicture = img
                 
             }else if let url = url{
                 DispatchQueue.main.async {
-                    self.profileImage.sd_setImage(with: url, completed: nil)
+                    self.profileImage.sd_setImage(with: url) { (img, err, _, _) in
+                        self.selectedPicture = img
+                    }
                 }
             }
         }
     }()
-    var hasProfilePic = false
+    var selectedPicture:UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +85,8 @@ class SignupViewController: UIViewController,TextFieldReturn {
         
         
         //add user to authenticated users
-        UsersManager.shared.createUser(withEmail: email, password: pass, user: user, profileImage: profileImage.image){[weak self](res, error) in
+        UsersManager.shared.createUser(withEmail: email, password: pass, user: user,
+                                       profileImage: selectedPicture){[weak self](res, error) in
             
             if let error = error{
                 SVProgressHUD.dismiss()
@@ -141,6 +145,6 @@ class SignupViewController: UIViewController,TextFieldReturn {
     
     @IBAction func camTap(_ sender: UITapGestureRecognizer) {
         
-        self.imagePicker.show(hasImage: hasProfilePic)
+        self.imagePicker.show(hasImage: selectedPicture != nil)
     }
 }

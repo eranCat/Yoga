@@ -8,5 +8,5 @@
 
 import Foundation
 protocol Unique {
-    var id:String? {get set}
+    var id:String {get set}
 }

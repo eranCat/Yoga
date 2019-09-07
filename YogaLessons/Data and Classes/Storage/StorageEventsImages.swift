@@ -18,7 +18,7 @@ extension StorageManager{
         guard let imgData = img.jpegData(compressionQuality: 0.0) else {return }
         
         // Create a reference to the file you want to upload
-        let eventImgRef = storage.reference(withPath: EVENTS_IMAGES).child(event.id!)
+        let eventImgRef = storage.reference(withPath: EVENTS_IMAGES).child(event.id)
         
         eventImgRef.putData(imgData,metadata: nil){(metadata, error) in
             print("event image uploaded to storage")
@@ -32,7 +32,7 @@ extension StorageManager{
                     
                     guard let path = url?.absoluteString else{return}
                     event.imageUrl = path
-                    self.saveEventImgToDB(from: path, eventID: event.id!)
+                    self.saveEventImgToDB(from: path, eventID: event.id)
                 }
             }
         }
@@ -72,14 +72,14 @@ extension StorageManager{
         
         // remove a reference to the file you want to upload
         storage.reference(withPath: EVENTS_IMAGES)
-            .child(event.id!).delete { error in
+            .child(event.id).delete { error in
                 if let error = error {
                     // Uh-oh, an error occurred!
                     ErrorAlert.show(message: error.localizedDescription)
                 } else {
                     // File deleted successfully
                     print("Image deleted from storage")
-                    self.removeEventImageFromDB(event.id!)
+                    self.removeEventImageFromDB(event.id)
                 }
         }
     }

@@ -115,7 +115,7 @@ class ClassInfoViewController: UITableViewController {
         
         let user = YUser.currentUser!
         //the user didnt sign up for the class
-        setSigninBtn(isSigned: user.signedClassesIDS[classModel.id!] != nil)
+        setSigninBtn(isSigned: user.signedClassesIDS[classModel.id] != nil)
         
         lblTeachersName.text = teacher.name
         
@@ -229,7 +229,7 @@ class ClassInfoViewController: UITableViewController {
                         default:
                             title = nil
                         }
-                        ErrorAlert.show(title: title, message: error.localizedDescription)
+                        ErrorAlert.show(title: title, message: signErr.errorDescription ?? error.localizedDescription)
                     }
                     else{
                         ErrorAlert.show(message: error.localizedDescription)

@@ -159,13 +159,11 @@ extension LocationUpdater:CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         switch status{
-        case .notDetermined:
-            print("we didn't request location permission yet")
-        case .denied:
-            print("no  location permission")
+        case .notDetermined://"we didn't request location permission yet"
+            break
+        case .denied://"no  location permission"
             showSetting()
-        case .authorizedAlways,.authorizedWhenInUse:
-            print("we got location permission")
+        case .authorizedAlways,.authorizedWhenInUse://"we got location permission"
             startLocationUpdates()
         default:
             break
