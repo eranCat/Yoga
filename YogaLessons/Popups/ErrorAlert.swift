@@ -24,11 +24,9 @@ class ErrorAlert {
         alert.aAction(.init(title: "ok".translated, style: .default, handler: nil)).show()
     }
     
-    let alert:UIAlertController
-    
-    init(title: String?, message: String?,
+    class func show(title: String?, message: String?,
          onDismissed:@escaping (UIAlertAction)->Void) {
-        alert = UIAlertController.create(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController.create(title: title, message: message, preferredStyle: .alert)
         
         alert.bgColor = ._errAlertBg
         

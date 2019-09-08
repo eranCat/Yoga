@@ -80,6 +80,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         if !(YUser.currentUser is Teacher) {
             typeSegment.type = .events
+            currentType = .events
             typeSegment.selectedSegmentIndex = 1
             changeToEventView()
 //            typeSegment.isUserInteractionEnabled = false

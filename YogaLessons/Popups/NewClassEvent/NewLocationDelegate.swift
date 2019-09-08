@@ -25,16 +25,22 @@ extension NewClassEventViewController:LocationPickerDelegate{
     
     func updateLocationFeilds(_ item: LocationItem) {
         guard let (lat,lon) = item.coordinate,
-        let code = item.addressDictionary?["CountryCode"] as? String,
-        let address = item.addressDictionary?["Street"] as? String,
-        let city = item.addressDictionary?["City"] as? String
-        else{
-            ErrorAlert.show(message: LocationErrors.locationAmbiguous.errorDescription!)
-            return
+            let code = item.addressDictionary?["CountryCode"] as? String
+            else{
+                ErrorAlert.show(message: LocationErrors.locationAmbiguous.errorDescription!)
+                return
+        }
+        let place:String
+        if let address = item.addressDictionary?["Street"] as? String,
+            let city = item.addressDictionary?["City"] as? String{
+            
+            place = "\(city) \(address)"
+        }else{
+            place = item.name
         }
         
-        updateLocationCompnents(name: "\(address), \(city)",
-                                coordinate: .init(latitude: lat, longitude: lon),
+        
+        updateLocationCompnents(name: place,coordinate: .init(latitude: lat, longitude: lon),
                                 countryCode: code)
     }
     

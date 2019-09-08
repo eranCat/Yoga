@@ -191,11 +191,11 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     @objc func refreshData() {
         // Fetch Data
         
-        dataSource.loadUserCreatedData()
+//        dataSource.loadUserCreatedData()
         
         dataSource.loadSigned(currentDataType)
         
-        tableView.reloadData()
+        tableView.reloadSections([0], with: .automatic)
         
         refreshControl?.endRefreshing()
     }

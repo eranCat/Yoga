@@ -16,7 +16,7 @@ class DataSource {
     //        MARK:if you don't want location sort, put false
     var isFilteringLocation = true
     //        MARK:if you don't want today sort, put false
-    var isFilteringToday = true
+    var isFilteringToday = false
     //        MARK:if you don't want monthly sort, put false
     var isFilteringMonth = true
 
@@ -267,8 +267,8 @@ class DataSource {
                 else{continue}
             
             let aClass = Class(json)
-            
-            if aClass.endDate >= today || !isFilteringToday{
+            let endDate  = aClass.endDate
+            if endDate >= today || !isFilteringToday{
                 
                 
                 let isUserSigned = user.signedClassesIDS.keys.contains(aClass.id)
@@ -292,7 +292,7 @@ class DataSource {
                 
             }
             //                        uploads
-            if aClass.postedDate >= nextMonth || !isFilteringMonth{
+            if aClass.postedDate <= nextMonth || !isFilteringMonth{
                 if let teacher = user as? Teacher,
                     teacher.teachingClassesIDs[aClass.id] != nil{
                     
@@ -337,7 +337,7 @@ class DataSource {
                 }
             }
 //                        uploads
-            if event.postedDate >= nextMonth || !isFilteringMonth{
+            if event.postedDate <= nextMonth || !isFilteringMonth{
                 if let status = user.createdEventsIDs[event.id] {
                     userCreatedEvents.insert(event,at: 0)
                 }
@@ -412,13 +412,14 @@ class DataSource {
     
     
     func loadUserCreatedData() {
+        
         guard let user = YUser.currentUser
             else {return}
-        
+
         if let teacher = user as? Teacher{//just for clarity both checks
-            
+
             teacherCreatedClasses.removeAll()
-            
+
             for id in teacher.teachingClassesIDs.keys{
                 if let aClass = all_classes.first(where: {$0.id == id}){
                     teacherCreatedClasses.insert(aClass,at: 0)
@@ -426,9 +427,9 @@ class DataSource {
             }
         }
 
-        
+
         userCreatedEvents.removeAll()
-        
+
         for id in user.createdEventsIDs.keys{
             if let event = all_events.first(where: {$0.id == id}){
                 userCreatedEvents.insert(event,at: 0)

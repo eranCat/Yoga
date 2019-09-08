@@ -114,7 +114,7 @@ class BetterTextView :UITextView,UITextViewDelegate{
     
     func setError(message:String) {
         
-        ErrorAlert(title: nil,message: message){ _ in
+        ErrorAlert.show(title: nil,message: message){ _ in
             self.shakeEffect(baseColor: .black, revert: false, shakes: 2)
             self.becomeFirstResponder()
         }

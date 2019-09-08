@@ -32,7 +32,7 @@ extension UITextField{
     }
     
     func setError(message:String) {
-        ErrorAlert(title: nil,message: message,
+        ErrorAlert.show(title: nil,message: message,
                    onDismissed: { _ in
                     self.shakeEffect(baseColor: .black, revert: false, shakes: 2)
                     self.resignFirstResponder()
