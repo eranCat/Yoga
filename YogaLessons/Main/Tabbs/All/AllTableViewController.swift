@@ -288,10 +288,13 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let sender = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)
-            else{
-                return
-            }
+        let sender:DynamicUserCreateable?
+        
+        if !isSearching{
+            sender = dataSource.get(sourceType: .all, dType: currentDataType, at: indexPath)
+        }else{
+            sender = filtered[currentDataType]![safe: indexPath.row]
+        }
         
         let ids:[DataType:SeguesIDs] = [.classes:.classInfo,.events:.eventInfo]
         
@@ -371,24 +374,23 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier ,
-            let segueId = SeguesIDs(rawValue: id)
+        guard let _ = segue.identifier,
+            let sender = sender
             else{return}
         
-        switch segueId {
-        case .classInfo:
-            guard let destVC = segue.destination as? ClassInfoViewController,
-                let c = sender as? Class
-                else{return}
+        switch sender {
+        case let aClass as Class:
+            if let destVC = segue.destination as? ClassInfoViewController{
+                destVC.classModel = aClass
+            }
             
-            destVC.classModel = c
+        case let event as Event:
+            if let destVC = segue.destination as? EventInfoViewController{
+                destVC.eventModel = event
+            }
             
-        case .eventInfo:
-            guard let destVC = segue.destination as? EventInfoViewController,
-                let e = sender as? Event
-                else{return}
-            
-            destVC.eventModel = e
+        default:
+            return
         }
     }
     
