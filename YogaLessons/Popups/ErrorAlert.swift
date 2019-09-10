@@ -23,7 +23,7 @@ class ErrorAlert {
         
         alert.aAction(.init(title: "ok".translated, style: .default, handler: nil)).show()
     }
-    
+//    for Set Error of textField
     class func show(title: String?, message: String?,
          onDismissed:@escaping (UIAlertAction)->Void) {
         let alert = UIAlertController.create(title: title, message: message, preferredStyle: .alert)
