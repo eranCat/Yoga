@@ -180,7 +180,7 @@ class DataSource {
                 switch dType{
                 case .classes:
                     for child in values{
-                        guard child.key != lastPost?.id//!allIds.contains(child.key)
+                        guard child.key != lastPost?.id
                             else{continue}
                         
                         guard let json = child.value as? JSON
@@ -212,7 +212,7 @@ class DataSource {
                     }
                 case .events:
                     for child in values{
-                        guard child.key != lastPost?.id//!allIds.contains(child.key)
+                        guard child.key != lastPost?.id
                             else{continue}
                         
                         guard let json = child.value as? JSON
@@ -338,7 +338,7 @@ class DataSource {
             }
 //                        uploads
             if event.postedDate <= nextMonth || !isFilteringMonth{
-                if let status = user.createdEventsIDs[event.id] {
+                if user.createdEventsIDs[event.id] != nil {
                     userCreatedEvents.insert(event,at: 0)
                 }
             }
@@ -647,11 +647,10 @@ class DataSource {
         //        add to all classes/events json
         let dataRef:DatabaseReference
         switch new {
-        case let aClass as Class:
+        case _ as Class:
             dataRef = ref.child(TableNames.clases.rawValue)
-
             
-        case let event as Event:
+        case _ as Event:
             dataRef = ref.child(TableNames.events.rawValue)
             
         default:

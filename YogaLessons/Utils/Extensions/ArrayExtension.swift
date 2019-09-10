@@ -12,10 +12,6 @@ extension NSArray{
     var stringArray:[String]{
         return self.filter{ $0 is String} as! [String]
     }
-//    var stringArray:[Element]{
-//        return self.filter{ $0 is String} as! [Element]
-//    }
-    
 }
 
 extension Array{

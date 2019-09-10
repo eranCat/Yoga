@@ -298,22 +298,6 @@ extension DataSource{
             
             NotificationCenter.default
                 .post(name: ._signedDataRemoved, userInfo: userInfo)
-        }
-        
+        }        
     }
-    
-    
-//    func swapSigned(_ dType:DataType,from i:Int,to j:Int) {
-//        switch dType {
-//
-//        case .classes:
-//            if !signed_classes.isEmpty{
-//                signed_classes.swapAt(i, j)
-//            }
-//        case .events:
-//            if !signed_events.isEmpty{
-//                signed_events.swapAt(i, j)
-//            }
-//        }
-//    }
 }

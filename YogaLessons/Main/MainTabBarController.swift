@@ -79,22 +79,7 @@ class MainTabBarController: UITabBarController {
         
         navigationItem.title = title.capitalized
     }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        let ds = DataSource.shared
-//        ds.removeAllObserver(dataType: .classes)
-//        ds.removeAllObserver(dataType: .events)
-//    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        let ds = DataSource.shared
-////        ds.observeClassAdded()
-//        ds.observeClassChanged()
-////        ds.observeEventAdded()
-//        ds.observeEventChanged()
-//
-//    }
-    
+
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         guard identifier == "showUserInfo"
@@ -150,9 +135,6 @@ class MainTabBarController: UITabBarController {
         
         currentSourceType = .signed
         updateTitle()
-        
-//        and sort to type
-//        DataSource.shared.sort(by: .best, dataSource: .signed, dataType: currentDataType)
     }
     
     deinit {

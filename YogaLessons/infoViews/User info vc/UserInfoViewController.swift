@@ -192,17 +192,29 @@ class UserInfoViewController: UIViewController {
     }
     
     func onImagePicked(image:UIImage?,url:URL?,removePicked:Bool) {
+        let storage = StorageManager.shared
+        
         if removePicked{
-            self.profileImgView.image = #imageLiteral(resourceName: "camera")
-            self.hasProfilePic = false
-            StorageManager.shared.removeCurrentUserProfileImage(){
-                print("image removed")
+            profileImgView.image = #imageLiteral(resourceName: "camera")
+            hasProfilePic = false
+            storage.removeCurrentUserProfileImage(){
+                if let err = $0 {
+                    let msg = err.localizedDescription
+                    switch err{
+                    case let locErr as LocalizedError:
+                        ErrorAlert.show(message: locErr.errorDescription ?? msg)
+                    default :
+                        ErrorAlert.show(message: msg)
+                    }
+                    return
+                }
             }
             return
         }
-        self.hasProfilePic = image != nil || url != nil
+        
+        hasProfilePic = image != nil || url != nil
         if let img = image {
-            StorageManager.shared.saveCurrentUser( profileImage: img)
+            storage.saveCurrentUser( profileImage: img)
             DispatchQueue.main.async{
                 self.profileImgView.image = img
             }
@@ -211,13 +223,23 @@ class UserInfoViewController: UIViewController {
             
             SVProgressHUD.show()
             
-            StorageManager.shared.setImage(withUrl: url, imgView: self.profileImgView,placeHolderImg:UIImage(named:"camera")){ sd_img,err,_ in
+            storage.setImage(withUrl: url,imgView: profileImgView,
+                           placeHolderImg:#imageLiteral(resourceName: "camera")){ err,image in
                 
                 SVProgressHUD.dismiss()
                 
-                if err == nil{
-                    StorageManager.shared.saveCurrentUser( profileImage: sd_img)
+                if let err = err {
+                    let msg = err.localizedDescription
+                    switch err{
+                    case let locErr as LocalizedError:
+                        ErrorAlert.show(message: locErr.errorDescription ?? msg)
+                    default :
+                        ErrorAlert.show(message: msg)
+                    }
+                    return
                 }
+    
+                storage.saveCurrentUser( profileImage: image)
             }
         }
     }

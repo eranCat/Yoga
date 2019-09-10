@@ -13,7 +13,6 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
     @objc func initSearch() {
         isSearching = true
         present(searchController, animated: true)
-//        searchController.searchBar.textField?.becomeFirstResponder()
     }
     
     
@@ -27,8 +26,6 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         searchBar.delegate = self
         
         controller.dimsBackgroundDuringPresentation = false
-//        searchBar.sizeToFit()
-//        controller.obscuresBackgroundDuringPresentation = false
         
         navigationItem.searchController = controller
         

@@ -38,7 +38,6 @@ class MoneyConverter {
                 return
         }
         
-//        print(url.absoluteURL)
         URLSession.shared.dataTask(with: url){ data, response, error in
             
             if let error = error{

@@ -176,9 +176,8 @@ extension LocationUpdater:CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-//        print(locations[0])
-        
-        NotificationCenter.default.post(name: ._locationChanged, object: self,userInfo: ["location":locations[0]])
+        NotificationCenter.default.post(name: ._locationChanged,
+                                        object: self,userInfo: ["location":locations[0]])
     }
 }
 

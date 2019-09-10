@@ -82,11 +82,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "589629065.592039"
+            timestampString = "589811680.618245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "onSortTapped(_:)"
             landmarkType = "7">
             <Actions>
@@ -140,11 +140,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "589629065.592348"
+            timestampString = "589811680.618356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "removeUserProfileImageFromDB(completion:)"
             landmarkType = "7">
             <Actions>
@@ -164,11 +164,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "589629065.592515"
+            timestampString = "589811680.618692"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "removeCurrentUserProfileImage(completion:)"
             landmarkType = "7">
             <Actions>
@@ -188,11 +188,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
-            timestampString = "589629065.5925601"
+            timestampString = "589811680.618944"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "saveCurrentUser(profileImage:completion:)"
             landmarkType = "7">
             <Actions>
@@ -244,11 +244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "589629065.5926"
+            timestampString = "589811680.619184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "dataAdded(_:)"
             landmarkType = "7">
             <Actions>
@@ -268,11 +268,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "589629065.592643"
+            timestampString = "589811680.619234"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
             <Actions>
@@ -292,7 +292,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Utils/LocationUpdater.swift"
-            timestampString = "589629065.5931619"
+            timestampString = "589811680.619282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "146"
@@ -304,59 +304,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YogaLessons/Data and Classes/Models/User/Teacher.swift"
-            timestampString = "589629065.593328"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "encode()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "YogaLessons.Teacher.encode() -&gt; Swift.Dictionary&lt;Swift.String, Any&gt;"
-                  moduleName = "YogaLessons"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/erankaraso/Documents/IOS%20projects/YogaLessons/YogaLessons/Data%20and%20Classes/Models/User/Teacher.swift"
-                  timestampString = "589629065.688404"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "85">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (YogaLessons.Status) -&gt; Swift.Optional&lt;Swift.Int&gt; in YogaLessons.Teacher.encode() -&gt; Swift.Dictionary&lt;Swift.String, Any&gt;"
-                  moduleName = "YogaLessons"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/erankaraso/Documents/IOS%20projects/YogaLessons/YogaLessons/Data%20and%20Classes/Models/User/Teacher.swift"
-                  timestampString = "589629065.697453"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "18">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Utils/LocationUpdater.swift"
-            timestampString = "589629065.593496"
+            timestampString = "589811680.6193269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"
@@ -380,7 +332,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Utils/LocationUpdater.swift"
-            timestampString = "589629065.5935431"
+            timestampString = "589811680.619369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "164"
@@ -404,7 +356,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Utils/LocationUpdater.swift"
-            timestampString = "589629065.593603"
+            timestampString = "589811680.619413"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "166"
@@ -428,13 +380,38 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "589629065.593645"
+            timestampString = "589811680.619454"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "dataAdded(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            condition = "err == nil"
+            continueAfterRunningActions = "Yes"
+            filePath = "YogaLessons/Data and Classes/Storage/StorageManager.swift"
+            timestampString = "589811680.619498"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "saveImgToDB(from:completion:)"
+            landmarkType = "7">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "po &quot;Image successfully updated in DB&quot;">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

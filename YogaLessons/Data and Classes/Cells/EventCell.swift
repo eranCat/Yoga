@@ -78,7 +78,6 @@ extension EventCell:PopulateDelegate{
             event.imageUrl == nil ? .defaultLow : .init(rawValue: 750)
         
         eventImgView.setContentCompressionResistancePriority(priority,for: .horizontal)
-//            self.layoutIfNeeded()
 
         cancledImageView.isHidden = event.status != .cancled
         cancledImageView.layer.zPosition = 10

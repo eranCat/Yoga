@@ -36,7 +36,7 @@ class LoginViewController: UIViewController,TextFieldReturn {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.titleLbl.alpha = 0//transform = .init(scaleX: 0.5, y: 0.7)
+        self.titleLbl.alpha = 0
         
         for (i,v) in mainStack.arrangedSubviews.enumerated(){
             v.transform = .init(translationX: (i%2 == 0 ? 1 : -1)*view.bounds.width, y: 0)
@@ -48,7 +48,7 @@ class LoginViewController: UIViewController,TextFieldReturn {
         typealias UV = UIView
         
         UV.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-            self.titleLbl.alpha = 1//transform = CGAffineTransform.identity
+            self.titleLbl.alpha = 1
         })
         
         

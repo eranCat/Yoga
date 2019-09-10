@@ -53,8 +53,6 @@ class LevelTextField: DropDown {
         selectedRowColor = UIColor._accent
         
         inputView = .init()
-        
-        //        addTarget(self, action: #selector(openList), for: .touchDown)
     }
     
     func set(level:Level){
@@ -111,11 +109,9 @@ class UserLevelField: DropDown {
             }
         }
         
-        selectedRowColor = UIColor._accent
+        selectedRowColor = ._accent
         
         inputView = .init()
-        
-        //        addTarget(self, action: #selector(openList), for: .touchDown)
     }
     
     func set(level:Level){

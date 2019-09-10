@@ -25,69 +25,68 @@ class StorageManager {
         self.storage = Storage.storage()
     }
     
-    func saveCurrentUser(profileImage img:UIImage?,completion:(()->Void)? = nil) {
+    func saveCurrentUser(profileImage img:UIImage?,completion:((Error?)->Void)? = nil) {
         
         guard let image = img else {return}
         
         guard let uid = Auth.auth().currentUser?.uid
         else{
-            print("no user found to save image for!")
+            completion?(UserErrors.noUserFound)
             return
         }
         
         // Create a reference to the file you want to upload
         let userImgByID = storage.reference(withPath: USERS_IMAGES).child(uid)
         
-        guard let imgData = image.jpegData(compressionQuality: 0.0) else {return }
+        guard let imgData = image.jpegData(compressionQuality: 0.0) else {
+            completion?(JsonErrors.castFailed)//image data for storage
+            return
+        }
         
         userImgByID.putData(imgData,metadata: nil){(metadata, error) in
             // Fetch the download URL
             userImgByID.downloadURL { url, error in
                     if let error = error {
-                        // Handle any errors
-                        ErrorAlert.show(message: error.localizedDescription)
-                        completion?()
-                    } else {
-                        // Get the download URL for 'images/stars.jpg'
-                        
-                        guard let path = url?.absoluteString else{return}
-                        
-                        self.saveImgToDB(from: path,completion: completion)
+                        completion?(error)
+                        return
                     }
-                }
-            
+                    // Get the download URL for 'images/stars.jpg'
+                
+                    guard let path = url?.absoluteString else{
+                        completion?(StorageErrors.problemWithUrl)
+                        return
+                    }
+                
+                    self.saveImgToDB(from: path,completion: completion)
+            }
         }
     }
     
-    fileprivate func getUserImageRef(_ uid: String) -> DatabaseReference {
-        let path = [DataSource.TableNames.users.rawValue,
-                    uid,
-                    YUser.Keys.profileImg]
+    var userImageRef : DatabaseReference {
+        
+        let uid = YUser.currentUser!.id
+        
+        let path =
+            [DataSource.TableNames.users.rawValue,uid,YUser.Keys.profileImg]
             .joined(separator: "/")
         
         return Database.database().reference().child(path)
     }
     
-    private func saveImgToDB(from path:String,completion:(()->Void)?){
+    private func saveImgToDB(from path:String,completion:((Error?)->Void)?){
         
         guard let currentUser = YUser.currentUser
-        else {return}
-        let uid = currentUser.id
+        else {
+            completion?(UserErrors.noUserFound)
+            return
+        }
         
         //save the image url in current users obj
         currentUser.profileImageUrl = path
         
         //save to DB
-        getUserImageRef(uid).setValue(path){(error,childRef) in
-                
-                if let err = error{
-                    ErrorAlert.show(message: err.localizedDescription)
-                    completion?()
-                    return
-                }
-                
-                print("Image successfully updated in DB")
-                completion?()
+        userImageRef.setValue(path){err,_ in
+            completion?(err)
         }
     }
     
@@ -97,27 +96,21 @@ class StorageManager {
         }
     }
     
-    func setImage(withUrl url:String?,imgView:UIImageView,placeHolderImg:UIImage? = nil,completion:((UIImage?, Error?, URL?)->Void)? = nil ){
-    
-        guard let url = url, let imgUrl = URL(string: url)
-            else {return}//check to not show indicator
+    func setImage(withUrl url:String?,imgView:UIImageView,
+                  placeHolderImg:UIImage? = nil,completion:((Error?,UIImage?)->Void)? = nil ){
         
-        setImage(withUrl: imgUrl, imgView: imgView,placeHolderImg: placeHolderImg,completion: completion)
+        setImage(withUrl: URL(string: url!), imgView: imgView,placeHolderImg: placeHolderImg,completion: completion)
     }
-    func setImage(withUrl url:URL?,imgView:UIImageView,placeHolderImg:UIImage? = nil,completion:((UIImage?, Error?, URL?)->Void)? = nil ){
+    func setImage(withUrl url:URL?,imgView:UIImageView,
+                  placeHolderImg:UIImage? = nil,completion:((Error?,UIImage?)->Void)? = nil ){
         
-//        SVProgressHUD.setContainerView(imgView)
-//        SVProgressHUD.show()
-       
         imgView.showActivityIndicator()
         
         imgView.sd_setImage(with: url,placeholderImage: placeHolderImg)
         { (image, error, type, url) in
-//            SVProgressHUD.dismiss()
             
             imgView.hideActivityIndicator()
-            
-            completion?(image,error,url)
+            completion?(error,image)
         }
     
     }
@@ -132,10 +125,10 @@ class StorageManager {
     }
     
     
-    func removeCurrentUserProfileImage(completion:(()->Void)?) {
+    func removeCurrentUserProfileImage(completion:((Error?)->Void)?) {
         guard let uid = Auth.auth().currentUser?.uid
             else{
-                print("no user found to save image for!")
+                completion?(UserErrors.noUserFound)
                 return
         }
         
@@ -144,8 +137,7 @@ class StorageManager {
             .child(uid).delete { error in
                 if let error = error {
                     // Uh-oh, an error occurred!
-                    ErrorAlert.show(message: error.localizedDescription)
-                    completion?()
+                    completion?(error)
                 } else {
                     // File deleted successfully
                     self.removeUserProfileImageFromDB(completion:completion)
@@ -153,24 +145,16 @@ class StorageManager {
         }
     }
     
-    private func removeUserProfileImageFromDB(completion:(()->Void)?){
+    private func removeUserProfileImageFromDB(completion:((Error?)->Void)?){
         guard let currentUser = YUser.currentUser
-            else {return}
-        let uid = currentUser.id
+            else {
+                completion?(UserErrors.noUserFound)
+                return}
         
         //save the image url in current users obj
         currentUser.profileImageUrl = nil
         
         //upadte in DB
-        getUserImageRef(uid).removeValue(){(error,childRef) in
-                
-                if let err = error{
-                    ErrorAlert.show(message: err.localizedDescription)
-                    completion?()
-                    return
-                }
-            
-                completion?()
-        }
+        userImageRef.removeValue(){err,_ in completion?(err)}
     }
 }

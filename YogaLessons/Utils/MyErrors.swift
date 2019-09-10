@@ -38,6 +38,10 @@ enum DataTypeError:Error{
     case incompatibleType
 }
 
+enum StorageErrors:Error{
+    case problemWithUrl
+}
+
 enum SigningErrors:Error {
     case canNotSignOut
     case noPlaceLeft

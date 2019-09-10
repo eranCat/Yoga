@@ -45,8 +45,6 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GeoFire (3.0.0):
-    - Firebase/Database (~> 5.0)
   - GoogleAppMeasurement (5.8.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -93,7 +91,6 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
-  - GeoFire (~> 3.0)
   - iOSDropDown
   - LocationPickerViewController
   - ReachabilitySwift
@@ -111,7 +108,6 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseInstanceID
     - FirebaseStorage
-    - GeoFire
     - GoogleAppMeasurement
     - GoogleUtilities
     - GTMSessionFetcher
@@ -133,7 +129,6 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 2c15b0ea6f2c6eb5e57413f9d6340f1e50b81ae3
   FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
   FirebaseStorage: 6162ef4322502b818d9de0ec552f5226d283de43
-  GeoFire: e3ae6f4be3f2466c3467ef6c1c203db3af935c59
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
@@ -146,6 +141,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UnsplashPhotoPicker: 3669aef6d3cd8bc45f19d681eef0af5920325c79
 
-PODFILE CHECKSUM: d577d3000ad28d40091292373961d68dcaecbfb1
+PODFILE CHECKSUM: f2d6740fedef7c85426575b4d7d48bc6929a9184
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.7.5

@@ -22,7 +22,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     var isDataEmpty = true
     
     let sectionsHeaders = [SourceType.signed.translated.capitalized,
-                            "My uploads".translated.capitalized]
+                           "My uploads".translated.capitalized]
     
     
     override func viewDidLoad() {
@@ -40,23 +40,13 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         subscribeObservers()
         
-//        navigationItem.largeTitleDisplayMode = .automatic
+        //        navigationItem.largeTitleDisplayMode = .automatic
     }
     
     func updateTitle() {
-        var title = "\(SourceType.signed.translated)"
-        title += "  \(currentDataType.translated)"
-        
+        let title = "\(SourceType.signed.translated)-\(currentDataType.translated)"
         navigationItem.title = title.capitalized
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        subscribeObservers()
-//    }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        NotificationCenter.default.removeObserver(self)
-//    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -77,15 +67,15 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
              ._signedDataAdded:#selector(signedDataAdded(_:)),
              ._dataAdded:#selector(dataAdded(_:)),
              ._dataChanged:#selector(onDataChanged(_:)),
-            ._signedDataRemoved:#selector(signedDataRemoved(_:)),
-            ._signedDataChanged:#selector(onDataChanged(_:)),
-            ._dataCancled:#selector(onDataChanged(_:)),
-            ._settingChanged : #selector(settingChanged(_:)),
-            ._reloadedAfterSettingChanged : #selector(reloadedAfterSettingChanged(_:))
+             ._signedDataRemoved:#selector(signedDataRemoved(_:)),
+             ._signedDataChanged:#selector(onDataChanged(_:)),
+             ._dataCancled:#selector(onDataChanged(_:)),
+             ._settingChanged : #selector(settingChanged(_:)),
+             ._reloadedAfterSettingChanged : #selector(reloadedAfterSettingChanged(_:))
         ]
         
         let centerDef = NotificationCenter.default
-       
+        
         observers.forEach{
             centerDef.addObserver(self, selector: $1, name: $0, object: nil)
         }
@@ -97,7 +87,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         SVProgressHUD.dismiss()
         tableView.reloadData()
     }
-
+    
     @objc func signedDataAdded(_ notif: Notification) {
         
         let signedCount = tableView.numberOfRows(inSection: 0)
@@ -109,11 +99,9 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         let ip: IndexPath = .init(row: 0, section: 0)
         
-//        tableView.beginUpdates()
         tableView.insertRows(at: [ip], with: .automatic)
-//        tableView.endUpdates()
-//        tableView.reloadRows(at: [ip], with: .none)
-//        tableView.scrollToRow(at: ip, at: .top, animated: true)
+        //        tableView.reloadRows(at: [ip], with: .none)
+        //        tableView.scrollToRow(at: ip, at: .top, animated: true)
     }
     @objc func dataAdded(_ notif: Notification) {
         
@@ -137,7 +125,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         tableView.reloadRows(at: [ip], with: .none)
         tableView.scrollToRow(at: ip, at: .top, animated: true)
     }
-
+    
     @objc func signedDataRemoved(_ notif: Notification) {
         
         guard let type = notif.userInfo?["type"] as? DataType,
@@ -146,12 +134,12 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         tableView.reloadData()
     }
-
+    
     @objc func onDataChanged(_ notification:NSNotification) {
         
         guard let ui = notification.userInfo,
             let type = ui["type"] as? DataType,type == currentDataType,
-            let status = ui["status"] as? Status//,status == .cancled
+            let _ = ui["status"] as? Status//,status == .cancled
             
             else{return}
         
@@ -161,8 +149,8 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     
     @objc func onSortTapped(_ notification:NSNotification) {
         // viewController is visible
-//        guard viewIfLoaded?.window != nil
-//            else{return}
+        //        guard viewIfLoaded?.window != nil
+        //            else{return}
         
         guard let (dType,sType) = notification.userInfo?["dataTuple"] as? (DataType,SortType)
             else{return}
@@ -176,6 +164,8 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         adjustEmpty(isDataEmpty)
         updateEmptyLabel()
+        
+        updateTitle()
         
         tableView.reloadData()
     }
@@ -191,7 +181,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     @objc func refreshData() {
         // Fetch Data
         
-//        dataSource.loadUserCreatedData()
+        //        dataSource.loadUserCreatedData()
         
         dataSource.loadSigned(currentDataType)
         
@@ -258,7 +248,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         let signedCount = dataSource.count(sourceType: .signed, dType: currentDataType)
         let uploadsCount = dataSource.getUser_sUploads(dType: currentDataType).count
-
+        
         if tableView.numberOfSections == 2{
             isDataEmpty = (signedCount == 0 && uploadsCount == 0)
         }else{
@@ -317,7 +307,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
                 let restore = UIContextualAction(style: .normal, title: title) { (_, _, completed) in
                     self.toggleCancel(indexPath: indexPath)
                 }
-
+                
                 restore.backgroundColor = ._accent
                 
                 return UISwipeActionsConfiguration(actions: [update,restore])
@@ -368,12 +358,12 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
                 cancel.backgroundColor = ._danger
                 return [cancel]
             }
-
+            
         case 0:fallthrough//signed
         default:
             let title = "Unsign from ".translated + currentDataType.singular
             let unsign = UITableViewRowAction(style: .destructive,title: title)
-                                                            {self.unsign(indexPath: $1)}
+            {self.unsign(indexPath: $1)}
             unsign.backgroundColor = ._danger
             return [unsign]
         }
@@ -413,7 +403,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
                 }else{
                     DispatchQueue.main.async{
                         //                        MARK: fix this crash
-//                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        //                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
                         
                         self.tableView.reloadData()
                     }
@@ -429,9 +419,9 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             SVProgressHUD.dismiss()
             if let err = error {
                 ErrorAlert.show(message: err.localizedDescription)
+                return
             }
             self.tableView.reloadRows(at: [indexPath], with: .middle)
-//            self.tableView.reloadData()
         }
     }
     
@@ -440,13 +430,13 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         let msg = "confirmCancel".translated + currentDataType.singular + " ?"
         
         let alert = UIAlertController.create(title: nil, message: msg,preferredStyle: .alert)
-        
-        .aAction(UIAlertAction(title: "yes".translated, style: .default) { (_) in
             
-            self.toggleCancel(indexPath: indexPath)
-        })
-        
-        .aAction(.init(title: "No".translated, style: .cancel, handler: nil))
+            .aAction(UIAlertAction(title: "yes".translated, style: .default) { (_) in
+                
+                self.toggleCancel(indexPath: indexPath)
+            })
+            
+            .aAction(.init(title: "No".translated, style: .cancel, handler: nil))
         
         present(alert, animated: true)
     }
@@ -482,10 +472,10 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             }
         case .edit:
             guard let destNav = segue.destination as? UINavigationController,
-            let destVC = destNav.children[0] as? NewClassEventViewController,
+                let destVC = destNav.children[0] as? NewClassEventViewController,
                 let data = sender as? DynamicUserCreateable
                 else{return}
-                
+            
             destVC.model = data
         }
     }

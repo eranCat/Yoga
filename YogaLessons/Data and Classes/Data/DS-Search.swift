@@ -14,10 +14,7 @@ extension DataSource{
         
         let filterable = getList(sourceType: sourceType, dType: dataType) as! [Filterable]
         
-        let filtered = filterable.filter { (filterableObj) -> Bool in
-//            where
-            return filterableObj.isSuitable(key: key, query: query)
-        }
+        let filtered = filterable.filter {$0.isSuitable(key: key, query: query)}
         
         return filtered as! [DynamicUserCreateable]
     }

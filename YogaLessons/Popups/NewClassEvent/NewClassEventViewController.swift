@@ -83,7 +83,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             currentType = .events
             typeSegment.selectedSegmentIndex = 1
             changeToEventView()
-//            typeSegment.isUserInteractionEnabled = false
+
             typeSegment.setEnabled(false, forSegmentAt: 0)
         }
         
@@ -305,7 +305,6 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         SVProgressHUD.show()
         dismiss(animated: true)
-        //            self.navigationController?.popViewController(animated: true)
         //only show after synchronic code finished
         //and dismissed when done saving
     }
@@ -364,7 +363,6 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     @IBAction func discard(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
-//        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func tfDidBeginEditing(_ sender: UITextField) {

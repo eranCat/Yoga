@@ -18,7 +18,8 @@ class UsersManager {
         self.auth = Auth.auth()
     }
     
-    func createUser(withEmail email: String, password pass: String,user:YUser,profileImage pic:UIImage?,callback:AuthDataResultCallback?){
+    func createUser(withEmail email: String, password pass: String,user:YUser,
+                    profileImage pic:UIImage?,callback:AuthDataResultCallback?){
         
         auth.createUser(withEmail: email, password: pass){(res, error) in
             
@@ -35,11 +36,9 @@ class UsersManager {
                 .saveUserToDb(user : user){
                     YUser.currentUser = user
                 
-                    StorageManager.shared
-                        .saveCurrentUser(profileImage: pic){
-                        
-                        callback?(res,error)
-                    }
+                    StorageManager.shared.saveCurrentUser(profileImage: pic)
+                    
+                    callback?(res,error)
             }
         }
     }

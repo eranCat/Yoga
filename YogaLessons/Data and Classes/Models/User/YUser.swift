@@ -87,15 +87,6 @@ class YUser: DBCodable,Unique,CustomStringConvertible {
         let time =  dict[Keys.bDate] as! TimeInterval
         bDate = .init(timeIntervalSince1970: time)
         
-        
-//        let jsonArrays = [
-//            dict[Keys.signedC],
-//            dict[Keys.signedE],
-//            dict[Keys.createdEvents]]
-//
-//        let resArrays:[[String]] =
-//            jsonArrays.map{($0 as! NSArray?)?.stringArray ?? []}
-
         signedClassesIDS = dict[Keys.signedC] as? [String:Bool] ?? [:]
         
         signedEventsIDS = dict[Keys.signedE] as? [String:Bool] ?? [:]

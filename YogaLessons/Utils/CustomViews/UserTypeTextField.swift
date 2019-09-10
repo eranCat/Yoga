@@ -41,11 +41,9 @@ class UserTypeTextField: DropDown{
             }
         }
         
-        selectedRowColor = UIColor._accent
+        selectedRowColor = ._accent
         
         inputView = .init()
-        
-        addTarget(self, action: #selector(openList), for: .touchDown)
     }
     
     func set(type :UserType){

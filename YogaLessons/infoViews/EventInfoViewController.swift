@@ -13,25 +13,25 @@ import SVProgressHUD
 class EventInfoViewController: UITableViewController {
 
     
-    @IBOutlet weak var eventImgView: UIImageView!//v
+    @IBOutlet weak var eventImgView: UIImageView!
     
-    @IBOutlet weak var costCell: UITableViewCell!//v
+    @IBOutlet weak var costCell: UITableViewCell!
     
-    @IBOutlet weak var costLbl: UILabel!//v
+    @IBOutlet weak var costLbl: UILabel!
     
     @IBOutlet weak var locationLbl: UILabel!
     
     
     @IBOutlet weak var dateStack: UIStackView!
     
-    @IBOutlet weak var dateLbl: UILabel!//v
+    @IBOutlet weak var dateLbl: UILabel!
    
-    @IBOutlet weak var amountOfPplGoing: UILabel!//√x
+    @IBOutlet weak var amountOfPplGoing: UILabel!
     
     @IBOutlet weak var pplAreGoingLbl: UILabel!
     var pplAreGoingDefaultText:String?
     
-    @IBOutlet weak var maxPplAmount: UILabel!//v
+    @IBOutlet weak var maxPplAmount: UILabel!
     
     
     @IBOutlet weak var opProfileImgView: CircledView!
@@ -174,7 +174,7 @@ class EventInfoViewController: UITableViewController {
         
         if eventModel.maxParticipants != -1{
             maxPplAmount.text = "out of ".translated + "\(eventModel.maxParticipants)"
-//            maxPplAmount.isHidden = false
+
         }else{
             maxPplAmount.isHidden = true
         }
@@ -258,10 +258,10 @@ class EventInfoViewController: UITableViewController {
                         
                     case .noPlaceLeft:
                         title = "too late".translated
+
                     case .alreadySignedToClass, .alreadySignedToEvent:
                         title = "signTwice".translated
-//                    case .cantSignToCancled(.events):
-//                        title = nil
+
                     default:
                         title = nil
                     }

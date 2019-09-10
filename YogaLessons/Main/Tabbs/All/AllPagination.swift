@@ -37,17 +37,17 @@ extension AllTableViewController{
 //    }
     
     
-    func beginBatchFetch() {
-        
-        isFetchingMore = true
-        dataSource.loadAllBatch(currentDataType, loadFromBegining: false) { endReached in
-            self.isFetchingMore = false
-            self.hasEndReached = endReached
-            
-            UIView.performWithoutAnimation {
-                self.tableView.reloadData()
-            }
-            
-        }
-    }
+//    func beginBatchFetch() {
+//        
+//        isFetchingMore = true
+//        dataSource.loadAllBatch(currentDataType, loadFromBegining: false) { endReached in
+//            self.isFetchingMore = false
+//            self.hasEndReached = endReached
+//            
+//            UIView.performWithoutAnimation {
+//                self.tableView.reloadData()
+//            }
+//            
+//        }
+//    }
 }

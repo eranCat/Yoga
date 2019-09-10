@@ -228,8 +228,6 @@ extension Notification.Name{
     
     static let _dataLoaded = Notification.Name("data loaded")
     
-//    static let _dataSorted = Notification.Name("data sorted")
-    
     static let _dataAdded = Notification.Name("data_added")
     static let _signedDataAdded = Notification.Name("signed added")
 

@@ -88,17 +88,13 @@ class SignupViewController: UIViewController,TextFieldReturn {
         UsersManager.shared.createUser(withEmail: email, password: pass, user: user,
                                        profileImage: selectedPicture){[weak self](res, error) in
             
+            SVProgressHUD.dismiss()
             if let error = error{
-                SVProgressHUD.dismiss()
                 ErrorAlert.show(message: error.localizedDescription)
                 return
             }
             
-            SVProgressHUD.dismiss()
-            
             guard let self = self else{return}
-            
-//            self.dismiss(animated: true)
             
             self.show(self.newVC( id: "mainNav"), sender: nil)
         }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -65,7 +65,6 @@
 		974B6A1122DCC4DB001867F0 /* UsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974B6A1022DCC4DB001867F0 /* UsersManager.swift */; };
 		974B6A1322DDD216001867F0 /* MaxAmonutField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974B6A1222DDD216001867F0 /* MaxAmonutField.swift */; };
 		9755256922E4EACA00608DAC /* NewLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9755256822E4EACA00608DAC /* NewLocationDelegate.swift */; };
-		9755256B22E4EAE600608DAC /* KeyboardMoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9755256A22E4EAE600608DAC /* KeyboardMoveView.swift */; };
 		9755256D22E4EB4600608DAC /* NewTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9755256C22E4EB4600608DAC /* NewTextViewDelegate.swift */; };
 		977D329F22ECB14F0084EF77 /* UserKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D329E22ECB14F0084EF77 /* UserKeys.swift */; };
 		977D32A322EECB9C0084EF77 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977D32A222EECB9C0084EF77 /* ArrayExtension.swift */; };
@@ -237,7 +236,6 @@
 		974B6A1022DCC4DB001867F0 /* UsersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersManager.swift; sourceTree = "<group>"; };
 		974B6A1222DDD216001867F0 /* MaxAmonutField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxAmonutField.swift; sourceTree = "<group>"; };
 		9755256822E4EACA00608DAC /* NewLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationDelegate.swift; sourceTree = "<group>"; };
-		9755256A22E4EAE600608DAC /* KeyboardMoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMoveView.swift; sourceTree = "<group>"; };
 		9755256C22E4EB4600608DAC /* NewTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTextViewDelegate.swift; sourceTree = "<group>"; };
 		977D329E22ECB14F0084EF77 /* UserKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserKeys.swift; sourceTree = "<group>"; };
 		977D32A222EECB9C0084EF77 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
@@ -363,14 +361,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		97097EEA22B54CBC007CD8E4 /* LoginUser */ = {
-			isa = PBXGroup;
-			children = (
-				97097EED22B54CE2007CD8E4 /* SignupViewController.swift */,
-			);
-			path = LoginUser;
-			sourceTree = "<group>";
-		};
 		9713DB5922FDB88100B00C15 /* All */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,7 +406,6 @@
 			isa = PBXGroup;
 			children = (
 				97AE310422C77F550008CE75 /* NewClassEventViewController.swift */,
-				9755256A22E4EAE600608DAC /* KeyboardMoveView.swift */,
 				9755256822E4EACA00608DAC /* NewLocationDelegate.swift */,
 				9755256C22E4EB4600608DAC /* NewTextViewDelegate.swift */,
 			);
@@ -492,6 +481,7 @@
 				97FEF92622B38161009ECCE6 /* MainTabBarController.swift */,
 				97AE30FF22C767CD0008CE75 /* MainVC_BarItems.swift */,
 				97097EEB22B54CD9007CD8E4 /* LoginViewController.swift */,
+				97097EED22B54CE2007CD8E4 /* SignupViewController.swift */,
 				97182CEA22D5CCD3006337C0 /* SplashScreenViewController.swift */,
 				9713DB6022FF329B00B00C15 /* MainConnectionDelegate.swift */,
 			);
@@ -603,7 +593,6 @@
 				9743952723126AD500A8B48A /* images */,
 				97FEF92E22B3CA36009ECCE6 /* Data and Classes */,
 				97EED8BD22C0A72D009AEB07 /* infoViews */,
-				97097EEA22B54CBC007CD8E4 /* LoginUser */,
 				97AE30FE22C767540008CE75 /* Main */,
 				97AE30EB22C4B1040008CE75 /* Popups */,
 				97AE309A22C134090008CE75 /* Stroyboards */,
@@ -853,34 +842,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YogaLessons/Pods-YogaLessons-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/LocationPickerViewController/LocationPickerViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/UnsplashPhotoPicker/UnsplashPhotoPicker.framework",
-				"${BUILT_PRODUCTS_DIR}/iOSDropDown/iOSDropDown.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-YogaLessons/Pods-YogaLessons-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LocationPickerViewController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UnsplashPhotoPicker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOSDropDown.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-YogaLessons/Pods-YogaLessons-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -927,7 +893,6 @@
 				9713DB5222FBFDAB00B00C15 /* MoneyConverter.swift in Sources */,
 				9719FEC822CE022E005B865B /* StorageManager.swift in Sources */,
 				97AE30FB22C5FFA40008CE75 /* SignedTableViewController.swift in Sources */,
-				9755256B22E4EAE600608DAC /* KeyboardMoveView.swift in Sources */,
 				97CD958A22D4807D0073BF61 /* ActivityIndicatorViewExtension.swift in Sources */,
 				97AE313F22C927BF0008CE75 /* SortAlertDelegate.swift in Sources */,
 				9719FE5B22CB3E5D005B865B /* DataType.swift in Sources */,

@@ -52,13 +52,6 @@ extension MainTabBarController:UITabBarControllerDelegate{
         
         let editBtn = signedVC.editButtonItem
         
-        
-        //        guard let t = YUser.currentUser?.type ,
-        //            t != .student else{
-        //                return [editBtn,sortBtn]
-        //        }
-        
-        
         return [editBtn,sortBtn]
     }
     

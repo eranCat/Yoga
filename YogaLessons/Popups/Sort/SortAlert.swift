@@ -121,21 +121,13 @@ class SortAlert: UIViewController {
         segmentType.selectedSegmentIndex = SortAlert.currentDataTypeIndex ?? 0
     }
     fileprivate func addAction(sortType:SortType) {
-        //new button
-        //target = handler
-        
         let btn = UIButton(type: .system)
-        //        btn.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
         btn.rounded = 8
         
         btn.backgroundColor = UIColor._primary
         btn.setTitleColor(._btnTint, for: .normal)
         btn.setTitleColor(.white, for: .selected)
-
-        
         btn.setTitle(sortType.translated.capitalized, for: .normal)
-        
         btn.titleLabel?.font = btn.titleLabel?.font.withSize(18)
         
         btn.tag = sortType.rawValue

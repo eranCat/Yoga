@@ -29,8 +29,6 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     lazy var searchController:UISearchController = createSearchController()
     
     lazy var filtered:[DataType:[DynamicUserCreateable]] = { [.classes:[],.events:[]]}()
-    //    var filteredClasses:[Class] = []
-    //    var filteredEvents:[Event] = []
     
     fileprivate func registerCells() {
         //        MARK: load cells
@@ -164,7 +162,6 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     func reload() {
-        //        tableView.reloadSections(IndexSet(integer: 0), with: .left)
         tableView.reloadData()
         refreshControl?.endRefreshing()
     }
@@ -344,7 +341,6 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             
             data = filtered[currentDataType]![indexPath.row]
         }
-        //if currentnum == max else
         dataSource.signTo(currentDataType, dataObj: data, taskDone: onAdd)
     }
     
