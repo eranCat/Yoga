@@ -104,6 +104,7 @@
 "signToCanceled" = "אי אפשר להרשם כי בוטל ה";
 
 "noUserFound" = "משתמש לא נמצא ! 😳";
+"userIDUndefined" = "לא נמצא מזהה למשתמש";
 
 "castFailed" = "נמצאה בעיה במסד הנתונים בהמרת מידע 😢";
 

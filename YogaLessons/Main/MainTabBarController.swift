@@ -48,8 +48,16 @@ class MainTabBarController: UITabBarController {
     
     lazy var barItemsForTab:[[UIBarButtonItem]] = {return [allBar,signedBar]}()
     
-    var currentDataType:DataType = .classes
-    var currentSourceType:SourceType = .all
+    var currentDataType:DataType = .classes{
+        didSet{
+            updateTitle()
+        }
+    }
+    var currentSourceType:SourceType = .all{
+        didSet{
+            updateTitle()
+        }
+    }
    
     
     override func viewDidLoad() {
@@ -57,6 +65,15 @@ class MainTabBarController: UITabBarController {
         view.backgroundColor = .white
         
         delegate = self
+        
+//        set title view for better style
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+        titleLabel.backgroundColor = .clear
+        titleLabel.textAlignment = .center
+        // this next line picks up the UINavBar tint color instead of fixing it to a particular one as in Gavin's solution
+        titleLabel.textColor = UINavigationBar.appearance().tintColor
+        titleLabel.font = UIFont(name: "Euphomia UAS", size: 16.0)?.bold
+        navigationItem.titleView = titleLabel
         
         subscribeObservers()
         updateTitle()
@@ -75,9 +92,14 @@ class MainTabBarController: UITabBarController {
     
     func updateTitle() {
         
-        let title = "\(currentSourceType)-\(currentDataType)".translated
+        let title = "\(currentSourceType)-\(currentDataType)".translated.capitalized
         
-        navigationItem.title = title.capitalized
+        if let lbl = navigationItem.titleView as? UILabel{
+            lbl.text = title
+        }
+        else{
+            navigationItem.title = title
+        }
     }
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -120,7 +142,7 @@ class MainTabBarController: UITabBarController {
     }
     
     @objc func onSortTapped(_ notification:NSNotification) {
-        guard let (dType,sType) = notification.userInfo?["dataTuple"] as? (DataType,SortType)
+        guard let (dType,_) = notification.userInfo?["dataTuple"] as? (DataType,SortType)
             else{return}
         
         currentDataType = dType
@@ -134,10 +156,23 @@ class MainTabBarController: UITabBarController {
         selectedIndex = 1
         
         currentSourceType = .signed
-        updateTitle()
+        
+        changeBarButtons(bySelectedIndex: selectedIndex)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+}
+extension UIFont {
+    
+    func withTraits(traits:UIFontDescriptor.SymbolicTraits...) -> UIFont {
+        let descriptor = self.fontDescriptor
+            .withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits))
+        return UIFont(descriptor: descriptor!, size: 0)
+    }
+    
+    var bold:UIFont {
+        return withTraits(traits: .traitBold)
     }
 }

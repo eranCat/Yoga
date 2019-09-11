@@ -82,6 +82,7 @@ class UserLevelField: DropDown {
     var didSelectHandler:((Level?)->Void)?
     
     var level:Level?
+    private let LVL_OFFSET = 1
     
     func cTor() {
         arrowColor = .white
@@ -89,7 +90,7 @@ class UserLevelField: DropDown {
         optionArray = []
         optionIds = []
         
-        for level in Level.allCases[1...]{
+        for level in Level.allCases[LVL_OFFSET...]{
             
             optionArray.append(level.translated.capitalized)
             optionIds?.append(level.rawValue)
@@ -117,7 +118,7 @@ class UserLevelField: DropDown {
     func set(level:Level){
         self.level = level
         text = level.translated.capitalized
-        selectedIndex = level.rawValue
+        selectedIndex = level.rawValue - LVL_OFFSET
     }
     
     

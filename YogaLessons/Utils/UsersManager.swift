@@ -19,26 +19,33 @@ class UsersManager {
     }
     
     func createUser(withEmail email: String, password pass: String,user:YUser,
-                    profileImage pic:UIImage?,callback:AuthDataResultCallback?){
+                    profileImage pic:UIImage?,callback:@escaping (Error?)->Void){
         
-        auth.createUser(withEmail: email, password: pass){(res, error) in
+        auth.createUser(withEmail: email, password: pass){ res,error in
             
             if let error = error{
-                callback?(nil,error)
+                callback(error)
                 return
             }
             
-            guard let id = res?.user.uid else{return}
+            guard let id = res?.user.uid
+                else{
+                    callback(UserErrors.userIDUndefined)
+                    return
+            }
             
             user.id = id
             
-            DataSource.shared
-                .saveUserToDb(user : user){
-                    YUser.currentUser = user
+            DataSource.shared.saveUserToDb(user : user){ err in
+                if let err = err{
+                    callback(err)
+                    return
+                }
+                YUser.currentUser = user
+            
+                StorageManager.shared.saveCurrentUser(profileImage: pic)
                 
-                    StorageManager.shared.saveCurrentUser(profileImage: pic)
-                    
-                    callback?(res,error)
+                callback(nil)
             }
         }
     }

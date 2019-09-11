@@ -36,6 +36,7 @@
 "signToCanceled" = "Can't sign in to a canceled ";
 
 "noUserFound" = "User not found! 😬";
+"userIDUndefined" = "no id found for user";
 
 "castFailed" = "Problem found with the database casting 😢";
 

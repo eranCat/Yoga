@@ -24,6 +24,7 @@ enum LocationErrors:Error {
 }
 enum UserErrors:Error {
     case noUserFound
+    case userIDUndefined
 }
 extension Date{
     enum Errors:Error {
@@ -81,6 +82,8 @@ extension UserErrors:LocalizedError,Translateable{
         switch self {
         case .noUserFound:
             return "noUserFound".translated
+        case .userIDUndefined:
+            return "userIDUndefined".translated
         }
     }
 }

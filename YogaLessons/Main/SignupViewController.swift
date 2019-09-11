@@ -81,20 +81,24 @@ class SignupViewController: UIViewController,TextFieldReturn {
         
         let about = !self.tv_about.isEmpty ? self.tv_about.text : nil
         
-        let user = YUser(name: name,about: about, level: level, type: type, birthDate: bDate,email:email)
+        let user:YUser
+        switch type {
+        case .student:
+            user = YUser(name: name,about: about, level: level, type: type, birthDate: bDate,email:email)
+        case .teacher:
+            user = Teacher(name: name,about: about, level: level, type: type, birthDate: bDate,email:email)
+        }
         
         
         //add user to authenticated users
         UsersManager.shared.createUser(withEmail: email, password: pass, user: user,
-                                       profileImage: selectedPicture){[weak self](res, error) in
+                                       profileImage: selectedPicture){ error in
             
             SVProgressHUD.dismiss()
             if let error = error{
                 ErrorAlert.show(message: error.localizedDescription)
                 return
             }
-            
-            guard let self = self else{return}
             
             self.show(self.newVC( id: "mainNav"), sender: nil)
         }

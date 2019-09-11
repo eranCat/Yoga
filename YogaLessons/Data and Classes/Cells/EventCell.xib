@@ -12,15 +12,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="180" id="9XC-8T-uGN" customClass="EventCell" customModule="YogaLessons" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="180" id="9XC-8T-uGN" customClass="EventCell" customModule="YogaLessons" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="437" height="180"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9XC-8T-uGN" id="4c1-I7-LfK">
-                <rect key="frame" x="0.0" y="0.0" width="437" height="179.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="385" height="179.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UfP-Fl-IFo">
-                        <rect key="frame" x="8" y="8" width="421" height="163.5"/>
+                        <rect key="frame" x="8" y="8" width="369" height="163.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVg-vl-eNQ" userLabel="image with date">
                                 <rect key="frame" x="0.0" y="0.0" width="204.5" height="163.5"/>
@@ -40,22 +40,22 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="M5O-sh-1XL">
-                                <rect key="frame" x="220.5" y="0.0" width="200.5" height="163.5"/>
+                                <rect key="frame" x="220.5" y="0.0" width="148.5" height="163.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a36-el-oOo">
-                                        <rect key="frame" x="0.0" y="0.0" width="200.5" height="51"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="148.5" height="51"/>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMb-G6-dBM">
-                                        <rect key="frame" x="0.0" y="57" width="200.5" height="41"/>
+                                        <rect key="frame" x="0.0" y="57" width="148.5" height="41"/>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="16"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDo-gs-smC">
-                                        <rect key="frame" x="0.0" y="104" width="200.5" height="59.5"/>
+                                        <rect key="frame" x="0.0" y="104" width="148.5" height="59.5"/>
                                         <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="16"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                         </subviews>
                     </stackView>
                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cancled.png" translatesAutoresizingMaskIntoConstraints="NO" id="qFU-5Y-PCm">
-                        <rect key="frame" x="0.0" y="0.0" width="437" height="179.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="385" height="179.5"/>
                         <color key="tintColor" name="ColorAccent"/>
                     </imageView>
                 </subviews>
@@ -81,6 +81,7 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" name="ColorPrimary"/>
+            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="cancledImageView" destination="qFU-5Y-PCm" id="HT3-Nz-ohn"/>
                 <outlet property="eventImgView" destination="h7r-9P-dm9" id="L0p-MX-Igp"/>

@@ -50,41 +50,65 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
         SVProgressHUD.show()
         
         let ds = DataSource.shared
-        
         ds.loadUsers { usersErr in//closure 1 - loding users finished
             
-                if let err = usersErr{
-                    SVProgressHUD.dismiss()
-                    ErrorAlert.show(message: err.localizedDescription)
-                    return
-                }
+            if let err = usersErr{
+                SVProgressHUD.dismiss()
+                let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
+                ErrorAlert.show(message: msg)
+                return
+            }
+            
+            if ds.setLoggedUser() {
                 
-                if ds.setLoggedUser() {
+                LocationUpdater.shared.getCurrentCountryCode() { _ in
                     
-                    LocationUpdater.shared.getCurrentCountryCode() { (code) in
-                    
-                        MoneyConverter.shared.connect{
-                            ds.loadData{ error in
-                                if let error = error{
-                                    SVProgressHUD.dismiss()
-                                    ErrorAlert.show(message: error.localizedDescription)
-                                    return
-                                }
+                    MoneyConverter.shared.connect{
+                        ds.loadData{ error in
                             
-                                
-                                SVProgressHUD.dismiss()
-                                
-                                self.show(self.newVC(id: "mainNav"), sender: nil)
+                            SVProgressHUD.dismiss()
+                            if let err = error{
+                                let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
+                                ErrorAlert.show(message: msg)
+                                return
                             }
+                            
+                            self.show(self.newVC(id: "mainNav"), sender: nil)
                         }
                     }
-                }else{
-                    SVProgressHUD.dismiss()
-                    
-                    let login = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
-                    self.present(UINavigationController(rootViewController: login),
-                                 animated: true)
                 }
+            }else{
+                SVProgressHUD.dismiss()
+                
+                let login = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
+                self.present(UINavigationController(rootViewController: login),
+                             animated: true)
             }
+        }
     }
+    
+    
+    
+    /*ds.fetchLoggedUser(forceDownload: true) { (user, err) in
+     if let err = err{
+     SVProgressHUD.dismiss()
+     let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
+     ErrorAlert.show(message: msg)
+     return
+     }
+     LocationUpdater.shared.getCurrentCountryCode() { (code) in
+     MoneyConverter.shared.connect{
+     ds.loadData{ error in
+     SVProgressHUD.dismiss()
+     if let err = error{
+     let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
+     ErrorAlert.show(message: msg)
+     return
+     }
+     
+     self.show(self.newVC(id: "mainNav"), sender: nil)
+     }
+     }
+     }
+     }*/
 }

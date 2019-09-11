@@ -60,9 +60,10 @@ extension Event:Filterable{
         case .location:
             filteredString = locationName
         case .teacher:
-            let ds = DataSource.shared
-            let user = ds.teachersList[uid] ?? ds.usersList[uid]
-            filteredString = user?.name ?? ""
+            guard let userName = DataSource.shared.getUser(by: uid)?.name
+                else{return false}
+            
+            filteredString = userName
         }
         
         return filteredString.lowercased().starts(with:q.lowercased())

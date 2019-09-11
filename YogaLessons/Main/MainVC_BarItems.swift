@@ -19,6 +19,12 @@ extension MainTabBarController:UITabBarControllerDelegate{
         return bounceAnimation
     }
     
+    func changeBarButtons(bySelectedIndex i: Int) {
+        currentSourceType = SourceType.allCases[i]
+        
+        navigationItem.setRightBarButtonItems(barItemsForTab[i], animated: true)
+    }
+    
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         
         guard let i = tabBar.items?.firstIndex(of: item)
@@ -34,11 +40,7 @@ extension MainTabBarController:UITabBarControllerDelegate{
             
         }
         
-        self.currentSourceType = SourceType.allCases[i]
-        
-        updateTitle()
-        
-        navigationItem.setRightBarButtonItems(barItemsForTab[i], animated: true)
+        changeBarButtons(bySelectedIndex: i)
         
         NotificationCenter.default.post(name: ._signedTabSelected, object: nil)
     }

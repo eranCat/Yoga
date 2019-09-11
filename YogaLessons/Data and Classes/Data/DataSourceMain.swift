@@ -41,7 +41,6 @@ class DataSource {
     let MaxRangeKm:CLLocationDistance = 100
     
     var usersList:[String:YUser]//Dictionary<id:User>
-    var teachersList:[String:Teacher]//Dictionary<id:Teacher>
     
     typealias DynArr = [DynamicUserCreateable]//inner arrays
     typealias DataTypeDict = [DataType:DynArr]//seconed level
@@ -72,7 +71,6 @@ class DataSource {
         mainDict[.signed] = [.classes:[],.events:[]]
         
         usersList = [:]
-        teachersList = [:]
         
         teacherCreatedClasses = []
         userCreatedEvents = []
@@ -101,7 +99,7 @@ class DataSource {
     func loadData(loaded:DSTaskListener?) {
         
         self.loadAll(.classes){ error in
-            if error != nil{
+            if let error = error {
                 loaded?(error)
                 return
             }

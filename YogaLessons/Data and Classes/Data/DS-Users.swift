@@ -10,93 +10,77 @@ import Firebase
 
 extension DataSource{
     
-    func convertValuesToUsers(_ values:[DataSnapshot]) {
+    func convertUser(from snapshot:DataSnapshot) -> YUser? {
+        guard let userDict = snapshot.value as? JSON,
+            let userTypeRV = userDict[YUser.Keys.type] as? Int,
+            let userType = UserType(rawValue: userTypeRV)
+        else{return nil}
         
-        self.usersList.removeAll()
-        self.teachersList.removeAll()
-        
-        for child in values{
-            guard let userDict = child.value as? JSON,
-                let userTypeRV = userDict[YUser.Keys.type] as? Int,
-                let userType = UserType(rawValue: userTypeRV)
-                else{return}
-            
-            
-            switch userType{
-            case .student:
-                let user = YUser(userDict)
-                self.usersList[user.id] = user
-            case .teacher:
-                let teacher = Teacher(userDict)
-                self.teachersList[teacher.id] = teacher
-            }
+        switch userType{
+        case .student:
+            return YUser(userDict)
+        case .teacher:
+           return Teacher(userDict)
         }
     }
     
     func loadUsers(done:DSTaskListener?) {
         let usersRef = ref.child(TableNames.users.rawValue)
-        let query = usersRef.queryOrdered(byChild: YUser.Keys.name)
-        
-        query.observe(.value) { (snapshot) in
+        let query = usersRef.queryOrdered(byChild: YUser.Keys.type)
+
+        query.observeSingleEvent(of: .value) { (snapshot) in
             guard let values = snapshot.children.allObjects as? [DataSnapshot]
                 else{
                     done?(JsonErrors.castFailed)
                     return
                 }
-            self.convertValuesToUsers(values)
-            
+            self.usersList.removeAll()
+            //        self.teachersList.removeAll()
+            values.forEach{ self.usersList[$0.key] = self.convertUser(from: $0) }
+
             done?(nil)
         }
     }
-    
+
     func setLoggedUser()->Bool {
         guard let uid = Auth.auth().currentUser?.uid,
-        let user = usersList[uid] ?? teachersList[uid]
+        let user = usersList[uid]
             else{ return false}
-        
+
         //find first in users/teachers
-        
+
         YUser.currentUser = user
-        
+
         return true
     }
     
-    /*func fetchLoggedUser(forceDownload:Bool = false,done:((YUser?)->Void)? = nil) {
-        guard let uid = Auth.auth().currentUser?.uid
-            else{done?(nil); return }
-        
-        //kind of caching
-        if !forceDownload, let user = YUser.currentUser{
-            done?(user)
-            return
-        }
-        
-        ref.child(TableNames.users)
-            .child(uid)
-            .observeSingleEvent(of: .value){snapshot in
-                
-                guard let value = snapshot.value as? JSON,
-                    let typeRV = value[YUser.Keys.type] as? Int,//raw value
-                    let type = UserType(rawValue: typeRV)
-                    else {return}
-                
-                let user:YUser
-                
-                switch type{
-                case .student:
-                    user = .init(value)
-                case .teacher:
-                    user = Teacher(value)
-                }
-                YUser.currentUser = user
-                done?(user)
-            }
-    }*/
-    
-    
-    func getTeacher(by uid:String) -> Teacher? {
-        return teachersList[uid]
-    }
+//    func fetchLoggedUser(forceDownload:Bool = false,done:((YUser?,Error?)->Void)? = nil) {
+//        guard let uid = Auth.auth().currentUser?.uid
+//            else{
+//                done?(nil,UserErrors.noUserFound)
+//                return
+//        }
+//
+//        //kind of caching
+//        if !forceDownload, let user = YUser.currentUser{
+//            done?(user,nil)
+//            return
+//        }
+//
+//        ref.child(TableNames.users.rawValue)
+//            .child(uid)
+//            .observeSingleEvent(of: .value){snapshot in
+//
+//                guard let user = self.convertUser(from: snapshot)
+//                    else{
+//                        done?(nil,JsonErrors.castFailed)
+//                        return
+//                    }
+//                self.usersList[user.id] = user
+//                YUser.currentUser = user
+//                done?(user,nil)
+//            }
+//    }
     
     /*func fetchTeacher(by uid:String,done:@ escaping (Teacher?)->Void) {
         Database.database()
@@ -118,6 +102,17 @@ extension DataSource{
                 }
         }
     }*/
+    
+    //    func fetchUserIfNeeded(by id:String) {
+    //        if  usersList[id] == nil{
+    //            ref.child(TableNames.users.rawValue)
+    //                .child(id)
+    //                .observeSingleEvent(of: .value) { childSnapshot in
+    //                    self.usersList[id] = self.convertUser(from: childSnapshot)
+    //                }
+    //        }
+    //    }
+
     
     
     func updateCurrentUserValue(forKey key:YUser.UserKeys,_ value:Any) {
@@ -146,31 +141,19 @@ extension DataSource{
         }
     }
     
-    func saveUserToDb(user: YUser,_ completion:@escaping ()->Void) {
+    func saveUserToDb(user: YUser,_ completion:@escaping (Error?)->Void) {
         
-        let encoded:JSON
-        
-        switch user.type {
-        case .student:
-            encoded = user.encode()
-            
-        case .teacher:
-            encoded = Teacher(user: user).encode()
-        }
-        
-        let ref = Database.database().reference()
-        
-        ref.child(TableNames.users.rawValue).child(user.id)
-            .setValue(encoded){error,FBRef in
-                if let err = error{
-                    ErrorAlert.show(message: err.localizedDescription)
-                }
-                
-                completion()
-        }
+        ref.child(TableNames.users.rawValue)
+            .child(user.id).setValue(user.encode()){error,_ in
+                completion(error)
+            }
     }
     
     func getUser(by id:String) -> YUser? {
-        return usersList[id] ?? teachersList[id]
+        return usersList[id]
+    }
+
+    func getTeacher(by uid:String) -> Teacher? {
+        return getUser(by: uid) as? Teacher
     }
 }
