@@ -19,7 +19,7 @@ extension UIAlertController {
             if let c = color{
                 let contentView = view.subviews.last?.subviews.last?.subviews.first
                 contentView?.backgroundColor = c
-                view.tintColor = .white
+                view.tintColor = ._dialogTxtColor
             }
         }
         get{
@@ -71,13 +71,13 @@ extension UIAlertController {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         
-        alertController.bgColor = ._accent
+        alertController.bgColor = ._dialogBGcolor
 
         // Change Title With Color and Font:
-        alertController.titleTextColor = .white
+        alertController.titleTextColor = ._dialogTxtColor
 
         // Change Message With Color and Font
-        alertController.messageTextColor = .white
+        alertController.messageTextColor = ._dialogTxtColor
         
         return alertController
     }
@@ -92,7 +92,7 @@ extension UIAlertController {
         
         switch action.style {
         case .destructive:
-            action.tintColor = ._danger
+            action.tintColor = ._destructiveTxt
         case .cancel:
             break
         default:

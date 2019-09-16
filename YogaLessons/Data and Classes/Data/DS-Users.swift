@@ -42,78 +42,56 @@ extension DataSource{
         }
     }
 
-    func setLoggedUser()->Bool {
-        guard let uid = Auth.auth().currentUser?.uid,
-        let user = usersList[uid]
-            else{ return false}
-
-        //find first in users/teachers
-
-        YUser.currentUser = user
-
-        return true
-    }
-    
-//    func fetchLoggedUser(forceDownload:Bool = false,done:((YUser?,Error?)->Void)? = nil) {
-//        guard let uid = Auth.auth().currentUser?.uid
-//            else{
-//                done?(nil,UserErrors.noUserFound)
-//                return
-//        }
+//    func setLoggedUser()->Bool {
+//        guard let uid = Auth.auth().currentUser?.uid,
+//        let user = usersList[uid]
+//            else{ return false}
 //
-//        //kind of caching
-//        if !forceDownload, let user = YUser.currentUser{
-//            done?(user,nil)
-//            return
-//        }
+//        //find first in users/teachers
 //
-//        ref.child(TableNames.users.rawValue)
-//            .child(uid)
-//            .observeSingleEvent(of: .value){snapshot in
+//        YUser.currentUser = user
 //
-//                guard let user = self.convertUser(from: snapshot)
-//                    else{
-//                        done?(nil,JsonErrors.castFailed)
-//                        return
-//                    }
-//                self.usersList[user.id] = user
-//                YUser.currentUser = user
-//                done?(user,nil)
-//            }
+//        return true
 //    }
     
-    /*func fetchTeacher(by uid:String,done:@ escaping (Teacher?)->Void) {
-        Database.database()
-            .reference(withPath: TableNames.users)
-            .child(uid)
-            .observeSingleEvent(of: .value){snapshot in
-                
-                guard let value = snapshot.value as? JSON,
-                    let typeRV = value[YUser.Keys.type] as? Int
-                    else {return}
-                
-                let type = UserType.allCases[typeRV]
-                
-                switch type{
-                    case .student:
-                        done(nil)
-                    case .teacher:
-                        done(Teacher(value))
-                }
+    func fetchLoggedUser(forceDownload:Bool = false,done:((YUser?,Error?)->Void)? = nil) {
+        guard let uid = Auth.auth().currentUser?.uid
+            else{
+                done?(nil,UserErrors.noUserFound)
+                return
         }
-    }*/
-    
-    //    func fetchUserIfNeeded(by id:String) {
-    //        if  usersList[id] == nil{
-    //            ref.child(TableNames.users.rawValue)
-    //                .child(id)
-    //                .observeSingleEvent(of: .value) { childSnapshot in
-    //                    self.usersList[id] = self.convertUser(from: childSnapshot)
-    //                }
-    //        }
-    //    }
 
+        //kind of caching
+        if !forceDownload, let user = YUser.currentUser{
+            done?(user,nil)
+            return
+        }
+
+        fetchUserIfNeeded(by: uid) { user, err in
+            YUser.currentUser = user
+            done?(user,err)
+        }
+    }
     
+    func fetchUserIfNeeded(by id:String,done:@escaping (YUser?,Error?)->Void) {
+        guard let user = usersList[id]
+            else{
+                ref.child(TableNames.users.rawValue)
+                    .child(id)
+                    .observeSingleEvent(of: .value){snapshot in
+                        
+                        guard let user = self.convertUser(from: snapshot)
+                            else{
+                                done(nil,JsonErrors.castFailed)
+                                return
+                        }
+                        self.usersList[user.id] = user
+                        done(user,nil)
+                }
+                return
+            }
+        done(user,nil)
+    }
     
     func updateCurrentUserValue(forKey key:YUser.UserKeys,_ value:Any) {
         

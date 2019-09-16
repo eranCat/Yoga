@@ -334,43 +334,42 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        
-        switch indexPath.section {
-        case 1:
-            
-            let data = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row] as? Statused
-            if data?.status == .cancled{
-                let title = "Restore".translated+" "+currentDataType.singular
-                let restore =
-                    UITableViewRowAction(style: .default,title: title)
-                    {self.toggleCancel(indexPath: $1)}
-                restore.backgroundColor = ._accent
-                
-                return [restore]
-                
-            }else{
-                let title = "Cancel".translated+" "+currentDataType.singular
-                let cancel =
-                    UITableViewRowAction(style: .destructive,title: title)
-                    {self.cancelPost(indexPath: $1)}
-                cancel.backgroundColor = ._danger
-                return [cancel]
-            }
-            
-        case 0:fallthrough//signed
-        default:
-            let title = "Unsign from ".translated + currentDataType.singular
-            let unsign = UITableViewRowAction(style: .destructive,title: title)
-            {self.unsign(indexPath: $1)}
-            unsign.backgroundColor = ._danger
-            return [unsign]
-        }
-    }
+//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//
+//
+//        switch indexPath.section {
+//        case 1:
+//
+//            let data = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row] as? Statused
+//            if data?.status == .cancled{
+//                let title = "Restore".translated+" "+currentDataType.singular
+//                let restore =
+//                    UITableViewRowAction(style: .default,title: title)
+//                    {self.toggleCancel(indexPath: $1)}
+//                restore.backgroundColor = ._accent
+//
+//                return [restore]
+//
+//            }else{
+//                let title = "Cancel".translated+" "+currentDataType.singular
+//                let cancel =
+//                    UITableViewRowAction(style: .destructive,title: title)
+//                    {self.cancelPost(indexPath: $1)}
+//                cancel.backgroundColor = ._danger
+//                return [cancel]
+//            }
+//
+//        case 0:fallthrough//signed
+//        default:
+//            let title = "Unsign from ".translated + currentDataType.singular
+//            let unsign = UITableViewRowAction(style: .destructive,title: title)
+//            {self.unsign(indexPath: $1)}
+//            unsign.backgroundColor = ._danger
+//            return [unsign]
+//        }
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let sender:DynamicUserCreateable?
         let segueId:String
         
@@ -385,7 +384,6 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             segueId = SeguesIDs.dict[currentDataType]!.rawValue
             performSegue(withIdentifier: segueId, sender: sender)
         }
-        
     }
     
     
@@ -403,9 +401,9 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
                 }else{
                     DispatchQueue.main.async{
                         //                        MARK: fix this crash
-                        //                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                        
-                        self.tableView.reloadData()
+//                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                        self.tableView.reloadSections([indexPath.section], with: .automatic)
+//                        self.tableView.reloadData()
                     }
                 }
             }

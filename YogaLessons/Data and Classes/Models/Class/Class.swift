@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Located,Aged{
+class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Located,Aged,Priced{
 
     var id:String //may set after init
     
@@ -37,7 +37,8 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
     var minAge,maxAge:Int
     
-    var signed:[String:Bool]//user id
+    var signed:[String:Int]//user id : age
+    
     init(type:String,cost:Double,
          location:CLLocationCoordinate2D,locationName:String,countryCode:String,
          date:(start:Date,end:Date),
@@ -136,7 +137,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         minAge = dict[AgedKeys.age_min.rawValue] as? Int ?? .max
         maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
         
-        signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Bool] ?? [:]
+        signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Int] ?? [:]
     }
     
 }
@@ -179,7 +180,7 @@ extension Class:Updateable{
         minAge = dict[AgedKeys.age_min.rawValue] as? Int ?? .max
         maxAge = dict[AgedKeys.age_max.rawValue] as? Int ?? -1
         
-        signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Bool] ?? [:]
+        signed = dict[ParticipateableKeys.signed.rawValue] as? [String:Int] ?? [:]
     }
     func update(withNew new: DynamicUserCreateable) {
         guard id == new.id,

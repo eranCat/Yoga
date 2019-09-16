@@ -49,7 +49,7 @@ class SortAlert: UIViewController {
         alertContentView.transform =
             CGAffineTransform.identity.scaledBy(x: from, y: from)
         
-        let duration = into ? 0.4 : 0.3
+        let duration = into ? 0.5 : 0.4
         
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 20, options: .curveEaseInOut, animations: {
             
@@ -181,6 +181,6 @@ class SortAlert: UIViewController {
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         
-        UIApplication.shared.presentedVC?.present(vc, animated: true)
+        UIApplication.shared.presentedVC?.present(vc, animated: false)
     }
 }

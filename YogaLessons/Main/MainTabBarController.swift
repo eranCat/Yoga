@@ -73,6 +73,7 @@ class MainTabBarController: UITabBarController {
         // this next line picks up the UINavBar tint color instead of fixing it to a particular one as in Gavin's solution
         titleLabel.textColor = UINavigationBar.appearance().tintColor
         titleLabel.font = UIFont(name: "Euphomia UAS", size: 16.0)?.bold
+        titleLabel.sizeToFit()
         navigationItem.titleView = titleLabel
         
         subscribeObservers()
@@ -111,12 +112,19 @@ class MainTabBarController: UITabBarController {
             ErrorAlert.show(title: "Fetching info".translated,
                             message: "Please wait".translated)
             
-            guard DataSource.shared.setLoggedUser()
-                else{return false}
-            
-            performSegue(withIdentifier: identifier, sender: YUser.currentUser!)
-            
-            return true
+//            guard DataSource.shared.setLoggedUser()
+//                else{return false}
+//
+//            performSegue(withIdentifier: identifier, sender: YUser.currentUser!)
+            DataSource.shared.fetchLoggedUser(forceDownload: true) { (user, err) in
+                if let error = err{
+                    ErrorAlert.show(message: error.localizedDescription)
+                    return
+                }
+                
+                self.performSegue(withIdentifier: identifier, sender: user)
+            }
+            return false//true
         }
         
         return true

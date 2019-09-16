@@ -29,7 +29,9 @@ class ErrorAlert {
         let alert = UIAlertController.create(title: title, message: message, preferredStyle: .alert)
         
         alert.bgColor = ._errAlertBg
-        
+        alert.titleTextColor = .white
+        alert.messageTextColor = .white
+
         let okAction = UIAlertAction(title: "ok".translated, style: .default, handler: onDismissed)
         alert.aAction(okAction).show()
     }

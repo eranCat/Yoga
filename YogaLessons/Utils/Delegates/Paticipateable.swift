@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Participateable {
-    var signed:[String:Bool] {get set}
+    var signed:[String:Int] {get set}//user id : Age
     var numOfParticipants:UInt{get set}
     var maxParticipants:Int{get set}
     

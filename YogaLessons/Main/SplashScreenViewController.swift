@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import Reachability
+import FirebaseAuth
 
 class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate {
     
@@ -49,56 +50,58 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
         
         SVProgressHUD.show()
         
+        
+        if Auth.auth().currentUser == nil{
+            let login = newVC(storyBoardName: "UserLogin", id: "LoginVC")
+            present(UINavigationController(rootViewController: login),
+                         animated: true)
+            return
+        }
+        
         let ds = DataSource.shared
-        ds.loadUsers { usersErr in//closure 1 - loding users finished
-            
-            if let err = usersErr{
+        
+        ds.fetchLoggedUser(forceDownload: true) { (user, err) in
+            if let err = err{
                 SVProgressHUD.dismiss()
                 let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
+                
                 ErrorAlert.show(message: msg)
                 return
             }
-            
-            if ds.setLoggedUser() {
-                
-                LocationUpdater.shared.getCurrentCountryCode() { _ in
-                    
-                    MoneyConverter.shared.connect{
-                        ds.loadData{ error in
-                            
-                            SVProgressHUD.dismiss()
-                            if let err = error{
-                                let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
-                                ErrorAlert.show(message: msg)
-                                return
-                            }
-                            
-                            self.show(self.newVC(id: "mainNav"), sender: nil)
+            LocationUpdater.shared.getCurrentCountryCode() { (code) in
+                MoneyConverter.shared.connect{
+                    ds.loadData{ error in
+                        SVProgressHUD.dismiss()
+                        if let err = error{
+                            let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
+                            ErrorAlert.show(message: msg)
+                            return
                         }
+                        
+                        self.show(self.newVC(id: "mainNav"), sender: nil)
                     }
                 }
-            }else{
-                SVProgressHUD.dismiss()
-                
-                let login = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
-                self.present(UINavigationController(rootViewController: login),
-                             animated: true)
             }
         }
     }
     
-    
-    
-    /*ds.fetchLoggedUser(forceDownload: true) { (user, err) in
-     if let err = err{
+    /*let ds = DataSource.shared
+     ds.loadUsers { usersErr in//closure 1 - loding users finished
+     
+     if let err = usersErr{
      SVProgressHUD.dismiss()
      let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
      ErrorAlert.show(message: msg)
      return
      }
-     LocationUpdater.shared.getCurrentCountryCode() { (code) in
+     
+     if ds.setLoggedUser() {
+     
+     LocationUpdater.shared.getCurrentCountryCode() { _ in
+     
      MoneyConverter.shared.connect{
      ds.loadData{ error in
+     
      SVProgressHUD.dismiss()
      if let err = error{
      let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
@@ -109,6 +112,13 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
      self.show(self.newVC(id: "mainNav"), sender: nil)
      }
      }
+     }
+     }else{
+     SVProgressHUD.dismiss()
+     
+     let login = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
+     self.present(UINavigationController(rootViewController: login),
+     animated: true)
      }
      }*/
 }

@@ -96,27 +96,31 @@ class LoginViewController: UIViewController,TextFieldReturn {
                     ErrorAlert.show(message: error.localizedDescription)
                     SVProgressHUD.dismiss()
                 }else{
+                    let ds = DataSource.shared
                     
-                    if DataSource.shared.setLoggedUser(){
+                    ds.fetchLoggedUser(forceDownload: true){ user,err in
+                        guard user != nil else{
+                            SVProgressHUD.dismiss()
+                            if let err = err{
+                                ErrorAlert.show(message: err.localizedDescription)
+                            }
+                            return
+                        }
                         
-                        self.reloadDataAndContinue()
+                        //reload all date by new logged user
+                        ds.loadData(){ err in
+                            SVProgressHUD.dismiss()
+                            
+                            if let err = err{
+                                ErrorAlert.show(message: err.localizedDescription)
+                                return
+                            }
+                            self.show(self.newVC(id: "mainNav"), sender: nil)
+                        }
                     }
                 }
                 self.loginBtn.isEnabled = true
                 
-        }
-    }
-    
-    func reloadDataAndContinue() {
-        let ds: DataSource = DataSource.shared
-        ds.loadData(){ (err) in
-            
-            if let err = err{
-                ErrorAlert.show(message: err.localizedDescription)
-                return
-            }
-            self.show(self.newVC(id: "mainNav"), sender: nil)
-            SVProgressHUD.dismiss()
         }
     }
     

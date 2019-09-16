@@ -76,6 +76,7 @@
 		979A8AFB2321862D00D1E61E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 979A8AFD2321862D00D1E61E /* InfoPlist.strings */; };
 		979AAD4022F3FCE700420670 /* IntFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AAD3F22F3FCE700420670 /* IntFormat.swift */; };
 		979CF3852323C2780082496F /* Updateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979CF3842323C2780082496F /* Updateable.swift */; };
+		979CF387232B847D0082496F /* Priced.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979CF386232B847D0082496F /* Priced.swift */; };
 		97A4027A22D65AFF0056BBE7 /* LabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A4027922D65AFF0056BBE7 /* LabelExtension.swift */; };
 		97A4027D22D673120056BBE7 /* ReturnProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A4027C22D673120056BBE7 /* ReturnProtocol.swift */; };
 		97A4027F22D773A90056BBE7 /* TeachersData.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97A4027E22D773A90056BBE7 /* TeachersData.storyboard */; };
@@ -250,6 +251,7 @@
 		979A8AFE2321862F00D1E61E /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		979AAD3F22F3FCE700420670 /* IntFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntFormat.swift; sourceTree = "<group>"; };
 		979CF3842323C2780082496F /* Updateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updateable.swift; sourceTree = "<group>"; };
+		979CF386232B847D0082496F /* Priced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priced.swift; sourceTree = "<group>"; };
 		97A4027922D65AFF0056BBE7 /* LabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtension.swift; sourceTree = "<group>"; };
 		97A4027C22D673120056BBE7 /* ReturnProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnProtocol.swift; sourceTree = "<group>"; };
 		97A4027E22D773A90056BBE7 /* TeachersData.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = TeachersData.storyboard; path = YogaLessons/storyboards/TeachersData.storyboard; sourceTree = SOURCE_ROOT; };
@@ -506,6 +508,7 @@
 				9743952D2313B52400A8B48A /* Aged.swift */,
 				9743952F2313DF9B00A8B48A /* Unique.swift */,
 				979CF3842323C2780082496F /* Updateable.swift */,
+				979CF386232B847D0082496F /* Priced.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -944,6 +947,7 @@
 				97F3DDBF22BD69F600812B33 /* ViewControllerExtension.swift in Sources */,
 				97F38F6022EAF824004C90C9 /* UserInfoTextFieldRetrun.swift in Sources */,
 				97CD957022D262010073BF61 /* EmptyView.swift in Sources */,
+				979CF387232B847D0082496F /* Priced.swift in Sources */,
 				9713DB5622FC854200B00C15 /* Status.swift in Sources */,
 				97097EEC22B54CD9007CD8E4 /* LoginViewController.swift in Sources */,
 				97F3DDA722BA9A2600812B33 /* ColoredNavBar.swift in Sources */,

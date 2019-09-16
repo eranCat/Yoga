@@ -187,6 +187,11 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         }
         
         let cost = tfCost.doubleValue
+        if let model = model as? Priced,cost > model.cost.amount{
+            tableView.scrollToRow(at: .init(row: 0, section: 3), at: .top, animated: true)
+            tfCost.setError(message: "Price can only be lowered".translated)
+            return nil
+        }
         
         guard let locationCoordinate = self.selectedCoordinate,
             let locName = self.selectedPlaceName,

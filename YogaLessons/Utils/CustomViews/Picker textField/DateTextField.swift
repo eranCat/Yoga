@@ -30,7 +30,7 @@ class DateTextField: ToolbarTextField {
         }
     }
     
-    let age = (max : 80 , min : 14)
+    let age = (max : 80 , min : 16)
     
     override func setup(){
         super.setup()

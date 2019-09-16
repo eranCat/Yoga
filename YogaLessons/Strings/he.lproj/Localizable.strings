@@ -117,7 +117,7 @@
 "remindingYou" = "להזכירך ";
 "is about to begin at" = "עומד להתחיל ב";
 
-"remindBeforeStart" = "האם להזכיר לך לפני שזה מתחיל";
+"remindBeforeStart" = "האם להזכיר לך לפני שזה מתחיל ?";
 
 "Notify me" = "תזכיר לי";
 
@@ -218,3 +218,4 @@
 "incompatibleType" = "סוג הנתון לא מתאים";
 "Update" = "עדכון";
 "update" = "עדכון";
+"Price can only be lowered" = "אפשר רק להנמיך את העלות";

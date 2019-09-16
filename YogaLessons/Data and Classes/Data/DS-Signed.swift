@@ -24,6 +24,7 @@ extension DataSource{
                 else{return}
             
             let today = Date()
+            signed_classes.removeAll()
             
             for key in user.signedClassesIDS.keys{
                 guard let aClass = all_classes.first(where: {$0.id == key}),
@@ -42,6 +43,7 @@ extension DataSource{
                 else{return}
 
             let today = Date()
+            signed_events.removeAll()
             
             for key in user.signedEventsIDS.keys{
                 guard let event = all_events.first(where: {$0.id == key}),
@@ -107,7 +109,7 @@ extension DataSource{
                     let age = cu.bDate.age
                     self.check(age: age, data: data)
                     
-                    data.signed[uid] = true
+                    data.signed[uid] = age
                     
                     //save to signed array locally and remotely
                     currentData.value = data.encode()
@@ -206,7 +208,6 @@ extension DataSource{
             data = signed_events.remove(at: indexPath.row)
         }
         
-        data.signed.removeValue(forKey: uid)
         
         updateMainDict(sourceType: .signed, dataType: dType)
         
@@ -219,6 +220,8 @@ extension DataSource{
             }
             
             data.update(from: post)
+
+            data.signed[uid] = nil
             
             if data.numOfParticipants > 0{
                 
@@ -231,10 +234,8 @@ extension DataSource{
             let age = cu.bDate.age
             if age == data.minAge || age == data.maxAge{
                 
-                for uid in data.signed.keys{
-                    if let signedUser = self.usersList[uid]{
-                        self.check(age: signedUser.bDate.age, data: data)
-                    }
+                for age in data.signed.values{
+                    self.check(age: age, data: data)
                 }
             }
             

@@ -40,6 +40,7 @@ class DataSource {
     let MaxPerBatch:UInt = 30
     let MaxRangeKm:CLLocationDistance = 100
     
+    var usersToFetch:Set<String>
     var usersList:[String:YUser]//Dictionary<id:User>
     
     typealias DynArr = [DynamicUserCreateable]//inner arrays
@@ -71,6 +72,7 @@ class DataSource {
         mainDict[.signed] = [.classes:[],.events:[]]
         
         usersList = [:]
+        usersToFetch = []
         
         teacherCreatedClasses = []
         userCreatedEvents = []
@@ -297,6 +299,7 @@ class DataSource {
                     self.teacherCreatedClasses.insert(aClass,at: 0)
                 }
             }
+            usersToFetch.insert(aClass.uid)
         }
     }
     
@@ -340,6 +343,7 @@ class DataSource {
                     userCreatedEvents.insert(event,at: 0)
                 }
             }
+            usersToFetch.insert(event.uid)
         }
     }
     
@@ -369,6 +373,10 @@ class DataSource {
                     loaded?(JsonErrors.castFailed)
                     return
             }
+            guard !values.isEmpty else{
+                loaded?(nil)
+                return
+            }
             
             guard let user = YUser.currentUser
                 else{
@@ -388,7 +396,18 @@ class DataSource {
             self.updateMainDict(sourceType: .all, dataType: dType)
             self.updateMainDict(sourceType: .signed, dataType: dType)
             
-            loaded?(nil)
+            for id in self.usersToFetch{
+                self.fetchUserIfNeeded(by: id, done: { (user, err) in
+                    self.usersToFetch.remove(id)
+                    if self.usersToFetch.isEmpty{
+                        loaded?(err)
+                    }
+                })
+            }
+            
+            self.usersToFetch.removeAll()
+            
+//            loaded?(nil)
         }
         
     }
