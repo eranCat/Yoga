@@ -127,10 +127,10 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
             type == currentDataType
             else {return}
         
-        if let indexPath = notification.userInfo?["indexPath"] as? IndexPath{
-            //            tableView.beginUpdates()
-            tableView.insertRows(at: [indexPath], with: .automatic)
-            //            tableView.endUpdates()
+        if let indexPaths = notification.userInfo?["indexPaths"] as? [IndexPath]{
+            tableView.beginUpdates()
+            tableView.insertRows(at: indexPaths, with: .automatic)
+            tableView.endUpdates()
         }else{
             tableView.reloadData()
         }

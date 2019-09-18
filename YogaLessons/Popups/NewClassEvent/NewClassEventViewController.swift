@@ -13,7 +13,7 @@ import iOSDropDown
 import LocationPickerViewController
 
 class NewClassEventViewController: UITableViewController,TextFieldReturn {
-
+    
     @IBOutlet weak var typeSegment: DataTypeSegmentView!
     var currentType:DataType?
     
@@ -21,10 +21,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     @IBOutlet weak var eventImgView: UIImageView!
     
-    
-    lazy var imagePicker: MyImagePicker = {
-        return createImagePicker()
-    }()
+    lazy var imagePicker = createImagePicker()
     
     var selectedImage:UIImage? = nil
     
@@ -41,6 +38,10 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     @IBOutlet weak var tfstartDate: DateTimeTextField!
     
     @IBOutlet weak var tfEndDate: DateTimeTextField!
+    @IBOutlet weak var repeatingWeeksLbl: UILabel!
+    @IBOutlet weak var repeatingWeeksCountLbl: UILabel!
+    @IBOutlet weak var repeatingWeekStepper: UIStepper!
+    var repatingWeeksCount = 0
     
     @IBOutlet weak var tfLevel: LevelTextField!
     
@@ -68,9 +69,11 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         eventImgView.round()
         
-        maxPplStepper.layer.cornerRadius = 5
-        maxPplStepper.clipsToBounds = true
-
+        for stepper in [maxPplStepper,repeatingWeekStepper]{
+            stepper?.layer.cornerRadius = 5
+            stepper?.clipsToBounds = true
+        }
+        
         initDropDown()
         
         tvEquipment.delegate2 = self
@@ -83,7 +86,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             currentType = .events
             typeSegment.selectedSegmentIndex = 1
             changeToEventView()
-
+            
             typeSegment.setEnabled(false, forSegmentAt: 0)
         }
         
@@ -121,8 +124,8 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     func initDropDown() {
         
         maxPplDropDown.didSelect { (selectedTxt, index, id) in
-             self.noMaxPpl = index == 1
-             self.maxPplCount = index == 0 ? 0 : nil
+            self.noMaxPpl = index == 1
+            self.maxPplCount = index == 0 ? 0 : nil
         }
     }
     
@@ -131,24 +134,24 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     }
     
     fileprivate func changeToClassView() {
-
+        
         tfstartDate.placeholder = "startT".translated.capitalized
         tfEndDate.placeholder = "endT".translated.capitalized
-
-         navigationItem.title = "new-\(currentType!)".translated
         
-        tableView.reloadRows(at: [.init(row: 0, section: 8)], with: .automatic)
+        navigationItem.title = "new-\(currentType!)".translated
+        
+//        tableView.reloadRows(at: [.init(row: 0, section: 8)], with: .automatic)
         tableView.reloadData()
     }
     
     
     
     fileprivate func changeToEventView() {
-
+        
         tfstartDate.placeholder = "startD".translated.capitalized
         tfEndDate.placeholder = "endD".translated.capitalized
-
-         navigationItem.title = "new-\(currentType!)".translated
+        
+        navigationItem.title = "new-\(currentType!)".translated
         
         tableView.reloadRows(at: [.init(row: 0, section: 8)], with: .automatic)
         tableView.reloadData()
@@ -175,10 +178,10 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                 else{
                     ErrorAlert.show(message: "Only teachers can create clasess!".translated)
                     return nil
-                }
+            }
         }
         
-
+        
         guard let title = tfTitle.text,!title.isEmpty
             else {
                 tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
@@ -196,13 +199,13 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         guard let locationCoordinate = self.selectedCoordinate,
             let locName = self.selectedPlaceName,
             let code = self.selectedCountryCode
-        else {
-            let selectMsg = "select".translated + "location".translated
-            ErrorAlert.show(message: selectMsg)
-            tableView.selectRow(at: IndexPath(row: 0, section: 2), animated: true, scrollPosition: .top)
-            return nil
+            else {
+                let selectMsg = "select".translated + "location".translated
+                ErrorAlert.show(message: selectMsg)
+                tableView.selectRow(at: IndexPath(row: 0, section: 2), animated: true, scrollPosition: .top)
+                return nil
         }
-                
+        
         guard let startDate = tfstartDate.date else{
             let msg = "fill".translated + tfstartDate.placeholder!
             self.tfstartDate.setError(message: msg)
@@ -221,34 +224,34 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         }
         
         let date = (startDate,endDate)
-
+        
         guard let level = tfLevel.level else {
             self.tfLevel.setError(message: "fill".translated + "level of".translated)
             return nil
         }
-
+        
         
         let maxPplMessage = "fill".translated +  "maxPpl".translated
         guard let maxPplSelectedIndex = maxPplDropDown.selectedIndex
             else{
                 self.maxPplDropDown.setError(message: maxPplMessage)
                 return nil
-                }
+        }
         
         guard (maxPplSelectedIndex == 0 &&  maxPplCount != nil && maxPplCount! > 0)
             || maxPplSelectedIndex != 0
             else{
                 self.maxPplDropDown.setError(message: maxPplMessage)
                 return nil
-            }
+        }
         
         let maxPpl = maxPplCount ?? -1
-       
+        
         
         guard !tvEquipment.isEmpty,let equip = tvEquipment.text
-                 else {
-            self.tvEquipment.setError(message: "fill".translated + "equipment".translated)
-            return nil
+            else {
+                self.tvEquipment.setError(message: "fill".translated + "equipment".translated)
+                return nil
         }
         
         let xtra = !tvExtraNotes.isEmpty ? tvExtraNotes.text : ""
@@ -277,7 +280,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             SVProgressHUD.dismiss()
             if let error = err{
                 let description = (error as? LocalizedError)?.errorDescription ??
-                                    error.localizedDescription
+                    error.localizedDescription
                 ErrorAlert.show(message: description)
                 return
             }
@@ -286,24 +289,38 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         switch validateAndCreateData() {
             
         case let aClass as Class:
-        
-            ds.addToAll(.classes, dataObj: aClass, taskDone: saveTaskListener)
-            
+            if repatingWeeksCount > 0{
+                ds.addToAll(.classes, originDataObj: aClass,
+                            weekCount: repatingWeeksCount + 1){ err,_ in
+                                saveTaskListener(err)
+                }
+            }else{
+                ds.addToAll(.classes, dataObj: aClass, taskDone: saveTaskListener)
+            }
         case let event as Event:
             
-            if let img = selectedImage{
-                ds.addToAll(.events, dataObj: event) { err in
-//                    done saving event to DB
+            if repatingWeeksCount > 0{
+                ds.addToAll(.events, originDataObj: event,
+                            weekCount: repatingWeeksCount + 1){ err,event in
+                                saveTaskListener(err)
+                                if err == nil,let img = self.selectedImage{
+                                    //                    call image save for finished image
+                                    if let event = event as? Event{
+                                        StorageManager.shared.save(image: img, for: event)
+                                    }
+                                }
+                }
+                
+            }else{
+                ds.addToAll(.events, dataObj: event){ err in
                     saveTaskListener(err)
-                    if err == nil{
-//                    call image save for finished image
+                    if err == nil,let img = self.selectedImage{
+                        //                    call image save for finished image
                         StorageManager.shared.save(image: img, for: event)
                     }
                 }
             }
-            else{
-                ds.addToAll(.events, dataObj: event, taskDone: saveTaskListener)
-            }
+            
         default:
             return
         }
@@ -352,12 +369,18 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                     //                    done saving event to DB
                     updatedTaskListener(err)
                     
-//                    call image save for finished image
+                    //                    call image save for finished image
                     StorageManager.shared.save(image: img, for: self.model as! Event)
                 }
             }
             else{
-                ds.update(localModel: localModel, withNew: event, taskDone: updatedTaskListener)
+                ds.update(localModel: localModel, withNew: event){ err in
+                    //                    done saving event to DB
+                    updatedTaskListener(err)
+                    
+                    //                    call image save for finished image
+                    StorageManager.shared.removeImage(forEvent: self.model as! Event)
+                }
             }
         default:
             return
@@ -394,6 +417,10 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         }
     }
     
+    @IBAction func repeatingWeeksStepperChanged(_ sender: UIStepper) {
+        repatingWeeksCount = Int(sender.value)
+        repeatingWeeksCountLbl.text = "\(repatingWeeksCount)"
+    }
     
     @IBAction func maxPplEndEdit(_ sender: UITextField) {
         guard let text = sender.text,
@@ -414,7 +441,8 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     
     @IBAction func imageTap(_ sender: UITapGestureRecognizer) {
-        imagePicker.show(hasImage: selectedImage != nil,size: .regular)
+        let hasImg = selectedImage != nil || (model as? Event)?.imageUrl != nil
+        imagePicker.show(hasImage: hasImg,size: .regular)
     }
     
     
@@ -427,7 +455,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                     
                     self.eventImgView.image = #imageLiteral(resourceName: "image")
                     self.eventImgView.contentMode = .scaleAspectFit
-                    
+                    self.selectedImage = nil
                 }else {
                     if let img = image{
                         self.selectedImage = img
@@ -441,7 +469,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                                     ErrorAlert.show(message: error.localizedDescription)
                                     return
                                 }
-                            
+                                
                                 if let img = sd_img{
                                     self.selectedImage = img
                                 }
@@ -450,7 +478,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                     }
                     self.eventImgView.contentMode = .scaleAspectFill
                 }
-            }
+        }
         
         return picker
     }
@@ -469,17 +497,21 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        switch indexPath.section {
-        case 8://image section
+        
+        switch (indexPath.section,indexPath.row ){
+        case (8,_)://image section
             if currentType == .classes{
                 return 0
             }
-            fallthrough
+        case (2,1)://week count
+            if currentType == .events || model != nil{
+                return 0
+            }
         default:
             return UITableView.automaticDimension
         }
-
+        
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -497,7 +529,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             present(navC,animated: true)
         }
     }
-
+    
     //MARK: fill data for edit
     
     func fill(_ aClass:Class) {
@@ -518,7 +550,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         tfCost.money = aClass.cost//first time just for init
         tfCost.money = aClass.cost
-
+        
         if aClass.maxParticipants != -1{
             maxPplDropDown.text = "\(aClass.maxParticipants)"
             maxPplDropDown.selectedIndex = 0
@@ -555,7 +587,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         
         tfCost.money = event.cost
         tfCost.money = event.cost
-
+        
         if event.maxParticipants != -1{
             maxPplDropDown.text = "\(event.maxParticipants)"
             maxPplDropDown.selectedIndex = 0
@@ -568,7 +600,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
         tvExtraNotes.text = event.xtraNotes
     }
     
-
+    
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
         view.endEditing(true)

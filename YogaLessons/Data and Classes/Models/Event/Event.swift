@@ -45,7 +45,8 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     init(title:String,cost:Double,
          locationName:String, location:CLLocationCoordinate2D,countryCode:String,
          date:(start:Date,end:Date),level:Level,imageUrl:String? = nil,
-         equipment:String,xtraNotes:String? = nil,maxParticipants:Int,user:YUser) {
+         equipment:String,xtraNotes:String? = nil,maxParticipants:Int,userID:String) {
+    
         self.id = ""
         
         self.title = title
@@ -65,7 +66,7 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         self.numOfParticipants = 0
         self.maxParticipants = maxParticipants
         
-        self.uid = user.id
+        self.uid = userID
         
         self.imageUrl = imageUrl
         
@@ -75,6 +76,18 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         maxAge = -1//if age > max
         
         signed = [:]
+        
+    }
+    convenience init(title:String,cost:Double,
+    locationName:String, location:CLLocationCoordinate2D,countryCode:String,
+    date:(start:Date,end:Date),level:Level,imageUrl:String? = nil,
+    equipment:String,xtraNotes:String? = nil,maxParticipants:Int,user:YUser) {
+        
+        self.init(title:title,cost:cost,
+                  locationName:locationName, location:location,countryCode:countryCode,
+                  date:(start:date.start,end:date.end),level:level,
+                  imageUrl:imageUrl,equipment:equipment,xtraNotes:xtraNotes,
+                  maxParticipants:maxParticipants,userID:user.id)
     }
     
     func encode() -> JSON{
@@ -215,6 +228,11 @@ extension Event:Updateable{
         status = new.status
         minAge = new.minAge
         maxAge = new.maxAge
+    }
+}
+extension Event{
+    func copy(with zone: NSZone? = nil) -> Any {
+        return Event(title: title, cost: cost.amount, locationName: locationName, location: locationCoordinate, countryCode: countryCode, date: (startDate,endDate), level: level, equipment: equipment, maxParticipants: maxParticipants, userID: uid)
     }
 }
 

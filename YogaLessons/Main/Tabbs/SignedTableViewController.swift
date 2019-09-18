@@ -66,6 +66,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             [._sortTapped:#selector(onSortTapped(_:)),
              ._signedDataAdded:#selector(signedDataAdded(_:)),
              ._dataAdded:#selector(dataAdded(_:)),
+             ._dataRemoved:#selector(dataRemoved(_:)),
              ._dataChanged:#selector(onDataChanged(_:)),
              ._signedDataRemoved:#selector(signedDataRemoved(_:)),
              ._signedDataChanged:#selector(onDataChanged(_:)),
@@ -86,6 +87,10 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     @objc func reloadedAfterSettingChanged(_ notification:NSNotification){
         SVProgressHUD.dismiss()
         tableView.reloadData()
+    }
+    
+    @objc func dataRemoved(_ notification:NSNotification){
+        tableView.reloadSections([1], with: .none)
     }
     
     @objc func signedDataAdded(_ notif: Notification) {
@@ -118,7 +123,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             creatorID == YUser.currentUser?.id,
             tableCount < dsCount
             else{return}
-        
+        //indexPaths - plural of set
         let ip: IndexPath = .init(row: 0, section: 1)
         
         tableView.insertRows(at: [ip], with: .automatic)
@@ -291,10 +296,10 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         switch indexPath.section {
         case 1:
+            let sender = self.dataSource
+                .getUser_sUploads(dType: self.currentDataType)[indexPath.row]
             
             let update = UIContextualAction(style: .normal, title: "Update".translated) { (_, _, _) in
-                let sender = self.dataSource
-                    .getUser_sUploads(dType: self.currentDataType)[indexPath.row]
                 self.performSegue(withIdentifier: SeguesIDs.edit.rawValue, sender: sender)
                 tableView.isEditing = false
             }
@@ -312,10 +317,12 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
                 
                 return UISwipeActionsConfiguration(actions: [update,restore])
                 
-            }else{
-                let title = "Cancel".translated+" "+currentDataType.singular
+            }else {
+                let isEmptyPeople = (data as? Participateable)?.numOfParticipants == 0
+                let title = (!isEmptyPeople ? "Cancel" : "Delete").translated +
+                            " "+currentDataType.singular
                 let cancel = UIContextualAction(style: .destructive, title: title) { (_, _, _) in
-                    self.cancelPost(indexPath: indexPath)
+                    self.cancelPost(data:sender,isEmptyOfPeople: isEmptyPeople,indexPath: indexPath)
                 }
                 cancel.image = #imageLiteral(resourceName: "closeX")
                 cancel.backgroundColor = ._danger
@@ -332,42 +339,6 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
             return UISwipeActionsConfiguration(actions: [unsign])
         }
     }
-    
-    
-//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//
-//
-//        switch indexPath.section {
-//        case 1:
-//
-//            let data = dataSource.getUser_sUploads(dType: currentDataType)[indexPath.row] as? Statused
-//            if data?.status == .cancled{
-//                let title = "Restore".translated+" "+currentDataType.singular
-//                let restore =
-//                    UITableViewRowAction(style: .default,title: title)
-//                    {self.toggleCancel(indexPath: $1)}
-//                restore.backgroundColor = ._accent
-//
-//                return [restore]
-//
-//            }else{
-//                let title = "Cancel".translated+" "+currentDataType.singular
-//                let cancel =
-//                    UITableViewRowAction(style: .destructive,title: title)
-//                    {self.cancelPost(indexPath: $1)}
-//                cancel.backgroundColor = ._danger
-//                return [cancel]
-//            }
-//
-//        case 0:fallthrough//signed
-//        default:
-//            let title = "Unsign from ".translated + currentDataType.singular
-//            let unsign = UITableViewRowAction(style: .destructive,title: title)
-//            {self.unsign(indexPath: $1)}
-//            unsign.backgroundColor = ._danger
-//            return [unsign]
-//        }
-//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sender:DynamicUserCreateable?
@@ -423,20 +394,36 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         }
     }
     
-    func cancelPost(indexPath:IndexPath) {
+    func cancelPost(data:DynamicUserCreateable,isEmptyOfPeople:Bool,indexPath:IndexPath) {
         
-        let msg = "confirmCancel".translated + currentDataType.singular + " ?"
+        
+        let msg =
+            (!isEmptyOfPeople ? "confirmCancel":"confirmDelete").translated + currentDataType.singular + " ?"
         
         let alert = UIAlertController.create(title: nil, message: msg,preferredStyle: .alert)
             
             .aAction(UIAlertAction(title: "yes".translated, style: .default) { (_) in
-                
-                self.toggleCancel(indexPath: indexPath)
+                if !isEmptyOfPeople{
+                    self.toggleCancel(indexPath: indexPath)
+                }else{
+                    self.deleteUserData(data: data, indexPath: indexPath)
+                }
             })
-            
             .aAction(.init(title: "No".translated, style: .cancel, handler: nil))
         
         present(alert, animated: true)
+    }
+    
+    func deleteUserData(data:DynamicUserCreateable,indexPath:IndexPath) {
+        SVProgressHUD.show()
+        dataSource.deleteFromAll(dtype: currentDataType, at: indexPath) { err in
+            SVProgressHUD.dismiss()
+            if let errorDesc = err?.localizedDescription{
+                ErrorAlert.show(message: errorDesc)
+                return
+            }
+            self.tableView.deleteRows(at: [indexPath], with: .bottom)
+        }
     }
     
     // MARK: - Navigation

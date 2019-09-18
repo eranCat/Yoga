@@ -59,9 +59,9 @@ extension NewClassEventViewController:LocationPickerDelegate{
         
         let  locPicker = LocationPicker()
         
-        locPicker.setColors(themeColor: ._primary,
+        locPicker.setColors(themeColor: ._btnTint,
                             primaryTextColor: ._btnTint,
-                            secondaryTextColor: ._accent)
+                            secondaryTextColor: ._btnTint)
         locPicker.currentLocationText = "Current Location".translated
         locPicker.searchBarPlaceholder = "Search for location".translated
         locPicker.locationDeniedAlertTitle = "Location access denied".translated
@@ -70,6 +70,9 @@ extension NewClassEventViewController:LocationPickerDelegate{
         locPicker.locationDeniedCancelText = "Cancel".translated
         
         locPicker.searchResultLocationIcon = #imageLiteral(resourceName: "locationPlace")
+        locPicker.searchResultLocationIconColor = ._btnTint
+        
+        locPicker.searchBar.barTintColor = ._accent
         
         locPicker.navigationController?.isNavigationBarHidden = false
         locPicker.addBarButtons()

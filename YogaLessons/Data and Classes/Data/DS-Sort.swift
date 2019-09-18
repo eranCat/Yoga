@@ -28,7 +28,7 @@ extension DataSource{
             
         }
         
-        updateMainDict(sourceType: sourceType, dataType: dataType)
+        updateMainDict(sourceType: .all, dataType: dataType)
     }
     
     func sortUserUploads(by sortType:SortType,dataType dt:DataType ) {
@@ -38,5 +38,6 @@ extension DataSource{
         case .events:
             userCreatedEvents.sort(by: Event.sorter(for: sortType))
         }
+        updateMainDict(sourceType: .signed, dataType: dt)
     }
 }

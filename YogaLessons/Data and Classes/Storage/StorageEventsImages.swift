@@ -68,18 +68,22 @@ extension StorageManager{
         }
     }
     
-    func removeImage(forEvent event:Event) {
+    func removeImage(forEvent event:Event,updateOnDB:Bool = true) {
+        guard event.imageUrl != nil else{return}
         
         // remove a reference to the file you want to upload
         storage.reference(withPath: EVENTS_IMAGES)
             .child(event.id).delete { error in
-                if let error = error {
+                if let errorDesc = error?.localizedDescription {
                     // Uh-oh, an error occurred!
-                    ErrorAlert.show(message: error.localizedDescription)
+                    print(errorDesc)
                 } else {
                     // File deleted successfully
+                    event.imageUrl = nil
                     print("Image deleted from storage")
-                    self.removeEventImageFromDB(event.id)
+                    if updateOnDB{
+                        self.removeEventImageFromDB(event.id)
+                    }
                 }
         }
     }

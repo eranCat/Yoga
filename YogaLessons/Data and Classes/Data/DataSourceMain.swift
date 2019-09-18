@@ -24,13 +24,13 @@ class DataSource {
     
     enum TableNames:String {
         case users  = "users"
-        case clases = "classes"
+        case classes = "classes"
         case events = "events"
         
         static func name(for dType:DataType)->String{
             switch dType {
             case .classes:
-                return clases.rawValue
+                return classes.rawValue
             case .events:
                 return  events.rawValue
             }
@@ -458,7 +458,7 @@ class DataSource {
     
     func addToAll(_ dType:DataType, dataObj:DynamicUserCreateable,taskDone:DSTaskListener?) {
         
-        let dataRef:DatabaseReference = ref.child(TableNames.name(for: dType)).childByAutoId()
+        let dataRef = ref.child(TableNames.name(for: dType)).childByAutoId()
         
         guard let user = YUser.currentUser,
             let keyID = dataRef.key
@@ -467,59 +467,173 @@ class DataSource {
                 return
             }
         
-        let uid = user.id
-        
         var dataObj = dataObj
         
         dataObj.id = keyID
         
-        dataObj.uid = uid
+        dataObj.uid = user.id
         
         //        add to all classes/events json
-        dataRef.setValue(dataObj.encode())
+        dataRef.setValue(dataObj.encode()){ err,dbRef in
+        
+        //can be teaching + type.lowercased + IDS
+        switch dataObj {
+        case let aClass as Class:
+            
+            if self.newClassHandle == nil{
+                self.all_classes.insert(dataObj as! Class,at: 0)
+            }
+            if !self.teacherCreatedClasses.contains(aClass){
+                self.teacherCreatedClasses.append(aClass)
+            }
+            
+        case let event as Event:
+            
+            if self.newEventHandle == nil{
+                self.all_events.insert(dataObj as! Event, at: 0)
+            }
+            if !self.userCreatedEvents.contains(event){
+                self.userCreatedEvents.append(event)
+            }
+            
+        default:
+            return
+        }
+        self.updateMainDict(sourceType: .all, dataType: dType)
+            
+        taskDone?(err)
+            let indexPaths = [IndexPath(row: 0, section: 0)]
+            NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPaths":indexPaths])
+        
+            self.addDataIDToUserInDB(dType: dType,keyIDs: [keyID])
+        }
+    }
+    
+    func addDataIDToUserInDB( dType:DataType,keyIDs:[String]) {
+        
+        guard let user = YUser.currentUser
+            else{return}
         
         let arrKey:String
         let ids:[String:Int]
         //can be teaching + type.lowercased + IDS
         switch dType {
         case .classes:
+            guard let teacher = user as? Teacher else{return}
             
-            guard let teacher = user as? Teacher else{
-                taskDone?(nil)
+            arrKey = Teacher.Keys.teachingC
+            for keyID in keyIDs{
+                teacher.teachingClassesIDs[keyID] = .open
+            }
+            ids = teacher.teachingClassesIDs.compactMapValues{$0.rawValue}
+            
+        case .events:
+            arrKey = YUser.Keys.createdEvents
+            for keyID in keyIDs{
+                user.createdEventsIDs[keyID] = .open
+            }
+            ids = user.createdEventsIDs.compactMapValues{$0.rawValue}
+        }
+        
+        ref.child(TableNames.users.rawValue)//users table
+            .child(user.id)//of user by id
+            .child(arrKey).updateChildValues(ids)
+    }
+    
+    func addToAll(_ dType:DataType, originDataObj:DynamicUserCreateable,weekCount:Int,
+                  taskDone:((Error?,DynamicUserCreateable?)->Void)?) {
+        
+
+        typealias SchedualedCreated = DynamicUserCreateable & Scheduled
+        
+        guard let schedData = originDataObj as? SchedualedCreated
+            else{taskDone?(nil,nil)//MARK: err not a scheduald
+                return}
+        
+        let originalStartDate = schedData.startDate
+        let originalEndDate = schedData.endDate
+        
+        var dataDictionary = [String:DynamicUserCreateable](minimumCapacity: weekCount)
+        
+        let cal = Calendar.current
+        
+        let dataTableRef = ref.child(TableNames.name(for: dType))
+        
+        for numOfWeeks in 0..<weekCount{
+            
+            var dataObjCopy:SchedualedCreated
+            
+            if numOfWeeks == 0 {
+                dataObjCopy = originDataObj as! SchedualedCreated
+            }else{
+                
+               dataObjCopy = originDataObj.copy() as! SchedualedCreated
+    
+                guard
+                    let nextWeekStart =
+                        cal.date(byAdding: .weekOfYear,value: numOfWeeks,to: originalStartDate),
+                    let nextWeekEnd =
+                        cal.date(byAdding: .weekOfYear,value: numOfWeeks,to: originalEndDate)
+                else{return}
+    
+                dataObjCopy.startDate = nextWeekStart
+                dataObjCopy.endDate = nextWeekEnd
+            }
+            
+            guard let id = dataTableRef.childByAutoId().key else{return}
+            
+            dataObjCopy.id = id
+            
+            dataDictionary[id] = dataObjCopy
+        }
+        
+        let jsonDict = dataDictionary.mapValues{$0.encode()}
+        
+        dataTableRef.updateChildValues(jsonDict){ error, _ in
+            
+            guard error == nil else{
+                taskDone?(error,nil)
                 return
             }
             
-            arrKey = Teacher.Keys.teachingC
-            teacher.teachingClassesIDs[keyID] = .open
-            ids = teacher.teachingClassesIDs.compactMapValues{$0.rawValue}
+            let values = Array(dataDictionary.values)
             
-            if newClassHandle == nil{
-                all_classes.insert(dataObj as! Class,at: 0)
-            }
+            if let classes = values as? [Class]{
             
-        case .events:
-            
-            arrKey = YUser.Keys.createdEvents
-            user.createdEventsIDs[keyID] = .open
-            ids = user.createdEventsIDs.compactMapValues{$0.rawValue}
-            
-            if newEventHandle == nil{
-                all_events.insert(dataObj as! Event, at: 0)
-            }
-        }
-        updateMainDict(sourceType: .all, dataType: dType)
-        
-        NotificationCenter.default.post(name: ._dataAdded,userInfo: ["type":dType,"indexPath":IndexPath(row: 0, section: 0)])
-        
-        ref.child(TableNames.users.rawValue)//users table
-            .child(uid)//of user by id
-            .child(arrKey).setValue(ids){ err,childRef in
-                
-                if let error = err{
-                    taskDone?(error)
-                    return
+                if self.newClassHandle == nil{
+                    self.all_classes.insert(contentsOf: classes,at: 0)
+                    self.updateMainDict(sourceType: .all, dataType: .classes)
                 }
-                taskDone?(nil)
+                
+                for c in classes{
+                    if !self.teacherCreatedClasses.contains(c){
+                        self.teacherCreatedClasses.append(c)
+                        taskDone?(nil,c)
+                    }
+                }
+                
+                let indexPaths = (0..<dataDictionary.count).map{ IndexPath(row: $0, section: 0)}
+                NotificationCenter.default.post(name: ._dataAdded,
+                                                userInfo: ["indexPaths" : indexPaths])
+            }
+            else if let events = values as? [Event]{
+                
+                if self.newEventHandle == nil{
+                    self.all_events.insert(contentsOf: events, at: 0)
+                    self.updateMainDict(sourceType: .all, dataType: .events)
+                }
+                
+                for e in events{
+                    if !self.userCreatedEvents.contains(e){
+                        self.userCreatedEvents.append(e)
+                    }
+                    taskDone?(nil,e)
+                    NotificationCenter.default.post(name: ._dataAdded,
+                        userInfo: ["indexPaths" : [IndexPath(row: 0, section: 0)]])
+                }
+            }
+
+            self.addDataIDToUserInDB(dType: dType, keyIDs: [String](dataDictionary.keys))
         }
     }
     
@@ -589,38 +703,85 @@ class DataSource {
                 NotificationCenter.default.post(name: ._dataCancled,userInfo: ["type":dType])
         }
     }
+    //    MARK: Delete
+    func deleteFromAll(type:DataType,data:DynamicUserCreateable,onDone:DSTaskListener?) {
+        //        1.remove from DB
+        ref.child(TableNames.name(for: type))
+            .child(data.id).removeValue { err, _ in
+                
+                if err != nil{
+                    onDone?(err)
+                    return
+                }
+                
+                //        2. when done - remove locally
+                switch data{
+                case let aClass as Class:
+                    self.all_classes.removeFirst{ $0 == aClass}
+                    self.teacherCreatedClasses.removeFirst{$0 == aClass}
+                    
+                case let event as Event:
+                    self.all_events.removeFirst{ $0 == event}
+                    self.userCreatedEvents.removeFirst{ $0 == event}
+                    
+                    StorageManager.shared.removeImage(forEvent: event,updateOnDB: false)
+                    
+                default:return
+                }
+                
+                self.updateMainDict(sourceType: .all, dataType: type)
+                
+//        2.a. notify on removed with onDone
+                onDone?(nil)
+                NotificationCenter.default.post(name: ._dataRemoved, userInfo: ["type":type])
+                
+
+                //        3.remove from user createdClasses/events list
+                self.removeDataIDToUserInDB(dType: type, keyIDs: [data.id])
+        }
+        
+    }
+    func deleteFromAll(dtype:DataType,at indexPath:IndexPath,onDone:DSTaskListener?) {
+        
+        switch dtype {
+        case .classes:
+            deleteFromAll(type:dtype,data: all_classes[indexPath.row], onDone: onDone)
+            
+        case .events:
+            deleteFromAll(type: dtype,data: all_events[indexPath.row], onDone: onDone)
+        }
+    }
     
-    //    fileprivate func removeFromCreatorsList(_ uid:String,_ objId:String,_ dType:DataType,taskDone:DSTaskListener?) {
-    //        //MARK:   remove from db teacher's teahcing list
-    //        guard let teacher = YUser.currentUser as? Teacher,
-    //        let uid = teacher.id
-    //        else{return}
-    //
-    //        let teacherRef = self.ref.child(TableNames.users.rawValue).child(uid)
-    //
-    //        let arrKey:String
-    //
-    //        switch dType {
-    //        case .classes:
-    //            arrKey = Teacher.Keys.teachingC
-    //
-    //        case .events:
-    //            arrKey = YUser.Keys.createdEvents
-    //        }
-    //
-    //        let arrayRef = teacherRef.child(arrKey).child(objId)
-    //
-    //        arrayRef.setValue(false) { (err, _) in
-    //            if let error = err{
-    //                taskDone?(error)
-    //                return
-    //            }
-    //
-    //            taskDone?(nil)
-    //            NotificationCenter.default.post(name: ._dataCancled,userInfo: ["type":dType])
-    //        }
-    //    }
-    
+    func removeDataIDToUserInDB( dType:DataType,keyIDs:[String]) {
+        
+        guard let user = YUser.currentUser
+            else{return}
+        
+        let arrKey:String
+        let ids:[String:Int]
+        //can be teaching + type.lowercased + IDS
+        switch dType {
+        case .classes:
+            guard let teacher = user as? Teacher else{return}
+            
+            arrKey = Teacher.Keys.teachingC
+            for keyID in keyIDs{
+                teacher.teachingClassesIDs.removeValue(forKey: keyID)
+            }
+            ids = teacher.teachingClassesIDs.compactMapValues{$0.rawValue}
+            
+        case .events:
+            arrKey = YUser.Keys.createdEvents
+            for keyID in keyIDs{
+                user.createdEventsIDs.removeValue(forKey: keyID)
+            }
+            ids = user.createdEventsIDs.compactMapValues{$0.rawValue}
+        }
+        
+        ref.child(TableNames.users.rawValue)//users table
+            .child(user.id)//of user by id
+            .child(arrKey).setValue(ids)
+    }
     
     func get(sourceType:SourceType,dType:DataType,at indexPath:IndexPath) -> DynamicUserCreateable? {
         
@@ -665,7 +826,7 @@ class DataSource {
         let dataRef:DatabaseReference
         switch new {
         case _ as Class:
-            dataRef = ref.child(TableNames.clases.rawValue)
+            dataRef = ref.child(TableNames.classes.rawValue)
             
         case _ as Event:
             dataRef = ref.child(TableNames.events.rawValue)

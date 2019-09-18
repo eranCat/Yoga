@@ -186,6 +186,7 @@
 
 //"Are you sure you want to cancel this ";
 "confirmCancel" = "האם לבטל את ה";
+"confirmDelete" = "האם למחוק את ה";
 
 //image picker
 "Search photo online" = "חיפוש תמונה מהאינטרנט";
@@ -219,3 +220,5 @@
 "Update" = "עדכון";
 "update" = "עדכון";
 "Price can only be lowered" = "אפשר רק להנמיך את העלות";
+"Delete" = "מחיקת";
+"delete" = "מחיקת";

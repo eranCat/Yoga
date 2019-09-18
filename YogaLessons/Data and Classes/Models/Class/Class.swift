@@ -43,7 +43,8 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
          location:CLLocationCoordinate2D,locationName:String,countryCode:String,
          date:(start:Date,end:Date),
          level:Level,equipment:String,xtraNotes:String? = nil,
-         maxParticipants:Int,teacher:Teacher) {
+         maxParticipants:Int,teacherId:String) {
+        
         
         self.id = ""
         self.title = type
@@ -63,7 +64,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         self.numOfParticipants = 0
         self.maxParticipants = maxParticipants
         
-        self.uid = teacher.id
+        self.uid = teacherId
         
         self.status = .open
         
@@ -71,6 +72,19 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
         maxAge = -1//if age > max
         
         signed = [:]
+    }
+    
+    convenience init(type:String,cost:Double,
+         location:CLLocationCoordinate2D,locationName:String,countryCode:String,
+         date:(start:Date,end:Date),
+         level:Level,equipment:String,xtraNotes:String? = nil,
+         maxParticipants:Int,teacher:Teacher) {
+    
+        self.init(type:type,cost:cost,
+                  location:location,locationName:locationName,countryCode:countryCode,
+                  date:(start:date.start,end:date.end),
+                  level:level,equipment:equipment,xtraNotes:xtraNotes,
+                  maxParticipants:maxParticipants,teacherId: teacher.id)
     }
     
     func encode() -> JSON {
@@ -214,6 +228,15 @@ extension Class:Updateable{
     }
 }
 
+extension Class{
+    func copy(with zone: NSZone? = nil) -> Any {
+        return Class(type: self.title, cost: self.cost.amount,
+                     location: self.locationCoordinate,
+                     locationName: self.locationName, countryCode: self.countryCode,
+                     date: (startDate,endDate), level: level,
+                     equipment: equipment, maxParticipants: maxParticipants, teacherId: uid)
+    }
+}
 extension Class{
     struct Keys {
         static let id = ClassKeys.id.rawValue

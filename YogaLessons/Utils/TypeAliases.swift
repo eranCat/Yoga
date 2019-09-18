@@ -25,4 +25,4 @@ typealias NavConrollerD = UINavigationControllerDelegate
 
 typealias DSListener = ()->Void
 typealias DSTaskListener = (Error?)->Void
-typealias DynamicUserCreateable = DBCodable & Unique & UserConnectionDelegate
+typealias DynamicUserCreateable = DBCodable & Unique & UserConnectionDelegate & NSCopying

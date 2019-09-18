@@ -82,7 +82,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "590082027.725131"
+            timestampString = "590488264.872679"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "153"
@@ -107,7 +107,7 @@
             condition = "ds == .signed"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Data and Classes/Data/DS-Sort.swift"
-            timestampString = "588102821.801441"
+            timestampString = "590488264.872749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "16"
@@ -243,36 +243,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "590082027.7252589"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "dataAdded(_:)"
-            landmarkType = "7">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po dataSource.getList(sourceType: .all, dType: currentDataType).count">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "590153210.9460059"
+            timestampString = "590488264.87287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
             <Actions>
