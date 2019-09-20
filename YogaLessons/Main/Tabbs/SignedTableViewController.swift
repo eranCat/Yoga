@@ -143,9 +143,9 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     @objc func onDataChanged(_ notification:NSNotification) {
         
         guard let ui = notification.userInfo,
-            let type = ui["type"] as? DataType,type == currentDataType,
-            let _ = ui["status"] as? Status//,status == .cancled
-            
+            let type = ui["type"] as? DataType,type == currentDataType
+//            let _ = ui["status"] as? Status//,status == .cancled
+        
             else{return}
         
         tableView.reloadData()

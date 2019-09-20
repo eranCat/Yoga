@@ -100,14 +100,12 @@ class DataSource {
     //MARK: -------loaders------
     func loadData(loaded:DSTaskListener?) {
         
-        self.loadAll(.classes){ error in
+        loadAll(.classes){ error in
             if let error = error {
                 loaded?(error)
                 return
             }
-            self.loadAll(.events){ error in
-                loaded?(error)
-            }
+            self.loadAll(.events,loaded: { loaded?($0)} )
         }
         
     }
@@ -396,16 +394,14 @@ class DataSource {
             self.updateMainDict(sourceType: .all, dataType: dType)
             self.updateMainDict(sourceType: .signed, dataType: dType)
             
-            for id in self.usersToFetch{
-                self.fetchUserIfNeeded(by: id, done: { (user, err) in
-                    self.usersToFetch.remove(id)
-                    if self.usersToFetch.isEmpty{
+            for (i,id) in self.usersToFetch.enumerated(){
+                self.fetchUserIfNeeded(by: id) { (user, err) in
+                    
+                    if i == self.usersToFetch.count - 1 { // is last
                         loaded?(err)
                     }
-                })
+                }
             }
-            
-            self.usersToFetch.removeAll()
             
 //            loaded?(nil)
         }
@@ -817,24 +813,19 @@ class DataSource {
     }
     
     
-    func update<T:Updateable & DynamicUserCreateable>(localModel:T,withNew new:T,taskDone:DSTaskListener?) {
+    func update<T:Updateable & DynamicUserCreateable>(dType:DataType,localModel:T,withNew new:T,taskDone:DSTaskListener?) {
 //        updates on data change from dict
         localModel.update(withNew: new)
         
         
         //        add to all classes/events json
         let dataRef:DatabaseReference
-        switch new {
-        case _ as Class:
+        switch dType {
+        case .classes:
             dataRef = ref.child(TableNames.classes.rawValue)
             
-        case _ as Event:
+        case .events:
             dataRef = ref.child(TableNames.events.rawValue)
-            
-        default:
-//            show some error
-            taskDone?(DataTypeError.incompatibleType)
-            return
         }
         
         

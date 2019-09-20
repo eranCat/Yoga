@@ -47,7 +47,7 @@ extension ReachabilityObserverDelegate {
     
     /** Unsubscribe */
     func removeReachabilityObserver() {
-        reachability.stopNotifier()
+        reachability?.stopNotifier()
         reachability = nil
         NotificationCenter.default.removeObserver(self)
     }

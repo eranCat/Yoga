@@ -236,7 +236,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-a5-BUU" userLabel="Pofile Stack ">
                                                             <rect key="frame" x="203" y="0.0" width="195" height="113.5"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="g5V-El-NLf" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="guru" translatesAutoresizingMaskIntoConstraints="NO" id="g5V-El-NLf" customClass="CircledView" customModule="YogaLessons" customModuleProvider="target">
                                                                     <rect key="frame" x="57.5" y="0.0" width="80" height="80"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="g5V-El-NLf" secondAttribute="height" multiplier="1:1" id="8tp-Aw-Eut"/>
@@ -398,6 +398,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="guru" width="50" height="50"/>
         <image name="image-holder" width="614" height="460"/>
         <image name="location" width="48" height="48"/>
         <namedColor name="ColorPrimary">

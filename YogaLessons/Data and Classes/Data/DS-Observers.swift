@@ -219,7 +219,12 @@ extension DataSource{
         isFilteringLocation = standard.bool(forKey: "location_preference")
         
         if isFilteringLocation{
-            LocationUpdater.shared.getCurrentCountryCode { code in
+            LocationUpdater.shared.getCurrentCountryCode { code,locationErr in
+                if let err = locationErr{
+                    let msg = (err as? LocalizedError)?.errorDescription ?? err.localizedDescription
+                    print(msg)
+                    return
+                }
                 
                 let def = NotificationCenter.default
                 

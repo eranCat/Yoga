@@ -226,7 +226,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cost" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YS8-vM-HHT" customClass="CurrencyField" customModule="YogaLessons" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="8" width="67.5" height="27.5"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="27.5"/>
                                                     <color key="backgroundColor" red="0.89447176399999995" green="0.89447176399999995" blue="0.89447176399999995" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="20"/>
@@ -245,6 +245,7 @@
                                             <constraints>
                                                 <constraint firstItem="YS8-vM-HHT" firstAttribute="leading" secondItem="jeF-NJ-X5H" secondAttribute="leading" constant="8" id="3h4-B8-yWC"/>
                                                 <constraint firstAttribute="bottom" secondItem="YS8-vM-HHT" secondAttribute="bottom" constant="8" id="CrA-6f-wH6"/>
+                                                <constraint firstAttribute="trailing" secondItem="YS8-vM-HHT" secondAttribute="trailing" constant="8" id="KJ7-IF-Ozk"/>
                                                 <constraint firstItem="YS8-vM-HHT" firstAttribute="top" secondItem="jeF-NJ-X5H" secondAttribute="top" constant="8" id="SnD-ul-9qv"/>
                                             </constraints>
                                         </tableViewCellContentView>

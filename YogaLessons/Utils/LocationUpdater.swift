@@ -24,10 +24,6 @@ class LocationUpdater:NSObject {
         
         locationManager.requestWhenInUseAuthorization()
 //        locationManager.requestAlwaysAuthorization()
-        
-        getCurrentCountryCode { (code) in
-            
-        }
     }
     
     func getLastKnowLocation() -> CLLocation? {
@@ -120,37 +116,37 @@ class LocationUpdater:NSObject {
     }
     
     func getPlace(for location: CLLocation,
-                  completion: @escaping (CLPlacemark?) -> Void) {
+                  completion: @escaping (CLPlacemark?,Error?) -> Void) {
         
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { placemarks, error in
             
-            guard error == nil else {
+            if error != nil {
                 print("*** Error in \(#function): \(error!.localizedDescription)")
-                completion(nil)
+                completion(nil,error)
                 return
             }
             
             guard let placemark = placemarks?[0] else {
                 print("*** Error in \(#function): placemark is nil")
-                completion(nil)
+                completion(nil,error)
                 return
             }
             
-            completion(placemark)
+            completion(placemark,error)
         }
     }
     
     
-    func getCurrentCountryCode(done:@escaping (String?)->Void) {
+    func getCurrentCountryCode(done:@escaping (String?,Error?)->Void) {
         if let lastLocation = getLastKnowLocation(){
-            getPlace(for: lastLocation) { (mark) in
-                let code: String? = mark?.isoCountryCode
-                done(code)
+            getPlace(for: lastLocation) { mark,err in
+                let code = mark?.isoCountryCode
+                done(code,err)
                 self.currentCountryCode = code
             }
         }else{
-            done(nil)
+            done(nil,nil)
         }
     }
 }

@@ -333,8 +333,6 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     
     @objc func update() {
         
-        let ds = DataSource.shared
-        
         let updatedTaskListener:DSTaskListener = { err in
             SVProgressHUD.dismiss()
             
@@ -350,36 +348,44 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
             }
             self.dismiss(animated: true)
         }
+
+        let ds = DataSource.shared
         
         switch validateAndCreateData() {
             
         case let aClass as Class:
-            aClass.id = self.model!.id
-            if let localClass = model as? Class{
-                ds.update(localModel: localClass, withNew: aClass, taskDone: updatedTaskListener)
-            }
+            guard let localClass = model as? Class else{return}
+            aClass.id = localClass.id
+            
+            ds.update(dType: .classes, localModel: localClass, withNew: aClass, taskDone: updatedTaskListener)
             
         case let event as Event:
-            event.id = self.model!.id
-            guard let localModel = model as? Event
-                else{return}
+            guard let localEvent = model as? Event else{return}
+            event.id = localEvent.id
             
-            if let img = selectedImage{
-                ds.update(localModel: localModel, withNew: event){ err in
-                    //                    done saving event to DB
-                    updatedTaskListener(err)
-                    
-                    //                    call image save for finished image
-                    StorageManager.shared.save(image: img, for: self.model as! Event)
+            ds.update(dType: .events, localModel: localEvent, withNew: event){ err in
+                //                    done saving event to DB
+                updatedTaskListener(err)
+                
+                let storageMngr = StorageManager.shared
+                
+                //                    call image save for finished image
+                if let img = self.selectedImage{
+                    storageMngr.save(image: img, for: self.model as! Event){ err in
+                        if let error = err {
+                            // Handle any errors
+                            ErrorAlert.show(message: error.localizedDescription)
+                            return
+                        }
+                        
+                        NotificationCenter.default.post(name: ._dataChanged,
+                                                        userInfo: ["type":DataType.events])
+                    }
                 }
-            }
-            else{
-                ds.update(localModel: localModel, withNew: event){ err in
-                    //                    done saving event to DB
-                    updatedTaskListener(err)
-                    
+                else{
                     //                    call image save for finished image
-                    StorageManager.shared.removeImage(forEvent: self.model as! Event)
+                    storageMngr.removeImage(forEvent: self.model as! Event)
+                    NotificationCenter.default.post(name: ._dataChanged,                                   userInfo: ["type":DataType.events])
                 }
             }
         default:

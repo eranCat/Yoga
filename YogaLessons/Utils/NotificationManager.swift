@@ -62,30 +62,40 @@ class NotificationManager {
     
     func showNotificationsSettingAlert(done:((Bool?)->Void)?) {
         
-        UIAlertController
-            .create(title: nil, message: "allowNotifications".translated, preferredStyle: .alert)
-        
-        .aAction(UIAlertAction(title: "Open settings".translated, style: .default, handler: { _ in
+        let settingAction = UIAlertAction(title: "Open settings".translated, style: .default){ _ in
             DispatchQueue.main.async {
-                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString)
-                    else {return}
                 
-                if UIApplication.shared.canOpenURL(settingsUrl) {
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString)
+                    else {
+                        done?(false)
+                        return}
+                
+                let app = UIApplication.shared
+                
+                if app.canOpenURL(settingsUrl) {
                     if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        app.open(settingsUrl){ (success) in
                             print("Settings opened: \(success)") // Prints true
-                        })
+                            done?(success)
+                        }
                     } else {
-                        UIApplication.shared.openURL(settingsUrl as URL)
+                        let openedSuccessfully = app.openURL(settingsUrl as URL)
+                        done?(openedSuccessfully)
                     }
-                    done?(nil)
+                }else{
+                    done?(false)
                 }
             }
-        }))
-        .aAction(UIAlertAction(title: "Cancel".translated,
-                               style: .cancel,
-                               handler: {_ in done?(false)}))
-        .show()
+        }
+        
+        let cancelAction =
+            UIAlertAction(title: "Cancel".translated,style: .cancel) {_ in done?(false)}
+        
+        UIAlertController
+            .create(title: nil, message: "allowNotifications".translated, preferredStyle: .alert)
+            .aAction(settingAction)
+            .aAction(cancelAction)
+            .show()
     }
     
     fileprivate func makeNotification(startTime time: Date, _ title: String,_ body:String, _ objId: String) {
@@ -171,8 +181,6 @@ class NotificationManager {
         
         notificationCenter.requestAuthorization(options: options) { didAllow, error in
             if !didAllow {
-                
-                
                 //                        system alert for permission
                 notificationCenter.getNotificationSettings { (settings) in
                     switch settings.authorizationStatus{
@@ -201,17 +209,17 @@ class NotificationManager {
             case .authorized:
                 done?(true)
             case .notDetermined,.denied,.provisional:
-                let permissionAlert = UIAlertController.create(title: "",message: "allowNotifications".translated,preferredStyle: .alert)
-                
-                permissionAlert.aAction(.init(title: "ok".translated, style: .default){ _ in
+                let okAction = UIAlertAction(title: "ok".translated, style: .default){ _ in
                     self.askSystemPermission(done: done)
-                })
+                }
                 
-                permissionAlert.aAction(.init(title: "Cancel".translated, style: .cancel){ (_) in
+                let cancelAction = UIAlertAction(title: "Cancel".translated, style: .cancel){ _ in
                     done?(false)
-                })
+                }
                 
-                permissionAlert.show()
+                UIAlertController.create(title: nil,
+                         message: "allowNotifications".translated,preferredStyle: .alert)
+                    .aAction(okAction).aAction(cancelAction).show()
 
             @unknown default:
                 print("new unhandled notification status:",settings.authorizationStatus)

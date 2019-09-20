@@ -74,23 +74,23 @@ extension DataSource{
     }
     
     func fetchUserIfNeeded(by id:String,done:@escaping (YUser?,Error?)->Void) {
-        guard let user = usersList[id]
-            else{
-                ref.child(TableNames.users.rawValue)
-                    .child(id)
-                    .observeSingleEvent(of: .value){snapshot in
-                        
-                        guard let user = self.convertUser(from: snapshot)
-                            else{
-                                done(nil,JsonErrors.castFailed)
-                                return
-                        }
-                        self.usersList[user.id] = user
-                        done(user,nil)
+        if let user = usersList[id] {
+            done(user,nil)
+            return
+        }
+        
+        ref.child(TableNames.users.rawValue)
+            .child(id)
+            .observeSingleEvent(of: .value){snapshot in
+                
+                guard let user = self.convertUser(from: snapshot)
+                    else{
+                        done(nil,JsonErrors.castFailed)
+                        return
                 }
-                return
-            }
-        done(user,nil)
+                self.usersList[user.id] = user
+                done(user,nil)
+        }
     }
     
     func updateCurrentUserValue(forKey key:YUser.UserKeys,_ value:Any) {

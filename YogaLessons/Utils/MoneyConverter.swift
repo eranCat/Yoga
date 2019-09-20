@@ -29,13 +29,11 @@ class MoneyConverter {
     
     private func convert( locale currencyCodeDest:String,done:@escaping ((Double)->Void)) {
         
-        let convertorUrl =
-        "\(MoneyConverter.BaseApi)/live?access_key=\(MoneyConverter.ApiKey)&currencies=\(currencyCodeDest)&format=1"
+        let convertorUrl = "\(MoneyConverter.BaseApi)/live?access_key=\(MoneyConverter.ApiKey)&currencies=\(currencyCodeDest)&format=1"
         
-        guard let url = URL(string: convertorUrl)
-            else{
-                done(1)
-                return
+        guard let url = URL(string: convertorUrl) else{
+            done(1)
+            return
         }
         
         URLSession.shared.dataTask(with: url){ data, response, error in
@@ -46,22 +44,16 @@ class MoneyConverter {
                 return
             }
             
-            guard let data = data,
-                let clRes = try? JSONDecoder().decode(CurrencyLayerResponse.self,from: data)
-                else{
-                    done(1)
-                    return
-            }
-            
-            
-            guard clRes.success,
-                let result = clRes.quotes["USD"+currencyCodeDest]
-            else{
+            if let data = data,
+                let clRes = try? JSONDecoder().decode(CurrencyLayerResponse.self,from: data),
+                clRes.success,
+                let result = clRes.quotes["USD"+currencyCodeDest]{
+                
+                done(result)
+                
+            }else{
                 done(1)
-                return
             }
-            
-            done(result)
             
             }.resume()
     }

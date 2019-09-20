@@ -170,10 +170,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="b0W-oY-Hen">
-                                <rect key="frame" x="199" y="291" width="16" height="314"/>
+                                <rect key="frame" x="199" y="246.5" width="16" height="313.5"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzF-ge-fqW" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
-                                <rect key="frame" x="8" y="613" width="398" height="40"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzF-ge-fqW" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
+                                <rect key="frame" x="8" y="568" width="398" height="40"/>
                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -186,7 +186,7 @@
                             <constraint firstItem="2bh-V5-xgi" firstAttribute="trailing" secondItem="GzF-ge-fqW" secondAttribute="trailing" constant="8" id="QeI-wj-GKH"/>
                             <constraint firstItem="b0W-oY-Hen" firstAttribute="centerX" secondItem="Rwu-qa-KgO" secondAttribute="centerX" id="Tzg-oq-YZX"/>
                             <constraint firstItem="GzF-ge-fqW" firstAttribute="leading" secondItem="2bh-V5-xgi" secondAttribute="leading" constant="8" id="sh0-xX-Ejh"/>
-                            <constraint firstItem="b0W-oY-Hen" firstAttribute="centerY" secondItem="Rwu-qa-KgO" secondAttribute="centerY" id="si8-9a-0Ni"/>
+                            <constraint firstItem="b0W-oY-Hen" firstAttribute="centerY" secondItem="Rwu-qa-KgO" secondAttribute="centerY" multiplier="0.9" id="si8-9a-0Ni"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2bh-V5-xgi"/>
                     </view>
@@ -194,6 +194,7 @@
                     <connections>
                         <outlet property="loadingLbl" destination="GzF-ge-fqW" id="YeT-7E-Ark"/>
                         <outlet property="logoImg" destination="b0W-oY-Hen" id="w5p-xB-Bh8"/>
+                        <segue destination="UDS-dG-cAd" kind="showDetail" identifier="splash" customClass="SplashSegue" customModule="YogaLessons" customModuleProvider="target" id="O0p-Mq-LDd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TZa-Tc-6SI" userLabel="First Responder" sceneMemberID="firstResponder"/>

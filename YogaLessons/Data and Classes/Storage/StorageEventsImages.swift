@@ -13,7 +13,7 @@ import SDWebImage
 
 extension StorageManager{
     
-    func save(image img:UIImage,for event:Event) {
+    func save(image img:UIImage,for event:Event,completion:((Error?)->Void)? = nil) {
         
         guard let imgData = img.jpegData(compressionQuality: 0.0) else {return }
         
@@ -26,13 +26,16 @@ extension StorageManager{
             eventImgRef.downloadURL { url, error in
                 if let error = error {
                     // Handle any errors
-                    ErrorAlert.show(message: error.localizedDescription)
+                    completion?(error)
                 } else {
                     // Get the download URL
                     
-                    guard let path = url?.absoluteString else{return}
+                    guard let path = url?.absoluteString else{
+                        completion?(nil)//some err of url
+                        return}
                     event.imageUrl = path
                     self.saveEventImgToDB(from: path, eventID: event.id)
+                    completion?(nil)
                 }
             }
         }
