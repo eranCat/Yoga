@@ -15,7 +15,7 @@
                 <navigationController storyboardIdentifier="mainNav" automaticallyAdjustsScrollViewInsets="NO" id="UDS-dG-cAd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Oyc-I7-Rg9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -31,7 +31,7 @@
         <scene sceneID="FqD-ON-uhz">
             <objects>
                 <tableViewController storyboardIdentifier="showClassInfo" id="TXs-v9-nsH" customClass="SignedTableViewController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="33Q-fH-rCk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="33Q-fH-rCk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -127,7 +127,7 @@
         <scene sceneID="VV8-jd-C8j">
             <objects>
                 <tableViewController id="gZW-CI-dfV" customClass="AllTableViewController" customModule="YogaLessons" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ny0-tk-7Pt">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ny0-tk-7Pt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -198,7 +198,7 @@
                     <connections>
                         <outlet property="loadingLbl" destination="GzF-ge-fqW" id="YeT-7E-Ark"/>
                         <outlet property="logoImg" destination="b0W-oY-Hen" id="w5p-xB-Bh8"/>
-                        <segue destination="UDS-dG-cAd" kind="showDetail" identifier="splash" customClass="SplashSegue" customModule="YogaLessons" customModuleProvider="target" id="O0p-Mq-LDd"/>
+                        <segue destination="UDS-dG-cAd" kind="presentation" identifier="splash" customClass="SplashSegue" customModule="YogaLessons" customModuleProvider="target" modalPresentationStyle="fullScreen" id="O0p-Mq-LDd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TZa-Tc-6SI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -211,7 +211,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u17-Wh-d5M" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ozh-dR-5E3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -234,7 +234,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qjR-ui-CAz"/>
-        <segue reference="p1e-ZV-hEA"/>
+        <segue reference="N6G-mz-cfe"/>
+        <segue reference="oqs-1K-oWG"/>
     </inferredMetricsTieBreakers>
 </document>

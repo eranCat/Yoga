@@ -209,17 +209,21 @@ class NotificationManager {
             case .authorized:
                 done?(true)
             case .notDetermined,.denied,.provisional:
-                let okAction = UIAlertAction(title: "ok".translated, style: .default){ _ in
+                let okAction = UIAlertAction(title: "ok".translated, style: .default,handler: { _ in
                     self.askSystemPermission(done: done)
-                }
+                })
                 
-                let cancelAction = UIAlertAction(title: "Cancel".translated, style: .cancel){ _ in
+                let cancelAction = UIAlertAction(title: "Cancel".translated, style: .cancel,handler: { _ in
                     done?(false)
-                }
+                })
                 
-                UIAlertController.create(title: nil,
-                         message: "allowNotifications".translated,preferredStyle: .alert)
-                    .aAction(okAction).aAction(cancelAction).show()
+                let msg = "allowNotifications".translated
+                DispatchQueue.main.async {
+                    UIAlertController
+                        .create(title: nil,message: msg,preferredStyle: .alert)
+                        .addActions([okAction,cancelAction])
+                        .show()
+                }
 
             @unknown default:
                 print("new unhandled notification status:",settings.authorizationStatus)

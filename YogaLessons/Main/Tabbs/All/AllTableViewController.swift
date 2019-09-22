@@ -26,7 +26,7 @@ class AllTableViewController: UITableViewController,DynamicTableDelegate {
     var searchType:SearchKeyType?
     
     // Search controller
-    lazy var searchController:UISearchController = createSearchController()
+    lazy var searchController = createSearchController()
     
     lazy var filtered:[DataType:[DynamicUserCreateable]] = { [.classes:[],.events:[]]}()
     

@@ -93,7 +93,9 @@ class UserInfoViewController: UIViewController {
             do{
                 try Auth.auth().signOut()
                 let loginVC = self.newVC(storyBoardName: "UserLogin", id: "LoginVC")
-                self.present(UINavigationController(rootViewController: loginVC), animated: true)
+                let navC = UINavigationController(rootViewController: loginVC)
+                navC.modalPresentationStyle = .fullScreen
+                self.present(navC, animated: true)
                 self.navigationController?.popViewController(animated: false)
             }catch{
                 print(error)

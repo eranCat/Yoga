@@ -25,13 +25,14 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
         UIView.animate(withDuration: 0.7, delay: 0, options: animationOptions,animations: {
                 self.logoImg.transform = .init(translationX: 0, y: -20)
         })
+
+        addReachabilityObserver()
         
         NotificationManager.shared.askForPermission { (granted) in
             DispatchQueue.main.async {
                 self.startSetup()
             }
         }
-        addReachabilityObserver()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -56,7 +57,9 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
         
         if Auth.auth().currentUser == nil{
             let login = newVC(storyBoardName: "UserLogin", id: "LoginVC")
-            present(UINavigationController(rootViewController: login),
+            let navController = UINavigationController(rootViewController: login)
+            navController.modalPresentationStyle = .fullScreen
+            present(navController,
                          animated: true)
             return
         }
@@ -116,6 +119,7 @@ class SplashSegue: UIStoryboardSegue {
             logoImg.alpha = 0
             
         }) { didFinish -> Void in
+            self.destination.modalPresentationStyle = .fullScreen
             self.source.present(self.destination,animated: false)
         }
     }

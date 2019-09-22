@@ -40,6 +40,9 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
         super.init()
         imgPicker.delegate = self
         unsplashVC.photoPickerDelegate = self
+        unsplashVC.modalPresentationStyle = .fullScreen
+        
+        imgPicker.modalPresentationStyle = .fullScreen
     }
     
     func show( hasImage:Bool,size:UnsplashPhoto.URLKind = .small) {

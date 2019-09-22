@@ -124,13 +124,11 @@
                         <constraints>
                             <constraint firstItem="T4u-98-t3Q" firstAttribute="top" secondItem="E6X-hX-kP6" secondAttribute="bottom" constant="16" id="0Fs-0a-lKQ"/>
                             <constraint firstItem="T4u-98-t3Q" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="AHO-SM-7HQ"/>
-                            <constraint firstItem="RcA-NB-PEC" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="DA6-YJ-sef"/>
                             <constraint firstItem="bXr-1M-UQZ" firstAttribute="height" secondItem="KqX-3j-j1w" secondAttribute="height" multiplier="0.2" id="Kdu-cM-EGH"/>
                             <constraint firstItem="T4u-98-t3Q" firstAttribute="leading" secondItem="KqX-3j-j1w" secondAttribute="leading" constant="20" id="UDg-db-FEL"/>
                             <constraint firstItem="KqX-3j-j1w" firstAttribute="trailing" secondItem="T4u-98-t3Q" secondAttribute="trailing" constant="20" id="W9f-rK-Dqi"/>
                             <constraint firstItem="eaw-SY-zX8" firstAttribute="top" secondItem="T4u-98-t3Q" secondAttribute="bottom" constant="24" id="aLJ-rd-0SF"/>
                             <constraint firstItem="KqX-3j-j1w" firstAttribute="trailing" secondItem="RcA-NB-PEC" secondAttribute="trailing" constant="24" id="fjC-iD-2sq"/>
-                            <constraint firstItem="eaw-SY-zX8" firstAttribute="centerX" secondItem="sOr-Z8-Y6y" secondAttribute="centerX" id="kHc-tZ-crN"/>
                             <constraint firstItem="E6X-hX-kP6" firstAttribute="top" secondItem="KqX-3j-j1w" secondAttribute="top" constant="16" id="lyd-hf-vLA"/>
                             <constraint firstItem="RcA-NB-PEC" firstAttribute="leading" secondItem="KqX-3j-j1w" secondAttribute="leading" constant="24" id="mCQ-4Y-r5D"/>
                             <constraint firstItem="RcA-NB-PEC" firstAttribute="top" secondItem="eaw-SY-zX8" secondAttribute="bottom" constant="16" id="mWh-4z-f6c"/>

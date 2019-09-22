@@ -31,9 +31,12 @@ class MainTabBarController: UITabBarController {
     lazy var addBtn: UIBarButtonItem = {
         let btn = BlockBarButtonItem(barButtonItemSystem: .add){
             
-            let newNav = self.newVC(storyBoardName: "NewClassEvent", id: "NewClassEvent")
+            let newClassEventVC = self.newVC(storyBoardName: "NewClassEvent", id: "NewClassEvent")
+            let newNav = UINavigationController(rootViewController: newClassEventVC)
             
-            self.present(UINavigationController(rootViewController: newNav),animated: true)
+            newNav.modalPresentationStyle = .fullScreen
+            
+            self.present(newNav,animated: true)
         }
         
         return btn

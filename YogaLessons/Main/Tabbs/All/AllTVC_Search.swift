@@ -45,6 +45,8 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         searchBar.scopeBarTextColorNormal = .white
         searchBar.scopeBarTextColorSelected = .white
 
+        controller.modalPresentationStyle = .fullScreen
+        
         return controller
     }
     

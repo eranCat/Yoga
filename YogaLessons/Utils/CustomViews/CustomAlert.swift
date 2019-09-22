@@ -79,6 +79,8 @@ extension UIAlertController {
         // Change Message With Color and Font
         alertController.messageTextColor = ._dialogTxtColor
         
+        alertController.modalPresentationStyle = .fullScreen
+        
         return alertController
     }
     
@@ -102,7 +104,7 @@ extension UIAlertController {
         return self
     }
     func addActions(_ actions:[UIAlertAction]) -> UIAlertController {
-        actions.forEach{ addAction($0)}
+        actions.forEach{ aAction($0)}
         return self
     }
     
