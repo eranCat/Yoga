@@ -32,20 +32,15 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         
         refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
-        updateTitle()
+        if currentDataType != .classes{
+            sortAndUpdate()
+        }
         
         updateEmptyLabel()
         
         isTeacher = (YUser.currentUser?.type == .teacher)
         
         subscribeObservers()
-        
-        //        navigationItem.largeTitleDisplayMode = .automatic
-    }
-    
-    func updateTitle() {
-        let title = "\(SourceType.signed.translated)-\(currentDataType.translated)"
-        navigationItem.title = title.capitalized
     }
     
     deinit {
@@ -90,6 +85,8 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     @objc func dataRemoved(_ notification:NSNotification){
+        guard tableView.numberOfSections >= 2 else{return}
+        
         tableView.reloadSections([1], with: .none)
     }
     
@@ -152,6 +149,17 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
     }
     
     
+    fileprivate func sortAndUpdate() {
+        dataSource.sortUserUploads(by: sortType, dataType: currentDataType)
+        
+        dataSource.sort(by: sortType,sourceType: .signed,dataType: currentDataType)
+        
+        adjustEmpty(isDataEmpty)
+        updateEmptyLabel()
+        
+        tableView.reloadData()
+    }
+    
     @objc func onSortTapped(_ notification:NSNotification) {
         // viewController is visible
         //        guard viewIfLoaded?.window != nil
@@ -163,16 +171,7 @@ class SignedTableViewController: UITableViewController,DynamicTableDelegate {
         currentDataType = dType
         sortType = sType
         
-        dataSource.sortUserUploads(by: sType, dataType: dType)
-        
-        dataSource.sort(by: sType,sourceType: .signed,dataType: dType)
-        
-        adjustEmpty(isDataEmpty)
-        updateEmptyLabel()
-        
-        updateTitle()
-        
-        tableView.reloadData()
+        sortAndUpdate()
     }
     
     func updateEmptyLabel() {

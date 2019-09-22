@@ -482,7 +482,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                             }
                         }
                     }
-                    self.eventImgView.contentMode = .scaleAspectFill
+//                    self.eventImgView.contentMode = .scaleAspectFill
                 }
         }
         

@@ -37,7 +37,10 @@ extension MainTabBarController:UITabBarControllerDelegate{
             if let imageView = subs.first(where: { $0 is UIImageView }){
                 imageView.layer.add(bounceAnimation, forKey: nil)
             }
-            
+        }
+        
+        if let signedVC = self.viewControllers?[safe: i] as? SignedTableViewController{
+            signedVC.currentDataType = self.currentDataType
         }
         
         changeBarButtons(bySelectedIndex: i)

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
+   uuid = "D8123B43-7CC0-4A1E-8429-728176ADFC3E"
    type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "323C8744-B286-4BFD-80D4-B6842B663532"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -30,6 +32,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "5092CDA6-7950-4952-A3D2-3886C4C6B752"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -54,6 +57,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "3FB16CFB-0AD2-49DC-8C5E-9CF1B6D45ABC"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -78,11 +82,12 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "6C0A8A72-1A63-4A44-A7A4-C90A8634D823"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Main/Tabbs/All/AllTableViewController.swift"
-            timestampString = "590676599.156589"
+            timestampString = "590754571.454445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "153"
@@ -102,12 +107,13 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "EEE4EFEB-60C0-4932-853B-14F844CFE99D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             condition = "ds == .signed"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Data and Classes/Data/DS-Sort.swift"
-            timestampString = "590676599.156772"
+            timestampString = "590754571.454515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "16"
@@ -119,6 +125,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "2CF3ABF9-26B9-4E21-A932-2290A058B97B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             condition = "(userDict[&quot;name&quot;] as! String).contains(&quot;&#x5e8;&#x5d7;&#x5dc;&quot;)"
@@ -136,6 +143,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "959EE35F-D079-4271-A9D9-DB530E480687"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
@@ -160,6 +168,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "D038AE09-F47E-45B3-8718-946512D19095"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
@@ -184,6 +193,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "595B0470-E86A-4B71-A671-87BDC2660366"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
@@ -205,6 +215,7 @@
             </Actions>
             <Locations>
                <Location
+                  uuid = "595B0470-E86A-4B71-A671-87BDC2660366 - 59b25ac75c64a3a0"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -220,6 +231,7 @@
                   offsetFromSymbolStart = "369">
                </Location>
                <Location
+                  uuid = "595B0470-E86A-4B71-A671-87BDC2660366 - 3634835036c4e232"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -240,15 +252,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "2BC4578F-00C3-475E-9C66-C05C93B1BA36"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Main/Tabbs/SignedTableViewController.swift"
-            timestampString = "590676599.156966"
+            timestampString = "590754571.4546469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
             <Actions>
@@ -264,15 +277,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "F6DC6B3C-E8F3-4C8D-9D85-4AF35EB2D06C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YogaLessons/Utils/LocationUpdater.swift"
-            timestampString = "590676599.1570849"
+            timestampString = "590754571.4547369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "getCurrentCountryCode(done:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -280,15 +294,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "0A9CDFBA-5AFF-4753-9077-D468F157C12C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Utils/LocationUpdater.swift"
-            timestampString = "590676599.157156"
+            timestampString = "590754571.454784"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "locationManager(_:didChangeAuthorization:)"
             landmarkType = "7">
             <Actions>
@@ -304,15 +319,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "AF880E94-6F82-4C04-8E0C-FE812624E1FD"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Utils/LocationUpdater.swift"
-            timestampString = "590676599.157204"
+            timestampString = "590754571.454826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "locationManager(_:didChangeAuthorization:)"
             landmarkType = "7">
             <Actions>
@@ -328,15 +344,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "AC067495-6F6C-4FB1-AC2F-EFC039310480"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "YogaLessons/Utils/LocationUpdater.swift"
-            timestampString = "590676599.1572551"
+            timestampString = "590754571.454867"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "locationManager(_:didChangeAuthorization:)"
             landmarkType = "7">
             <Actions>
@@ -352,6 +369,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "923C6B5F-E410-4179-89AB-5A767B854E82"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             condition = "err == nil"
@@ -369,6 +387,30 @@
                   ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
                   <ActionContent
                      consoleCommand = "po &quot;Image successfully updated in DB&quot;">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "80817FED-1FA9-4401-9E6D-90323B68441B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YogaLessons/Main/SplashScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "startSetup()"
+            landmarkType = "7">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "po reachability?.connection">
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>

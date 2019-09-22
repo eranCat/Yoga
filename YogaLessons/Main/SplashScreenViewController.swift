@@ -48,7 +48,7 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     
     func startSetup() {
         let reachability = Reachability(queueQoS: .utility, targetQueue: .global())
-        guard reachability?.connection != .none
+        guard reachability?.connection != Reachability.Connection.none
             else{
                 showConnectionAlert()
                 return
