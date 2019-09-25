@@ -66,18 +66,13 @@ extension EventCell:PopulateDelegate{
         }else{
             time.text = from
         }
-        if event.imageUrl != nil{
-        StorageManager.shared
-            .setImage(of: event, imgView: eventImgView)
-        }
-        else{
-            self.eventImgView.image = nil
-        }
         
-        let priority: UILayoutPriority =
-            event.imageUrl == nil ? .defaultLow : .init(rawValue: 750)
+        StorageManager.shared.setImage(of: event, imgView: eventImgView)
         
-        eventImgView.setContentCompressionResistancePriority(priority,for: .horizontal)
+//        let priority: UILayoutPriority =
+//            event.imageUrl == nil ? .defaultLow : .init(rawValue: 750)
+//        
+//        eventImgView.setContentCompressionResistancePriority(priority,for: .horizontal)
 
         cancledImageView.isHidden = event.status != .cancled
         cancledImageView.layer.zPosition = 10

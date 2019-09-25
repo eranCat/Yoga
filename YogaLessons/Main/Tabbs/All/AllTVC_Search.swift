@@ -21,7 +21,6 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         let controller = UISearchController(searchResultsController: nil)
         
         let searchBar = controller.searchBar
-        
         controller.delegate = self
         searchBar.delegate = self
         
@@ -32,8 +31,13 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         
         searchBar.placeholder = "searchBy".translated
         
-        searchBar.barTintColor = ._accent
+        if #available(iOS 13.0, *) {
+            searchBar.barTintColor = ._btnTint
+        } else {
+            searchBar.barTintColor = ._accent
+        }
         searchBar.tintColor = ._btnTint
+        
         let cancelBtnAttr:[NSAttributedString.Key:UIColor] = [.foregroundColor: .white]
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelBtnAttr , for: .normal)
@@ -43,8 +47,13 @@ extension AllTableViewController:UISearchBarDelegate,UISearchControllerDelegate{
         searchBar.scopeButtonTitles = types
         
         searchBar.scopeBarTextColorNormal = .white
-        searchBar.scopeBarTextColorSelected = .white
-
+        
+        if #available(iOS 13.0,*){
+            searchBar.scopeBarTextColorSelected = ._btnTint
+        }else{
+            searchBar.scopeBarTextColorSelected = .white
+        }
+        
         controller.modalPresentationStyle = .fullScreen
         
         return controller

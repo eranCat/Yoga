@@ -13,22 +13,21 @@ extension DataSource{
               sourceType:SourceType = .all,
               dataType:DataType = .classes) {
         
-        switch (sourceType,dataType) {
-        case (.all,.classes):
-            all_classes.sort(by: Class.sorter(for: sortType))
-            
-        case (.signed,.classes):
-            signed_classes.sort(by: Class.sorter(for: sortType))
-            
-        case (.all,.events):
-            all_events.sort(by: Event.sorter(for: sortType))
-            
-        case (.signed,.events):
-            signed_events.sort(by: Event.sorter(for: sortType))
-            
+        var sorted:[DynamicUserCreateable]? = mainDict[sourceType]![dataType]
+        
+        switch dataType {
+        case .classes:
+            let sorter = Class.sorter(for: sortType)
+            sorted = (sorted as? [Class])?.sorted(by: sorter)
+                
+        case .events:
+            let sorter = Event.sorter(for: sortType)
+            sorted = (sorted as? [Event])?.sorted(by: sorter)
         }
         
-        updateMainDict(sourceType: .all, dataType: dataType)
+        if let sorted = sorted {
+            mainDict[sourceType]![dataType]! = sorted
+        }
     }
     
     func sortUserUploads(by sortType:SortType,dataType dt:DataType ) {
@@ -38,6 +37,5 @@ extension DataSource{
         case .events:
             userCreatedEvents.sort(by: Event.sorter(for: sortType))
         }
-        updateMainDict(sourceType: .signed, dataType: dt)
     }
 }

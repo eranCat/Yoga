@@ -8,12 +8,11 @@
 
 import FirebaseAuth
 import FirebaseStorage
-import FirebaseDatabase
 import SDWebImage
 
 extension StorageManager{
     
-    func save(image img:UIImage,for event:Event,completion:((Error?)->Void)? = nil) {
+    func save(image img:UIImage,for event:Event,completion:DSTaskListener? = nil) {
         
         guard let imgData = img.jpegData(compressionQuality: 0.0) else {return }
         
@@ -34,44 +33,22 @@ extension StorageManager{
                         completion?(nil)//some err of url
                         return}
                     event.imageUrl = path
-                    self.saveEventImgToDB(from: path, eventID: event.id)
-                    completion?(nil)
+                    DataSource.shared.saveEventImgToDB(from: path, eventID: event.id,completion: completion)
                 }
             }
-        }
-    }
-    
-   
-    
-    fileprivate func getEventImgRef(_ eventID: String) -> DatabaseReference {
-        
-        let path = [DataSource.TableNames.events.rawValue,
-                    eventID,
-                    Event.Keys.imageUrl].joined(separator: "/")
-        
-        return Database.database().reference().child(path)
-    }
-    
-    private func saveEventImgToDB(from path:String,eventID:String){
-        //save to DB
-        getEventImgRef(eventID).setValue(path){(error,childRef) in
-                
-                if let err = error{
-                    ErrorAlert.show(message: err.localizedDescription)
-                    return
-                }
-                print("Image successfully updated in DB")
         }
     }
     
     func setImage(of event:Event, imgView:UIImageView){
         
         if let url = event.imageUrl {
-            setImage(withUrl: url, imgView: imgView,placeHolderImg: #imageLiteral(resourceName: "imgPlaceholder"))
+            setImage(withUrl: URL(string: url), imgView: imgView,placeHolderImg: #imageLiteral(resourceName: "imgPlaceholder"))
+        }else{
+            imgView.image = nil
         }
     }
     
-    func removeImage(forEvent event:Event,updateOnDB:Bool = true) {
+    func removeImage(forEvent event:Event,updateOnDB:Bool = true,completion:DSTaskListener? = nil) {
         guard event.imageUrl != nil else{return}
         
         // remove a reference to the file you want to upload
@@ -85,23 +62,9 @@ extension StorageManager{
                     event.imageUrl = nil
                     print("Image deleted from storage")
                     if updateOnDB{
-                        self.removeEventImageFromDB(event.id)
+                    DataSource.shared.removeEventImageFromDB(event.id,completion:completion )
                     }
                 }
-        }
-    }
-    
-    private func removeEventImageFromDB(_ eventId:String){
-        
-        //upadte in DB
-        getEventImgRef(eventId).removeValue(){(error,childRef) in
-                
-                if let err = error{
-                    ErrorAlert.show(message: err.localizedDescription)
-                    return
-                }
-                
-                print("Image successfully updated in DB")
         }
     }
 }

@@ -21,18 +21,27 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
         navigationController?.isToolbarHidden = true
         
 //        start floating animation
-        let animationOptions: UIView.AnimationOptions = [.repeat,.autoreverse,.curveEaseOut]
-        UIView.animate(withDuration: 0.7, delay: 0, options: animationOptions,animations: {
-                self.logoImg.transform = .init(translationX: 0, y: -20)
-        })
+        animateImage()
 
         addReachabilityObserver()
         
         NotificationManager.shared.askForPermission { (granted) in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { //MARK: to do remove here and put only where needed for ui
                 self.startSetup()
             }
         }
+    }
+    
+    func animateImage() {
+        let animationOptions: UIView.AnimationOptions = [.repeat,.autoreverse,.curveEaseOut]
+        UIView.animate(withDuration: 0.7, delay: 0, options: animationOptions,animations: {
+                self.logoImg.transform = .init(translationX: 0, y: -20)
+        })
+    }
+    
+    func stopAnimating() {
+        logoImg.layer.removeAllAnimations()
+        logoImg.transform = .identity
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -101,6 +110,8 @@ class SplashScreenViewController: UIViewController,ReachabilityObserverDelegate 
     }
     
     func moveToMain() {
+        dismiss(animated: false)
+        stopAnimating()
         performSegue(withIdentifier: "splash", sender: nil)
     }
 }
@@ -112,15 +123,14 @@ class SplashSegue: UIStoryboardSegue {
                 return}
         
         // Animate the transition.
-        UIView.animate(withDuration: 1, animations: { () -> Void in
+        UIView.animate(withDuration: 0.8, animations: { () -> Void in
             let trans = logoImg.transform
             logoImg.transform =
                 trans.scaledBy(x: 70, y: 70).concatenating(trans.translatedBy(x: 0, y: -100))
             logoImg.alpha = 0
             
         }) { didFinish -> Void in
-            self.destination.modalPresentationStyle = .fullScreen
-            self.source.present(self.destination,animated: false)
+            self.source.present(self.destination,animated: true)
         }
     }
 }

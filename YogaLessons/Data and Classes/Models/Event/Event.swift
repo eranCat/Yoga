@@ -38,7 +38,8 @@ class Event:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     
     var status:Status
     
-    var minAge,maxAge:Int
+    var minAge:Int
+    var maxAge:Int
     
     var signed:[String:Int]
     

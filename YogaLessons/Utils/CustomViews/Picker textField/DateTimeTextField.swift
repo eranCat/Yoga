@@ -10,15 +10,15 @@ import UIKit
 
 class DateTimeTextField: ToolbarTextField {
     
-    private lazy var datePicker = {
-        return inputView as! UIDatePicker
-    }()
+    private lazy var datePicker = {inputView as! UIDatePicker}()
     
     var date : Date?{
         didSet{
             if let d = date{
                 let formatter = DateFormatter()
-                formatter.dateFormat = .init(format: "EEEE, MMM d, HH:mm", locale: .current, arguments: [])
+                formatter.doesRelativeDateFormatting = true
+                formatter.dateStyle = .long
+                formatter.timeStyle = .short
                 text = formatter.string(from: d)
                 
                 datePicker.date = d

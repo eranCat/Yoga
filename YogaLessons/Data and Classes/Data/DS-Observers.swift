@@ -19,19 +19,17 @@ extension DataSource{
         newClassHandle = ref.child(tableKey)
             .observe( .childAdded){ (newChild, string) in
                 
-                if self.all_classes.first(where: {$0.id == newChild.key}) == nil{
+                if self.mainDict[.all]![.classes]!.first(where: {$0.id == newChild.key}) == nil{
                     
                     guard let json = newChild.value as? JSON
                         else{return}
                     
                     let aClass = Class(json)
                     
-                    guard !self.all_classes.contains(where: {$0.id == aClass.id})
+                    guard !self.mainDict[.all]![.classes]!.contains(where: {$0.id == aClass.id})
                         else{return}
 
-                    self.all_classes.insert(aClass, at: 0)
-                    
-                    self.updateMainDict(sourceType: .all, dataType: .classes)
+                    self.mainDict[.all]![.classes]!.insert(aClass, at: 0)
                     
                     let userInfo:JSON =
                         ["type" : DataType.classes,
@@ -48,18 +46,16 @@ extension DataSource{
         newEventHandle = ref.child(tableKey)
             .observe( .childChanged){ (newChild, string) in
                 
-                if self.all_events.first(where: {$0.id == newChild.key}) == nil{
+                if self.mainDict[.all]![.events]!.first(where: {$0.id == newChild.key}) == nil{
                     
                     guard let json = newChild.value as? JSON
                         else{return}
                 
                     let event: Event = Event(json)
-                    guard !self.all_events.contains(where: {$0.id == event.id})
+                    guard !self.mainDict[.all]![.events]!.contains(where: {$0.id == event.id})
                         else{return}
 
-                    self.all_events.insert( event , at: 0)
-                    
-                    self.updateMainDict(sourceType: .all, dataType: .events)
+                    self.mainDict[.all]![.events]!.insert( event , at: 0)
                     
                     let userInfo = ["type" : DataType.events,
                                     "indexPath":IndexPath(row: 0, section: 0)] as [String : Any]
@@ -76,7 +72,7 @@ extension DataSource{
                 
                 guard let json = snapshot.value as? JSON,
                         let classID = json[Class.Keys.id] as? String,
-                        let aClass = self.all_classes.first(where: {$0.id == classID})
+                        let aClass = self.mainDict[.all]![.classes]!.first(where: {$0.id == classID}) as? Class
                     else{return}
                 
                 let statusBefore = aClass.status
@@ -88,7 +84,7 @@ extension DataSource{
                 
                 NotificationCenter.default.post(name: ._dataChanged, userInfo: userInfo)
                 
-                if self.signed_classes.contains(aClass){
+                if self.mainDict[.signed]![.classes]!.contains(where:{ $0.id  == aClass.id}){
                     self.notifyForStatusIfNeeded(data: aClass, statusBefore: statusBefore)
                     NotificationCenter.default.post(name: ._signedDataChanged, userInfo: userInfo)
                 }
@@ -102,7 +98,7 @@ extension DataSource{
                 
                 guard let json = snapshot.value as? JSON,
                         let eventID = json[Event.Keys.id] as? String,
-                        let event = self.all_events.first(where: {$0.id == eventID})
+                        let event = self.mainDict[.all]![.events]!.first(where: {$0.id == eventID}) as? Event
                     else{return}
                 
                 let statusBefore = event.status
@@ -113,7 +109,7 @@ extension DataSource{
                 userInfo["id"] = eventID
                 
                 NotificationCenter.default.post(name: ._dataChanged, userInfo: userInfo)
-                if self.signed_events.contains(event){
+                if self.mainDict[.signed]![.events]!.contains(where: {$0.id == event.id}){
                     self.notifyForStatusIfNeeded(data: event, statusBefore: statusBefore)
                     NotificationCenter.default.post(name: ._signedDataChanged, userInfo: userInfo)
                 }
@@ -163,10 +159,10 @@ extension DataSource{
         
         guard
             //if it's a class that the user has signed to
-            (data is Class && signed_classes.contains(data as! Class))
+            (data is Class && mainDict[.signed]![.classes]!.contains(where: {$0.id == data.id}))
             ||//or
             //if it's an event that the user has signed to
-            (data is Event && signed_events.contains(data as! Event))
+                (data is Event && mainDict[.signed]![.events]!.contains( where: {$0.id == data.id}))
             
             else {return}
         

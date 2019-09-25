@@ -24,17 +24,17 @@ extension DataSource{
                 else{return}
             
             let today = Date()
-            signed_classes.removeAll()
+            mainDict[.signed]![.classes]!.removeAll()
             
             for key in user.signedClassesIDS.keys{
-                guard let aClass = all_classes.first(where: {$0.id == key}),
+                guard let aClass = mainDict[.all]![.classes]!.first(where: {$0.id == key}) as? Class,
                     aClass.endDate >= today || !isFilteringToday
                     else{continue}
                 
                 if aClass.status != .cancled{
-                    signed_classes.insert(aClass, at: 0)
+                    mainDict[.signed]![.classes]!.insert(aClass, at: 0)
                 }else{
-                    signed_classes.append(aClass)
+                    mainDict[.signed]![.classes]!.append(aClass)
                 }
             }
 
@@ -43,22 +43,20 @@ extension DataSource{
                 else{return}
 
             let today = Date()
-            signed_events.removeAll()
+            mainDict[.signed]![.events]!.removeAll()
             
             for key in user.signedEventsIDS.keys{
-                guard let event = all_events.first(where: {$0.id == key}),
+                guard let event = mainDict[.all]![.events]!.first(where: {$0.id == key}) as? Event,
                     event.endDate >= today || !isFilteringToday
                     else{continue}
                 
                 if event.status != .cancled{
-                    signed_events.insert(event, at: 0)
+                    mainDict[.signed]![.events]!.insert(event, at: 0)
                 }else{
-                    signed_events.append(event)
+                    mainDict[.signed]![.events]!.append(event)
                 }
             }
         }
-        
-        updateMainDict(sourceType: .signed, dataType: dType)
     }
     
     
@@ -121,8 +119,6 @@ extension DataSource{
                 case .cancled:
                     taskDone?(SigningErrors.cantSignToCancled(dType))
                 }
-                
-                self.updateMainDict(sourceType: .signed, dataType: dType)
             
                 return TransactionResult.success(withValue: currentData)
             }
@@ -145,7 +141,7 @@ extension DataSource{
             
             arrKey = YUser.Keys.signedC
             idsArr = cu.signedClassesIDS
-            signed_classes.insert(dataObj as! Class, at: 0)
+            mainDict[.signed]![.classes]!.insert(dataObj as! Class, at: 0)
         case .events:
             
             if cu.signedEventsIDS[objId] != nil{
@@ -156,9 +152,8 @@ extension DataSource{
             
             arrKey = YUser.Keys.signedE
             idsArr = cu.signedEventsIDS
-            signed_events.insert(dataObj as! Event,at: 0)
+            mainDict[.signed]![.events]!.insert(dataObj as! Event,at: 0)
         }
-        updateMainDict(sourceType: .signed, dataType: dType)
         ref.child(TableNames.users.rawValue).child(uid)//might need to set value
             .child(arrKey).setValue(idsArr)
             { err,childRef in
@@ -199,17 +194,16 @@ extension DataSource{
         
         guard let indexPath = index else{return}
         
-        var data:(Statused & Participateable & DynamicUserCreateable & Aged)
+        typealias NeededProtocols = Statused & Participateable & DynamicUserCreateable & Aged
+        var data:NeededProtocols
         
         switch dType {
         case .classes:
-            data = signed_classes.remove(at: indexPath.row)
+            data = mainDict[.signed]![.classes]!.remove(at: indexPath.row) as! NeededProtocols
         case .events:
-            data = signed_events.remove(at: indexPath.row)
+            data = mainDict[.signed]![.events]!.remove(at: indexPath.row) as! NeededProtocols
         }
         
-        
-        updateMainDict(sourceType: .signed, dataType: dType)
         
         ref.child(TableNames.name(for: dType)).child(data.id)
         .runTransactionBlock { (currentData) -> TransactionResult in

@@ -38,10 +38,11 @@
 		9719FEC422CD2732005B865B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9719FEC322CD2732005B865B /* MapKit.framework */; };
 		9719FEC822CE022E005B865B /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9719FEC722CE022E005B865B /* StorageManager.swift */; };
 		9719FECC22CE1A68005B865B /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9719FECB22CE1A68005B865B /* ErrorAlert.swift */; };
+		972E372B2338A9A5001F9057 /* SegmentedControlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972E372A2338A9A5001F9057 /* SegmentedControlExtension.swift */; };
 		974394D0230FC5DD00A8B48A /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974394CF230FC5DD00A8B48A /* CollectionExtension.swift */; };
 		974394D8231016B000A8B48A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 974394DA231016B000A8B48A /* Localizable.strings */; };
 		974394E82311322400A8B48A /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974394E72311322400A8B48A /* Translatable.swift */; };
-		974394E923113C3D00A8B48A /* FilterDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974394EB23113C3D00A8B48A /* FilterDialog.storyboard */; };
+		974394E923113C3D00A8B48A /* SortAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974394EB23113C3D00A8B48A /* SortAlert.storyboard */; };
 		974394F123113CE000A8B48A /* UserLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974394F323113CE000A8B48A /* UserLogin.storyboard */; };
 		974394F823113D8400A8B48A /* UserSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974394FA23113D8400A8B48A /* UserSignup.storyboard */; };
 		974394FF23113E4300A8B48A /* NewClassEvent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9743950123113E4300A8B48A /* NewClassEvent.storyboard */; };
@@ -192,14 +193,15 @@
 		9719FEC322CD2732005B865B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9719FEC722CE022E005B865B /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		9719FECB22CE1A68005B865B /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		972E372A2338A9A5001F9057 /* SegmentedControlExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlExtension.swift; sourceTree = "<group>"; };
 		974394CF230FC5DD00A8B48A /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		974394D52310163600A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Main.strings; sourceTree = "<group>"; };
 		974394D9231016B000A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		974394DB231016B800A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		974394E72311322400A8B48A /* Translatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
-		974394EC23113C4100A8B48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/FilterDialog.storyboard; sourceTree = "<group>"; };
-		974394EE23113C4400A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FilterDialog.strings; sourceTree = "<group>"; };
-		974394F023113C6500A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/FilterDialog.strings; sourceTree = "<group>"; };
+		974394EC23113C4100A8B48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SortAlert.storyboard; sourceTree = "<group>"; };
+		974394EE23113C4400A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SortAlert.strings; sourceTree = "<group>"; };
+		974394F023113C6500A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/SortAlert.strings; sourceTree = "<group>"; };
 		974394F223113CE000A8B48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/UserLogin.storyboard; sourceTree = "<group>"; };
 		974394F523113CE200A8B48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UserLogin.strings; sourceTree = "<group>"; };
 		974394F723113CE200A8B48A /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/UserLogin.strings; sourceTree = "<group>"; };
@@ -460,7 +462,7 @@
 				97A4027E22D773A90056BBE7 /* TeachersData.storyboard */,
 				974394F323113CE000A8B48A /* UserLogin.storyboard */,
 				974394FA23113D8400A8B48A /* UserSignup.storyboard */,
-				974394EB23113C3D00A8B48A /* FilterDialog.storyboard */,
+				974394EB23113C3D00A8B48A /* SortAlert.storyboard */,
 				97EED90D22C0E08E009AEB07 /* LaunchScreen.storyboard */,
 			);
 			path = Stroyboards;
@@ -470,7 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				9719FECB22CE1A68005B865B /* ErrorAlert.swift */,
-				97AE314022C927DD0008CE75 /* Sort */,
+				97AE30ED22C4B1040008CE75 /* SortAlert.swift */,
 				9797647522E0A40700A37954 /* NewClassEvent */,
 			);
 			path = Popups;
@@ -511,14 +513,6 @@
 				979CF386232B847D0082496F /* Priced.swift */,
 			);
 			path = Delegates;
-			sourceTree = "<group>";
-		};
-		97AE314022C927DD0008CE75 /* Sort */ = {
-			isa = PBXGroup;
-			children = (
-				97AE30ED22C4B1040008CE75 /* SortAlert.swift */,
-			);
-			path = Sort;
 			sourceTree = "<group>";
 		};
 		97CD955F22CF72F10073BF61 /* Class */ = {
@@ -709,6 +703,7 @@
 				9743953523167FC000A8B48A /* UIViewExtension.swift */,
 				9743953D2316E51B00A8B48A /* UIColorExtension.swift */,
 				9743953F2316F97800A8B48A /* ComparableExtensionClamp.swift */,
+				972E372A2338A9A5001F9057 /* SegmentedControlExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -828,7 +823,7 @@
 				97439508231153AB00A8B48A /* ClassInformation.storyboard in Resources */,
 				974394F123113CE000A8B48A /* UserLogin.storyboard in Resources */,
 				97A4027F22D773A90056BBE7 /* TeachersData.storyboard in Resources */,
-				974394E923113C3D00A8B48A /* FilterDialog.storyboard in Resources */,
+				974394E923113C3D00A8B48A /* SortAlert.storyboard in Resources */,
 				974394F823113D8400A8B48A /* UserSignup.storyboard in Resources */,
 				9743953A2316DC6500A8B48A /* Theme.xcassets in Resources */,
 				9743951F231267B300A8B48A /* ClassCell.xib in Resources */,
@@ -909,6 +904,7 @@
 				9719FE6122CB7536005B865B /* SearchKeyType.swift in Sources */,
 				97CD958222D310C30073BF61 /* LevelTextField.swift in Sources */,
 				97EED8C422C0AD35009AEB07 /* EventInfoViewController.swift in Sources */,
+				972E372B2338A9A5001F9057 /* SegmentedControlExtension.swift in Sources */,
 				9719FE5F22CB5A74005B865B /* DynamicTable.swift in Sources */,
 				97A4028422D878190056BBE7 /* DS-Users.swift in Sources */,
 				97F3DDDC22BE305700812B33 /* DataSourceMain.swift in Sources */,
@@ -1013,14 +1009,14 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		974394EB23113C3D00A8B48A /* FilterDialog.storyboard */ = {
+		974394EB23113C3D00A8B48A /* SortAlert.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				974394EC23113C4100A8B48A /* Base */,
 				974394EE23113C4400A8B48A /* en */,
 				974394F023113C6500A8B48A /* he */,
 			);
-			name = FilterDialog.storyboard;
+			name = SortAlert.storyboard;
 			sourceTree = "<group>";
 		};
 		974394F323113CE000A8B48A /* UserLogin.storyboard */ = {

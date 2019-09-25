@@ -242,7 +242,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcj-tD-fS7" customClass="PaddingLabel" customModule="YogaLessons" customModuleProvider="target">
-                                                                    <rect key="frame" x="68.5" y="88" width="58" height="26"/>
+                                                                    <rect key="frame" x="76.5" y="91.5" width="42" height="22.5"/>
                                                                     <color key="backgroundColor" name="ColorPrimary"/>
                                                                     <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="17"/>
                                                                     <nil key="textColor"/>

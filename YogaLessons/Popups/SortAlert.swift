@@ -12,7 +12,7 @@ class SortAlert: UIViewController {
     
     @IBOutlet weak var optionsStack: UIStackView!
     
-    @IBOutlet weak var segmentType: UISegmentedControl!
+    @IBOutlet weak var typeSegment: UISegmentedControl!
     
     @IBOutlet weak var alertContentView: UIView!
     
@@ -22,6 +22,13 @@ class SortAlert: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *){
+            typeSegment.selectedTintColor = ._btnTint
+            typeSegment.selectedTextColor = .white
+            typeSegment.normalTextColor = .darkGray
+            typeSegment.focusedTextColor = .black
+        }
         
         alertContentView.layer.cornerRadius = 10
         alertContentView.clipsToBounds = true
@@ -106,19 +113,19 @@ class SortAlert: UIViewController {
     func setupTypeSegment() {
         
         let font = UIFont(name: "Kailasa", size: 18) ?? UIFont.systemFont(ofSize: 18)
-        segmentType.setTitleTextAttributes(
+        typeSegment.setTitleTextAttributes(
             [NSAttributedString.Key.font: font],
             for: .normal)
         
-        segmentType.removeAllSegments()
+        typeSegment.removeAllSegments()
         
         for (i,dt) in DataType.allCases.enumerated(){
             
             let type = dt.translated.capitalized
-            segmentType.insertSegment(withTitle: type, at: i, animated: false)
+            typeSegment.insertSegment(withTitle: type, at: i, animated: false)
         }
         
-        segmentType.selectedSegmentIndex = SortAlert.currentDataTypeIndex ?? 0
+        typeSegment.selectedSegmentIndex = SortAlert.currentDataTypeIndex ?? 0
     }
     fileprivate func addAction(sortType:SortType) {
         let btn = UIButton(type: .system)
@@ -140,7 +147,7 @@ class SortAlert: UIViewController {
     func helper(_ btn:UIButton){
         
         guard let sType = SortType(rawValue: btn.tag),
-            let dType = DataType(rawValue: segmentType.selectedSegmentIndex)
+            let dType = DataType(rawValue: typeSegment.selectedSegmentIndex)
             else{return hide()}
         
         NotificationCenter.default.post(name: ._sortTapped , userInfo: ["dataTuple":(dType,sType)])
@@ -151,7 +158,7 @@ class SortAlert: UIViewController {
     
     @IBAction func done(_ sender: UIButton) {
         
-        let dType = DataType.allCases[segmentType.selectedSegmentIndex]
+        let dType = DataType.allCases[typeSegment.selectedSegmentIndex]
             
         NotificationCenter.default.post(name: ._sortTapped , userInfo: ["dataTuple":(dType,SortType.best)])
         
@@ -173,8 +180,8 @@ class SortAlert: UIViewController {
         }
     }
     
-    class func show() {
-        guard let vc = newVC(storyBoardName: "FilterDialog", id: "FilterDialog") as? SortAlert
+    @objc class func show() {
+        guard let vc = newVC(storyBoardName: "SortAlert", id: "SortAlert") as? SortAlert
             else{return}
         //delegate from outside to call when sort picked
         

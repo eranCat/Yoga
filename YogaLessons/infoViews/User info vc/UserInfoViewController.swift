@@ -183,13 +183,11 @@ class UserInfoViewController: UIViewController {
             }
             
             UIAlertController.create(title: "Password reset".translated,
-                                                 message: "emailSent".translated,
-                                                 preferredStyle: .alert)
-            
-            .aAction(UIAlertAction(title: "ok".translated, style: .default))
-            //MARK: check if he's signed
-            .aAction(checkEmail)
-            .show()
+                                     message: "emailSent".translated,
+                                     preferredStyle: .alert)
+                .addActions([.init(title: "ok".translated, style: .default),checkEmail])
+                //MARKFix: check if he's signed
+                .show(presentingVC: self)
         }
     }
     

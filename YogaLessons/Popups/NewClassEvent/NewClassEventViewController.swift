@@ -63,6 +63,19 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *){
+            
+            typeSegment.selectedTintColor = ._btnTint
+            typeSegment.selectedTextColor = .white
+            typeSegment.normalTextColor = .darkGray
+            typeSegment.focusedTextColor = .black
+            
+            for stepper in [repeatingWeekStepper!,maxPplStepper!]{
+                stepper.setDecrementImage(stepper.decrementImage(for: .normal), for: .normal)
+                stepper.setIncrementImage(stepper.incrementImage(for: .normal), for: .normal)
+            }
+        }
+        
         tableView.backgroundColor = .init(patternImage: #imageLiteral(resourceName: "sea"))
         
         navigationItem.hidesSearchBarWhenScrolling = true
@@ -119,6 +132,8 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                 break
             }
         }
+        
+        self.tfstartDate.date = .init()
     }
     
     func initDropDown() {
@@ -452,6 +467,24 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
     }
     
     
+    fileprivate func loadImageFromUrl(_ url: URL) {
+        
+        let imageView = self.eventImgView! // just for better looking code
+        
+        DispatchQueue.main.async {
+            imageView.sd_setImage(with: url) { (sd_img, err, _, _) in
+                if let error = err{
+                    ErrorAlert.show(message: error.localizedDescription)
+                    return
+                }
+                
+                if let img = sd_img{
+                    self.selectedImage = img
+                }
+            }
+        }
+    }
+    
     fileprivate func createImagePicker() -> MyImagePicker {
         let picker =
             MyImagePicker(allowsEditing: false){ image,url,removeChosen in
@@ -459,7 +492,7 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                 let hasImage = image != nil || url != nil
                 if removeChosen || !hasImage{
                     
-                    self.eventImgView.image = #imageLiteral(resourceName: "image")
+                    self.eventImgView.image = #imageLiteral(resourceName: "image-holder")
                     self.eventImgView.contentMode = .scaleAspectFit
                     self.selectedImage = nil
                 }else {
@@ -469,20 +502,8 @@ class NewClassEventViewController: UITableViewController,TextFieldReturn {
                             self.eventImgView.image = img
                         }
                     }else if let url = url{
-                        DispatchQueue.main.async {
-                            self.eventImgView.sd_setImage(with: url) { (sd_img, err, _, _) in
-                                if let error = err{
-                                    ErrorAlert.show(message: error.localizedDescription)
-                                    return
-                                }
-                                
-                                if let img = sd_img{
-                                    self.selectedImage = img
-                                }
-                            }
-                        }
+                        self.loadImageFromUrl(url)
                     }
-//                    self.eventImgView.contentMode = .scaleAspectFill
                 }
         }
         

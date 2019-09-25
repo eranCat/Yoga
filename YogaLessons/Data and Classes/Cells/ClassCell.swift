@@ -50,8 +50,8 @@ extension ClassCell:PopulateDelegate{
             teacherName.text = teacher.name
             undeline(lbl: teacherName)
             
-            StorageManager.shared.setImage(withUrl: teacher.profileImageUrl,
-                                           imgView: teacherImg,placeHolderImg: #imageLiteral(resourceName: "guru")){ err,img in
+            
+            StorageManager.shared.setImage(withUrl: teacher.profileImageUrl,imgView: teacherImg,placeHolderImg: #imageLiteral(resourceName: "guru")){ err,img in
                 if let err = err{
                     if let locErr = err as? LocalizedError{
                         ErrorAlert.show(message: locErr.errorDescription ?? locErr.localizedDescription)

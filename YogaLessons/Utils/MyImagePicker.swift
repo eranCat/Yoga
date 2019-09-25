@@ -40,7 +40,6 @@ open class MyImagePicker:NSObject, ImgPickerD,NavConrollerD {
         super.init()
         imgPicker.delegate = self
         unsplashVC.photoPickerDelegate = self
-        unsplashVC.modalPresentationStyle = .fullScreen
         
         imgPicker.modalPresentationStyle = .fullScreen
     }
@@ -220,5 +219,11 @@ extension MyImagePicker:UnsplashPhotoPickerDelegate{
     
     func openSplashPicker() {
         UIApplication.shared.presentedVC?.present(unsplashVC, animated: true)
+    }
+}
+
+extension UIImage{
+    var cropRatio:CGFloat{
+        size.width / size.height
     }
 }

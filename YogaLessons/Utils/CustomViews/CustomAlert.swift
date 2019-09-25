@@ -84,8 +84,8 @@ extension UIAlertController {
         return alertController
     }
     
-    func show(completion:(()->Void)? = nil){
-        UIApplication.shared.presentedVC?.present(self, animated: true, completion: completion)
+    func show(presentingVC:UIViewController? = nil, completion:(()->Void)? = nil){
+        (presentingVC ?? UIApplication.shared.presentedVC)?.present(self, animated: true, completion: completion)
     }
     
     

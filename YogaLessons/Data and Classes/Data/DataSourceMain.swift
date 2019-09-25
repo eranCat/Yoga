@@ -6,6 +6,7 @@
 //  Copyright © 2019 Eran karaso. All rights reserved.
 //
 
+import Firebase
 import FirebaseDatabase
 import UserNotifications
 import CoreLocation
@@ -20,7 +21,12 @@ class DataSource {
     //        MARK:if you don't want monthly sort, put false
     var isFilteringMonth = true
 
-    let ref:DatabaseReference
+    lazy var ref:DatabaseReference = {
+        if FirebaseApp.app() == nil{
+            FirebaseApp.configure()
+        }
+        return Database.database().reference()
+    }()
     
     enum TableNames:String {
         case users  = "users"
@@ -47,10 +53,8 @@ class DataSource {
     typealias DataTypeDict = [DataType:DynArr]//seconed level
     typealias SrcDict = [SourceType:DataTypeDict]//root
     
-    var mainDict:SrcDict
-    
-    var all_classes,signed_classes:[Class]
-    var all_events,signed_events:[Event]
+    var mainDict:SrcDict /*a dictionary of [sourceType(all/signed) :
+                            subDictionary of  DataType(classses/events): Array of DynamicUserCreateable */
     
     var teacherCreatedClasses:[Class]
     var userCreatedEvents:[Event]
@@ -61,12 +65,6 @@ class DataSource {
     
     private init() {
         
-        all_classes = []
-        all_events = []
-        
-        signed_classes = []
-        signed_events = []
-        
         mainDict = [:]
         mainDict[.all] = [.classes:[],.events:[]]
         mainDict[.signed] = [.classes:[],.events:[]]
@@ -76,8 +74,6 @@ class DataSource {
         
         teacherCreatedClasses = []
         userCreatedEvents = []
-        
-        ref = Database.database().reference()
         
         observeClassChanged()
         observeEventChanged()
@@ -133,23 +129,23 @@ class DataSource {
         case .classes:
             
             if loadFromBegining{
-                all_classes.removeAll(keepingCapacity: true)
+                mainDict[.all]![.classes]!.removeAll(keepingCapacity: true)
                 teacherCreatedClasses.removeAll(keepingCapacity: true)
-                signed_classes.removeAll(keepingCapacity: true)
+                mainDict[.signed]![.classes]!.removeAll(keepingCapacity: true)
             }
             
             signedIds = user.signedClassesIDS
-            lastPost = all_classes.last
+            lastPost = mainDict[.all]![.classes]!.last as? (DynamicUserCreateable & Scheduled)
         case .events:
             
             if loadFromBegining{
-                all_events.removeAll(keepingCapacity: true)
+                mainDict[.all]![.events]!.removeAll(keepingCapacity: true)
                 userCreatedEvents.removeAll(keepingCapacity: true)
-                signed_events.removeAll(keepingCapacity: true)
+                mainDict[.signed]![.events]!.removeAll(keepingCapacity: true)
             }
             
             signedIds = user.signedEventsIDS
-            lastPost = all_events.last
+            lastPost = mainDict[.all]![.events]!.last as? (DynamicUserCreateable & Scheduled)
         }
         
         
@@ -190,9 +186,9 @@ class DataSource {
                         
                         //  all
                         if aClass.status != .cancled{
-                            self.all_classes.insert(aClass, at: 0)
+                            self.mainDict[.all]![.classes]!.insert(aClass, at: 0)
                         }else{
-                            self.all_classes.append(aClass)
+                            self.mainDict[.all]![.classes]!.append(aClass)
                         }
                         //uploads
                         if user.type == .teacher && aClass.uid == user.id{
@@ -202,9 +198,9 @@ class DataSource {
                         //signed
                         if signedIds[aClass.id] != nil{
                             if aClass.status != .cancled{
-                                self.signed_classes.insert(aClass, at: 0)
+                                self.mainDict[.signed]![.classes]!.insert(aClass, at: 0)
                             }else{
-                                self.signed_classes.append(aClass)
+                                self.mainDict[.signed]![.classes]!.append(aClass)
                             }
                         }
                     }
@@ -222,9 +218,9 @@ class DataSource {
                         
                         //all
                         if event.status != .cancled{
-                            self.all_events.insert(event, at: 0)
+                            self.mainDict[.all]![.events]!.insert(event, at: 0)
                         }else{
-                            self.all_events.append(event)
+                            self.mainDict[.all]![.events]!.append(event)
                         }
                         
                         //uploads
@@ -235,16 +231,16 @@ class DataSource {
                         //signed
                         if signedIds[event.id] != nil{
                             if event.status != .cancled{
-                                self.signed_events.insert(event, at: 0)
+                                self.mainDict[.signed]![.events]!.insert(event, at: 0)
                             }else{
-                                self.signed_events.append(event)
+                                self.mainDict[.signed]![.events]!.append(event)
                             }
                         }
                     }
                 }
                 
-                self.updateMainDict(sourceType: .all, dataType: dType)
-                self.updateMainDict(sourceType: .signed, dataType: dType)
+//                self.updateMainDict(sourceType: .all, dataType: dType)
+//                self.updateMainDict(sourceType: .signed, dataType: dType)
                 
                 
                 loaded?(values.isEmpty)
@@ -256,8 +252,8 @@ class DataSource {
         let today = Date()
         let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: .init())!
         
-        all_classes.removeAll()
-        signed_classes.removeAll()
+        mainDict[.all]![.classes]!.removeAll()
+        mainDict[.signed]![.classes]!.removeAll()
         teacherCreatedClasses.removeAll()
         
         for child in values{
@@ -273,18 +269,18 @@ class DataSource {
                 
                 if aClass.status != .cancled{
                     
-                    self.all_classes.insert(aClass, at: 0)//push to top
+                    self.mainDict[.all]![.classes]!.insert(aClass, at: 0)//push to top
                     
                     if isUserSigned{
-                        self.signed_classes.insert(aClass, at: 0)
+                        self.mainDict[.signed]![.classes]!.insert(aClass, at: 0)
                     }
                     
                 }else{
                     
-                    self.all_classes.append(aClass)//add to bottom
+                    self.mainDict[.all]![.classes]!.append(aClass)//add to bottom
                     
                     if isUserSigned{
-                        self.signed_classes.append(aClass)
+                        self.mainDict[.signed]![.classes]!.append(aClass)
                     }
                 }
                 
@@ -306,8 +302,8 @@ class DataSource {
         let today = Date()
         let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: .init())!
         
-        all_events.removeAll()
-        signed_events.removeAll()
+        mainDict[.all]![.events]!.removeAll()
+        mainDict[.signed]![.events]!.removeAll()
         userCreatedEvents.removeAll()
         
         for child in values{
@@ -322,16 +318,16 @@ class DataSource {
                 
                 if event.status != .cancled{
                     
-                    all_events.insert(event, at: 0)//push to top
+                    mainDict[.all]![.events]!.insert(event, at: 0)//push to top
                     if isUserSigned{
-                        signed_events.insert(event, at: 0)
+                        mainDict[.signed]![.events]!.insert(event, at: 0)
                     }
                     
                 }else{
                     
-                    all_events.append(event)//add to bottom
+                    mainDict[.all]![.events]!.append(event)//add to bottom
                     if isUserSigned{
-                        signed_events.append(event)
+                        mainDict[.signed]![.events]!.append(event)
                     }
                 }
             }
@@ -391,9 +387,6 @@ class DataSource {
                 self.convertValuesToEvents(values, user)
             }
             
-            self.updateMainDict(sourceType: .all, dataType: dType)
-            self.updateMainDict(sourceType: .signed, dataType: dType)
-            
             for (i,id) in self.usersToFetch.enumerated(){
                 self.fetchUserIfNeeded(by: id) { (user, err) in
                     
@@ -434,7 +427,7 @@ class DataSource {
             teacherCreatedClasses.removeAll()
 
             for id in teacher.teachingClassesIDs.keys{
-                if let aClass = all_classes.first(where: {$0.id == id}){
+                if let aClass = mainDict[.all]![.classes]!.first(where: {$0.id == id}) as? Class{
                     teacherCreatedClasses.insert(aClass,at: 0)
                 }
             }
@@ -444,7 +437,7 @@ class DataSource {
         userCreatedEvents.removeAll()
 
         for id in user.createdEventsIDs.keys{
-            if let event = all_events.first(where: {$0.id == id}){
+            if let event = mainDict[.all]![.events]!.first(where: {$0.id == id}) as? Event{
                 userCreatedEvents.insert(event,at: 0)
             }
         }
@@ -477,7 +470,7 @@ class DataSource {
         case let aClass as Class:
             
             if self.newClassHandle == nil{
-                self.all_classes.insert(dataObj as! Class,at: 0)
+                self.mainDict[.all]![.classes]!.insert(dataObj as! Class,at: 0)
             }
             if !self.teacherCreatedClasses.contains(aClass){
                 self.teacherCreatedClasses.append(aClass)
@@ -486,7 +479,7 @@ class DataSource {
         case let event as Event:
             
             if self.newEventHandle == nil{
-                self.all_events.insert(dataObj as! Event, at: 0)
+                self.mainDict[.all]![.events]!.insert(dataObj as! Event, at: 0)
             }
             if !self.userCreatedEvents.contains(event){
                 self.userCreatedEvents.append(event)
@@ -495,7 +488,6 @@ class DataSource {
         default:
             return
         }
-        self.updateMainDict(sourceType: .all, dataType: dType)
             
         taskDone?(err)
             let indexPaths = [IndexPath(row: 0, section: 0)]
@@ -597,8 +589,8 @@ class DataSource {
             if let classes = values as? [Class]{
             
                 if self.newClassHandle == nil{
-                    self.all_classes.insert(contentsOf: classes,at: 0)
-                    self.updateMainDict(sourceType: .all, dataType: .classes)
+                    self.mainDict[.all]![.classes]!.insert(contentsOf: classes,at: 0)
+//                    self.updateMainDict(sourceType: .all, dataType: .classes)
                 }
                 
                 for c in classes{
@@ -610,13 +602,14 @@ class DataSource {
                 
                 let indexPaths = (0..<dataDictionary.count).map{ IndexPath(row: $0, section: 0)}
                 NotificationCenter.default.post(name: ._dataAdded,
-                                                userInfo: ["indexPaths" : indexPaths])
+                                                userInfo: ["type" : dType,
+                                                    "indexPaths" : indexPaths])
             }
             else if let events = values as? [Event]{
                 
                 if self.newEventHandle == nil{
-                    self.all_events.insert(contentsOf: events, at: 0)
-                    self.updateMainDict(sourceType: .all, dataType: .events)
+                    self.mainDict[.all]![.events]!.insert(contentsOf: events, at: 0)
+//                    self.updateMainDict(sourceType: .all, dataType: .events)
                 }
                 
                 for e in events{
@@ -625,7 +618,8 @@ class DataSource {
                     }
                     taskDone?(nil,e)
                     NotificationCenter.default.post(name: ._dataAdded,
-                        userInfo: ["indexPaths" : [IndexPath(row: 0, section: 0)]])
+                        userInfo: ["type" : dType,
+                            "indexPaths" : [IndexPath(row: 0, section: 0)]])
                 }
             }
 
@@ -659,10 +653,9 @@ class DataSource {
         UIAlertController.create(title: "Choose a reminder".translated,
                                               message: "remindBeforeStart".translated,
                                               preferredStyle: .alert)
-        .aAction(notificationAction)
-        .aAction(calendar)
-        .aAction(.init(title: "Don't remind me".translated,style: .cancel,handler: nil))
-            .show()
+        .addActions([notificationAction,calendar,
+                     .init(title: "Don't remind me".translated,style: .cancel,handler: nil)])
+        .show()
     }
     
     func toggleCancel(_ dType:DataType ,at index:Int,taskDone:DSTaskListener?) {
@@ -713,11 +706,11 @@ class DataSource {
                 //        2. when done - remove locally
                 switch data{
                 case let aClass as Class:
-                    self.all_classes.removeFirst{ $0 == aClass}
+                    self.mainDict[.all]![.classes]!.removeFirst{ $0.id == aClass.id}
                     self.teacherCreatedClasses.removeFirst{$0 == aClass}
                     
                 case let event as Event:
-                    self.all_events.removeFirst{ $0 == event}
+                    self.mainDict[.all]![.events]!.removeFirst{ $0.id == event.id}
                     self.userCreatedEvents.removeFirst{ $0 == event}
                     
                     StorageManager.shared.removeImage(forEvent: event,updateOnDB: false)
@@ -725,7 +718,7 @@ class DataSource {
                 default:return
                 }
                 
-                self.updateMainDict(sourceType: .all, dataType: type)
+//                self.updateMainDict(sourceType: .all, dataType: type)
                 
 //        2.a. notify on removed with onDone
                 onDone?(nil)
@@ -741,10 +734,10 @@ class DataSource {
         
         switch dtype {
         case .classes:
-            deleteFromAll(type:dtype,data: all_classes[indexPath.row], onDone: onDone)
+            deleteFromAll(type:dtype,data: mainDict[.all]![.classes]![indexPath.row], onDone: onDone)
             
         case .events:
-            deleteFromAll(type: dtype,data: all_events[indexPath.row], onDone: onDone)
+            deleteFromAll(type: dtype,data: mainDict[.all]![.events]![indexPath.row], onDone: onDone)
         }
     }
     
@@ -800,19 +793,6 @@ class DataSource {
         }
     }
     
-    func updateMainDict(sourceType:SourceType,dataType:DataType) {
-        
-        switch sourceType {
-            
-        case .all:
-            mainDict[.all]![dataType] = dataType == .classes ? all_classes : all_events
-        case .signed:
-            mainDict[.signed]![dataType] = dataType == .classes ? signed_classes : signed_events
-        }
-        
-    }
-    
-    
     func update<T:Updateable & DynamicUserCreateable>(dType:DataType,localModel:T,withNew new:T,taskDone:DSTaskListener?) {
 //        updates on data change from dict
         localModel.update(withNew: new)
@@ -833,5 +813,23 @@ class DataSource {
             .updateChildValues( new.encode()) { (err, _) in
                 taskDone?(err)
             }
+    }
+    
+    func saveEventImgToDB(from path:String,eventID:String,completion:DSTaskListener? = nil){
+        //save to DB
+        ref.child(DataSource.TableNames.events.rawValue)
+        .child(eventID)
+        .child(Event.Keys.imageUrl).setValue(path){error,_ in
+            completion?(error)
+        }
+    }
+    
+    func removeEventImageFromDB(_ eventID:String,completion:DSTaskListener? = nil){
+        
+        ref.child(DataSource.TableNames.events.rawValue)
+        .child(eventID)
+        .child(Event.Keys.imageUrl).removeValue(){error,_ in
+            completion?(error)
+        }
     }
 }

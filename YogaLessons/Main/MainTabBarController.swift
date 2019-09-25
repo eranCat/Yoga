@@ -19,6 +19,8 @@ class MainTabBarController: UITabBarController {
         return btn
     }()
     
+    @objc func showSortAlert(_ sender: UIBarButtonItem) {SortAlert.show()}
+    
     lazy var searchBtn: UIBarButtonItem = {
         
         let searchBtn = BlockBarButtonItem(barButtonItemSystem: .search){
@@ -33,8 +35,6 @@ class MainTabBarController: UITabBarController {
             
             let newClassEventVC = self.newVC(storyBoardName: "NewClassEvent", id: "NewClassEvent")
             let newNav = UINavigationController(rootViewController: newClassEventVC)
-            
-            newNav.modalPresentationStyle = .fullScreen
             
             self.present(newNav,animated: true)
         }
@@ -132,13 +132,6 @@ class MainTabBarController: UITabBarController {
         
         return true
     }
-    
-    
-    @IBAction func showSortAlert(_ sender: UIBarButtonItem) {
-        SortAlert.show()
-    }
-    
-    
     
     func subscribeObservers() {
         

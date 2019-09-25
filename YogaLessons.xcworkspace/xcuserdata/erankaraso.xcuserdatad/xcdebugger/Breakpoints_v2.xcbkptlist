@@ -107,24 +107,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EEE4EFEB-60C0-4932-853B-14F844CFE99D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            condition = "ds == .signed"
-            continueAfterRunningActions = "No"
-            filePath = "YogaLessons/Data and Classes/Data/DS-Sort.swift"
-            timestampString = "590754571.454515"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "sort(by:sourceType:dataType:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "2CF3ABF9-26B9-4E21-A932-2290A058B97B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -151,8 +133,8 @@
             timestampString = "590051832.597724"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "removeUserProfileImageFromDB(completion:)"
             landmarkType = "7">
             <Actions>
@@ -176,8 +158,8 @@
             timestampString = "590051832.5977859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "removeCurrentUserProfileImage(completion:)"
             landmarkType = "7">
             <Actions>

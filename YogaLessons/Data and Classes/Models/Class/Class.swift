@@ -5,7 +5,7 @@
 //  Created by Eran karaso on 15/06/2019.
 //  Copyright © 2019 Eran karaso. All rights reserved.
 //
-
+import Foundation
 import CoreLocation
 
 class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Located,Aged,Priced{
@@ -40,7 +40,7 @@ class Class:DynamicUserCreateable,Participateable,Scheduled,Titled,Statused,Loca
     var signed:[String:Int]//user id : age
     
     init(type:String,cost:Double,
-         location:CLLocationCoordinate2D,locationName:String,countryCode:String,
+        location:CLLocationCoordinate2D,locationName:String,countryCode:String,
          date:(start:Date,end:Date),
          level:Level,equipment:String,xtraNotes:String? = nil,
          maxParticipants:Int,teacherId:String) {

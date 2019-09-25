@@ -95,14 +95,24 @@ class StorageManager {
             setImage(withUrl: url, imgView: imgView,placeHolderImg: #imageLiteral(resourceName: "camera"))
         }
     }
+    typealias ImageLoadTaskDone = (Error?,UIImage?)->Void
     
     func setImage(withUrl url:String?,imgView:UIImageView,
-                  placeHolderImg:UIImage? = nil,completion:((Error?,UIImage?)->Void)? = nil ){
+                  placeHolderImg:UIImage? = nil,completion:ImageLoadTaskDone? = nil ){
+        guard let url = url else {
+            return
+        }
         
-        setImage(withUrl: URL(string: url!), imgView: imgView,placeHolderImg: placeHolderImg,completion: completion)
+        setImage(withUrl: URL(string: url), imgView: imgView,placeHolderImg: placeHolderImg,completion: completion)
     }
     func setImage(withUrl url:URL?,imgView:UIImageView,
-                  placeHolderImg:UIImage? = nil,completion:((Error?,UIImage?)->Void)? = nil ){
+                  placeHolderImg:UIImage? = nil,completion:ImageLoadTaskDone? = nil ){
+        guard let url = url else{
+            if let holder = placeHolderImg{
+                imgView.image = holder
+            }
+            return
+        }
         
         imgView.showActivityIndicator()
         
@@ -111,6 +121,9 @@ class StorageManager {
             
             imgView.hideActivityIndicator()
             completion?(error,image)
+            if let error = error{
+                print(error)
+            }
         }
     
     }
@@ -145,7 +158,7 @@ class StorageManager {
         }
     }
     
-    private func removeUserProfileImageFromDB(completion:((Error?)->Void)?){
+    private func removeUserProfileImageFromDB(completion:DSTaskListener?){
         guard let currentUser = YUser.currentUser
             else {
                 completion?(UserErrors.noUserFound)
