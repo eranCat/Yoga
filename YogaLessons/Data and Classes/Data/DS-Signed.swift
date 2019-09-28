@@ -31,10 +31,13 @@ extension DataSource{
                     aClass.endDate >= today || !isFilteringToday
                     else{continue}
                 
-                if aClass.status != .cancled{
-                    mainDict[.signed]![.classes]!.insert(aClass, at: 0)
-                }else{
-                    mainDict[.signed]![.classes]!.append(aClass)
+                if aClass.endDate >= today || !isFilteringToday{
+                
+                    if aClass.status != .cancled{
+                        mainDict[.signed]![.classes]!.insert(aClass, at: 0)
+                    }else{
+                        mainDict[.signed]![.classes]!.append(aClass)
+                    }
                 }
             }
 
@@ -50,10 +53,13 @@ extension DataSource{
                     event.endDate >= today || !isFilteringToday
                     else{continue}
                 
-                if event.status != .cancled{
-                    mainDict[.signed]![.events]!.insert(event, at: 0)
-                }else{
-                    mainDict[.signed]![.events]!.append(event)
+                if event.endDate >= today || !isFilteringToday{
+
+                    if event.status != .cancled{
+                        mainDict[.signed]![.events]!.insert(event, at: 0)
+                    }else{
+                        mainDict[.signed]![.events]!.append(event)
+                    }
                 }
             }
         }

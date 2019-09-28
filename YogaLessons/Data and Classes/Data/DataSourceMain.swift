@@ -354,8 +354,14 @@ class DataSource {
                                 .queryEqual(toValue: code)
         }
     
-        
         let postedDateKey =  dType == .classes ? Class.Keys.postedDate : Event.Keys.postedDate
+        
+        
+        guard let user = YUser.currentUser
+            else{
+                loaded?(UserErrors.noUserFound)
+                return
+        }
         
         (queriedRef ?? tableRef.queryOrdered(byChild: postedDateKey))
             .queryLimited(toLast: MaxPerBatch)
@@ -370,12 +376,6 @@ class DataSource {
             guard !values.isEmpty else{
                 loaded?(nil)
                 return
-            }
-            
-            guard let user = YUser.currentUser
-                else{
-                    loaded?(UserErrors.noUserFound)
-                    return
             }
             
             switch dType{
