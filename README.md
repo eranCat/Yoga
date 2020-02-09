@@ -8,7 +8,7 @@ and for teachers to post there classes where ever and when ever they like.
 [Presentation of the app](https://drive.google.com/open?id=1fSKT1NVae6HZzSgNr0aUvSurupQcIUeG "YogaLessons.ppt")
 ------
 
-## Pods used in this project:
+# Pods used in this project:
 
 * [Reachability](https://github.com/ashleymills/Reachability.swift)
 * [SDWebImage](https://github.com/SDWebImage/SDWebImage)
