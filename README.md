@@ -6,6 +6,7 @@ An app for Yoga teachers and students who pratice yoga.
 and for teachers to post there classes where ever and when ever they like.
 
 [Presentation of the app](https://drive.google.com/open?id=1fSKT1NVae6HZzSgNr0aUvSurupQcIUeG "YogaLessons.ppt")
+[video](https://drive.google.com/file/d/1kwjN-YHFLsfywtZr26JGrlhaco0VbHy6/view?usp=sharing)
 ------
 
 # Pods used in this project:
@@ -19,6 +20,3 @@ and for teachers to post there classes where ever and when ever they like.
 * [UnsplashPhotoPicker ~> 1.0](https://github.com/unsplash/unsplash-photopicker-ios)
 
 Also used [Currency layer](https://currencylayer.com/) for currency conversion.
-
-* [Presentation](https://drive.google.com/file/d/1fSKT1NVae6HZzSgNr0aUvSurupQcIUeG/view?usp=sharing)
-* [video](https://drive.google.com/file/d/1kwjN-YHFLsfywtZr26JGrlhaco0VbHy6/view?usp=sharing)
