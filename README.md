@@ -19,3 +19,6 @@ and for teachers to post there classes where ever and when ever they like.
 * [UnsplashPhotoPicker ~> 1.0](https://github.com/unsplash/unsplash-photopicker-ios)
 
 Also used [Currency layer](https://currencylayer.com/) for currency conversion.
+
+* [Presentation](https://drive.google.com/file/d/1fSKT1NVae6HZzSgNr0aUvSurupQcIUeG/view?usp=sharing)
+* [video](https://drive.google.com/file/d/1kwjN-YHFLsfywtZr26JGrlhaco0VbHy6/view?usp=sharing)
